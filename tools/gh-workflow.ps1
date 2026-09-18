@@ -8,7 +8,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position=0, Mandatory=$true)]
-    [ValidateSet("issue-create", "issue-list", "issue-get", "issue-close", "pr-create", "pr-list", "pr-get", "pr-diff", "pr-review", "pr-merge")]
+    [ValidateSet("issue-create", "issue-list", "issue-get", "issue-close", "pr-create", "pr-list", "pr-get", "pr-update", "pr-diff", "pr-review", "pr-comments", "pr-reviews", "pr-merge")]
     [string]$Command,
 
     [Parameter(Mandatory=$false)] [string]$Title,
@@ -143,6 +143,16 @@ switch ($Command) {
         } | Format-List
     }
 
+    "pr-update" {
+        if (-not $Id) { throw "Id is required for pr-update." }
+        $payload = @{}
+        if ($Title) { $payload["title"] = $Title }
+        if ($Body) { $payload["body"] = $Body }
+        $json = $payload | ConvertTo-Json -Depth 5
+        $res = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/pulls/$Id" -Method Patch -Headers $headers -Body $json -ContentType "application/json; charset=utf-8" -UseBasicParsing
+        Write-Host "PR #$Id updated successfully." -ForegroundColor Green
+    }
+
     "pr-diff" {
         if (-not $Id) { throw "Id is required for pr-diff." }
         $diffHeaders = @{
@@ -162,6 +172,31 @@ switch ($Command) {
         } | ConvertTo-Json -Depth 5
         $res = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/pulls/$Id/reviews" -Method Post -Headers $headers -Body $payload -ContentType "application/json; charset=utf-8" -UseBasicParsing
         Write-Host "Submitted review ($Event) on PR #$Id." -ForegroundColor Green
+    }
+
+    "pr-comments" {
+        if (-not $Id) { throw "Id is required for pr-comments." }
+        $res = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/issues/$Id/comments" -Method Get -Headers $headers -UseBasicParsing
+        foreach ($c in $res) {
+            Write-Host "==================================================" -ForegroundColor Cyan
+            Write-Host "Author: $($c.user.login) | Created: $($c.created_at)" -ForegroundColor Yellow
+            Write-Host "==================================================" -ForegroundColor Cyan
+            Write-Output $c.body
+        }
+    }
+
+    "pr-reviews" {
+        if (-not $Id) { throw "Id is required for pr-reviews." }
+        $res = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/pulls/$Id/reviews" -Method Get -Headers $headers -UseBasicParsing
+        $res | ForEach-Object {
+            [PSCustomObject]@{
+                Id        = $_.id
+                Author    = $_.user.login
+                State     = $_.state
+                Submitted = $_.submitted_at
+                Body      = if ($_.body.Length -gt 300) { $_.body.Substring(0, 300) + "..." } else { $_.body }
+            }
+        } | Format-Table -Wrap
     }
 
     "pr-merge" {
