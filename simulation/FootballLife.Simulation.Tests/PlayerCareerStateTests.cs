@@ -9,23 +9,35 @@ namespace FootballLife.Simulation.Tests
         private static readonly Guid TestClubId = Guid.NewGuid();
 
         [Fact]
-        public void PlayerCareerState_ManagerTrust_ClampsToValidRange()
+        public void PlayerCareerState_ManagerTrust_RejectsOutOfRange()
         {
-            var highTrust = new PlayerCareerState(TestClubId, SquadStatus.Starter, 150f, 5000m, 1000000m, 60f);
-            var lowTrust = new PlayerCareerState(TestClubId, SquadStatus.Reserve, -25f, 500m, 50000m, 20f);
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                new PlayerCareerState(TestClubId, SquadStatus.Starter, 150f, 5000m, 1000000m, 60f));
 
-            Assert.Equal(100f, highTrust.ManagerTrust);
-            Assert.Equal(0f, lowTrust.ManagerTrust);
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                new PlayerCareerState(TestClubId, SquadStatus.Reserve, -25f, 500m, 50000m, 20f));
         }
 
         [Fact]
-        public void PlayerCareerState_Reputation_ClampsToValidRange()
+        public void PlayerCareerState_ManagerTrust_ClampsToValidRange()
         {
-            var highRep = new PlayerCareerState(TestClubId, SquadStatus.KeyPlayer, 80f, 15000m, 5000000m, 120f);
-            var lowRep = new PlayerCareerState(TestClubId, SquadStatus.Academy, 50f, 200m, 10000m, -10f);
+            var highTrust = PlayerCareerState.CreateClamped(TestClubId, SquadStatus.Starter, 150f, 5000m, 1000000m, 60f);
+            var lowTrust = PlayerCareerState.CreateClamped(TestClubId, SquadStatus.Reserve, -25f, 500m, 50000m, 20f);
 
-            Assert.Equal(100f, highRep.Reputation);
-            Assert.Equal(0f, lowRep.Reputation);
+            Assert.Equal(100f, highTrust.ManagerTrust);
+            Assert.Equal(0f, lowTrust.ManagerTrust);
+            Assert.Equal(100f, PlayerCareerState.ClampTrust(120f));
+            Assert.Equal(0f, PlayerCareerState.ClampTrust(-10f));
+        }
+
+        [Fact]
+        public void PlayerCareerState_Reputation_RejectsOutOfRange()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                new PlayerCareerState(TestClubId, SquadStatus.KeyPlayer, 80f, 15000m, 5000000m, 120f));
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                new PlayerCareerState(TestClubId, SquadStatus.Academy, 50f, 200m, 10000m, -10f));
         }
 
         [Fact]
@@ -40,6 +52,24 @@ namespace FootballLife.Simulation.Tests
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
                 new PlayerCareerState(TestClubId, SquadStatus.Rotation, 60f, -500m, 100000m, 50f));
+        }
+
+        [Fact]
+        public void PlayerCareerState_WithExpression_RejectsNegativeValues()
+        {
+            var valid = PlayerCareerState.CreateAcademy(TestClubId);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                valid with { WeeklySalary = -1m });
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                valid with { MarketValue = -100m });
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                valid with { ManagerTrust = 110f });
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                valid with { Reputation = -5f });
         }
 
         [Fact]
