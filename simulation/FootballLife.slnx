@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="FootballLife.CareerSimulator/FootballLife.CareerSimulator.csproj" />
+  <Project Path="FootballLife.Domain/FootballLife.Domain.csproj" />
+  <Project Path="FootballLife.Simulation.Tests/FootballLife.Simulation.Tests.csproj" />
+  <Project Path="FootballLife.Simulation/FootballLife.Simulation.csproj" />
+</Solution>

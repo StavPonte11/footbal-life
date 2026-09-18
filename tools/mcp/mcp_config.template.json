@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json.schemastore.org/mcp-config.json",
+  "mcpServers": {
+    "unity-mcp": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "mcpforunityserver",
+        "mcp-for-unity",
+        "--transport",
+        "stdio"
+      ],
+      "description": "Bridge to active Unity Editor. Allows scene inspection, GameObject manipulation, C# script execution, and playmode testing."
+    },
+    "github": {
+      "command": "C:/Users/User/Desktop/Stav/projects/footbal-life/tools/bin/github-mcp-server.exe",
+      "args": [
+        "stdio",
+        "--toolsets=default,actions,git,pull_requests,issues,repos"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "Official GitHub MCP server running natively. Manages code, issues, PRs, and Actions."
+    },
+    "context7": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      },
+      "description": "Up-to-date documentation lookup for Unity 6 APIs, C# libraries, and external packages."
+    },
+    "figma": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "figma-developer-mcp",
+        "--stdio"
+      ],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "${FIGMA_ACCESS_TOKEN}"
+      },
+      "description": "Figma design token, component layout, and UI vector asset extraction."
+    },
+    "blender": {
+      "command": "python",
+      "args": [
+        "-m",
+        "blend_ai.server"
+      ],
+      "env": {
+        "BLENDER_PORT": "9876"
+      },
+      "description": "Blender MCP server for 3D modeling, rigging, material generation, and FBX export to Unity."
+    }
+  }
+}

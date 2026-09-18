@@ -47,6 +47,16 @@ ExportedObj/
 *.unityproj
 *.sln
 *.slnx
+!simulation/**/*.csproj
+!simulation/**/*.sln
+!simulation/**/*.slnx
+
+# .NET build outputs
+**/[Bb]in/
+**/[Oo]bj/
+!tools/bin/
+!tools/bin/**
+
 *.suo
 *.tmp
 *.user
