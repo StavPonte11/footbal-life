@@ -1,0 +1,184 @@
+{
+  "positions": [
+    {
+      "position": "GK",
+      "weights": {
+        "Pace": 0.30,
+        "Acceleration": 0.25,
+        "Stamina": 0.40,
+        "Strength": 0.50,
+        "Agility": 0.85,
+        "Passing": 0.50,
+        "Shooting": 0.05,
+        "Dribbling": 0.10,
+        "Crossing": 0.05,
+        "FirstTouch": 0.40,
+        "Tackling": 0.20,
+        "Vision": 0.70,
+        "Composure": 1.00,
+        "Positioning": 1.00,
+        "DecisionMaking": 0.90
+      }
+    },
+    {
+      "position": "CB",
+      "weights": {
+        "Pace": 0.65,
+        "Acceleration": 0.55,
+        "Stamina": 0.70,
+        "Strength": 1.00,
+        "Agility": 0.50,
+        "Passing": 0.60,
+        "Shooting": 0.10,
+        "Dribbling": 0.20,
+        "Crossing": 0.10,
+        "FirstTouch": 0.55,
+        "Tackling": 1.00,
+        "Vision": 0.65,
+        "Composure": 0.80,
+        "Positioning": 1.00,
+        "DecisionMaking": 0.85
+      }
+    },
+    {
+      "position": "FB",
+      "weights": {
+        "Pace": 1.00,
+        "Acceleration": 0.95,
+        "Stamina": 1.00,
+        "Strength": 0.60,
+        "Agility": 0.80,
+        "Passing": 0.70,
+        "Shooting": 0.20,
+        "Dribbling": 0.55,
+        "Crossing": 0.90,
+        "FirstTouch": 0.65,
+        "Tackling": 0.85,
+        "Vision": 0.60,
+        "Composure": 0.60,
+        "Positioning": 0.80,
+        "DecisionMaking": 0.75
+      }
+    },
+    {
+      "position": "DM",
+      "weights": {
+        "Pace": 0.55,
+        "Acceleration": 0.50,
+        "Stamina": 1.00,
+        "Strength": 0.80,
+        "Agility": 0.65,
+        "Passing": 0.80,
+        "Shooting": 0.25,
+        "Dribbling": 0.45,
+        "Crossing": 0.25,
+        "FirstTouch": 0.75,
+        "Tackling": 1.00,
+        "Vision": 0.85,
+        "Composure": 0.80,
+        "Positioning": 0.90,
+        "DecisionMaking": 1.00
+      }
+    },
+    {
+      "position": "CM",
+      "weights": {
+        "Pace": 0.55,
+        "Acceleration": 0.50,
+        "Stamina": 1.00,
+        "Strength": 0.65,
+        "Agility": 0.70,
+        "Passing": 1.00,
+        "Shooting": 0.50,
+        "Dribbling": 0.60,
+        "Crossing": 0.40,
+        "FirstTouch": 0.90,
+        "Tackling": 0.70,
+        "Vision": 1.00,
+        "Composure": 0.80,
+        "Positioning": 0.80,
+        "DecisionMaking": 0.95
+      }
+    },
+    {
+      "position": "AM",
+      "weights": {
+        "Pace": 0.65,
+        "Acceleration": 0.70,
+        "Stamina": 0.75,
+        "Strength": 0.40,
+        "Agility": 0.85,
+        "Passing": 0.90,
+        "Shooting": 0.80,
+        "Dribbling": 0.90,
+        "Crossing": 0.55,
+        "FirstTouch": 1.00,
+        "Tackling": 0.25,
+        "Vision": 1.00,
+        "Composure": 0.90,
+        "Positioning": 0.80,
+        "DecisionMaking": 0.95
+      }
+    },
+    {
+      "position": "LW",
+      "weights": {
+        "Pace": 1.00,
+        "Acceleration": 1.00,
+        "Stamina": 0.85,
+        "Strength": 0.35,
+        "Agility": 1.00,
+        "Passing": 0.65,
+        "Shooting": 0.70,
+        "Dribbling": 1.00,
+        "Crossing": 0.90,
+        "FirstTouch": 0.85,
+        "Tackling": 0.20,
+        "Vision": 0.70,
+        "Composure": 0.75,
+        "Positioning": 0.65,
+        "DecisionMaking": 0.80
+      }
+    },
+    {
+      "position": "RW",
+      "weights": {
+        "Pace": 1.00,
+        "Acceleration": 1.00,
+        "Stamina": 0.85,
+        "Strength": 0.35,
+        "Agility": 1.00,
+        "Passing": 0.65,
+        "Shooting": 0.70,
+        "Dribbling": 1.00,
+        "Crossing": 0.90,
+        "FirstTouch": 0.85,
+        "Tackling": 0.20,
+        "Vision": 0.70,
+        "Composure": 0.75,
+        "Positioning": 0.65,
+        "DecisionMaking": 0.80
+      }
+    },
+    {
+      "position": "ST",
+      "weights": {
+        "Pace": 0.85,
+        "Acceleration": 0.90,
+        "Stamina": 0.70,
+        "Strength": 0.75,
+        "Agility": 0.75,
+        "Passing": 0.50,
+        "Shooting": 1.00,
+        "Dribbling": 0.70,
+        "Crossing": 0.25,
+        "FirstTouch": 0.85,
+        "Tackling": 0.10,
+        "Vision": 0.65,
+        "Composure": 1.00,
+        "Positioning": 1.00,
+        "DecisionMaking": 0.85
+      }
+    }
+  ]
+}
