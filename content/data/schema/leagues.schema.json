@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LeaguesSchema",
+  "type": "object",
+  "required": ["leagues"],
+  "properties": {
+    "leagues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "countryCode", "tier", "clubCount", "matchdaysPerSeason"],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string", "minLength": 1 },
+          "countryCode": { "type": "string", "minLength": 2, "maxLength": 3 },
+          "tier": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "clubCount": { "type": "integer", "minimum": 2 },
+          "matchdaysPerSeason": { "type": "integer", "minimum": 1 },
+          "promotionSlots": { "type": "integer", "minimum": 0 },
+          "relegationSlots": { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  }
+}

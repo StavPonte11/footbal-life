@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ClubsSchema",
+  "type": "object",
+  "required": ["clubs"],
+  "properties": {
+    "clubs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "shortName",
+          "leagueId",
+          "reputationRating",
+          "facilityRating",
+          "tacticalStyle",
+          "finances"
+        ],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string", "minLength": 1 },
+          "shortName": { "type": "string", "minLength": 1, "maxLength": 5 },
+          "leagueId": { "type": "string", "format": "uuid" },
+          "reputationRating": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "facilityRating": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "tacticalStyle": {
+            "type": "string",
+            "enum": ["Possession", "Counter", "HighPress", "Direct"]
+          },
+          "finances": {
+            "type": "object",
+            "required": ["weeklyWageBudget", "transferBudget"],
+            "properties": {
+              "weeklyWageBudget": { "type": "number", "minimum": 0 },
+              "transferBudget": { "type": "number", "minimum": 0 }
+            }
+          },
+          "stadium": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "capacity": { "type": "integer", "minimum": 100 },
+              "pitchQuality": { "type": "integer", "minimum": 1, "maximum": 5 }
+            }
+          },
+          "visuals": {
+            "type": "object",
+            "properties": {
+              "logoAssetKey": { "type": "string" },
+              "homeKit": { "type": "object" },
+              "awayKit": { "type": "object" }
+            }
+          },
+          "fanbase": {
+            "type": "object",
+            "properties": {
+              "supporterCount": { "type": "integer", "minimum": 0 },
+              "loyaltyRating": { "type": "integer", "minimum": 1, "maximum": 100 },
+              "expectationRating": { "type": "integer", "minimum": 1, "maximum": 100 }
+            }
+          },
+          "board": {
+            "type": "object",
+            "properties": {
+              "ownerName": { "type": "string" },
+              "patience": { "type": "string", "enum": ["Impatient", "Balanced", "Patient"] },
+              "financialAmbition": { "type": "integer", "minimum": 1, "maximum": 5 }
+            }
+          },
+          "history": {
+            "type": "object",
+            "properties": {
+              "foundedYear": { "type": "integer", "minimum": 1850, "maximum": 2100 },
+              "leagueTitles": { "type": "integer", "minimum": 0 },
+              "domesticCups": { "type": "integer", "minimum": 0 },
+              "continentalTrophies": { "type": "integer", "minimum": 0 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

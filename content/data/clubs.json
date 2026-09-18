@@ -1,0 +1,278 @@
+{
+  "$schema": "./schema/clubs.schema.json",
+  "clubs": [
+    {
+      "id": "c1000000-0000-0000-0000-000000000001",
+      "name": "Arsenal",
+      "shortName": "ARS",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 88,
+      "facilityRating": 5,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 3500000,
+        "transferBudget": 85000000
+      },
+      "stadium": {
+        "name": "Emirates Stadium",
+        "capacity": 60704,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/arsenal",
+        "homeKit": { "primaryHex": "#EF0107", "secondaryHex": "#FFFFFF", "trimHex": "#023474" },
+        "awayKit": { "primaryHex": "#000000", "secondaryHex": "#9CFF00", "trimHex": "#FFFFFF" }
+      },
+      "fanbase": {
+        "supporterCount": 3500000,
+        "loyaltyRating": 85,
+        "expectationRating": 88
+      },
+      "board": {
+        "ownerName": "Stan Kroenke",
+        "patience": "Balanced",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1886,
+        "leagueTitles": 13,
+        "domesticCups": 14,
+        "continentalTrophies": 2
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000002",
+      "name": "Manchester City",
+      "shortName": "MCI",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 94,
+      "facilityRating": 5,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 4800000,
+        "transferBudget": 150000000
+      },
+      "stadium": {
+        "name": "Etihad Stadium",
+        "capacity": 53400,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/man_city",
+        "homeKit": { "primaryHex": "#6CABDD", "secondaryHex": "#FFFFFF", "trimHex": "#1C2C5B" },
+        "awayKit": { "primaryHex": "#1C2C5B", "secondaryHex": "#BA9653", "trimHex": "#6CABDD" }
+      },
+      "fanbase": {
+        "supporterCount": 4200000,
+        "loyaltyRating": 80,
+        "expectationRating": 95
+      },
+      "board": {
+        "ownerName": "City Football Group",
+        "patience": "Patient",
+        "financialAmbition": 5
+      },
+      "history": {
+        "foundedYear": 1894,
+        "leagueTitles": 10,
+        "domesticCups": 7,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000003",
+      "name": "Real Madrid",
+      "shortName": "RMA",
+      "leagueId": "e1000000-0000-0000-0000-000000000002",
+      "reputationRating": 97,
+      "facilityRating": 5,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 5200000,
+        "transferBudget": 120000000
+      },
+      "stadium": {
+        "name": "Santiago Bernabeu",
+        "capacity": 81044,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/real_madrid",
+        "homeKit": { "primaryHex": "#FFFFFF", "secondaryHex": "#00529F", "trimHex": "#EE9800" },
+        "awayKit": { "primaryHex": "#1E1E24", "secondaryHex": "#FE5F55", "trimHex": "#FFFFFF" }
+      },
+      "fanbase": {
+        "supporterCount": 8000000,
+        "loyaltyRating": 90,
+        "expectationRating": 98
+      },
+      "board": {
+        "ownerName": "Florentino Perez",
+        "patience": "Impatient",
+        "financialAmbition": 5
+      },
+      "history": {
+        "foundedYear": 1902,
+        "leagueTitles": 36,
+        "domesticCups": 20,
+        "continentalTrophies": 15
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000004",
+      "name": "Barcelona",
+      "shortName": "BAR",
+      "leagueId": "e1000000-0000-0000-0000-000000000002",
+      "reputationRating": 93,
+      "facilityRating": 5,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 4100000,
+        "transferBudget": 45000000
+      },
+      "stadium": {
+        "name": "Spotify Camp Nou",
+        "capacity": 99354,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/barcelona",
+        "homeKit": { "primaryHex": "#A50044", "secondaryHex": "#004D98", "trimHex": "#EDBB00" },
+        "awayKit": { "primaryHex": "#FFFFFF", "secondaryHex": "#A50044", "trimHex": "#004D98" }
+      },
+      "fanbase": {
+        "supporterCount": 7500000,
+        "loyaltyRating": 88,
+        "expectationRating": 92
+      },
+      "board": {
+        "ownerName": "Joan Laporta",
+        "patience": "Balanced",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1899,
+        "leagueTitles": 27,
+        "domesticCups": 31,
+        "continentalTrophies": 5
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000005",
+      "name": "Bayern Munich",
+      "shortName": "BAY",
+      "leagueId": "e1000000-0000-0000-0000-000000000003",
+      "reputationRating": 93,
+      "facilityRating": 5,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 4500000,
+        "transferBudget": 90000000
+      },
+      "stadium": {
+        "name": "Allianz Arena",
+        "capacity": 75024,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/bayern",
+        "homeKit": { "primaryHex": "#DC052D", "secondaryHex": "#FFFFFF", "trimHex": "#0066B2" },
+        "awayKit": { "primaryHex": "#000000", "secondaryHex": "#5700A3", "trimHex": "#20E2FF" }
+      },
+      "fanbase": {
+        "supporterCount": 5000000,
+        "loyaltyRating": 92,
+        "expectationRating": 94
+      },
+      "board": {
+        "ownerName": "Herbert Hainer",
+        "patience": "Balanced",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1900,
+        "leagueTitles": 33,
+        "domesticCups": 20,
+        "continentalTrophies": 6
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000006",
+      "name": "Inter Milan",
+      "shortName": "INT",
+      "leagueId": "e1000000-0000-0000-0000-000000000004",
+      "reputationRating": 89,
+      "facilityRating": 4,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 2900000,
+        "transferBudget": 40000000
+      },
+      "stadium": {
+        "name": "San Siro",
+        "capacity": 75923,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/inter",
+        "homeKit": { "primaryHex": "#010E80", "secondaryHex": "#000000", "trimHex": "#FFFFFF" },
+        "awayKit": { "primaryHex": "#FFFFFF", "secondaryHex": "#010E80", "trimHex": "#000000" }
+      },
+      "fanbase": {
+        "supporterCount": 3100000,
+        "loyaltyRating": 86,
+        "expectationRating": 88
+      },
+      "board": {
+        "ownerName": "Oaktree Capital",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1908,
+        "leagueTitles": 20,
+        "domesticCups": 9,
+        "continentalTrophies": 3
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000007",
+      "name": "Paris Saint-Germain",
+      "shortName": "PSG",
+      "leagueId": "e1000000-0000-0000-0000-000000000005",
+      "reputationRating": 91,
+      "facilityRating": 5,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 4900000,
+        "transferBudget": 110000000
+      },
+      "stadium": {
+        "name": "Parc des Princes",
+        "capacity": 47929,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/psg",
+        "homeKit": { "primaryHex": "#004170", "secondaryHex": "#DA291C", "trimHex": "#FFFFFF" },
+        "awayKit": { "primaryHex": "#FFFFFF", "secondaryHex": "#004170", "trimHex": "#DA291C" }
+      },
+      "fanbase": {
+        "supporterCount": 3800000,
+        "loyaltyRating": 82,
+        "expectationRating": 93
+      },
+      "board": {
+        "ownerName": "Nasser Al-Khelaifi",
+        "patience": "Impatient",
+        "financialAmbition": 5
+      },
+      "history": {
+        "foundedYear": 1970,
+        "leagueTitles": 12,
+        "domesticCups": 15,
+        "continentalTrophies": 1
+      }
+    }
+  ]
+}
