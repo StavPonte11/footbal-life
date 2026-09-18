@@ -1,0 +1,55 @@
+{
+  "$schema": "./schema/leagues.schema.json",
+  "leagues": [
+    {
+      "id": "e1000000-0000-0000-0000-000000000001",
+      "name": "Premier League",
+      "countryCode": "ENG",
+      "tier": 1,
+      "clubCount": 20,
+      "matchdaysPerSeason": 38,
+      "promotionSlots": 0,
+      "relegationSlots": 3
+    },
+    {
+      "id": "e1000000-0000-0000-0000-000000000002",
+      "name": "La Liga",
+      "countryCode": "ESP",
+      "tier": 1,
+      "clubCount": 20,
+      "matchdaysPerSeason": 38,
+      "promotionSlots": 0,
+      "relegationSlots": 3
+    },
+    {
+      "id": "e1000000-0000-0000-0000-000000000003",
+      "name": "Bundesliga",
+      "countryCode": "DEU",
+      "tier": 1,
+      "clubCount": 18,
+      "matchdaysPerSeason": 34,
+      "promotionSlots": 0,
+      "relegationSlots": 2
+    },
+    {
+      "id": "e1000000-0000-0000-0000-000000000004",
+      "name": "Serie A",
+      "countryCode": "ITA",
+      "tier": 1,
+      "clubCount": 20,
+      "matchdaysPerSeason": 38,
+      "promotionSlots": 0,
+      "relegationSlots": 3
+    },
+    {
+      "id": "e1000000-0000-0000-0000-000000000005",
+      "name": "Ligue 1",
+      "countryCode": "FRA",
+      "tier": 1,
+      "clubCount": 18,
+      "matchdaysPerSeason": 34,
+      "promotionSlots": 0,
+      "relegationSlots": 2
+    }
+  ]
+}
