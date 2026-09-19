@@ -29,6 +29,7 @@ namespace FootballLife.Simulation.Tests
             Assert.Empty(world.Leagues);
             Assert.Empty(world.Managers);
             Assert.Empty(world.Contracts);
+            Assert.Empty(world.Potentials);
             Assert.Equal(season, world.CurrentSeason);
         }
 
@@ -134,6 +135,70 @@ namespace FootballLife.Simulation.Tests
             Assert.Throws<KeyNotFoundException>(() => world.GetManager(randomId));
             Assert.Throws<KeyNotFoundException>(() => world.GetContractForPlayer(randomId));
             Assert.Null(world.FindContractForPlayer(randomId));
+        }
+
+        [Fact]
+        public void WorldState_WithPotential_RoundTrips()
+        {
+            var world = WorldState.CreateEmpty(CreateTestSeason());
+            var playerId = Guid.NewGuid();
+            var potential = new PlayerPotential(75, PotentialRange.High);
+
+            var updated = world.WithPlayerPotential(playerId, potential);
+
+            // Original unchanged (immutability)
+            Assert.Empty(world.Potentials);
+
+            // New snapshot contains the potential
+            Assert.Single(updated.Potentials);
+            Assert.Equal(potential, updated.GetPotential(playerId));
+            Assert.Equal(75, updated.GetPotential(playerId).PotentialRating);
+            Assert.Equal(PotentialRange.High, updated.GetPotential(playerId).Range);
+        }
+
+        [Fact]
+        public void WorldState_GetPotential_NotFound_ThrowsKeyNotFoundException()
+        {
+            var world = WorldState.CreateEmpty(CreateTestSeason());
+            var randomId = Guid.NewGuid();
+            Assert.Throws<KeyNotFoundException>(() => world.GetPotential(randomId));
+        }
+
+        [Fact]
+        public void WorldState_WithPlayer_WithPotential_RegistersAllFacets()
+        {
+            var world = WorldState.CreateEmpty(CreateTestSeason());
+            var player = Player.Create("Test Player", "ENG", new DateOnly(2002, 3, 15), Foot.Right, Position.ST);
+            var abilities = PlayerAbilities.CreateUniform(55);
+            var state = PlayerState.Default;
+            var career = PlayerCareerState.CreateAcademy(Guid.NewGuid());
+            var potential = new PlayerPotential(80, PotentialRange.Elite);
+
+            var updated = world.WithPlayer(player, abilities, state, career, potential);
+
+            Assert.Single(updated.Players);
+            Assert.Single(updated.Potentials);
+            Assert.Equal(potential, updated.GetPotential(player.Id));
+        }
+
+        [Fact]
+        public void WorldState_WithPlayer_WithoutPotential_LeavesPotetialEmpty()
+        {
+            var world = WorldState.CreateEmpty(CreateTestSeason());
+            var player = Player.Create("Test Player", "ENG", new DateOnly(2002, 3, 15), Foot.Right, Position.ST);
+
+            var updated = world.WithPlayer(player, PlayerAbilities.Default, PlayerState.Default, PlayerCareerState.CreateAcademy(Guid.NewGuid()));
+
+            Assert.Single(updated.Players);
+            Assert.Empty(updated.Potentials);
+        }
+
+        [Fact]
+        public void WorldState_Lookups_NotFound_ThrowDescriptiveKeyNotFoundExceptions_IncludesPotential()
+        {
+            var world = WorldState.CreateEmpty(CreateTestSeason());
+            var randomId = Guid.NewGuid();
+            Assert.Throws<KeyNotFoundException>(() => world.GetPotential(randomId));
         }
     }
 }
