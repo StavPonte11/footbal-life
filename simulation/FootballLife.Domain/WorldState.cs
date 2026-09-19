@@ -19,6 +19,12 @@ namespace FootballLife.Domain
         public IReadOnlyDictionary<Guid, League> Leagues { get; init; }
         public IReadOnlyDictionary<Guid, Manager> Managers { get; init; }
         public IReadOnlyDictionary<Guid, Contract> Contracts { get; init; }
+        /// <summary>
+        /// Development ceiling data for all players whose potential has been generated.
+        /// Not every player in <see cref="Players"/> is guaranteed to have an entry;
+        /// potential is only created at career initialisation or via <see cref="PlayerFactory"/>.
+        /// </summary>
+        public IReadOnlyDictionary<Guid, PlayerPotential> Potentials { get; init; }
         public Season CurrentSeason { get; init; }
 
         public WorldState(
@@ -30,6 +36,7 @@ namespace FootballLife.Domain
             IReadOnlyDictionary<Guid, League> leagues,
             IReadOnlyDictionary<Guid, Manager> managers,
             IReadOnlyDictionary<Guid, Contract> contracts,
+            IReadOnlyDictionary<Guid, PlayerPotential> potentials,
             Season currentSeason)
         {
             Clubs = clubs ?? throw new ArgumentNullException(nameof(clubs));
@@ -40,6 +47,7 @@ namespace FootballLife.Domain
             Leagues = leagues ?? throw new ArgumentNullException(nameof(leagues));
             Managers = managers ?? throw new ArgumentNullException(nameof(managers));
             Contracts = contracts ?? throw new ArgumentNullException(nameof(contracts));
+            Potentials = potentials ?? throw new ArgumentNullException(nameof(potentials));
             CurrentSeason = currentSeason ?? throw new ArgumentNullException(nameof(currentSeason));
         }
 
@@ -57,6 +65,7 @@ namespace FootballLife.Domain
                 new ReadOnlyDictionary<Guid, League>(new Dictionary<Guid, League>()),
                 new ReadOnlyDictionary<Guid, Manager>(new Dictionary<Guid, Manager>()),
                 new ReadOnlyDictionary<Guid, Contract>(new Dictionary<Guid, Contract>()),
+                new ReadOnlyDictionary<Guid, PlayerPotential>(new Dictionary<Guid, PlayerPotential>()),
                 season);
         }
 
@@ -116,16 +125,28 @@ namespace FootballLife.Domain
             throw new KeyNotFoundException($"No active contract found for player '{playerId}'.");
         }
 
+        /// <summary>
+        /// Retrieves the <see cref="PlayerPotential"/> for the given player.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Thrown when no potential exists for the player.</exception>
+        public PlayerPotential GetPotential(Guid playerId)
+        {
+            if (Potentials.TryGetValue(playerId, out var potential)) return potential;
+            throw new KeyNotFoundException($"Potential for Player '{playerId}' was not found in WorldState.");
+        }
+
         // ─── Immutable Mutation Helpers ───────────────────────────────────────
 
         /// <summary>
         /// Registers or updates a player and all corresponding facets in the snapshot.
+        /// Optionally registers a <see cref="PlayerPotential"/> at the same time.
         /// </summary>
         public WorldState WithPlayer(
             Player player,
             PlayerAbilities abilities,
             PlayerState state,
-            PlayerCareerState careerState)
+            PlayerCareerState careerState,
+            PlayerPotential? potential = null)
         {
             if (player is null) throw new ArgumentNullException(nameof(player));
             if (abilities is null) throw new ArgumentNullException(nameof(abilities));
@@ -137,13 +158,30 @@ namespace FootballLife.Domain
             var newStates = new Dictionary<Guid, PlayerState>(States) { [player.Id] = state };
             var newCareer = new Dictionary<Guid, PlayerCareerState>(CareerStates) { [player.Id] = careerState };
 
-            return this with
+            var result = this with
             {
                 Players = new ReadOnlyDictionary<Guid, Player>(newPlayers),
                 Abilities = new ReadOnlyDictionary<Guid, PlayerAbilities>(newAbilities),
                 States = new ReadOnlyDictionary<Guid, PlayerState>(newStates),
                 CareerStates = new ReadOnlyDictionary<Guid, PlayerCareerState>(newCareer)
             };
+
+            if (potential is not null)
+                result = result.WithPlayerPotential(player.Id, potential);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Registers or replaces the <see cref="PlayerPotential"/> for a player.
+        /// Does NOT require the player to already exist in <see cref="Players"/>;
+        /// potential may be set during factory initialisation before the player record is added.
+        /// </summary>
+        public WorldState WithPlayerPotential(Guid playerId, PlayerPotential potential)
+        {
+            if (potential is null) throw new ArgumentNullException(nameof(potential));
+            var newPotentials = new Dictionary<Guid, PlayerPotential>(Potentials) { [playerId] = potential };
+            return this with { Potentials = new ReadOnlyDictionary<Guid, PlayerPotential>(newPotentials) };
         }
 
         public WorldState WithPlayerState(Guid playerId, PlayerState state)
