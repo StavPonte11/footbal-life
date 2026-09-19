@@ -40,7 +40,8 @@ namespace FootballLife.Simulation.Tests
         [Fact]
         public void Matchday_CreatedWithValidData_InitializesCorrectly()
         {
-            var fixtures = new List<FixtureId> { FixtureId.Create(_clubA, _clubB, _startDate) };
+            var leagueId = Guid.NewGuid();
+            var fixtures = new List<ScheduledMatch> { ScheduledMatch.Create(_startDate, _clubA, _clubB, leagueId) };
             var matchday = new Matchday(1, _startDate, fixtures);
 
             Assert.Equal(1, matchday.WeekNumber);
@@ -52,7 +53,7 @@ namespace FootballLife.Simulation.Tests
         public void Matchday_InvalidWeek_ThrowsArgumentOutOfRangeException()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
-                new Matchday(0, _startDate, new List<FixtureId>()));
+                new Matchday(0, _startDate, new List<ScheduledMatch>()));
         }
 
         // ─── LeagueTableRow Tests ─────────────────────────────────────────────
