@@ -29,6 +29,10 @@ namespace FootballLife.Domain
         /// Bank accounts and financial transaction history for players.
         /// </summary>
         public IReadOnlyDictionary<Guid, FinanceAccount> Accounts { get; init; }
+        /// <summary>
+        /// Active cooldowns for life events, mapping EventId to the date when the cooldown expires.
+        /// </summary>
+        public IReadOnlyDictionary<string, DateOnly> EventCooldowns { get; init; }
         public Season CurrentSeason { get; init; }
 
         public WorldState(
@@ -42,7 +46,8 @@ namespace FootballLife.Domain
             IReadOnlyDictionary<Guid, Contract> contracts,
             IReadOnlyDictionary<Guid, PlayerPotential> potentials,
             Season currentSeason,
-            IReadOnlyDictionary<Guid, FinanceAccount>? accounts = null)
+            IReadOnlyDictionary<Guid, FinanceAccount>? accounts = null,
+            IReadOnlyDictionary<string, DateOnly>? eventCooldowns = null)
         {
             Clubs = clubs ?? throw new ArgumentNullException(nameof(clubs));
             Players = players ?? throw new ArgumentNullException(nameof(players));
@@ -55,6 +60,7 @@ namespace FootballLife.Domain
             Potentials = potentials ?? throw new ArgumentNullException(nameof(potentials));
             CurrentSeason = currentSeason ?? throw new ArgumentNullException(nameof(currentSeason));
             Accounts = accounts ?? new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>());
+            EventCooldowns = eventCooldowns ?? new ReadOnlyDictionary<string, DateOnly>(new Dictionary<string, DateOnly>());
         }
 
         /// <summary>
@@ -73,7 +79,8 @@ namespace FootballLife.Domain
                 new ReadOnlyDictionary<Guid, Contract>(new Dictionary<Guid, Contract>()),
                 new ReadOnlyDictionary<Guid, PlayerPotential>(new Dictionary<Guid, PlayerPotential>()),
                 season,
-                new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>()));
+                new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>()),
+                new ReadOnlyDictionary<string, DateOnly>(new Dictionary<string, DateOnly>()));
         }
 
         // ─── Query & Lookup Methods ───────────────────────────────────────────
@@ -282,6 +289,36 @@ namespace FootballLife.Domain
         {
             if (season is null) throw new ArgumentNullException(nameof(season));
             return this with { CurrentSeason = season };
+        }
+
+        /// <summary>
+        /// Returns true if the specified event is currently on cooldown for the given date.
+        /// </summary>
+        public bool IsEventOnCooldown(string eventId, DateOnly currentDate)
+        {
+            if (string.IsNullOrWhiteSpace(eventId)) return false;
+            return EventCooldowns.TryGetValue(eventId, out var expires) && currentDate < expires;
+        }
+
+        /// <summary>
+        /// Registers or replaces an event cooldown expiration date.
+        /// </summary>
+        public WorldState WithEventCooldown(string eventId, DateOnly cooldownUntil)
+        {
+            if (string.IsNullOrWhiteSpace(eventId)) throw new ArgumentException("EventId cannot be empty.", nameof(eventId));
+            var newCooldowns = new Dictionary<string, DateOnly>(EventCooldowns) { [eventId] = cooldownUntil };
+            return this with { EventCooldowns = new ReadOnlyDictionary<string, DateOnly>(newCooldowns) };
+        }
+
+        /// <summary>
+        /// Removes all event cooldowns that have expired on or before the given date.
+        /// </summary>
+        public WorldState CleanExpiredCooldowns(DateOnly currentDate)
+        {
+            if (EventCooldowns.Count == 0) return this;
+            var active = EventCooldowns.Where(kv => kv.Value > currentDate).ToDictionary(kv => kv.Key, kv => kv.Value);
+            if (active.Count == EventCooldowns.Count) return this;
+            return this with { EventCooldowns = new ReadOnlyDictionary<string, DateOnly>(active) };
         }
     }
 }

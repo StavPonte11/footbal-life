@@ -115,6 +115,12 @@ namespace FootballLife.CareerSimulator
             Console.WriteLine($"Starting Status: {career.Status} | Wage: £{career.WeeklySalary:N0}/wk | Potential: {potential.PotentialRating} | Lifestyle: {lifestyle}");
             Console.WriteLine();
 
+            string eventsPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "content", "data", "events.json");
+            if (!File.Exists(eventsPath)) eventsPath = Path.GetFullPath("content/data/events.json");
+            var lifeEvents = File.Exists(eventsPath)
+                ? LifeEventDataLoader.LoadFromFile(eventsPath).Events
+                : Array.Empty<LifeEvent>();
+
             for (int week = 1; week <= weeksInSeason; week++)
             {
                 var weekDate = new DateOnly(2026, 8, 1).AddDays((week - 1) * 7);
@@ -238,6 +244,39 @@ namespace FootballLife.CareerSimulator
                     {
                         career = career with { Status = evaluatedStatus };
                         Console.WriteLine($"\n*** SQUAD STATUS REVIEW: Status adjusted from {previousStatus} to {evaluatedStatus}! ***");
+                    }
+                }
+
+                // Weekly life event evaluation (~35% chance of narrative dilemma each week)
+                world = world.WithPlayerState(playerId, state)
+                             .WithPlayerCareerState(playerId, career)
+                             .WithPlayerAccount(playerId, account);
+
+                if (lifeEvents.Count > 0 && rng.NextBool(0.35f))
+                {
+                    var chosenEvent = LifeEventSystem.SelectWeeklyEvent(lifeEvents, player, world, rng, weekDate);
+                    if (chosenEvent != null)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine($"*** LIFE EVENT: {chosenEvent.Title} [{chosenEvent.Category}] ***");
+                        Console.WriteLine(chosenEvent.Description);
+                        Console.WriteLine("Options:");
+                        for (int opt = 0; opt < chosenEvent.Choices.Count; opt++)
+                        {
+                            Console.WriteLine($"  [{opt + 1}] {chosenEvent.Choices[opt].Text}");
+                        }
+                        Console.Write("Choice (1-2) > ");
+                        string? choiceInput = Console.ReadLine()?.Trim();
+                        int choiceIdx = (int.TryParse(choiceInput, out int parsed) && parsed >= 1 && parsed <= chosenEvent.Choices.Count)
+                            ? parsed - 1
+                            : 0;
+
+                        var pickedChoice = chosenEvent.Choices[choiceIdx];
+                        world = LifeEventSystem.ApplyChoice(chosenEvent, pickedChoice, player, world, weekDate);
+                        state = world.GetState(playerId);
+                        career = world.GetCareerState(playerId);
+                        account = world.GetAccount(playerId);
+                        Console.WriteLine($">> Consequence Applied: {pickedChoice.Text}");
                     }
                 }
 
