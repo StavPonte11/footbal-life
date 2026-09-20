@@ -53,12 +53,12 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 **Exit Criteria:** `career-simulator --careers 1000 --seasons 5` produces statistically valid career distributions. All tests pass.
 
 **Progress (as of Sep 2026):**
-- **Milestones 1.1 through 1.6.5 are COMPLETE & MERGED TO MAIN** ✅
-- **All 57 issues (#1 through #57) closed.**
-- **All PRs (#11–#16, #25–#32, #58–#63) merged to `main`.**
-- **428 tests passing** (0 failures, 0 skipped, 0 warnings) in `FootballLife.Simulation.Tests`.
+- **Milestones 1.1 through 1.7 are COMPLETE & MERGED TO MAIN** ✅
+- **All 62 issues (#1 through #57, #64 through #68) closed.**
+- **All PRs (#11–#16, #25–#32, #58–#63, #69) merged to `main`.**
+- **454 tests passing** (0 failures, 0 skipped, 0 warnings) in `FootballLife.Simulation.Tests`.
 - **Validation Gate 1.6.5 PASSED (GO decision)** documented in [`docs/gate-review.md`](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/gate-review.md).
-- **Next Active Target:** Milestone 1.7 — Economy System (Stories P1-044 through P1-048).
+- **Next Active Target:** Milestone 1.8 — Life Events System (Stories P1-049 through P1-054).
 
 ### Milestone 1.1 — Player Domain Model ✅ (Complete)
 *PRs #11–#16 merged | Issues #2–#10 closed*
@@ -154,15 +154,16 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-### Milestone 1.7 — Economy System
+### Milestone 1.7 — Economy System ✅ (Complete)
+*PR #69 merged | Issues #64–#68 closed*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P1-044 | FinanceAccount model (balance, income entries, expense entries) | Domain | S |
-| #P1-045 | EconomySystem: weekly salary credit | Simulation | S |
-| #P1-046 | EconomySystem: match bonuses | Simulation | S |
-| #P1-047 | EconomySystem: lifestyle expense deductions | Simulation | M |
-| #P1-048 | Unit tests: economy transactions, balance invariants | Tests | M |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-044 (#64) | FinanceAccount model (balance, income entries, expense entries) | Domain | S | ✅ Merged (#69) |
+| #P1-045 (#65) | EconomySystem: weekly salary credit | Simulation | S | ✅ Merged (#69) |
+| #P1-046 (#66) | EconomySystem: match bonuses | Simulation | S | ✅ Merged (#69) |
+| #P1-047 (#67) | EconomySystem: lifestyle expense deductions | Simulation | M | ✅ Merged (#69) |
+| #P1-048 (#68) | Unit tests: economy transactions, balance invariants | Tests | M | ✅ Merged (#69) |
 
 ### Milestone 1.8 — Life Events System (v1)
 
@@ -344,9 +345,10 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 1, Milestone 1.7 — Economy System
+## Current Focus: Phase 1, Milestone 1.8 — Life Events System (v1)
 
-> Milestones 1.1 through 1.6.5 are **complete & merged to `main`** (Issues #1–#57 closed, 428 passing tests).
+> Milestones 1.1 through 1.7 are **complete & merged to `main`** (Issues #1–#57, #64–#68 closed, 454 passing tests).
 > **Validation Gate 1.6.5 Passed (GO)** — the core simulation loop {train → fatigue → match → trust → progression} is verified and stable.
-> **Next issues to create:** `#P1-044` through `#P1-048` (Milestone 1.7 — Economy System: `FinanceAccount`, salary credit, match bonuses, lifestyle expenses).
+> **Economy System 1.7 Integrated** — player weekly salary, performance match bonuses, and lifestyle tiers/expenses active.
+> **Next issues to create:** `#P1-049` through `#P1-054` (Milestone 1.8 — Life Events System: `LifeEvent` domain model, condition evaluator, weighted selection, effect applicator, `events.json` seed data, unit tests).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

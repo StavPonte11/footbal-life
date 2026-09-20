@@ -15,11 +15,11 @@ As a [stakeholder], I want [capability] so that [benefit].
 **Branch convention:** `feature/p1-NNN-<slug>`
 **Acceptance Criteria (AC)** must all pass before a PR may be merged.
 
-> **Status (Sep 2026):** Milestones 1.1 through 1.6.5 are **COMPLETE and MERGED to `main`** (Stories P1-001 through P1-041, P1-GAP-1 through P1-GAP-4, and P1-GATE-1 through P1-GATE-4). All 57 related GitHub issues (#1–#57) and PRs (#11–#16, #25–#32, #58–#63) are closed. Build is green with **428 unit & integration tests passing** (0 failures, 0 warnings).
+> **Status (Sep 2026):** Milestones 1.1 through 1.7 are **COMPLETE and MERGED to `main`** (Stories P1-001 through P1-048, P1-GAP-1 through P1-GAP-4, and P1-GATE-1 through P1-GATE-4). All 62 related GitHub issues (#1–#57, #64–#68) and PRs (#11–#16, #25–#32, #58–#63, #69) are closed. Build is green with **454 unit & integration tests passing** (0 failures, 0 warnings).
 >
 > **Validation Gate 1.6.5 PASSED (GO)**: The minimum playable loop was playtested via the interactive console harness (`FootballLife.CareerSimulator --interactive`) and formal evaluation documented in [`docs/gate-review.md`](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/gate-review.md).
 >
-> **Current Active Milestone:** Milestone 1.7 — Economy System (Stories P1-044 through P1-048).
+> **Current Active Milestone:** Milestone 1.8 — Life Events System (v1) (Stories P1-049 through P1-054).
 
 ---
 
@@ -750,89 +750,94 @@ MatchResult
 
 ---
 
-## MILESTONE 1.7 — Economy System
+## MILESTONE 1.7 — Economy System ✅ Complete
 
-### Story P1-044: FinanceAccount Domain Model
+### Story P1-044: FinanceAccount Domain Model ✅
 **Branch:** `feature/p1-044-finance-account`
 **Labels:** `phase-1`, `milestone:1.7`, `domain`, `complexity:S`
+**Status:** Merged in PR #69 (Issue #64)
 
 > As a footballer, I want a `FinanceAccount` domain model tracking my financial balance and transaction history so that I can manage my earnings, expenses, and savings over time.
 
 **Acceptance Criteria:**
-- [ ] `FinanceAccount` record in `FootballLife.Domain`: `decimal Balance`, `IReadOnlyList<FinanceTransaction> History`
-- [ ] `FinanceTransaction` record: `Guid Id`, `DateOnly Date`, `TransactionType Type`, `decimal Amount`, `string Description`
-- [ ] `TransactionType` enum: `Salary`, `MatchBonus`, `LifestyleExpense`, `Fine`, `Investment`, `TransferBonus`
-- [ ] `FinanceAccount.WithTransaction(FinanceTransaction tx)` → returns new immutable `FinanceAccount` with updated `Balance` (`Balance + tx.Amount`) and transaction appended to `History`
-- [ ] `FinanceAccount.Create(decimal initialBalance = 0)` factory method
-- [ ] Unit test: `FinanceAccount_InitialBalance_IsZero_ByDefault()`
-- [ ] Unit test: `FinanceAccount_PositiveTransaction_IncreasesBalance()`
-- [ ] Unit test: `FinanceAccount_NegativeTransaction_DecreasesBalance()`
-- [ ] Unit test: `FinanceAccount_HistoryPreservesChronologicalOrder()`
+- [x] `FinanceAccount` record in `FootballLife.Domain`: `decimal Balance`, `IReadOnlyList<FinanceTransaction> History`
+- [x] `FinanceTransaction` record: `Guid Id`, `DateOnly Date`, `TransactionType Type`, `decimal Amount`, `string Description`
+- [x] `TransactionType` enum: `Salary`, `MatchBonus`, `LifestyleExpense`, `Fine`, `Investment`, `TransferBonus`
+- [x] `FinanceAccount.WithTransaction(FinanceTransaction tx)` → returns new immutable `FinanceAccount` with updated `Balance` (`Balance + tx.Amount`) and transaction appended to `History`
+- [x] `FinanceAccount.Create(decimal initialBalance = 0)` factory method
+- [x] Unit test: `FinanceAccount_InitialBalance_IsZero_ByDefault()`
+- [x] Unit test: `FinanceAccount_PositiveTransaction_IncreasesBalance()`
+- [x] Unit test: `FinanceAccount_NegativeTransaction_DecreasesBalance()`
+- [x] Unit test: `FinanceAccount_HistoryPreservesChronologicalOrder()`
 
 ---
 
-### Story P1-045: EconomySystem — Weekly Salary Credit
+### Story P1-045: EconomySystem — Weekly Salary Credit ✅
 **Branch:** `feature/p1-045-salary-credit`
 **Labels:** `phase-1`, `milestone:1.7`, `simulation`, `complexity:S`
+**Status:** Merged in PR #69 (Issue #65)
 
 > As a footballer, I want my weekly contracted salary automatically credited to my bank account each week so that I have funds to spend on lifestyle and investments.
 
 **Acceptance Criteria:**
-- [ ] `EconomySystem` static class in `FootballLife.Simulation`
-- [ ] `EconomySystem.ApplyWeeklySalary(FinanceAccount account, decimal weeklySalary, DateOnly date)` → `FinanceAccount`
-- [ ] Creates a `Salary` transaction with amount = `weeklySalary`
-- [ ] Enforces non-negative salary parameter (`weeklySalary >= 0`)
-- [ ] Unit test: `EconomySystem_WeeklySalary_CreditsContractedAmount()`
-- [ ] Unit test: `EconomySystem_ZeroSalary_StillCreatesTransactionRecord()`
+- [x] `EconomySystem` static class in `FootballLife.Simulation`
+- [x] `EconomySystem.ApplyWeeklySalary(FinanceAccount account, decimal weeklySalary, DateOnly date)` → `FinanceAccount`
+- [x] Creates a `Salary` transaction with amount = `weeklySalary`
+- [x] Enforces non-negative salary parameter (`weeklySalary >= 0`)
+- [x] Unit test: `EconomySystem_WeeklySalary_CreditsContractedAmount()`
+- [x] Unit test: `EconomySystem_ZeroSalary_StillCreatesTransactionRecord()`
 
 ---
 
-### Story P1-046: EconomySystem — Match Bonuses
+### Story P1-046: EconomySystem — Match Bonuses ✅
 **Branch:** `feature/p1-046-match-bonuses`
 **Labels:** `phase-1`, `milestone:1.7`, `simulation`, `complexity:S`
+**Status:** Merged in PR #69 (Issue #66)
 
 > As a footballer, I want my performance match bonuses (appearance, goal, assist, clean sheet) credited after matches so that strong on-pitch performance directly rewards my personal wealth.
 
 **Acceptance Criteria:**
-- [ ] `EconomySystem.ApplyMatchBonuses(FinanceAccount account, ContractBonuses bonuses, MatchResult result, Position position, DateOnly date)` → `FinanceAccount`
-- [ ] Evaluates bonuses earned:
+- [x] `EconomySystem.ApplyMatchBonuses(FinanceAccount account, ContractBonuses bonuses, MatchResult result, Position position, DateOnly date)` → `FinanceAccount`
+- [x] Evaluates bonuses earned:
   - Appearance: `result.PlayerMinutesPlayed > 0 ? bonuses.AppearanceBonus : 0`
   - Goals: `result.PlayerScored ? (goalsCount * bonuses.GoalBonus) : 0`
   - Assists: `result.PlayerAssisted ? (assistsCount * bonuses.AssistBonus) : 0`
   - Clean Sheet: `(position == GK || position == CB || position == FB) && result.OpponentScore == 0 && result.PlayerMinutesPlayed >= 60 ? bonuses.CleanSheetBonus : 0`
-- [ ] Aggregates non-zero bonuses into transaction with itemized breakdown in `Description`
-- [ ] Unit test: `EconomySystem_MatchBonus_CalculatesGoalAndAppearanceCorrectly()`
-- [ ] Unit test: `EconomySystem_DefenderCleanSheet_AwardsBonusWhenEligible()`
-- [ ] Unit test: `EconomySystem_DidNotPlay_ZeroBonusEarned()`
+- [x] Aggregates non-zero bonuses into transaction with itemized breakdown in `Description`
+- [x] Unit test: `EconomySystem_MatchBonus_CalculatesGoalAndAppearanceCorrectly()`
+- [x] Unit test: `EconomySystem_DefenderCleanSheet_AwardsBonusWhenEligible()`
+- [x] Unit test: `EconomySystem_DidNotPlay_ZeroBonusEarned()`
 
 ---
 
-### Story P1-047: EconomySystem — Lifestyle Expense Deductions
+### Story P1-047: EconomySystem — Lifestyle Expense Deductions ✅
 **Branch:** `feature/p1-047-lifestyle-expenses`
 **Labels:** `phase-1`, `milestone:1.7`, `simulation`, `complexity:M`
+**Status:** Merged in PR #69 (Issue #67)
 
 > As a footballer, I want weekly lifestyle expenses deducted according to my living tier so that higher luxury requires maintaining high earnings to avoid debt.
 
 **Acceptance Criteria:**
-- [ ] `LifestyleTier` enum in `FootballLife.Domain`: `Modest` (£150/wk), `Comfortable` (£500/wk), `Luxurious` (£2,000/wk), `Extravagant` (£8,000/wk), `Superstar` (£25,000/wk)
-- [ ] `EconomySystem.ApplyLifestyleExpenses(FinanceAccount account, LifestyleTier tier, DateOnly date)` → `FinanceAccount`
-- [ ] Deducts standard weekly cost as negative amount transaction of type `LifestyleExpense`
-- [ ] If balance goes negative: sets mood/happiness penalty modifier (returned or recorded via event)
-- [ ] Unit test: `EconomySystem_LifestyleExpenses_DeductsAccurateTierCost()`
-- [ ] Unit test: `EconomySystem_Overdraft_AllowsNegativeBalance_WithEventFlag()`
+- [x] `LifestyleTier` enum in `FootballLife.Domain`: `Modest` (£150/wk), `Comfortable` (£500/wk), `Luxurious` (£2,000/wk), `Extravagant` (£8,000/wk), `Superstar` (£25,000/wk)
+- [x] `EconomySystem.ApplyLifestyleExpenses(FinanceAccount account, LifestyleTier tier, DateOnly date)` → `FinanceAccount`
+- [x] Deducts standard weekly cost as negative amount transaction of type `LifestyleExpense`
+- [x] If balance goes negative: sets mood/happiness penalty modifier (returned or recorded via event)
+- [x] Unit test: `EconomySystem_LifestyleExpenses_DeductsAccurateTierCost()`
+- [x] Unit test: `EconomySystem_Overdraft_AllowsNegativeBalance_WithEventFlag()`
 
 ---
 
-### Story P1-048: Unit & Integration Tests — Economy System
+### Story P1-048: Unit & Integration Tests — Economy System ✅
 **Branch:** `feature/p1-048-economy-tests`
 **Labels:** `phase-1`, `milestone:1.7`, `testing`, `complexity:M`
+**Status:** Merged in PR #69 (Issue #68)
 
 > Full test suite verifying economy transactions, multi-season financial stability, and zero-allocation compliance.
 
 **Acceptance Criteria:**
-- [ ] Test: `EconomySystem_FullSeasonAccumulation_38Weeks_NetWorthMatchesFormula()`
-- [ ] Test: `EconomySystem_DeterministicFinancialTrajectory_SameContractSamePerformance()`
-- [ ] Test: `EconomySystem_DebtPenalties_TriggerCorrectlyWhenBalanceDepleted()`
+- [x] Test: `EconomySystem_FullSeasonAccumulation_38Weeks_NetWorthMatchesFormula()`
+- [x] Test: `EconomySystem_DeterministicFinancialTrajectory_SameContractSamePerformance()`
+- [x] Test: `EconomySystem_DebtPenalties_TriggerCorrectlyWhenBalanceDepleted()`
 
 ---
 
@@ -980,12 +985,12 @@ COMPLETED & MERGED TO MAIN:
   Milestone 1.5:    P1-028 → P1-033   (Match Simulation v1)       ✅ Merged (PR #61, Issues #44–#49)
   Milestone 1.6:    P1-038 → P1-041   (Progression + Career)      ✅ Merged (PR #62, Issues #50–#53)
   Milestone 1.6.5:  P1-GATE-1 → P1-GATE-4 (Validation Gate: GO)   ✅ Merged (PR #63, Issues #54–#57)
+  Milestone 1.7:    P1-044 → P1-048   (Economy System)            ✅ Merged (PR #69, Issues #64–#68)
 
 CURRENT ACTIVE TARGET:
-  Milestone 1.7:    P1-044 → P1-048   (Economy System)            🚀 Ready to Start
+  Milestone 1.8:    P1-049 → P1-054   (Life Events System v1)     🚀 Ready to Start
 
 UPCOMING:
-  Milestone 1.8:    P1-049 → P1-054   (Life Events System v1)
   Milestone 1.9:    P1-055 → P1-059   (Relationships)
   Milestone 1.10:   P1-061 → P1-065   (Transfer System)
   Milestone 1.11:   P1-066 → P1-069   (Career Simulator CLI & 10k Career Balance)
