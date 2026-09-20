@@ -52,79 +52,107 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 **Goal:** Build the pure C# simulation that can run headless and produce believable, deterministic football careers.
 **Exit Criteria:** `career-simulator --careers 1000 --seasons 5` produces statistically valid career distributions. All tests pass.
 
-### Milestone 1.1 — Player Domain Model
-**Priority: CRITICAL FIRST STEP**
+**Progress (as of Sep 2026):**
+- **Milestones 1.1 through 1.6.5 are COMPLETE & MERGED TO MAIN** ✅
+- **All 57 issues (#1 through #57) closed.**
+- **All PRs (#11–#16, #25–#32, #58–#63) merged to `main`.**
+- **428 tests passing** (0 failures, 0 skipped, 0 warnings) in `FootballLife.Simulation.Tests`.
+- **Validation Gate 1.6.5 PASSED (GO decision)** documented in [`docs/gate-review.md`](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/gate-review.md).
+- **Next Active Target:** Milestone 1.7 — Economy System (Stories P1-044 through P1-048).
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P1-001 | Player identity model (name, nationality, DOB, foot, position) | Domain | S |
-| #P1-002 | Player Abilities model (15 attributes: pace, finishing, passing, etc.) | Domain | M |
-| #P1-003 | Player State model (fatigue, confidence, form, happiness, motivation, morale, fitness) | Domain | M |
-| #P1-004 | Player Career State (club, squad status, manager trust, reputation, salary, market value) | Domain | M |
-| #P1-005 | Player Potential model (probabilistic development ceiling by age curve) | Domain | M |
-| #P1-006 | Position taxonomy (GK, CB, FB, DM, CM, AM, LW/RW, ST) + position weight maps | Domain | S |
-| #P1-007 | PlayerAttributes → position relevance matrix | Domain | M |
-| #P1-008 | Domain invariants & value bounds validation | Domain | S |
-| #P1-009 | Unit tests: Player model invariants, bounds, serialization | Tests | M |
+### Milestone 1.1 — Player Domain Model ✅ (Complete)
+*PRs #11–#16 merged | Issues #2–#10 closed*
 
-### Milestone 1.2 — World Domain Model
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-001 (#2) | Player identity model (name, nationality, DOB, foot, position) | Domain | S | ✅ Merged (#11) |
+| #P1-002 (#3) | Player Abilities model (15 attributes: pace, finishing, passing, etc.) | Domain | M | ✅ Merged (#12) |
+| #P1-003 (#4) | Player State model (fatigue, confidence, form, happiness, motivation, morale, fitness) | Domain | M | ✅ Merged (#13) |
+| #P1-004 (#5) | Player Career State (club, squad status, manager trust, reputation, salary, market value) | Domain | M | ✅ Merged (#14) |
+| #P1-005 (#6) | Player Potential model (probabilistic development ceiling by age curve) | Domain | M | ✅ Merged (#15) |
+| #P1-006 (#7) | Position taxonomy (GK, CB, FB, DM, CM, AM, LW, RW, ST) + position weight maps | Domain | S | ✅ Merged (#16) |
+| #P1-007 (#8) | PlayerAttributes → position relevance matrix | Domain | M | ✅ Merged (#16) |
+| #P1-008 (#9) | Domain invariants & value bounds validation | Domain | S | ✅ Merged (#16) |
+| #P1-009 (#10) | Unit tests: Player model invariants, bounds, serialization | Tests | M | ✅ Merged (#16) |
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P1-010 | Club model (reputation, finances, squad quality, league, facilities, tactical identity) | Domain | M |
-| #P1-011 | Manager model (tactics, trust, preferences, tolerance, formation) | Domain | S |
-| #P1-012 | League & Competition model | Domain | S |
-| #P1-013 | Contract model (salary, length, role, bonuses, clauses, expectations) | Domain | M |
-| #P1-014 | Season model (weeks, match calendar, league table) | Domain | M |
-| #P1-015 | WorldState container (clubs, players, leagues, season) | Domain | M |
-| #P1-016 | Static data schema: `clubs.json`, `leagues.json`, `positions.json` | Data | M |
-| #P1-017 | Data loader + content validation (duplicate IDs, missing refs, impossible values) | Simulation | M |
+### Milestone 1.2 — World Domain Model ✅ (Complete)
+*PRs #25–#32 merged | Issues #17–#24 closed*
 
-### Milestone 1.3 — Training System
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-010 (#17) | Club model (reputation, finances, squad quality, league, facilities, tactical identity) | Domain | M | ✅ Merged (#25) |
+| #P1-011 (#18) | Manager model (tactics, trust, preferences, tolerance, formation) | Domain | S | ✅ Merged (#26) |
+| #P1-012 (#19) | League & Competition model | Domain | S | ✅ Merged (#27) |
+| #P1-013 (#20) | Contract model (salary, length, role, bonuses, clauses, expectations) | Domain | M | ✅ Merged (#28) |
+| #P1-014 (#21) | Season model (weeks, match calendar, league table) | Domain | M | ✅ Merged (#29) |
+| #P1-015 (#22) | WorldState container (clubs, players, leagues, season) | Domain | M | ✅ Merged (#30) |
+| #P1-016 (#23) | Static data schema: `clubs.json`, `leagues.json`, `positions.json` | Data | M | ✅ Merged (#31) |
+| #P1-017 (#24) | Data loader + content validation (duplicate IDs, missing refs, impossible values) | Simulation | M | ✅ Merged (#32) |
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P1-018 | Training session model (type, intensity, duration) | Domain | S |
-| #P1-019 | TrainingSystem: calculate XP gain per attribute from session | Simulation | M |
-| #P1-020 | TrainingSystem: fatigue cost per session type | Simulation | S |
-| #P1-021 | TrainingSystem: diminishing returns on repeated same-type training | Simulation | M |
-| #P1-022 | TrainingSystem: injury risk calculation based on fatigue × intensity | Simulation | M |
-| #P1-023 | Unit tests: training XP, fatigue, diminishing returns, injury risk | Tests | M |
+> ⚠️ **Open decision — #P1-016 real-world naming:** the shipped `leagues.json` sample uses real competitions (Premier League, La Liga, Bundesliga, Serie A, Ligue 1). That's a reasonable placeholder for dev/test data, but it's a decision point, not a default: real club/league/player names sit inside licenses held by EA/FIFA and the leagues themselves in most major markets. Before content scales past sample data (i.e. before committing to the full "20 clubs / 5 leagues" set in the AC below), explicitly decide fictional-but-recognizable naming vs. pursuing a license, and record the decision here. Don't let this default-by-inertia into real names because that's what the sample data happened to use.
 
-### Milestone 1.4 — Fatigue & Recovery System
+### Milestone 1.2.5 — Simulation Foundations (Gap Fixes) ✅ (Complete)
+*PR #58 merged | Issues #33–#36 closed*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P1-024 | FatigueSystem: tick-based fatigue accumulation (training, matches, travel) | Simulation | M |
-| #P1-025 | RecoverySystem: sleep/rest reduces fatigue per day | Simulation | S |
-| #P1-026 | FatigueSystem: fatigue affects form, performance, mood | Simulation | M |
-| #P1-027 | Unit tests: fatigue accumulation, recovery curves | Tests | M |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-GAP-1 (#33) | `SimulationRandom`: deterministic seeded RNG (uniform, gaussian, pick) | Simulation | S | ✅ Merged (#58) |
+| #P1-GAP-2 (#34) | `PlayerFactory`: career initialization with bounded abilities & contract | Simulation | M | ✅ Merged (#58) |
+| #P1-GAP-3 (#35) | `PlayerPotential` in `WorldState` first-class container & data loader | Domain | S | ✅ Merged (#58) |
+| #P1-GAP-4 (#36) | `FixtureGenerator`: round-robin league schedule & balanced home/away | Simulation | M | ✅ Merged (#58) |
 
-### Milestone 1.5 — Match Simulation (v1)
+### Milestone 1.3 — Training System ✅ (Complete)
+*PR #59 merged | Issues #37–#40 closed*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P1-028 | Match domain model (score, time, events, situation log) | Domain | M |
-| #P1-029 | MatchSimulation: situation generator (position-aware, tactical context) | Simulation | L |
-| #P1-030 | MatchSimulation: action resolver (pass, shoot, dribble, defend) | Simulation | L |
-| #P1-031 | MatchSimulation: performance score calculator | Simulation | M |
-| #P1-032 | MatchSimulation: stamina drain during match | Simulation | S |
-| #P1-033 | MatchSimulation: match rating calculation (position-aware) | Simulation | M |
-| #P1-034 | MatchSimulation: manager trust delta from match | Simulation | M |
-| #P1-035 | MatchSimulation: confidence delta from goals/assists/errors | Simulation | S |
-| #P1-036 | Determinism test: identical seed produces identical match outcome | Tests | M |
-| #P1-037 | Unit tests: action resolution outcomes, match rating | Tests | L |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-018 (#37) | Training session model (type, intensity, duration, result) | Domain | S | ✅ Merged (#59) |
+| #P1-019 (#38) | TrainingSystem: calculate XP gain per attribute from session & fatigue cost | Simulation | M | ✅ Merged (#59) |
+| #P1-020 (#39) | TrainingSystem: weekly diminishing returns & max session limits | Simulation | M | ✅ Merged (#59) |
+| #P1-021 (#40) | Unit tests: training XP, fatigue, diminishing returns, injury risk | Tests | M | ✅ Merged (#59) |
 
-### Milestone 1.6 — Career Progression System
+### Milestone 1.4 — Fatigue & Recovery System ✅ (Complete)
+*PR #60 merged | Issues #41–#43 closed*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P1-038 | ProgressionSystem: attribute XP to ability gain (nonlinear, age-gated) | Simulation | L |
-| #P1-039 | ProgressionSystem: age-based development curve (peak 24-28, decline post-30) | Simulation | M |
-| #P1-040 | ProgressionSystem: playing time contribution to development | Simulation | M |
-| #P1-041 | CareerSystem: playing status evaluation (Academy→Reserve→Bench→Rotation→Starter→Key) | Simulation | M |
-| #P1-042 | CareerSystem: end-of-season statistics aggregation | Simulation | M |
-| #P1-043 | Unit tests: progression curves, playing status, season stats | Tests | L |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-024 (#41) | FatigueSystem: tick-based fatigue accumulation (training, matches, sleep, daily tick) | Simulation | M | ✅ Merged (#60) |
+| #P1-025 (#42) | FatigueSystem: performance degradation & form modifier | Simulation | M | ✅ Merged (#60) |
+| #P1-026 (#43) | Unit tests: fatigue accumulation, performance penalties, multi-day cycles | Tests | S | ✅ Merged (#60) |
+
+### Milestone 1.5 — Match Simulation (v1) ✅ (Complete)
+*PR #61 merged | Issues #44–#49 closed*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-028 (#44) | Match domain model (MatchState, MatchEvent, MatchResult, Situation) | Domain | M | ✅ Merged (#61) |
+| #P1-029 (#45) | MatchSimulation: situation generator (position-aware tables, context modifiers) | Simulation | L | ✅ Merged (#61) |
+| #P1-030 (#46) | MatchSimulation: action resolver (ability weights, fatigue impact, gaussian variance) | Simulation | L | ✅ Merged (#61) |
+| #P1-031 (#47) | MatchSimulation: full match runner & 90-minute simulation loop | Simulation | M | ✅ Merged (#61) |
+| #P1-032 (#48) | MatchSimulation: manager trust update & squad status expectations | Simulation | S | ✅ Merged (#61) |
+| #P1-033 (#49) | Integration tests: match pipeline, determinism, statistical outcomes | Tests | M | ✅ Merged (#61) |
+
+### Milestone 1.6 — Career Progression System ✅ (Complete)
+*PR #62 merged | Issues #50–#53 closed*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-038 (#50) | ProgressionSystem: attribute XP to ability gain (nonlinear, age curve, physical decline) | Simulation | L | ✅ Merged (#62) |
+| #P1-039 (#51) | CareerSystem: playing status evaluation (composite score & squad status steps) | Simulation | M | ✅ Merged (#62) |
+| #P1-040 (#52) | CareerSystem: end-of-season statistics aggregation (SeasonStats) | Simulation/Domain | M | ✅ Merged (#62) |
+| #P1-041 (#53) | Integration tests: multi-season progression curves, career balance, determinism | Tests | L | ✅ Merged (#62) |
+
+### 🛑 Milestone 1.6.5 — Validation Gate: Minimum Playable Loop ✅ (Complete)
+*PR #63 merged | Issues #54–#57 closed | Validation Decision: GO*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-GATE-1 (#54) | Minimal console harness: 38-week interactive playable loop (`--interactive`) | CareerSimulator | S | ✅ Merged (#63) |
+| #P1-GATE-2 (#55) | Human playtest validation: ST & MF career playthroughs | Quality | S | ✅ Completed |
+| #P1-GATE-3 (#56) | Gate review documentation: [`docs/gate-review.md`](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/gate-review.md) formal evaluation | Docs/Quality | S | ✅ Completed |
+| #P1-GATE-4 (#57) | Go/No-Go checkpoint: formal approval to proceed to Milestone 1.7 | Quality | S | ✅ Passed (GO) |
+
+---
 
 ### Milestone 1.7 — Economy System
 
@@ -316,7 +344,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 1, Milestone 1.1
+## Current Focus: Phase 1, Milestone 1.7 — Economy System
 
-> **Next issue to create:** `#P1-001 — Player Identity Domain Model`
-> See USER_STORIES.md for full acceptance criteria.
+> Milestones 1.1 through 1.6.5 are **complete & merged to `main`** (Issues #1–#57 closed, 428 passing tests).
+> **Validation Gate 1.6.5 Passed (GO)** — the core simulation loop {train → fatigue → match → trust → progression} is verified and stable.
+> **Next issues to create:** `#P1-044` through `#P1-048` (Milestone 1.7 — Economy System: `FinanceAccount`, salary credit, match bonuses, lifestyle expenses).
+> See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

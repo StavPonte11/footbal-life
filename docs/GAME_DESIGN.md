@@ -235,10 +235,13 @@ Supported positions should initially include:
 - DM
 - CM
 - AM
-- LW/RW
+- LW
+- RW
 - ST
 
 The exact position taxonomy may evolve.
+
+> **Implementation note (P1-006, P1-016):** `LW` and `RW` are modeled as separate `Position` enum values with independent weight maps in `positions.json`, not a combined `LW/RW` slot. Currently they carry identical weights (mirror images) as placeholder data — differentiating them (e.g. stronger-foot bias, cut-inside tendencies) is a future content pass, not an engine change.
 
 Position should affect:
 
@@ -281,9 +284,10 @@ Initial categories:
 - Composure
 - Positioning
 - Decision Making
-- Concentration
 
 Attributes should be position-aware.
+
+> **Implementation note (P1-002):** `PlayerAbilities` ships with 15 attributes total (5 Physical + 6 Technical + 4 Mental). An earlier draft of this document listed a 5th Mental attribute, *Concentration* — it was dropped before implementation and is not present in the shipped model or in `positions.json`'s weight maps. If concentration-as-a-mechanic is still wanted, it should come back as a deliberate new story with its own AC and weight-map update, not a silent addition.
 
 Not every attribute should have equal importance for every position.
 
