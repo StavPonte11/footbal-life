@@ -53,12 +53,12 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 **Exit Criteria:** `career-simulator --careers 1000 --seasons 5` produces statistically valid career distributions. All tests pass.
 
 **Progress (as of Sep 2026):**
-- **Milestones 1.1 through 1.9 are COMPLETE & MERGED TO MAIN** ✅
-- **All 73 issues (#1 through #57, #64 through #68, #70 through #75, #77 through #81) closed.**
-- **All PRs (#11–#16, #25–#32, #58–#63, #69, #76, #82) merged to `main`.**
-- **489 tests passing** (0 failures, 0 skipped, 0 warnings) in `FootballLife.Simulation.Tests`.
+- **Milestones 1.1 through 1.10 are COMPLETE & MERGED TO MAIN** ✅
+- **All 79 issues (#1 through #57, #64 through #68, #70 through #75, #77 through #81, #83 through #88) closed.**
+- **All PRs (#11–#16, #25–#32, #58–#63, #69, #76, #82, #89) merged to `main`.**
+- **513 tests passing** (0 failures, 0 skipped, 0 warnings) in `FootballLife.Simulation.Tests`.
 - **Validation Gate 1.6.5 PASSED (GO decision)** documented in [`docs/gate-review.md`](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/gate-review.md).
-- **Next Active Target:** Milestone 1.10 — Transfer & Contract System (Stories P1-060 through P1-065).
+- **Next Active Target:** Milestone 1.11 — Career Simulator CLI & 10k Career Balance (Stories P1-066 through P1-069).
 
 ### Milestone 1.1 — Player Domain Model ✅ (Complete)
 *PRs #11–#16 merged | Issues #2–#10 closed*
@@ -188,16 +188,17 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P1-058 (#80) | RelationshipSystem: club transfer impact on relationships | Simulation | M | ✅ Merged (#82) |
 | #P1-059 (#81) | Unit tests: relationship dynamics | Tests | M | ✅ Merged (#82) |
 
-### Milestone 1.10 — Transfer & Contract System
+### Milestone 1.10 — Transfer & Contract System ✅ (Complete)
+*PR #89 merged | Issues #83–#88 closed*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P1-060 | TransferOffer model (club, role, salary, contract, location, competition level) | Domain | M |
-| #P1-061 | TransferSystem: generate transfer offers based on reputation + form + position need | Simulation | L |
-| #P1-062 | TransferSystem: player transfer acceptance/rejection flow | Simulation | M |
-| #P1-063 | ContractSystem: contract negotiation simulation | Simulation | L |
-| #P1-064 | ContractSystem: contract expiry and renewal | Simulation | M |
-| #P1-065 | Unit tests: transfer offer generation, contract scenarios | Tests | L |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-060 (#83) | TransferOffer model (club, role, salary, contract, location, competition level) | Domain | M | ✅ Merged (#89) |
+| #P1-061 (#84) | TransferSystem: generate transfer offers based on reputation + form + position need | Simulation | L | ✅ Merged (#89) |
+| #P1-062 (#85) | TransferSystem: player transfer acceptance/rejection flow | Simulation | M | ✅ Merged (#89) |
+| #P1-063 (#86) | ContractSystem: contract negotiation simulation | Simulation | L | ✅ Merged (#89) |
+| #P1-064 (#87) | ContractSystem: contract expiry and renewal | Simulation | M | ✅ Merged (#89) |
+| #P1-065 (#88) | Unit tests: transfer offer generation, contract scenarios | Tests | L | ✅ Merged (#89) |
 
 ### Milestone 1.11 — Career Simulator CLI (v1)
 
@@ -347,10 +348,10 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 1, Milestone 1.10 — Transfer & Contract System
+## Current Focus: Phase 1, Milestone 1.11 — Career Simulator CLI & 10k Career Balance
 
-> Milestones 1.1 through 1.9 are **complete & merged to `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81 closed, 489 passing tests).
+> Milestones 1.1 through 1.10 are **complete & merged to `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88 closed, 513 passing tests).
 > **Validation Gate 1.6.5 Passed (GO)** — the core simulation loop {train → fatigue → match → trust → progression} is verified and stable.
-> **Economy, Life Events & Relationships Integrated** — personal finances, weekly salary, lifestyle deductions, narrative dilemmas, and social dynamics active.
-> **Next issues to create:** `#P1-060` through `#P1-065` (Milestone 1.10 — Transfer & Contract System: `TransferOffer` model, offer generation, transfer decision flow, contract negotiation, contract renewal, unit tests).
+> **Economy, Life Events, Relationships & Transfers Integrated** — personal finances, weekly salary, lifestyle deductions, narrative dilemmas, social dynamics, transfer bids, and contract negotiations active.
+> **Next issues to create:** `#P1-066` through `#P1-069` (Milestone 1.11 — Career Simulator CLI: end-to-end multi-career simulation, aggregate statistics exports, 1,000 to 10,000 career statistical balance distribution validations).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

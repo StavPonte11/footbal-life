@@ -15,11 +15,11 @@ As a [stakeholder], I want [capability] so that [benefit].
 **Branch convention:** `feature/p1-NNN-<slug>`
 **Acceptance Criteria (AC)** must all pass before a PR may be merged.
 
-> **Status (Sep 2026):** Milestones 1.1 through 1.9 are **COMPLETE and MERGED to `main`** (Stories P1-001 through P1-059, P1-GAP-1 through P1-GAP-4, and P1-GATE-1 through P1-GATE-4). All 73 related GitHub issues (#1–#57, #64–#68, #70–#75, #77–#81) and PRs (#11–#16, #25–#32, #58–#63, #69, #76, #82) are closed. Build is green with **489 unit & integration tests passing** (0 failures, 0 warnings).
+> **Status (Sep 2026):** Milestones 1.1 through 1.10 are **COMPLETE and MERGED to `main`** (Stories P1-001 through P1-065, P1-GAP-1 through P1-GAP-4, and P1-GATE-1 through P1-GATE-4). All 79 related GitHub issues (#1–#57, #64–#68, #70–#75, #77–#81, #83–#88) and PRs (#11–#16, #25–#32, #58–#63, #69, #76, #82, #89) are closed. Build is green with **513 unit & integration tests passing** (0 failures, 0 warnings).
 >
 > **Validation Gate 1.6.5 PASSED (GO)**: The minimum playable loop was playtested via the interactive console harness (`FootballLife.CareerSimulator --interactive`) and formal evaluation documented in [`docs/gate-review.md`](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/gate-review.md).
 >
-> **Current Active Milestone:** Milestone 1.10 — Transfer & Contract System (Stories P1-060 through P1-065).
+> **Current Active Milestone:** Milestone 1.11 — Career Simulator CLI & 10k Career Balance (Stories P1-066 through P1-069).
 
 ---
 
@@ -998,22 +998,101 @@ MatchResult
 
 ---
 
-## MILESTONE 1.10 — Transfer System
+## MILESTONE 1.10 — Transfer & Contract System ✅ Complete
 
-### Story P1-061: Transfer Offer Generation
-**Branch:** `feature/p1-061-transfer-offer-generation`
+### Story P1-060: TransferOffer Domain Model ✅
+**Branch:** `feature/milestone-1.10-transfers`
+**Status:** Merged in PR #89 (Issue #83)
+
+> As a simulation system, I want a structured `TransferOffer` domain model representing official transfer and contractual proposals between clubs and players so that career movements are legally and financially well-defined.
+
+**AC:**
+- [x] `TransferOffer` immutable record in `FootballLife.Domain` (`Id`, `PlayerId`, `OfferingClubId`, `OfferedRole`, `OfferedWage`, `TransferFee`, `ContractYears`, `ReleaseClause`, `SigningBonus`, `OfferDate`, `ExpiryDate`, `Status`)
+- [x] `TransferOfferStatus` enum: `Pending`, `Accepted`, `Rejected`, `Expired`, `Withdrawn`
+- [x] Factory method `TransferOffer.Create(...)` and transition `WithStatus(TransferOfferStatus status)`
+- [x] Invariant validation: positive wage (> 0), non-negative financials, valid date ordering, contract years in [1, 5]
+- [x] `WorldState` integration with `TransferOffers` dictionary, lookup helpers, and mutation methods
+- [x] Unit test: `TransferOffer_ConstructsAndValidatesParameters()`
+
+### Story P1-061: Transfer Offer Generation ✅
+**Branch:** `feature/milestone-1.10-transfers`
+**Status:** Merged in PR #89 (Issue #84)
 
 > As a footballer, I want transfer offers to appear when my reputation, form, and position need align with a club's requirements so that transfer opportunities feel earned and believable.
 
 **AC:**
-- [ ] `TransferSystem.GenerateOffers(Player player, WorldState world, SimulationRandom rng)` returns `IReadOnlyList<TransferOffer>`
-- [ ] Offers only generated from clubs with matching `LeagueTier` ± 1 relative to player reputation
-- [ ] Offer salary computed as: `BaseWage * ReputationMultiplier * LeaguePremium`
-- [ ] Minimum 1 offer per transfer window if player `ManagerTrust` < 30 (forced to move)
-- [ ] Maximum 3 simultaneous offers
-- [ ] Determinism test: same seed + same world → same offers
-- [ ] Unit test: `TransferSystem_HighReputation_AttractsTopClubOffers()`
-- [ ] Unit test: `TransferSystem_LowTrust_GeneratesAtLeastOneEscapeOffer()`
+- [x] `TransferSystem.GenerateOffers(Player player, PlayerAbilities abilities, PlayerCareerState careerState, Contract currentContract, WorldState world, SimulationRandom rng, DateOnly currentDate)`
+- [x] Suitor clubs filtered by matching `LeagueTier` ± 1 relative to player ability/reputation (elite clubs for top performers)
+- [x] Current club strictly excluded from suitor bids
+- [x] Wage calculation scaled exponentially by ability, tier multiplier, and squad role
+- [x] Minimum 1 escape offer guaranteed during transfer windows if player `ManagerTrust` < 30
+- [x] Maximum 3 simultaneous active offers
+- [x] Determinism test: same seed + same world → same offers
+- [x] Unit test: `GenerateOffers_GeneratesSuitorOffersExcludingCurrentClub()`
+- [x] Unit test: `GenerateOffers_LowManagerTrust_GuaranteesEscapeOffer()`
+
+### Story P1-062: Transfer Acceptance & Rejection Flow ✅
+**Branch:** `feature/milestone-1.10-transfers`
+**Status:** Merged in PR #89 (Issue #85)
+
+> As a player, I want to accept or reject transfer offers, seamlessly moving to the new club, registering my new contract, receiving my signing bonus, and adjusting my relationships.
+
+**AC:**
+- [x] `TransferSystem.AcceptOffer(TransferOffer offer, WorldState world, DateOnly transferDate)`
+- [x] Creates and registers new `Contract` in `WorldState`
+- [x] Updates `PlayerCareerState` with new `ClubId`, `WeeklySalary`, `SquadStatus`, and role-based initial `ManagerTrust`
+- [x] Updates `Club` squad rosters: removes player from old club, adds to new club
+- [x] Credits `SigningBonus` directly to player's `FinanceAccount` as `TransactionType.TransferBonus`
+- [x] Invokes `RelationshipSystem.ApplyClubTransfer` for teammate distancing and manager cool-down
+- [x] Updates accepted offer status and automatically marks other pending offers as `Withdrawn`
+- [x] `TransferSystem.RejectOffer(TransferOffer offer)` sets status to `Rejected`
+- [x] Unit test: `AcceptOffer_TransfersRosterContractAndFinancials()`
+- [x] Unit test: `AcceptOffer_WithdrawnOtherPendingOffers()`
+
+### Story P1-063: Contract Negotiation Simulation ✅
+**Branch:** `feature/milestone-1.10-transfers`
+**Status:** Merged in PR #89 (Issue #86)
+
+> As a footballer and agent, I want to negotiate wage, role, and duration terms with prospective or existing clubs so that I can maximize my earnings and secure playing time.
+
+**AC:**
+- [x] `ContractSystem.NegotiateTerms(Player player, PlayerAbilities abilities, PlayerCareerState careerState, Club club, decimal demandedWage, int demandedYears, WorldState world, SimulationRandom rng)`
+- [x] `ContractNegotiationResult` record tracking outcome (`Accepted`, `CounterOffer`, `WalkedAway`), agreed wage, years, and bonus
+- [x] Club wage budget and tolerance curves based on club reputation and player overall
+- [x] Agent relationship leverage: high agent affinity provides up to +15% wage acceptance tolerance
+- [x] Counter-offer logic when demands are within compromise band (1.10x to 1.30x)
+- [x] Walk-away logic when demands exceed club ceiling (> 1.30x)
+- [x] Unit test: `NegotiateTerms_ReasonableDemand_Accepted()`
+- [x] Unit test: `NegotiateTerms_SlightlyElevatedDemand_Counters()`
+- [x] Unit test: `NegotiateTerms_HighAgentAffinity_IncreasesWageAcceptanceThreshold()`
+
+### Story P1-064: Contract Expiry, Renewal & Free Agency ✅
+**Branch:** `feature/milestone-1.10-transfers`
+**Status:** Merged in PR #89 (Issue #87)
+
+> As a footballer, I want my contract to progress toward expiry, allowing renewal negotiations, pre-contract Bosman moves, or free agency release when a contract runs out.
+
+**AC:**
+- [x] `ContractSystem.EvaluateContractStatus(Contract contract, DateOnly currentDate)` returns `ContractExpiryStatus` (`Active`, `BosmanEligible`, `Expired`)
+- [x] Bosman eligibility triggered when remaining contract duration <= 6 months (<= 182 days)
+- [x] `ContractSystem.OfferRenewal(...)` generates renewal offer if manager trust >= 30, refuses if trust < 30
+- [x] `ContractSystem.HandleContractExpiry(Player player, Contract contract, WorldState world, DateOnly currentDate)`
+- [x] Expired players transition to Free Agent (`ClubId = Guid.Empty`, `WeeklySalary = 0m`, removed from squad roster)
+- [x] Free agents remain eligible for transfer offers with zero transfer fee
+- [x] Unit test: `EvaluateContractStatus_SixMonthsOrLess_ReturnsBosmanEligible()`
+- [x] Unit test: `HandleContractExpiry_ExpiredContract_ReleasesPlayerToFreeAgency()`
+
+### Story P1-065: Unit & Integration Tests — Transfer Scenarios & Contract Lifecycles ✅
+**Branch:** `feature/milestone-1.10-transfers`
+**Status:** Merged in PR #89 (Issue #88)
+
+> Comprehensive unit and integration test suite validating transfer offer generation, contract negotiations, free agency, and career stability.
+
+**AC:**
+- [x] Test suite covering `TransferOffer` domain construction, bounds checking, and immutability
+- [x] Test suite covering `TransferSystem` suitor matching, escape offers, determinism, and roster execution
+- [x] Test suite covering `ContractSystem` negotiation bargaining curves, agent leverage, Bosman timelines, and free agency
+- [x] CLI and headless runner integration verified (24 dedicated tests, 513 total tests passing)
 
 ---
 
@@ -1050,11 +1129,9 @@ COMPLETED & MERGED TO MAIN:
   Milestone 1.7:    P1-044 → P1-048   (Economy System)            ✅ Merged (PR #69, Issues #64–#68)
   Milestone 1.8:    P1-049 → P1-054   (Life Events System v1)     ✅ Merged (PR #76, Issues #70–#75)
   Milestone 1.9:    P1-055 → P1-059   (Relationships)             ✅ Merged (PR #82, Issues #77–#81)
+  Milestone 1.10:   P1-060 → P1-065   (Transfer & Contract System) ✅ Merged (PR #89, Issues #83–#88)
 
 CURRENT ACTIVE TARGET:
-  Milestone 1.10:   P1-060 → P1-065   (Transfer & Contract System) 🚀 Ready to Start
-
-UPCOMING:
-  Milestone 1.11:   P1-066 → P1-069   (Career Simulator CLI & 10k Career Balance)
+  Milestone 1.11:   P1-066 → P1-069   (Career Simulator CLI & 10k Career Balance) 🚀 Ready to Start
 ```
 
