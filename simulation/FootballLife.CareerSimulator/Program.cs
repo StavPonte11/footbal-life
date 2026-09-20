@@ -19,17 +19,48 @@ namespace FootballLife.CareerSimulator
                 return 0;
             }
 
-            // Headless batch execution
+            // Parse CLI options
             int careersCount = 100;
+            int maxSeasons = CareerSimulationEngine.DefaultMaxSeasons;
+            int seed = 42;
+            bool parallel = false;
+            bool quiet = false;
+            string? csvPath = null;
+            string? jsonPath = null;
+
             for (int i = 0; i < args.Length; i++)
             {
                 if (args[i] == "--careers" && i + 1 < args.Length && int.TryParse(args[i + 1], out int c))
                 {
                     careersCount = c;
                 }
+                else if (args[i] == "--seasons" && i + 1 < args.Length && int.TryParse(args[i + 1], out int s))
+                {
+                    maxSeasons = s;
+                }
+                else if (args[i] == "--seed" && i + 1 < args.Length && int.TryParse(args[i + 1], out int sd))
+                {
+                    seed = sd;
+                }
+                else if (args[i] == "--csv" && i + 1 < args.Length)
+                {
+                    csvPath = args[i + 1];
+                }
+                else if (args[i] == "--json" && i + 1 < args.Length)
+                {
+                    jsonPath = args[i + 1];
+                }
+                else if (args[i] == "--parallel")
+                {
+                    parallel = true;
+                }
+                else if (args[i] == "--quiet")
+                {
+                    quiet = true;
+                }
             }
 
-            RunHeadlessSimulation(careersCount);
+            RunHeadlessSimulation(careersCount, maxSeasons, seed, parallel, quiet, csvPath, jsonPath);
             return 0;
         }
 
@@ -344,43 +375,72 @@ namespace FootballLife.CareerSimulator
             Console.WriteLine("================================================================================");
         }
 
-        private static void RunHeadlessSimulation(int careersCount)
+        private static void RunHeadlessSimulation(
+            int careersCount,
+            int maxSeasons,
+            int seed,
+            bool parallel,
+            bool quiet,
+            string? csvPath,
+            string? jsonPath)
         {
-            Console.WriteLine($"Running headless career validation for {careersCount} careers...");
-            var rng = new SimulationRandom(123);
-            int totalGoals = 0;
-            float totalRating = 0f;
-            int totalAppearances = 0;
-
-            for (int c = 1; c <= careersCount; c++)
+            if (!quiet)
             {
-                var playerId = Guid.NewGuid();
-                var clubId = Guid.NewGuid();
-                var leagueId = Guid.NewGuid();
-
-                var player = new Player(playerId, $"Prospect {c}", "ENG", new DateOnly(2007, 1, 1), Foot.Right, Position.ST);
-                var abilities = new PlayerAbilities(55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55);
-                var state = new PlayerState(10, 60, 60, 70, 80, 75, 80);
-                var career = PlayerCareerState.CreateAcademy(clubId);
-
-                var fixture = ScheduledMatch.Create(new DateOnly(2026, 9, 1), clubId, Guid.NewGuid(), leagueId);
-
-                for (int week = 1; week <= 38; week++)
-                {
-                    var (res, updatedState) = MatchSimulator.Simulate(fixture, clubId, abilities, state, Position.ST, rng, playerId);
-                    career = ManagerTrustSystem.ApplyMatchResult(career, res, career.Status);
-                    state = FatigueSystem.ApplyRest(updatedState, hoursSlept: 8);
-
-                    totalAppearances++;
-                    if (res.PlayerScored) totalGoals++;
-                    totalRating += res.PlayerRating;
-                }
+                Console.WriteLine("================================================================================");
+                Console.WriteLine("                    FOOTBALL LIFE - BULK CAREER SIMULATOR                       ");
+                Console.WriteLine($" Careers: {careersCount:N0} | Max Seasons: {maxSeasons} | Master Seed: {seed} | Parallel: {parallel}");
+                Console.WriteLine("================================================================================");
+                Console.WriteLine("Simulating careers, please wait...");
             }
 
-            Console.WriteLine($"Simulated {careersCount} careers ({careersCount * 38} matches).");
-            Console.WriteLine($"Average goals/match: {(float)totalGoals / totalAppearances:F2}");
-            Console.WriteLine($"Average player rating: {totalRating / totalAppearances:F2}");
-            Console.WriteLine("Headless validation complete. Simulation balanced.");
+            Action<int, int>? progress = quiet ? null : (done, total) =>
+            {
+                Console.Write($"\rProgress: {done:N0} / {total:N0} careers completed ({(double)done / total * 100:F0}%)...");
+            };
+
+            var report = BulkSimulationRunner.Run(careersCount, maxSeasons, seed, parallel, progress);
+
+            if (!quiet)
+            {
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine(report.Metrics.FormatSummaryTable());
+
+                var peakOverallValues = report.Careers.Select(c => (double)c.PeakOverall).ToList();
+                Console.WriteLine(report.Metrics.GenerateAsciiHistogram(peakOverallValues, 50, 100, 10, "Peak Overall Ability"));
+
+                var retirementAgeValues = report.Careers.Select(c => (double)c.RetirementAge).ToList();
+                Console.WriteLine(report.Metrics.GenerateAsciiHistogram(retirementAgeValues, 25, 40, 6, "Retirement Age"));
+
+                Console.WriteLine(string.Format(
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    "Simulation Performance: {0:N0} careers in {1:F2}s ({2:N0} careers/sec)",
+                    careersCount,
+                    report.Elapsed.TotalSeconds,
+                    report.CareersPerSecond));
+                Console.WriteLine("================================================================================");
+            }
+
+            // Export to CSV if requested
+            if (!string.IsNullOrWhiteSpace(csvPath))
+            {
+                using var writer = new StreamWriter(csvPath, false, System.Text.Encoding.UTF8);
+                writer.WriteLine(CareerStatistics.CsvHeader);
+                foreach (var c in report.Careers)
+                {
+                    writer.WriteLine(c.ToCsvLine());
+                }
+                if (!quiet) Console.WriteLine($"Exported CSV summary to: {Path.GetFullPath(csvPath)}");
+            }
+
+            // Export to JSON if requested
+            if (!string.IsNullOrWhiteSpace(jsonPath))
+            {
+                var options = new System.Text.Json.JsonSerializerOptions { WriteIndented = true };
+                string json = System.Text.Json.JsonSerializer.Serialize(report.Careers, options);
+                File.WriteAllText(jsonPath, json, System.Text.Encoding.UTF8);
+                if (!quiet) Console.WriteLine($"Exported JSON datasets to: {Path.GetFullPath(jsonPath)}");
+            }
         }
     }
 }

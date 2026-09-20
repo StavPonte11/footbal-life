@@ -143,7 +143,18 @@ namespace FootballLife.Domain
 
         public Contract? FindContractForPlayer(Guid playerId)
         {
-            return Contracts.Values.FirstOrDefault(c => c.PlayerId == playerId);
+            Contract? latest = null;
+            foreach (var c in Contracts.Values)
+            {
+                if (c.PlayerId == playerId)
+                {
+                    if (latest is null || c.EndDate > latest.EndDate)
+                    {
+                        latest = c;
+                    }
+                }
+            }
+            return latest;
         }
 
         public Contract GetContractForPlayer(Guid playerId)
