@@ -1,0 +1,574 @@
+{
+  "events": [
+    {
+      "id": "press_postmatch_criticism",
+      "title": "Post-Match Press Scrutiny",
+      "description": "Journalists ask whether the manager's tactical decisions cost the team points in the last match.",
+      "category": "Media",
+      "weight": 75,
+      "cooldownWeeks": 4,
+      "conditions": {
+        "minAge": 17
+      },
+      "choices": [
+        {
+          "id": "defend_manager",
+          "text": "Defend the manager publicly and emphasize collective squad responsibility.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": 8, "description": "Manager appreciates public loyalty" },
+            { "target": "Confidence", "delta": 2, "description": "Showed composure under questioning" }
+          ]
+        },
+        {
+          "id": "hint_discontent",
+          "text": "Subtly hint that players weren't placed in roles to maximize their strengths.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": -12, "description": "Manager furious over leaked friction" },
+            { "target": "Morale", "delta": -5, "description": "Locker room tension increases" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sponsor_energy_drink",
+      "title": "Energy Drink Endorsement",
+      "description": "A rising sports nutrition brand offers a quick sponsorship deal for an Instagram promotion.",
+      "category": "Commercial",
+      "weight": 60,
+      "cooldownWeeks": 6,
+      "conditions": {
+        "minSalary": 500
+      },
+      "choices": [
+        {
+          "id": "sign_deal",
+          "text": "Sign the endorsement contract and shoot promotional content.",
+          "effects": [
+            { "target": "Money", "delta": 2500, "description": "Sponsorship payment credited" },
+            { "target": "Fatigue", "delta": 4, "description": "Commercial shoot consumed recovery time" }
+          ]
+        },
+        {
+          "id": "decline_deal",
+          "text": "Decline the deal to keep your commercial image focused strictly on elite football.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": 3, "description": "Staff respect dedicated athletic focus" },
+            { "target": "Happiness", "delta": -2, "description": "Turned down easy money" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social_late_night_party",
+      "title": "Night Out Invitation",
+      "description": "Teammates invite you to an exclusive VIP night out ahead of a mid-week training session.",
+      "category": "Lifestyle",
+      "weight": 65,
+      "cooldownWeeks": 3,
+      "conditions": {
+        "maxAge": 28
+      },
+      "choices": [
+        {
+          "id": "attend_party",
+          "text": "Attend the party and celebrate late into the night.",
+          "effects": [
+            { "target": "Happiness", "delta": 15, "description": "Great night unwinding with friends" },
+            { "target": "Fatigue", "delta": 18, "description": "Lack of sleep hits physical condition" },
+            { "target": "ManagerTrust", "delta": -5, "description": "Manager noted sluggish morning warmup" }
+          ]
+        },
+        {
+          "id": "stay_home",
+          "text": "Politely decline, prepare a healthy meal, and sleep early.",
+          "effects": [
+            { "target": "Fatigue", "delta": -10, "description": "Full night of restorative sleep" },
+            { "target": "Confidence", "delta": 3, "description": "Disciplined professional mindset" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locker_room_tactical_dispute",
+      "title": "Heated Locker Room Debate",
+      "description": "Two senior players argue aggressively over defensive positioning during halftime analysis.",
+      "category": "LockerRoom",
+      "weight": 70,
+      "cooldownWeeks": 5,
+      "conditions": {},
+      "choices": [
+        {
+          "id": "mediate_peace",
+          "text": "Step in as a calm mediator and bring focus back to the team gameplan.",
+          "effects": [
+            { "target": "Morale", "delta": 8, "description": "Squad bonds around your leadership" },
+            { "target": "Confidence", "delta": 4, "description": "Gained authority among teammates" }
+          ]
+        },
+        {
+          "id": "stay_silent",
+          "text": "Keep your head down and stay out of the dispute.",
+          "effects": [
+            { "target": "Morale", "delta": -3, "description": "Lingering atmosphere of unresolved conflict" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "family_financial_loan_request",
+      "title": "Family Financial Request",
+      "description": "A close family relative asks for financial assistance to help remodel their family home.",
+      "category": "Family",
+      "weight": 55,
+      "cooldownWeeks": 8,
+      "conditions": {
+        "minSalary": 1500
+      },
+      "choices": [
+        {
+          "id": "send_financial_help",
+          "text": "Send the requested funds without hesitation.",
+          "effects": [
+            { "target": "Money", "delta": -4000, "description": "Financial support sent to family" },
+            { "target": "Happiness", "delta": 12, "description": "Peace of mind helping loved ones" },
+            { "target": "Morale", "delta": 6, "description": "Strong family grounding" }
+          ]
+        },
+        {
+          "id": "politely_refuse",
+          "text": "Explain that your finances need to remain invested in career stability.",
+          "effects": [
+            { "target": "Happiness", "delta": -8, "description": "Felt guilty about having to say no" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "extra_training_grind",
+      "title": "Solo Evening Training Session",
+      "description": "After official training finishes, the fitness coach offers an optional extra 60-minute technical drill.",
+      "category": "Training",
+      "weight": 80,
+      "cooldownWeeks": 3,
+      "conditions": {
+        "maxFatigue": 70
+      },
+      "choices": [
+        {
+          "id": "do_extra_drills",
+          "text": "Stay out on the grass and grind through the extra technical repetitions.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": 7, "description": "Coaching staff noted exceptional work ethic" },
+            { "target": "Confidence", "delta": 6, "description": "Sharp execution in extra drills" },
+            { "target": "Fatigue", "delta": 12, "description": "Extra load adds muscular tiredness" }
+          ]
+        },
+        {
+          "id": "head_to_showers",
+          "text": "Head straight inside to prioritize physical recovery.",
+          "effects": [
+            { "target": "Fatigue", "delta": -5, "description": "Protected legs from unnecessary overload" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tabloid_nightclub_scandal",
+      "title": "Tabloid Gossip Story",
+      "description": "A tabloid publishes misleading paparazzi photographs claiming you were out drinking past curfew.",
+      "category": "Media",
+      "weight": 40,
+      "cooldownWeeks": 8,
+      "conditions": {
+        "minAge": 18
+      },
+      "choices": [
+        {
+          "id": "issue_formal_denial",
+          "text": "Release an official legal statement debunking the story.",
+          "effects": [
+            { "target": "Money", "delta": -1200, "description": "Legal consultation and PR retainer" },
+            { "target": "Confidence", "delta": 5, "description": "Cleared your name with dignity" }
+          ]
+        },
+        {
+          "id": "ignore_tabloid",
+          "text": "Stay off social media and let your football do the talking on Saturday.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": -4, "description": "Unanswered tabloid noise annoyed the club" },
+            { "target": "Happiness", "delta": -5, "description": "Frustrated by public gossip" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "teammate_charity_match",
+      "title": "Community Youth Foundation",
+      "description": "The club foundation invites you to attend a grassroots football workshop for local school children.",
+      "category": "LockerRoom",
+      "weight": 60,
+      "cooldownWeeks": 5,
+      "conditions": {},
+      "choices": [
+        {
+          "id": "attend_charity",
+          "text": "Spend your afternoon mentoring the kids and signing jerseys.",
+          "effects": [
+            { "target": "Happiness", "delta": 14, "description": "Inspiring young fans lifted your spirits" },
+            { "target": "Morale", "delta": 8, "description": "Heartwarming connection to the community" },
+            { "target": "Fatigue", "delta": 4, "description": "Afternoon on your feet" }
+          ]
+        },
+        {
+          "id": "skip_charity",
+          "text": "Pass on the event to rest at home.",
+          "effects": [
+            { "target": "Fatigue", "delta": -4, "description": "Rested on the sofa" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "luxury_supercar_temptation",
+      "title": "Luxury Sports Car Offer",
+      "description": "A luxury dealership offers you a lease package on an exotic performance sports car.",
+      "category": "Lifestyle",
+      "weight": 50,
+      "cooldownWeeks": 12,
+      "conditions": {
+        "minSalary": 4000
+      },
+      "choices": [
+        {
+          "id": "purchase_supercar",
+          "text": "Take the keys and drive the supercar to training ground gates.",
+          "effects": [
+            { "target": "Money", "delta": -15000, "description": "Deposit and lease installment paid" },
+            { "target": "Happiness", "delta": 18, "description": "Thrilled by luxury performance vehicle" },
+            { "target": "ManagerTrust", "delta": -3, "description": "Manager dislikes flashy lifestyle displays" }
+          ]
+        },
+        {
+          "id": "keep_sensible_car",
+          "text": "Stick with your reliable daily vehicle and avoid vanity spending.",
+          "effects": [
+            { "target": "Confidence", "delta": 4, "description": "Confident in grounded priorities" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agent_contract_pressure",
+      "title": "Agent Agitation",
+      "description": "Your representative contacts you urging you to demand an improved wage packet or threaten a transfer.",
+      "category": "Commercial",
+      "weight": 55,
+      "cooldownWeeks": 7,
+      "conditions": {
+        "minManagerTrust": 55
+      },
+      "choices": [
+        {
+          "id": "tell_agent_to_wait",
+          "text": "Tell your agent to be patient and focus strictly on performing well first.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": 6, "description": "Manager appreciates your patience" },
+            { "target": "Morale", "delta": 3, "description": "Content with current club direction" }
+          ]
+        },
+        {
+          "id": "greenlight_wage_demand",
+          "text": "Instruct the agent to aggressively push the board for higher terms.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": -8, "description": "Board unhappy with contract pressure" },
+            { "target": "Confidence", "delta": 4, "description": "Asserted your value as a key player" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "supporter_fan_meet_and_greet",
+      "title": "Supporters Club Dinner",
+      "description": "The official supporters club hosts their annual dinner and requests your presence as guest of honor.",
+      "category": "Media",
+      "weight": 60,
+      "cooldownWeeks": 6,
+      "conditions": {
+        "minAge": 17
+      },
+      "choices": [
+        {
+          "id": "attend_dinner",
+          "text": "Attend the dinner, deliver a short speech, and connect with supporters.",
+          "effects": [
+            { "target": "Happiness", "delta": 10, "description": "Felt the unconditional warmth of supporters" },
+            { "target": "Confidence", "delta": 6, "description": "Vocal applause reinforces self-belief" },
+            { "target": "Fatigue", "delta": 5, "description": "Late evening social commitment" }
+          ]
+        },
+        {
+          "id": "send_autographed_shirt",
+          "text": "Send an autographed match shirt and apologize for resting ahead of the weekend.",
+          "effects": [
+            { "target": "Morale", "delta": 1, "description": "Supporters appreciated the signed memorabilia" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "family_holiday_break",
+      "title": "Family Weekend Visit",
+      "description": "Your parents travel down to visit your apartment and watch you play this weekend.",
+      "category": "Family",
+      "weight": 65,
+      "cooldownWeeks": 6,
+      "conditions": {},
+      "choices": [
+        {
+          "id": "host_family_dinner",
+          "text": "Take them out for a wonderful dinner and spend quality time together.",
+          "effects": [
+            { "target": "Money", "delta": -350, "description": "Paid for family restaurant dinner" },
+            { "target": "Happiness", "delta": 14, "description": "Loved having family around" },
+            { "target": "Morale", "delta": 7, "description": "Emotional recharge with parents" }
+          ]
+        },
+        {
+          "id": "brief_visit_only",
+          "text": "Keep the visit brief to maintain strict matchday focus.",
+          "effects": [
+            { "target": "Confidence", "delta": 2, "description": "Remained laser-focused on match preparation" },
+            { "target": "Happiness", "delta": -3, "description": "Wished you had spent more time with them" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "recovery_ice_bath_session",
+      "title": "Cryotherapy & Recovery Center",
+      "description": "A cutting-edge sports recovery clinic opens nearby offering specialized cryotherapy chambers.",
+      "category": "Training",
+      "weight": 70,
+      "cooldownWeeks": 3,
+      "conditions": {
+        "minFatigue": 35
+      },
+      "choices": [
+        {
+          "id": "book_cryotherapy",
+          "text": "Book a full private cryotherapy and deep tissue massage session.",
+          "effects": [
+            { "target": "Money", "delta": -450, "description": "Private sports clinic fee" },
+            { "target": "Fatigue", "delta": -18, "description": "Massive reduction in muscle soreness" },
+            { "target": "Happiness", "delta": 5, "description": "Body feels light and rejuvenated" }
+          ]
+        },
+        {
+          "id": "use_club_pool",
+          "text": "Use the club's standard plunge pool and save your personal money.",
+          "effects": [
+            { "target": "Fatigue", "delta": -7, "description": "Standard plunge pool recovery" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locker_room_prank_war",
+      "title": "Locker Room Prank",
+      "description": "A teammate hides your training boots on top of the locker room scoreboard.",
+      "category": "LockerRoom",
+      "weight": 60,
+      "cooldownWeeks": 4,
+      "conditions": {},
+      "choices": [
+        {
+          "id": "laugh_and_retaliate",
+          "text": "Take it with good humor and plot a creative harmless prank in return.",
+          "effects": [
+            { "target": "Happiness", "delta": 9, "description": "Great laughter shared with teammates" },
+            { "target": "Morale", "delta": 8, "description": "Locker room camaraderie at all-time high" }
+          ]
+        },
+        {
+          "id": "react_angrily",
+          "text": "Complain loudly that training gear should not be messed with.",
+          "effects": [
+            { "target": "Morale", "delta": -6, "description": "Teammates view you as humorless" },
+            { "target": "Confidence", "delta": -2, "description": "Let small antics get under your skin" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cryptocurrency_investment_tip",
+      "title": "Investment Opportunity Tip",
+      "description": "A tech-savvy teammate tells you about a seed investment venture in an upcoming digital media platform.",
+      "category": "Lifestyle",
+      "weight": 45,
+      "cooldownWeeks": 10,
+      "conditions": {
+        "minSalary": 2500
+      },
+      "choices": [
+        {
+          "id": "invest_funds",
+          "text": "Commit £5,000 into the private investment round.",
+          "effects": [
+            { "target": "Money", "delta": -5000, "description": "Venture capital investment outlay" },
+            { "target": "Confidence", "delta": 5, "description": "Building long-term wealth portfolio" }
+          ]
+        },
+        {
+          "id": "pass_on_investment",
+          "text": "Pass on the high-risk opportunity and keep your money in standard savings.",
+          "effects": [
+            { "target": "Morale", "delta": 2, "description": "Avoided financial distraction" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "manager_one_on_one_discussion",
+      "title": "Manager's Office Invitation",
+      "description": "The manager calls you into his private office for an honest mid-season career evaluation.",
+      "category": "LockerRoom",
+      "weight": 80,
+      "cooldownWeeks": 5,
+      "conditions": {},
+      "choices": [
+        {
+          "id": "ask_for_guidance",
+          "text": "Listen humbly and ask what specific tactical details you can improve on.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": 9, "description": "Manager delighted by your teachable attitude" },
+            { "target": "Confidence", "delta": 5, "description": "Clear tactical guidance boosts clarity" }
+          ]
+        },
+        {
+          "id": "demand_guaranteed_minutes",
+          "text": "Argue that you deserve guaranteed starting minutes every week.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": -10, "description": "Manager resists player entitlement" },
+            { "target": "Confidence", "delta": 3, "description": "Bold stance showed self-belief" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boot_sponsor_showcase",
+      "title": "Boot Brand Showcase Event",
+      "description": "A premier sports apparel brand invites you to trial prototype match boots ahead of the market release.",
+      "category": "Commercial",
+      "weight": 65,
+      "cooldownWeeks": 6,
+      "conditions": {
+        "minAge": 17
+      },
+      "choices": [
+        {
+          "id": "participate_showcase",
+          "text": "Participate in the photo session and test the new prototypes.",
+          "effects": [
+            { "target": "Money", "delta": 1800, "description": "Commercial appearance fee" },
+            { "target": "Confidence", "delta": 4, "description": "Testing elite new footwear gear" },
+            { "target": "Fatigue", "delta": 3, "description": "Light studio photoshoot" }
+          ]
+        },
+        {
+          "id": "decline_showcase",
+          "text": "Stay loyal to your current comfortable boots and skip the event.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": 2, "description": "Focused exclusively on match preparation" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social_media_controversial_post",
+      "title": "Social Media Controversy",
+      "description": "After a refereeing error, you are tempted to tweet your frustration with the match officials.",
+      "category": "Media",
+      "weight": 55,
+      "cooldownWeeks": 5,
+      "conditions": {},
+      "choices": [
+        {
+          "id": "tweet_frustration",
+          "text": "Post your candid anger online and let fans know how you feel.",
+          "effects": [
+            { "target": "Money", "delta": -1500, "description": "League disciplinary association fine" },
+            { "target": "ManagerTrust", "delta": -7, "description": "Manager irritated by unnecessary disciplinary fine" },
+            { "target": "Happiness", "delta": 4, "description": "Vented pent-up frustration" }
+          ]
+        },
+        {
+          "id": "put_phone_away",
+          "text": "Delete the draft, put the phone down, and channel the emotion into next week's training.",
+          "effects": [
+            { "target": "Confidence", "delta": 4, "description": "Exercised mature emotional self-control" },
+            { "target": "ManagerTrust", "delta": 3, "description": "Staff impressed by emotional discipline" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exhaustion_mental_burnout",
+      "title": "Mid-Season Mental Fatigue",
+      "description": "Relentless match schedules and intense physical pressure leave you feeling drained and irritable.",
+      "category": "Training",
+      "weight": 70,
+      "cooldownWeeks": 5,
+      "conditions": {
+        "minFatigue": 60
+      },
+      "choices": [
+        {
+          "id": "request_light_day",
+          "text": "Ask the coaching staff for a modified low-impact gym workout.",
+          "effects": [
+            { "target": "Fatigue", "delta": -14, "description": "Light gym session prevented breakdown" },
+            { "target": "Happiness", "delta": 6, "description": "Mental relief from easing up" }
+          ]
+        },
+        {
+          "id": "push_through_pain",
+          "text": "Refuse to show any signs of fatigue and complete the full training regimen.",
+          "effects": [
+            { "target": "ManagerTrust", "delta": 6, "description": "Manager salutes mental toughness" },
+            { "target": "Fatigue", "delta": 15, "description": "Pushed exhausted muscles to their absolute limit" },
+            { "target": "Happiness", "delta": -8, "description": "Severe physical and mental exhaustion" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hometown_youth_academy_visit",
+      "title": "Hometown Club Recognition",
+      "description": "The local youth club where you first played as an 8-year-old names a youth tournament after you.",
+      "category": "Family",
+      "weight": 50,
+      "cooldownWeeks": 10,
+      "conditions": {
+        "minAge": 19
+      },
+      "choices": [
+        {
+          "id": "donate_equipment",
+          "text": "Visit the tournament, hand out the trophy, and donate £1,500 in new gear.",
+          "effects": [
+            { "target": "Money", "delta": -1500, "description": "Charity donation to childhood grassroots club" },
+            { "target": "Happiness", "delta": 16, "description": "Unforgettable joy giving back to roots" },
+            { "target": "Morale", "delta": 10, "description": "Deep gratitude and inspiration" }
+          ]
+        },
+        {
+          "id": "send_video_message",
+          "text": "Record a heartfelt video message to play on their social media page.",
+          "effects": [
+            { "target": "Happiness", "delta": 6, "description": "Appreciated the recognition from hometown" }
+          ]
+        }
+      ]
+    }
+  ]
+}
