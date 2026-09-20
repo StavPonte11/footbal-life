@@ -1177,8 +1177,101 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
   Milestone 1.10:   P1-060 → P1-065   (Transfer & Contract System) ✅ Merged (PR #89, Issues #83–#88)
   Milestone 1.11:   P1-066 → P1-069   (Career Simulator & 10k Balance) ✅ Merged (PR #94, Issues #90–#93)
 
-CURRENT ACTIVE TARGET:
-  Phase 2, Milestone 2.1: P2-001 → P2-005 (Unity Project Bootstrap) 🚀 Ready to Start
+---
+
+## PHASE 2 — UNITY PROTOTYPE
+
+## MILESTONE 2.1 — Unity Project Bootstrap ✅ Complete
+*Branch: `feature/milestone-2.1-unity-bootstrap` | Issues #95, #100, #97–#99*
+
+### Story P2-001: Initialize Unity 6 Project & Assembly Definition Setup ✅
+**Branch:** `feature/milestone-2.1-unity-bootstrap`
+**Status:** Completed (Issue #95)
+
+> As a gameplay programmer, I want a clean Unity 6 URP project with modular assembly definitions (`FootballLife.Unity.Core`, `FootballLife.Unity.UI`, `FootballLife.Unity.Editor`) linked to `FootballLife.Domain` and `FootballLife.Simulation` so that Unity presentation code compiles cleanly with strict separation from domain logic.
+
+**Acceptance Criteria:**
+- [x] Assembly definitions created: `FootballLife.Unity.Core.asmdef`, `FootballLife.Unity.UI.asmdef`, `FootballLife.Unity.Editor.asmdef`
+- [x] `FootballLife.Domain.dll` and `FootballLife.Simulation.dll` compiled and linked cleanly in `Assets/Plugins/FootballLife/`
+- [x] Unity 6 URP and New Input System active and configured
+- [x] Clean compilation with zero errors
+
+---
+
+### Story P2-002: Integration Bridge: SimulationRuntime <-> Unity Session ✅
+**Branch:** `feature/milestone-2.1-unity-bootstrap`
+**Status:** Completed (Issue #100)
+
+> As a gameplay programmer, I want a `SimulationBridge` MonoBehaviour that hosts the pure C# `CareerSimulationEngine` / `SimulationRuntime` and translates Unity time / UI actions into deterministic simulation ticks and dispatches C# events for presentation updates.
+
+**Acceptance Criteria:**
+- [x] `SimulationBridge` component created in `FootballLife.Unity.Core`
+- [x] Clean event dispatching for day, week, season, match, and life events (`OnDayAdvanced`, `OnWeekAdvanced`, `OnSeasonAdvanced`, `OnMatchOpportunity`, `OnLifeEventOccurred`)
+- [x] Deterministic tick execution powered by pure C# `CareerSimulationEngine`
+- [x] Zero GC allocations in frame update loops (`Update()`, `FixedUpdate()`)
+
+---
+
+### Story P2-003: Save/Load System: Persist Career State to Disk ✅
+**Branch:** `feature/milestone-2.1-unity-bootstrap`
+**Status:** Completed (Issue #97)
+
+> As a player, I want my career state to be persisted to disk automatically and safely so that I can resume my career anytime across game sessions without data loss or corruption.
+
+**Acceptance Criteria:**
+- [x] `SaveLoadManager` service implemented with atomic write guarantees (temp file + replace)
+- [x] Complete serialization/deserialization of career state (`CareerSaveData`)
+- [x] Multi-slot management (slots 1–3 + auto-save slot)
+- [x] Tests verifying save, load, corruption resistance, and schema versioning
+
+---
+
+### Story P2-004: Scene Architecture: Bootstrap, MainMenu, CareerHub, Match, Home ✅
+**Branch:** `feature/milestone-2.1-unity-bootstrap`
+**Status:** Completed (Issue #98)
+
+> As a player and developer, I want a structured scene architecture (`Bootstrap`, `MainMenu`, `CareerHub`, `Match`) with additive loading and a central `SceneFlowManager` so that transitions between screens are smooth, fast, and maintain persistent session state.
+
+**Acceptance Criteria:**
+- [x] Scenes created/configured: `Bootstrap`, `MainMenu`, `CareerHub`, `Match`
+- [x] Standard root hierarchy applied to each scene (`[MANAGERS]`, `[ENVIRONMENT]`, `[ENTITIES]`, `[CAMERAS]`, `[UI]`)
+- [x] `SceneFlowManager` implemented with asynchronous transition methods and persistent lifecycle
+- [x] Build Settings updated with scene list
+
+---
+
+### Story P2-005: App UI Design System: Dark Theme, Typography, Component Library ✅
+**Branch:** `feature/milestone-2.1-unity-bootstrap`
+**Status:** Completed (Issue #99)
+
+> As a mobile player, I want a premium sports-lifestyle dark UI theme with consistent typography, custom USS design tokens, and reusable component styles (stat meters, cards, badges, buttons) so that the game looks and feels like a modern mobile football career app.
+
+**Acceptance Criteria:**
+- [x] USS token stylesheets (`theme-dark.uss`, `tokens.uss`, `components.uss`) created in `Assets/UI/Styles/`
+- [x] Reusable styles for buttons, cards, stat meters, and badges implemented
+- [x] Mobile-first responsive layout rules with proper safe-area padding
+- [x] `DesignSystemPreview.uxml` demonstrating components
+
+---
+
+## Phase 2 Issue Status Overview
+
 ```
+COMPLETED:
+  Milestone 2.1:    P2-001 → P2-005   (Unity Project Bootstrap)    ✅ Complete (Issues #95, #100, #97–#99)
+
+CURRENT ACTIVE TARGET:
+  Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)       🚀 Next Up
+```
+
+UPCOMING MILESTONES:
+  Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)
+  Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)
+  Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)
+  Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)
+  Milestone 2.6:    P2-018 → P2-020   (Post-Match & Season Summary)
+  Milestone 2.7:    P2-021 → P2-023   (Prototype Playtest & Gate 2.1)
+```
+
 
 
