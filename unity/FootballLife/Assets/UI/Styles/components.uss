@@ -1,0 +1,214 @@
+/* =========================================================================
+   BUTTONS
+   ========================================================================= */
+.btn {
+    padding-left: var(--fl-spacing-md);
+    padding-right: var(--fl-spacing-md);
+    padding-top: var(--fl-spacing-sm);
+    padding-bottom: var(--fl-spacing-sm);
+    border-radius: var(--fl-radius-md);
+    border-width: 1px;
+    border-color: transparent;
+    font-size: 14px;
+    -unity-font-style: bold;
+    cursor: link;
+    transition-property: background-color, scale;
+    transition-duration: 0.15s;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    scale: 1.02;
+}
+
+.btn:active {
+    scale: 0.98;
+}
+
+.btn-primary {
+    background-color: var(--fl-color-primary);
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: var(--fl-color-primary-hover);
+}
+
+.btn-primary:active {
+    background-color: var(--fl-color-primary-active);
+}
+
+.btn-gold {
+    background-color: var(--fl-color-gold);
+    color: #0F172A;
+}
+
+.btn-gold:hover {
+    background-color: var(--fl-color-gold-hover);
+}
+
+.btn-secondary {
+    background-color: var(--fl-color-surface-elevated);
+    border-color: var(--fl-color-border);
+    color: var(--fl-color-text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--fl-color-surface-subtle);
+}
+
+.btn-danger {
+    background-color: var(--fl-color-danger);
+    color: #FFFFFF;
+}
+
+.btn-danger:hover {
+    background-color: var(--fl-color-danger-hover);
+}
+
+.btn-ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--fl-color-text-secondary);
+}
+
+.btn-ghost:hover {
+    color: var(--fl-color-text-primary);
+    background-color: var(--fl-color-surface-subtle);
+}
+
+/* =========================================================================
+   CARDS & CONTAINERS
+   ========================================================================= */
+.card {
+    background-color: var(--fl-color-surface);
+    border-radius: var(--fl-radius-lg);
+    border-width: 1px;
+    border-color: var(--fl-color-border);
+    padding: var(--fl-spacing-md);
+    margin-bottom: var(--fl-spacing-sm);
+}
+
+.card-elevated {
+    background-color: var(--fl-color-surface-elevated);
+    border-radius: var(--fl-radius-lg);
+    border-width: 1px;
+    border-color: var(--fl-color-border);
+    padding: var(--fl-spacing-lg);
+    margin-bottom: var(--fl-spacing-md);
+}
+
+.card-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--fl-color-border);
+    padding-bottom: var(--fl-spacing-sm);
+    margin-bottom: var(--fl-spacing-sm);
+}
+
+/* =========================================================================
+   STAT METERS (PROGRESS BARS)
+   ========================================================================= */
+.stat-meter-container {
+    margin-top: var(--fl-spacing-xs);
+    margin-bottom: var(--fl-spacing-xs);
+}
+
+.stat-meter-header {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.stat-meter-track {
+    height: 8px;
+    background-color: var(--fl-color-bg-deep);
+    border-radius: var(--fl-radius-full);
+    overflow: hidden;
+    width: 100%;
+}
+
+.stat-meter-fill {
+    height: 100%;
+    border-radius: var(--fl-radius-full);
+    background-color: var(--fl-color-primary);
+    transition-property: width;
+    transition-duration: 0.3s;
+}
+
+.stat-meter-fill-energy {
+    background-color: #38BDF8;
+}
+
+.stat-meter-fill-form {
+    background-color: #34D399;
+}
+
+.stat-meter-fill-morale {
+    background-color: #FBBF24;
+}
+
+/* =========================================================================
+   BADGES
+   ========================================================================= */
+.badge {
+    padding-left: var(--fl-spacing-sm);
+    padding-right: var(--fl-spacing-sm);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: var(--fl-radius-full);
+    font-size: 11px;
+    -unity-font-style: bold;
+    align-self: flex-start;
+}
+
+.badge-green {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #34D399;
+    border-width: 1px;
+    border-color: #10B981;
+}
+
+.badge-gold {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: #FBBF24;
+    border-width: 1px;
+    border-color: #F59E0B;
+}
+
+.badge-slate {
+    background-color: var(--fl-color-surface-subtle);
+    color: var(--fl-color-text-secondary);
+    border-width: 1px;
+    border-color: var(--fl-color-border);
+}
+
+/* =========================================================================
+   APP BAR & NAVIGATION
+   ========================================================================= */
+.app-bar {
+    height: 56px;
+    background-color: var(--fl-color-surface);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--fl-color-border);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: var(--fl-spacing-md);
+    padding-right: var(--fl-spacing-md);
+}
+
+.bottom-nav {
+    height: 64px;
+    background-color: var(--fl-color-surface);
+    border-top-width: 1px;
+    border-top-color: var(--fl-color-border);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding-left: var(--fl-spacing-sm);
+    padding-right: var(--fl-spacing-sm);
+}

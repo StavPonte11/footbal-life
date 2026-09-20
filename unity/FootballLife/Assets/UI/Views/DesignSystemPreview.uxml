@@ -1,0 +1,101 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="padding: 24px; flex-grow: 1;">
+        <!-- Top App Bar Showcase -->
+        <ui:VisualElement class="app-bar" style="margin-bottom: 20px; border-radius: 8px;">
+            <ui:Label text="FOOTBALL LIFE" class="text-accent" style="font-size: 18px;" />
+            <ui:VisualElement style="flex-direction: row; align-items: center;">
+                <ui:Label text="£24,500" class="text-gold" style="margin-right: 12px;" />
+                <ui:Label text="ST | 74 OVR" class="badge badge-green" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:ScrollView style="flex-grow: 1;">
+            <!-- Player Status Card -->
+            <ui:VisualElement class="card-elevated">
+                <ui:VisualElement class="card-header">
+                    <ui:VisualElement>
+                        <ui:Label text="Marcus Vance" class="text-title" />
+                        <ui:Label text="Striker • Northfield Town • Season 1, Week 14" class="text-subtitle" />
+                    </ui:VisualElement>
+                    <ui:Label text="ACTIVE SQUAD" class="badge badge-gold" />
+                </ui:VisualElement>
+
+                <!-- Dynamic Condition Meters -->
+                <ui:VisualElement style="margin-top: 12px;">
+                    <!-- Energy Meter -->
+                    <ui:VisualElement class="stat-meter-container">
+                        <ui:VisualElement class="stat-meter-header">
+                            <ui:Label text="Energy" class="text-caption" />
+                            <ui:Label text="88%" class="text-caption" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-meter-track">
+                            <ui:VisualElement class="stat-meter-fill stat-meter-fill-energy" style="width: 88%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- Form Meter -->
+                    <ui:VisualElement class="stat-meter-container">
+                        <ui:VisualElement class="stat-meter-header">
+                            <ui:Label text="Form" class="text-caption" />
+                            <ui:Label text="76%" class="text-caption" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-meter-track">
+                            <ui:VisualElement class="stat-meter-fill stat-meter-fill-form" style="width: 76%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- Morale Meter -->
+                    <ui:VisualElement class="stat-meter-container">
+                        <ui:VisualElement class="stat-meter-header">
+                            <ui:Label text="Morale" class="text-caption" />
+                            <ui:Label text="92%" class="text-caption" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-meter-track">
+                            <ui:VisualElement class="stat-meter-fill stat-meter-fill-morale" style="width: 92%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Interactive Component Showcase -->
+            <ui:VisualElement class="card">
+                <ui:Label text="Action Controls &amp; Buttons" class="text-title" style="font-size: 18px; margin-bottom: 12px;" />
+                
+                <ui:VisualElement style="flex-direction: row; flex-wrap: wrap; gap: 8px;">
+                    <ui:Button text="Advance Day" class="btn btn-primary" />
+                    <ui:Button text="Contract Offer" class="btn btn-gold" />
+                    <ui:Button text="Rest &amp; Recover" class="btn btn-secondary" />
+                    <ui:Button text="Reject Offer" class="btn btn-danger" />
+                    <ui:Button text="Details" class="btn btn-ghost" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Save Slot Card Showcase -->
+            <ui:VisualElement class="card">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="Save Slot 1 • Manual Save" class="text-title" style="font-size: 16px;" />
+                    <ui:Label text="Auto-Save Enabled" class="badge badge-slate" />
+                </ui:VisualElement>
+                <ui:Label text="Alex Mercer (Arsenal FC) — Season 2, Week 28 • £142,000" class="text-subtitle" style="font-size: 13px;" />
+                <ui:VisualElement style="flex-direction: row; margin-top: 12px; gap: 8px;">
+                    <ui:Button text="Load Career" class="btn btn-primary" style="flex-grow: 1;" />
+                    <ui:Button text="Overwrite" class="btn btn-secondary" />
+                    <ui:Button text="Delete" class="btn btn-danger" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:ScrollView>
+
+        <!-- Bottom Navigation Bar Showcase -->
+        <ui:VisualElement class="bottom-nav" style="border-radius: 8px; margin-top: 12px;">
+            <ui:Button text="Home" class="btn btn-ghost text-accent" />
+            <ui:Button text="Training" class="btn btn-ghost" />
+            <ui:Button text="Career" class="btn btn-ghost" />
+            <ui:Button text="Lifestyle" class="btn btn-ghost" />
+            <ui:Button text="Settings" class="btn btn-ghost" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

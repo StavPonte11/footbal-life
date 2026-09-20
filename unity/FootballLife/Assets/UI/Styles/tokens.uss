@@ -1,0 +1,40 @@
+:root {
+    /* Brand Accent Colors */
+    --fl-color-primary: #10B981;
+    --fl-color-primary-hover: #059669;
+    --fl-color-primary-active: #047857;
+    --fl-color-gold: #F59E0B;
+    --fl-color-gold-hover: #D97706;
+    --fl-color-danger: #EF4444;
+    --fl-color-danger-hover: #DC2626;
+
+    /* Dark Surfaces & Backgrounds */
+    --fl-color-bg-deep: #0B0F19;
+    --fl-color-surface: #131C2E;
+    --fl-color-surface-elevated: #1E293B;
+    --fl-color-surface-subtle: #253349;
+    --fl-color-border: #334155;
+
+    /* Typography Colors */
+    --fl-color-text-primary: #F8FAFC;
+    --fl-color-text-secondary: #94A3B8;
+    --fl-color-text-muted: #64748B;
+    --fl-color-text-accent: #34D399;
+    --fl-color-text-gold: #FBBF24;
+
+    /* Geometry & Radius */
+    --fl-radius-sm: 4px;
+    --fl-radius-md: 8px;
+    --fl-radius-lg: 14px;
+    --fl-radius-full: 9999px;
+
+    /* Spacing */
+    --fl-spacing-xs: 4px;
+    --fl-spacing-sm: 8px;
+    --fl-spacing-md: 14px;
+    --fl-spacing-lg: 20px;
+    --fl-spacing-xl: 32px;
+
+    /* Shadows & Elevation */
+    --fl-shadow-card: rgba(0, 0, 0, 0.45);
+}

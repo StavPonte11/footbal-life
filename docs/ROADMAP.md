@@ -216,15 +216,16 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 **Goal:** First playable prototype on Unity 6 — players can create a footballer, train, play abstracted matches, and see a season summary.
 **Exit Criteria:** Internal playable build completing one full season without crashes.
 
-### Milestone 2.1 — Unity Project Bootstrap
+### Milestone 2.1 — Unity Project Bootstrap ✅ (Complete)
+*Branch: `feature/milestone-2.1-unity-bootstrap` | Issues #95, #100, #97–#99*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P2-001 | Initialize Unity 6 project (URP, App UI, Input System) | Unity | M |
-| #P2-002 | Integration bridge: SimulationRuntime ↔ Unity session | Unity | L |
-| #P2-003 | Save/load system: persist career state to disk | Unity | L |
-| #P2-004 | Scene architecture: Bootstrap, MainMenu, CareerHub, Match, Home | Unity | M |
-| #P2-005 | App UI design system: dark theme, typography, component library | Unity | L |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P2-001 (#95) | Initialize Unity 6 project (URP, App UI, Input System, Asmdefs) | Unity | M | ✅ Complete |
+| #P2-002 (#100) | Integration bridge: SimulationRuntime <-> Unity session | Unity | L | ✅ Complete |
+| #P2-003 (#97) | Save/load system: persist career state to disk | Unity | L | ✅ Complete |
+| #P2-004 (#98) | Scene architecture: Bootstrap, MainMenu, CareerHub, Match, Home | Unity | M | ✅ Complete |
+| #P2-005 (#99) | App UI design system: dark theme, typography, component library | Unity | L | ✅ Complete |
 
 ### Milestone 2.2 — Player Creation Flow
 

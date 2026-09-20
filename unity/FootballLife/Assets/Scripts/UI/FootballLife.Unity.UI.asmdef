@@ -1,0 +1,17 @@
+{
+    "name": "FootballLife.Unity.UI",
+    "rootNamespace": "FootballLife.Unity.UI",
+    "references": [
+        "FootballLife.Unity.Core",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
