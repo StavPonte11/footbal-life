@@ -47,6 +47,7 @@ namespace FootballLife.CareerSimulator
             var playerId = Guid.NewGuid();
             var clubId = Guid.NewGuid();
             var leagueId = Guid.NewGuid();
+            var league = new League(leagueId, "Championship", "ENG", 2, 24, 38, 2, 3);
 
             var playerClub = new Club(
                 id: clubId,
@@ -108,11 +109,18 @@ namespace FootballLife.CareerSimulator
                 appearanceBonus: 50m,
                 cleanSheetBonus: 0m);
 
+            var contract = Contract.Create(playerId, clubId, 1200m, new DateOnly(2026, 8, 1), new DateOnly(2028, 6, 30), SquadRole.Rotation, bonuses);
+
+            var suitorClub1 = Club.Create("Leeds United", "LEE", leagueId, 65, new ClubFinances(8000000m, 80000m), 4, TacticalIdentity.HighPress);
+            var suitorClub2 = Club.Create("Sheffield United", "SHU", leagueId, 60, new ClubFinances(6000000m, 60000m), 3, TacticalIdentity.Direct);
+
+            playerClub = playerClub.WithAddedPlayer(playerId);
+
             var matchResults = new List<MatchResult>();
             int weeksInSeason = 38;
 
             Console.WriteLine($"Player: {player.Name} | Age: 19 | Position: {player.PrimaryPosition} | Club: {playerClub.Name}");
-            Console.WriteLine($"Starting Status: {career.Status} | Wage: £{career.WeeklySalary:N0}/wk | Potential: {potential.PotentialRating} | Lifestyle: {lifestyle}");
+            Console.WriteLine($"Starting Status: {career.Status} | Wage: £{career.WeeklySalary:N0}/wk | Contract: {contract.StartDate:yyyy}–{contract.EndDate:yyyy} | Lifestyle: {lifestyle}");
             Console.WriteLine();
 
             string eventsPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "content", "data", "events.json");
@@ -146,14 +154,32 @@ namespace FootballLife.CareerSimulator
                     currentWeek: week);
 
                 var world = WorldState.CreateEmpty(season)
+                    .WithLeague(league)
+                    .WithClub(playerClub)
+                    .WithClub(suitorClub1)
+                    .WithClub(suitorClub2)
+                    .WithContract(contract)
                     .WithPlayer(player, abilities, state, career, potential, account, relationships);
+
+                var contractStatus = ContractSystem.EvaluateContractStatus(contract, weekDate);
 
                 Console.WriteLine("--------------------------------------------------------------------------------");
                 Console.WriteLine($"[WEEK {week:D2}/38] Date: {weekDate:yyyy-MM-dd}");
                 Console.WriteLine($"Condition -> Fatigue: {state.Fatigue:F1}% | Form: {state.Form:F1} | Confidence: {state.Confidence:F1} | Trust: {career.ManagerTrust:F1} | Status: {career.Status}");
+                Console.WriteLine($"Contract  -> Wage: £{career.WeeklySalary:N0}/wk | Status: {contractStatus} (Until: {contract.EndDate:yyyy-MM-dd})");
                 Console.WriteLine($"Finances  -> Balance: £{account.Balance:N0} (Wage: +£{career.WeeklySalary:N0}, Lifestyle: -£{EconomySystem.GetLifestyleWeeklyCost(lifestyle):N0})");
                 Console.WriteLine($"Abilities -> OVR: {abilities.CalculateAverage():F1} | FIN: {abilities.Shooting} | PAC: {abilities.Pace} | DRI: {abilities.Dribbling} | PAS: {abilities.Passing}");
                 Console.WriteLine($"Social    -> {string.Join(" | ", relationships.Select(r => $"{r.Name}: {r.Affinity:F0}%"))}");
+
+                if (week == 1 || week == 20)
+                {
+                    var offers = TransferSystem.GenerateOffers(player, abilities, career, contract, world, rng, weekDate);
+                    if (offers.Count > 0)
+                    {
+                        Console.WriteLine($"Transfer  -> {offers.Count} suitor bid(s) received! Top: {world.GetClub(offers[0].OfferingClubId).Name} (£{offers[0].OfferedWage:N0}/wk, Fee: £{offers[0].TransferFee:N0})");
+                    }
+                }
+
                 Console.WriteLine();
 
                 Console.WriteLine("Choose Weekly Training Regimen:");
