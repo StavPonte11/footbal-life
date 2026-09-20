@@ -78,6 +78,25 @@ namespace FootballLife.Simulation
                             playerGoals++;
                             matchState = matchState.WithGoal(minute, activePlayerId, null, playerIsHome);
                         }
+                        else if (bestChoice.Action == MatchAction.ThroughBall || bestChoice.Action == MatchAction.Cross || bestChoice.Action == MatchAction.ShortPass)
+                        {
+                            // Playmaker opportunity converted by teammate into an assist
+                            bool assistConverted = (bestChoice.Action == MatchAction.ThroughBall && rng.NextBool(0.35f)) ||
+                                                   (bestChoice.Action == MatchAction.Cross && rng.NextBool(0.30f)) ||
+                                                   (bestChoice.Action == MatchAction.ShortPass && rng.NextBool(0.12f));
+
+                            if (assistConverted)
+                            {
+                                playerAssists++;
+                                byte teamByte = (byte)(playerIsHome ? 1 : 2);
+                                Guid teammateScorerId = new Guid(minute, (short)teamByte, (short)3, 0, 0, 0, 0, 0, 0, 0, teamByte);
+                                matchState = matchState.WithGoal(minute, teammateScorerId, activePlayerId, playerIsHome);
+                            }
+                            else
+                            {
+                                keyActions += 0.5f;
+                            }
+                        }
                         else if (outcome.Type == OutcomeType.SaveMade)
                         {
                             keyActions += 1.0f;
