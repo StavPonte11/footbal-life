@@ -15,11 +15,11 @@ As a [stakeholder], I want [capability] so that [benefit].
 **Branch convention:** `feature/p1-NNN-<slug>`
 **Acceptance Criteria (AC)** must all pass before a PR may be merged.
 
-> **Status (Sep 2026):** Milestones 1.1 through 1.8 are **COMPLETE and MERGED to `main`** (Stories P1-001 through P1-054, P1-GAP-1 through P1-GAP-4, and P1-GATE-1 through P1-GATE-4). All 68 related GitHub issues (#1–#57, #64–#68, #70–#75) and PRs (#11–#16, #25–#32, #58–#63, #69, #76) are closed. Build is green with **473 unit & integration tests passing** (0 failures, 0 warnings).
+> **Status (Sep 2026):** Milestones 1.1 through 1.9 are **COMPLETE and MERGED to `main`** (Stories P1-001 through P1-059, P1-GAP-1 through P1-GAP-4, and P1-GATE-1 through P1-GATE-4). All 73 related GitHub issues (#1–#57, #64–#68, #70–#75, #77–#81) and PRs (#11–#16, #25–#32, #58–#63, #69, #76, #82) are closed. Build is green with **489 unit & integration tests passing** (0 failures, 0 warnings).
 >
 > **Validation Gate 1.6.5 PASSED (GO)**: The minimum playable loop was playtested via the interactive console harness (`FootballLife.CareerSimulator --interactive`) and formal evaluation documented in [`docs/gate-review.md`](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/gate-review.md).
 >
-> **Current Active Milestone:** Milestone 1.9 — Basic Relationships (Stories P1-055 through P1-059).
+> **Current Active Milestone:** Milestone 1.10 — Transfer & Contract System (Stories P1-060 through P1-065).
 
 ---
 
@@ -926,19 +926,75 @@ MatchResult
 
 ---
 
-## MILESTONE 1.9 — Relationships
+## MILESTONE 1.9 — Relationships ✅ Complete
 
-### Story P1-055: Relationship Model
-**Branch:** `feature/p1-055-relationship-model`
+### Story P1-055: Relationship Model ✅
+**Branch:** `feature/milestone-1.9-relationships`
+**Status:** Merged in PR #82 (Issue #77)
 
 > As a life simulation, I want relationship entities with emotional context so that the game presents people as people rather than numeric bars.
 
 **AC:**
-- [ ] `Relationship` record: `Guid Id`, `Guid PersonId`, `RelationshipType Type`, `float Affinity` [0–100], `float Trust` [0–100], `DateOnly LastInteraction`, `IReadOnlyList<string> SharedHistory`
-- [ ] `RelationshipType` enum: `Partner`, `Parent`, `Sibling`, `Friend`, `Teammate`, `Manager`, `Agent`
-- [ ] Affinity decays 0.5 per week without interaction (but never below 20 for family)
-- [ ] Unit test: `Relationship_Affinity_DecaysFromNeglect()`
-- [ ] Unit test: `Relationship_FamilyAffinity_HasMinimumFloor()`
+- [x] `Relationship` record: `Guid Id`, `Guid PersonId`, `RelationshipType Type`, `float Affinity` [0–100], `float Trust` [0–100], `DateOnly LastInteraction`, `IReadOnlyList<string> SharedHistory`
+- [x] `RelationshipType` enum: `Partner`, `Parent`, `Sibling`, `Friend`, `Teammate`, `Manager`, `Agent`
+- [x] Affinity decays 0.5 per week without interaction (but never below 20 for family)
+- [x] Unit test: `Relationship_Affinity_DecaysFromNeglect()`
+- [x] Unit test: `Relationship_FamilyAffinity_HasMinimumFloor()`
+
+### Story P1-056: Affinity Decay from Neglect ✅
+**Branch:** `feature/milestone-1.9-relationships`
+**Status:** Merged in PR #82 (Issue #78)
+
+> As a player, I want relationships to naturally cool down when neglected so that maintaining friendships and family ties requires deliberate effort and time investment.
+
+**AC:**
+- [x] `RelationshipSystem.ApplyWeeklyDecay(WorldState world)` evaluates weeks since `LastInteraction`
+- [x] Weekly decay rate: default 0.5 affinity points per uncontacted week
+- [x] Family members (`Parent`, `Sibling`) maintain a baseline affinity floor of 20.0 regardless of time passed
+- [x] Non-family members can decay down to 0.0 affinity
+- [x] Unit test: `RelationshipSystem_WeeklyDecay_ReducesAffinity()`
+- [x] Unit test: `RelationshipSystem_FamilyDecay_RespectsFloor()`
+
+### Story P1-057: Interaction Events Affecting Affinity ✅
+**Branch:** `feature/milestone-1.9-relationships`
+**Status:** Merged in PR #82 (Issue #79)
+
+> As a player, I want positive and negative interactions (dinners, gifts, arguments, praise) to directly mutate relationship affinity and trust so that my choices have social consequences.
+
+**AC:**
+- [x] `RelationshipSystem.RecordInteraction(WorldState world, Guid relationshipId, float affinityDelta, float trustDelta, string context, DateOnly date)`
+- [x] Appends context note to `SharedHistory` log
+- [x] Updates `LastInteraction` date
+- [x] Clamps `Affinity` and `Trust` between 0.0 and 100.0
+- [x] Integration with `LifeEventEffect`: life events can directly target relationship affinity/trust
+- [x] Unit test: `RelationshipSystem_RecordInteraction_UpdatesAffinityAndHistory()`
+
+### Story P1-058: Club Transfer Impact on Relationships ✅
+**Branch:** `feature/milestone-1.9-relationships`
+**Status:** Merged in PR #82 (Issue #80)
+
+> As a player, I want moving clubs to impact my social circle — leaving teammates behind, straining distant relationships, and opening opportunities for new bonds.
+
+**AC:**
+- [x] `RelationshipSystem.ApplyClubTransfer(WorldState world, Club oldClub, Club newClub)`
+- [x] High-affinity teammates (>= 75) transition to long-distance friends with trust bonus
+- [x] Low/average teammates (< 75) experience social distance decay
+- [x] Old manager relationship cools (-10 affinity, -5 trust)
+- [x] Partner relationship reflects relocation strain if affinity is low (< 50) or support if high (>= 50)
+- [x] Unit test: `RelationshipSystem_ClubTransfer_ImpactsTeammatesAndManager()`
+
+### Story P1-059: Unit & Integration Tests — Relationship Dynamics ✅
+**Branch:** `feature/milestone-1.9-relationships`
+**Status:** Merged in PR #82 (Issue #81)
+
+> As a game engineer, I want comprehensive test coverage across all relationship mechanics and edge cases so that relationship dynamics remain balanced and regression-free.
+
+**AC:**
+- [x] Test suite covering `Relationship` domain invariants, clamping, and immutability
+- [x] Test suite covering weekly decay, multi-week elapsed time, and family floor protection
+- [x] Test suite covering positive/negative interactions, history log appending, and date updates
+- [x] Test suite covering club transfer relocation scenarios
+- [x] Headless and interactive runner integration verified (16 dedicated tests, 489 total tests passing)
 
 ---
 
@@ -993,12 +1049,12 @@ COMPLETED & MERGED TO MAIN:
   Milestone 1.6.5:  P1-GATE-1 → P1-GATE-4 (Validation Gate: GO)   ✅ Merged (PR #63, Issues #54–#57)
   Milestone 1.7:    P1-044 → P1-048   (Economy System)            ✅ Merged (PR #69, Issues #64–#68)
   Milestone 1.8:    P1-049 → P1-054   (Life Events System v1)     ✅ Merged (PR #76, Issues #70–#75)
+  Milestone 1.9:    P1-055 → P1-059   (Relationships)             ✅ Merged (PR #82, Issues #77–#81)
 
 CURRENT ACTIVE TARGET:
-  Milestone 1.9:    P1-055 → P1-059   (Relationships)             🚀 Ready to Start
+  Milestone 1.10:   P1-060 → P1-065   (Transfer & Contract System) 🚀 Ready to Start
 
 UPCOMING:
-  Milestone 1.10:   P1-061 → P1-065   (Transfer System)
   Milestone 1.11:   P1-066 → P1-069   (Career Simulator CLI & 10k Career Balance)
 ```
 
