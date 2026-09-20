@@ -37,6 +37,10 @@ namespace FootballLife.Domain
         /// Interpersonal relationships for players in the simulated world.
         /// </summary>
         public IReadOnlyDictionary<Guid, Relationship> Relationships { get; init; }
+        /// <summary>
+        /// Active and historical transfer offers submitted in the simulated world.
+        /// </summary>
+        public IReadOnlyDictionary<Guid, TransferOffer> TransferOffers { get; init; }
         public Season CurrentSeason { get; init; }
 
         public WorldState(
@@ -52,7 +56,8 @@ namespace FootballLife.Domain
             Season currentSeason,
             IReadOnlyDictionary<Guid, FinanceAccount>? accounts = null,
             IReadOnlyDictionary<string, DateOnly>? eventCooldowns = null,
-            IReadOnlyDictionary<Guid, Relationship>? relationships = null)
+            IReadOnlyDictionary<Guid, Relationship>? relationships = null,
+            IReadOnlyDictionary<Guid, TransferOffer>? transferOffers = null)
         {
             Clubs = clubs ?? throw new ArgumentNullException(nameof(clubs));
             Players = players ?? throw new ArgumentNullException(nameof(players));
@@ -67,6 +72,7 @@ namespace FootballLife.Domain
             Accounts = accounts ?? new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>());
             EventCooldowns = eventCooldowns ?? new ReadOnlyDictionary<string, DateOnly>(new Dictionary<string, DateOnly>());
             Relationships = relationships ?? new ReadOnlyDictionary<Guid, Relationship>(new Dictionary<Guid, Relationship>());
+            TransferOffers = transferOffers ?? new ReadOnlyDictionary<Guid, TransferOffer>(new Dictionary<Guid, TransferOffer>());
         }
 
         /// <summary>
@@ -87,7 +93,8 @@ namespace FootballLife.Domain
                 season,
                 new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>()),
                 new ReadOnlyDictionary<string, DateOnly>(new Dictionary<string, DateOnly>()),
-                new ReadOnlyDictionary<Guid, Relationship>(new Dictionary<Guid, Relationship>()));
+                new ReadOnlyDictionary<Guid, Relationship>(new Dictionary<Guid, Relationship>()),
+                new ReadOnlyDictionary<Guid, TransferOffer>(new Dictionary<Guid, TransferOffer>()));
         }
 
         // ─── Query & Lookup Methods ───────────────────────────────────────────
@@ -366,6 +373,60 @@ namespace FootballLife.Domain
                 newRel[r.Id] = r;
             }
             return this with { Relationships = new ReadOnlyDictionary<Guid, Relationship>(newRel) };
+        }
+
+        // ─── Transfer Offer Helpers ───────────────────────────────────────────
+
+        public TransferOffer GetTransferOffer(Guid id)
+        {
+            if (TransferOffers.TryGetValue(id, out var offer)) return offer;
+            throw new KeyNotFoundException($"TransferOffer with ID '{id}' was not found in WorldState.");
+        }
+
+        public IReadOnlyList<TransferOffer> GetPlayerTransferOffers(Guid playerId)
+        {
+            var list = new List<TransferOffer>();
+            foreach (var offer in TransferOffers.Values)
+            {
+                if (offer.PlayerId == playerId) list.Add(offer);
+            }
+            return list;
+        }
+
+        public IReadOnlyList<TransferOffer> GetPendingOffersForPlayer(Guid playerId)
+        {
+            var list = new List<TransferOffer>();
+            foreach (var offer in TransferOffers.Values)
+            {
+                if (offer.PlayerId == playerId && offer.Status == TransferOfferStatus.Pending) list.Add(offer);
+            }
+            return list;
+        }
+
+        public WorldState WithTransferOffer(TransferOffer offer)
+        {
+            if (offer is null) throw new ArgumentNullException(nameof(offer));
+            var newOffers = new Dictionary<Guid, TransferOffer>(TransferOffers) { [offer.Id] = offer };
+            return this with { TransferOffers = new ReadOnlyDictionary<Guid, TransferOffer>(newOffers) };
+        }
+
+        public WorldState WithTransferOffers(IEnumerable<TransferOffer> offers)
+        {
+            if (offers is null) throw new ArgumentNullException(nameof(offers));
+            var newOffers = new Dictionary<Guid, TransferOffer>(TransferOffers);
+            foreach (var offer in offers)
+            {
+                newOffers[offer.Id] = offer;
+            }
+            return this with { TransferOffers = new ReadOnlyDictionary<Guid, TransferOffer>(newOffers) };
+        }
+
+        public WorldState RemoveTransferOffer(Guid offerId)
+        {
+            if (!TransferOffers.ContainsKey(offerId)) return this;
+            var newOffers = new Dictionary<Guid, TransferOffer>(TransferOffers);
+            newOffers.Remove(offerId);
+            return this with { TransferOffers = new ReadOnlyDictionary<Guid, TransferOffer>(newOffers) };
         }
     }
 }
