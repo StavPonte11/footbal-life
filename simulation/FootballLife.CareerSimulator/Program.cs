@@ -121,6 +121,14 @@ namespace FootballLife.CareerSimulator
                 ? LifeEventDataLoader.LoadFromFile(eventsPath).Events
                 : Array.Empty<LifeEvent>();
 
+            var relationships = new List<Relationship>
+            {
+                Relationship.Create(playerId, "Parents", RelationshipType.Parent, 85f, 90f, new DateOnly(2026, 8, 1)),
+                Relationship.Create(playerId, "Leo Davies (Teammate)", RelationshipType.Teammate, 65f, 60f, new DateOnly(2026, 8, 1)),
+                Relationship.Create(playerId, "Julian Vance (Agent)", RelationshipType.Agent, 60f, 65f, new DateOnly(2026, 8, 1)),
+                Relationship.Create(playerId, "Coach Miller", RelationshipType.Manager, 55f, 55f, new DateOnly(2026, 8, 1))
+            };
+
             for (int week = 1; week <= weeksInSeason; week++)
             {
                 var weekDate = new DateOnly(2026, 8, 1).AddDays((week - 1) * 7);
@@ -138,13 +146,14 @@ namespace FootballLife.CareerSimulator
                     currentWeek: week);
 
                 var world = WorldState.CreateEmpty(season)
-                    .WithPlayer(player, abilities, state, career, potential, account);
+                    .WithPlayer(player, abilities, state, career, potential, account, relationships);
 
                 Console.WriteLine("--------------------------------------------------------------------------------");
                 Console.WriteLine($"[WEEK {week:D2}/38] Date: {weekDate:yyyy-MM-dd}");
                 Console.WriteLine($"Condition -> Fatigue: {state.Fatigue:F1}% | Form: {state.Form:F1} | Confidence: {state.Confidence:F1} | Trust: {career.ManagerTrust:F1} | Status: {career.Status}");
                 Console.WriteLine($"Finances  -> Balance: £{account.Balance:N0} (Wage: +£{career.WeeklySalary:N0}, Lifestyle: -£{EconomySystem.GetLifestyleWeeklyCost(lifestyle):N0})");
                 Console.WriteLine($"Abilities -> OVR: {abilities.CalculateAverage():F1} | FIN: {abilities.Shooting} | PAC: {abilities.Pace} | DRI: {abilities.Dribbling} | PAS: {abilities.Passing}");
+                Console.WriteLine($"Social    -> {string.Join(" | ", relationships.Select(r => $"{r.Name}: {r.Affinity:F0}%"))}");
                 Console.WriteLine();
 
                 Console.WriteLine("Choose Weekly Training Regimen:");
@@ -283,6 +292,13 @@ namespace FootballLife.CareerSimulator
                 // Weekly rest & passive day recovery
                 state = FatigueSystem.ApplyRest(state, hoursSlept: 8);
                 state = FatigueSystem.ApplyDayTick(state);
+
+                // Weekly relationship decay from neglect (with family floor)
+                for (int r = 0; r < relationships.Count; r++)
+                {
+                    relationships[r] = RelationshipSystem.ApplyWeeklyDecay(relationships[r]);
+                }
+
                 Console.WriteLine();
             }
 
@@ -298,6 +314,7 @@ namespace FootballLife.CareerSimulator
             Console.WriteLine($"Total Wages Contracted: £{seasonStats.WageEarned:N0}");
             Console.WriteLine($"Final Bank Balance: £{account.Balance:N0} ({(account.IsInDebt ? "IN DEBT" : "SOLVENT")}, {account.History.Count} transactions)");
             Console.WriteLine($"Final Overall Ability: {abilities.CalculateAverage():F1} (+{abilities.CalculateAverage() - 55f:F1})");
+            Console.WriteLine($"Relationships Status: {string.Join(", ", relationships.Select(r => $"{r.Name} ({r.Affinity:F0}%)"))}");
             Console.WriteLine("================================================================================");
         }
 
