@@ -53,12 +53,12 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 **Exit Criteria:** `career-simulator --careers 1000 --seasons 5` produces statistically valid career distributions. All tests pass.
 
 **Progress (as of Sep 2026):**
-- **Milestones 1.1 through 1.7 are COMPLETE & MERGED TO MAIN** ✅
-- **All 62 issues (#1 through #57, #64 through #68) closed.**
-- **All PRs (#11–#16, #25–#32, #58–#63, #69) merged to `main`.**
-- **454 tests passing** (0 failures, 0 skipped, 0 warnings) in `FootballLife.Simulation.Tests`.
+- **Milestones 1.1 through 1.8 are COMPLETE & MERGED TO MAIN** ✅
+- **All 68 issues (#1 through #57, #64 through #68, #70 through #75) closed.**
+- **All PRs (#11–#16, #25–#32, #58–#63, #69, #76) merged to `main`.**
+- **473 tests passing** (0 failures, 0 skipped, 0 warnings) in `FootballLife.Simulation.Tests`.
 - **Validation Gate 1.6.5 PASSED (GO decision)** documented in [`docs/gate-review.md`](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/gate-review.md).
-- **Next Active Target:** Milestone 1.8 — Life Events System (Stories P1-049 through P1-054).
+- **Next Active Target:** Milestone 1.9 — Basic Relationships (Stories P1-055 through P1-059).
 
 ### Milestone 1.1 — Player Domain Model ✅ (Complete)
 *PRs #11–#16 merged | Issues #2–#10 closed*
@@ -165,16 +165,17 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P1-047 (#67) | EconomySystem: lifestyle expense deductions | Simulation | M | ✅ Merged (#69) |
 | #P1-048 (#68) | Unit tests: economy transactions, balance invariants | Tests | M | ✅ Merged (#69) |
 
-### Milestone 1.8 — Life Events System (v1)
+### Milestone 1.8 — Life Events System (v1) ✅ (Complete)
+*PR #76 merged | Issues #70–#75 closed*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P1-049 | LifeEvent domain model (id, conditions, weight, cooldown, choices, effects) | Domain | M |
-| #P1-050 | LifeEventSystem: condition evaluator (age, salary, fatigue, happiness, trust) | Simulation | M |
-| #P1-051 | LifeEventSystem: weighted random event selection | Simulation | M |
-| #P1-052 | LifeEventSystem: effect applicator (mutates player state, relationships, finances) | Simulation | M |
-| #P1-053 | Seed `events.json` with 20 core life events | Data | L |
-| #P1-054 | Unit tests: event conditions, effect application | Tests | M |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P1-049 (#70) | LifeEvent domain model (id, conditions, weight, cooldown, choices, effects) | Domain | M | ✅ Merged (#76) |
+| #P1-050 (#71) | LifeEventSystem: condition evaluator (age, salary, fatigue, happiness, trust) | Simulation | M | ✅ Merged (#76) |
+| #P1-051 (#72) | LifeEventSystem: weighted random event selection | Simulation | M | ✅ Merged (#76) |
+| #P1-052 (#73) | LifeEventSystem: effect applicator (mutates player state, relationships, finances) | Simulation | M | ✅ Merged (#76) |
+| #P1-053 (#74) | Seed `events.json` with 20 core life events | Data | L | ✅ Merged (#76) |
+| #P1-054 (#75) | Unit tests: event conditions, effect application | Tests | M | ✅ Merged (#76) |
 
 ### Milestone 1.9 — Basic Relationships
 
@@ -345,10 +346,10 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 1, Milestone 1.8 — Life Events System (v1)
+## Current Focus: Phase 1, Milestone 1.9 — Basic Relationships
 
-> Milestones 1.1 through 1.7 are **complete & merged to `main`** (Issues #1–#57, #64–#68 closed, 454 passing tests).
+> Milestones 1.1 through 1.8 are **complete & merged to `main`** (Issues #1–#57, #64–#68, #70–#75 closed, 473 passing tests).
 > **Validation Gate 1.6.5 Passed (GO)** — the core simulation loop {train → fatigue → match → trust → progression} is verified and stable.
-> **Economy System 1.7 Integrated** — player weekly salary, performance match bonuses, and lifestyle tiers/expenses active.
-> **Next issues to create:** `#P1-049` through `#P1-054` (Milestone 1.8 — Life Events System: `LifeEvent` domain model, condition evaluator, weighted selection, effect applicator, `events.json` seed data, unit tests).
+> **Economy & Life Events Integrated** — personal finances, weekly salary, lifestyle deductions, and systemic narrative dilemmas active.
+> **Next issues to create:** `#P1-055` through `#P1-059` (Milestone 1.9 — Basic Relationships: `Relationship` model, affinity decay, interaction events, transfer impact, unit tests).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

@@ -15,11 +15,11 @@ As a [stakeholder], I want [capability] so that [benefit].
 **Branch convention:** `feature/p1-NNN-<slug>`
 **Acceptance Criteria (AC)** must all pass before a PR may be merged.
 
-> **Status (Sep 2026):** Milestones 1.1 through 1.7 are **COMPLETE and MERGED to `main`** (Stories P1-001 through P1-048, P1-GAP-1 through P1-GAP-4, and P1-GATE-1 through P1-GATE-4). All 62 related GitHub issues (#1–#57, #64–#68) and PRs (#11–#16, #25–#32, #58–#63, #69) are closed. Build is green with **454 unit & integration tests passing** (0 failures, 0 warnings).
+> **Status (Sep 2026):** Milestones 1.1 through 1.8 are **COMPLETE and MERGED to `main`** (Stories P1-001 through P1-054, P1-GAP-1 through P1-GAP-4, and P1-GATE-1 through P1-GATE-4). All 68 related GitHub issues (#1–#57, #64–#68, #70–#75) and PRs (#11–#16, #25–#32, #58–#63, #69, #76) are closed. Build is green with **473 unit & integration tests passing** (0 failures, 0 warnings).
 >
 > **Validation Gate 1.6.5 PASSED (GO)**: The minimum playable loop was playtested via the interactive console harness (`FootballLife.CareerSimulator --interactive`) and formal evaluation documented in [`docs/gate-review.md`](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/gate-review.md).
 >
-> **Current Active Milestone:** Milestone 1.8 — Life Events System (v1) (Stories P1-049 through P1-054).
+> **Current Active Milestone:** Milestone 1.9 — Basic Relationships (Stories P1-055 through P1-059).
 
 ---
 
@@ -841,82 +841,88 @@ MatchResult
 
 ---
 
-## MILESTONE 1.8 — Life Events System (v1)
+## MILESTONE 1.8 — Life Events System (v1) ✅ Complete
 
-### Story P1-049: LifeEvent Domain Model
+### Story P1-049: LifeEvent Domain Model ✅
 **Branch:** `feature/p1-049-life-event-model`
 **Labels:** `phase-1`, `milestone:1.8`, `domain`, `complexity:M`
+**Status:** Merged in PR #76 (Issue #70)
 
 > As the narrative engine, I want a `LifeEvent` domain model encoding conditions, choices, and consequences so that personal life dilemmas are data-driven and systemic.
 
 **Acceptance Criteria:**
-- [ ] `LifeEvent` record in `FootballLife.Domain`: `string Id`, `string Title`, `string Description`, `EventCategory Category`, `IReadOnlyList<EventChoice> Choices`, `EventPreconditions Conditions`, `int Weight`, `int CooldownWeeks`
-- [ ] `EventChoice` record: `string Text`, `IReadOnlyList<EventEffect> Effects`
-- [ ] `EventEffect` record: `EffectTarget Target`, `float Delta`, `string Description`
-- [ ] Unit test: `LifeEvent_Serialization_RoundTripsFromJson()`
+- [x] `LifeEvent` record in `FootballLife.Domain`: `string Id`, `string Title`, `string Description`, `EventCategory Category`, `IReadOnlyList<EventChoice> Choices`, `EventPreconditions Conditions`, `int Weight`, `int CooldownWeeks`
+- [x] `EventChoice` record: `string Id`, `string Text`, `IReadOnlyList<EventEffect> Effects`
+- [x] `EventEffect` record: `EffectTarget Target`, `float Delta`, `string Description`
+- [x] Unit test: `LifeEvent_Serialization_RoundTripsFromJson()`
 
 ---
 
-### Story P1-050: LifeEventSystem — Condition Evaluator
+### Story P1-050: LifeEventSystem — Condition Evaluator ✅
 **Branch:** `feature/p1-050-event-conditions`
 **Labels:** `phase-1`, `milestone:1.8`, `simulation`, `complexity:M`
+**Status:** Merged in PR #76 (Issue #71)
 
 > As the life simulation, I want conditions evaluated against current player state and career context so that only plausible events trigger.
 
 **Acceptance Criteria:**
-- [ ] `LifeEventSystem.EvaluateConditions(LifeEvent ev, Player player, PlayerState state, PlayerCareerState career, FinanceAccount finance, WorldState world)` → `bool`
-- [ ] Checks age min/max, fatigue min/max, salary bounds, marital/relationship status, manager trust
-- [ ] Unit test: `LifeEventSystem_HighSalaryEvent_DoesNotTriggerForYouthPlayer()`
+- [x] `LifeEventSystem.EvaluateConditions(LifeEvent ev, Player player, PlayerState state, PlayerCareerState career, FinanceAccount finance, WorldState world)` → `bool`
+- [x] Checks age min/max, fatigue min/max, salary bounds, marital/relationship status, manager trust
+- [x] Unit test: `LifeEventSystem_HighSalaryEvent_DoesNotTriggerForYouthPlayer()`
 
 ---
 
-### Story P1-051: LifeEventSystem — Weighted Selection
+### Story P1-051: LifeEventSystem — Weighted Selection ✅
 **Branch:** `feature/p1-051-event-selection`
 **Labels:** `phase-1`, `milestone:1.8`, `simulation`, `complexity:M`
+**Status:** Merged in PR #76 (Issue #72)
 
 > As the life simulation, I want probabilistic event selection weighted by current player situation so that narrative pacing is dynamic yet predictable with seed.
 
 **Acceptance Criteria:**
-- [ ] `LifeEventSystem.SelectWeeklyEvent(IReadOnlyList<LifeEvent> pool, Player player, WorldState world, SimulationRandom rng)` → `LifeEvent?`
-- [ ] Evaluates cooldowns, filters eligible events, rolls weighted random
-- [ ] Determinism test: same seed → identical chosen event sequence
+- [x] `LifeEventSystem.SelectWeeklyEvent(IReadOnlyList<LifeEvent> pool, Player player, WorldState world, SimulationRandom rng)` → `LifeEvent?`
+- [x] Evaluates cooldowns, filters eligible events, rolls weighted random
+- [x] Determinism test: same seed → identical chosen event sequence
 
 ---
 
-### Story P1-052: LifeEventSystem — Effect Applicator
+### Story P1-052: LifeEventSystem — Effect Applicator ✅
 **Branch:** `feature/p1-052-event-effects`
 **Labels:** `phase-1`, `milestone:1.8`, `simulation`, `complexity:M`
+**Status:** Merged in PR #76 (Issue #73)
 
 > As the simulation, I want chosen event effects applied to mutate player state, relationships, or finances deterministically.
 
 **Acceptance Criteria:**
-- [ ] `LifeEventSystem.ApplyChoice(EventChoice choice, Player player, WorldState world)` → `WorldState`
-- [ ] Mutates relevant state (Fatigue, Happiness, Confidence, Trust, Finances)
-- [ ] Unit test: `LifeEventSystem_ChoiceReducesFatigue_AndIncreasesHappiness()`
+- [x] `LifeEventSystem.ApplyChoice(EventChoice choice, Player player, WorldState world)` → `WorldState`
+- [x] Mutates relevant state (Fatigue, Happiness, Confidence, Trust, Finances)
+- [x] Unit test: `LifeEventSystem_ChoiceReducesFatigue_AndIncreasesHappiness()`
 
 ---
 
-### Story P1-053: Seed Data (`events.json`)
+### Story P1-053: Seed Data (`events.json`) ✅
 **Branch:** `feature/p1-053-seed-events`
 **Labels:** `phase-1`, `milestone:1.8`, `data`, `complexity:L`
+**Status:** Merged in PR #76 (Issue #74)
 
 > Canonical data file containing 20 core life events covering press dilemmas, sponsor offers, social nights out, family requests, and training controversies.
 
 **Acceptance Criteria:**
-- [ ] `content/data/events.json` with 20 diverse, balanced life events
-- [ ] Schema validation tests verify all event IDs, choices, and effects
+- [x] `content/data/events.json` with 20 diverse, balanced life events
+- [x] Schema validation tests verify all event IDs, choices, and effects
 
 ---
 
-### Story P1-054: Unit & Integration Tests — Life Events System
+### Story P1-054: Unit & Integration Tests — Life Events System ✅
 **Branch:** `feature/p1-054-life-events-tests`
 **Labels:** `phase-1`, `milestone:1.8`, `testing`, `complexity:M`
+**Status:** Merged in PR #76 (Issue #75)
 
 > Comprehensive tests ensuring life events fire reliably, observe cooldowns, and mutate state without corrupting invariants.
 
 **Acceptance Criteria:**
-- [ ] Test: `LifeEventSystem_CooldownObserved_CannotFireSameEventConsecutively()`
-- [ ] Test: `LifeEventSystem_StatisticalSpread_Over1000Weeks()`
+- [x] Test: `LifeEventSystem_CooldownObserved_CannotFireSameEventConsecutively()`
+- [x] Test: `LifeEventSystem_StatisticalSpread_Over1000Weeks()`
 
 ---
 
@@ -986,12 +992,12 @@ COMPLETED & MERGED TO MAIN:
   Milestone 1.6:    P1-038 → P1-041   (Progression + Career)      ✅ Merged (PR #62, Issues #50–#53)
   Milestone 1.6.5:  P1-GATE-1 → P1-GATE-4 (Validation Gate: GO)   ✅ Merged (PR #63, Issues #54–#57)
   Milestone 1.7:    P1-044 → P1-048   (Economy System)            ✅ Merged (PR #69, Issues #64–#68)
+  Milestone 1.8:    P1-049 → P1-054   (Life Events System v1)     ✅ Merged (PR #76, Issues #70–#75)
 
 CURRENT ACTIVE TARGET:
-  Milestone 1.8:    P1-049 → P1-054   (Life Events System v1)     🚀 Ready to Start
+  Milestone 1.9:    P1-055 → P1-059   (Relationships)             🚀 Ready to Start
 
 UPCOMING:
-  Milestone 1.9:    P1-055 → P1-059   (Relationships)
   Milestone 1.10:   P1-061 → P1-065   (Transfer System)
   Milestone 1.11:   P1-066 → P1-069   (Career Simulator CLI & 10k Career Balance)
 ```
