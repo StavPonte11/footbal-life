@@ -33,6 +33,10 @@ namespace FootballLife.Domain
         /// Active cooldowns for life events, mapping EventId to the date when the cooldown expires.
         /// </summary>
         public IReadOnlyDictionary<string, DateOnly> EventCooldowns { get; init; }
+        /// <summary>
+        /// Interpersonal relationships for players in the simulated world.
+        /// </summary>
+        public IReadOnlyDictionary<Guid, Relationship> Relationships { get; init; }
         public Season CurrentSeason { get; init; }
 
         public WorldState(
@@ -47,7 +51,8 @@ namespace FootballLife.Domain
             IReadOnlyDictionary<Guid, PlayerPotential> potentials,
             Season currentSeason,
             IReadOnlyDictionary<Guid, FinanceAccount>? accounts = null,
-            IReadOnlyDictionary<string, DateOnly>? eventCooldowns = null)
+            IReadOnlyDictionary<string, DateOnly>? eventCooldowns = null,
+            IReadOnlyDictionary<Guid, Relationship>? relationships = null)
         {
             Clubs = clubs ?? throw new ArgumentNullException(nameof(clubs));
             Players = players ?? throw new ArgumentNullException(nameof(players));
@@ -61,6 +66,7 @@ namespace FootballLife.Domain
             CurrentSeason = currentSeason ?? throw new ArgumentNullException(nameof(currentSeason));
             Accounts = accounts ?? new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>());
             EventCooldowns = eventCooldowns ?? new ReadOnlyDictionary<string, DateOnly>(new Dictionary<string, DateOnly>());
+            Relationships = relationships ?? new ReadOnlyDictionary<Guid, Relationship>(new Dictionary<Guid, Relationship>());
         }
 
         /// <summary>
@@ -80,7 +86,8 @@ namespace FootballLife.Domain
                 new ReadOnlyDictionary<Guid, PlayerPotential>(new Dictionary<Guid, PlayerPotential>()),
                 season,
                 new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>()),
-                new ReadOnlyDictionary<string, DateOnly>(new Dictionary<string, DateOnly>()));
+                new ReadOnlyDictionary<string, DateOnly>(new Dictionary<string, DateOnly>()),
+                new ReadOnlyDictionary<Guid, Relationship>(new Dictionary<Guid, Relationship>()));
         }
 
         // ─── Query & Lookup Methods ───────────────────────────────────────────
@@ -179,7 +186,8 @@ namespace FootballLife.Domain
             PlayerState state,
             PlayerCareerState careerState,
             PlayerPotential? potential = null,
-            FinanceAccount? account = null)
+            FinanceAccount? account = null,
+            IEnumerable<Relationship>? relationships = null)
         {
             if (player is null) throw new ArgumentNullException(nameof(player));
             if (abilities is null) throw new ArgumentNullException(nameof(abilities));
@@ -204,6 +212,9 @@ namespace FootballLife.Domain
 
             if (account is not null)
                 result = result.WithPlayerAccount(player.Id, account);
+
+            if (relationships is not null)
+                result = result.WithRelationships(relationships);
 
             return result;
         }
@@ -319,6 +330,42 @@ namespace FootballLife.Domain
             var active = EventCooldowns.Where(kv => kv.Value > currentDate).ToDictionary(kv => kv.Key, kv => kv.Value);
             if (active.Count == EventCooldowns.Count) return this;
             return this with { EventCooldowns = new ReadOnlyDictionary<string, DateOnly>(active) };
+        }
+
+        // ─── Relationship Helpers ─────────────────────────────────────────────
+
+        public Relationship GetRelationship(Guid id)
+        {
+            if (Relationships.TryGetValue(id, out var rel)) return rel;
+            throw new KeyNotFoundException($"Relationship with ID '{id}' was not found in WorldState.");
+        }
+
+        public IReadOnlyList<Relationship> GetPlayerRelationships(Guid playerId)
+        {
+            var list = new List<Relationship>();
+            foreach (var r in Relationships.Values)
+            {
+                if (r.PlayerId == playerId) list.Add(r);
+            }
+            return list;
+        }
+
+        public WorldState WithRelationship(Relationship relationship)
+        {
+            if (relationship is null) throw new ArgumentNullException(nameof(relationship));
+            var newRel = new Dictionary<Guid, Relationship>(Relationships) { [relationship.Id] = relationship };
+            return this with { Relationships = new ReadOnlyDictionary<Guid, Relationship>(newRel) };
+        }
+
+        public WorldState WithRelationships(IEnumerable<Relationship> relationships)
+        {
+            if (relationships is null) throw new ArgumentNullException(nameof(relationships));
+            var newRel = new Dictionary<Guid, Relationship>(Relationships);
+            foreach (var r in relationships)
+            {
+                newRel[r.Id] = r;
+            }
+            return this with { Relationships = new ReadOnlyDictionary<Guid, Relationship>(newRel) };
         }
     }
 }

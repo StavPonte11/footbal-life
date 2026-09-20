@@ -88,12 +88,20 @@ namespace FootballLife.Simulation
             // 8. Create initial FinanceAccount
             var account = FinanceAccount.Create(0m);
 
-            // 9. Update the club's squad roster
+            // 9. Create starter relationships (Family, Agent, Coach)
+            var starterRelationships = new[]
+            {
+                Relationship.Create(player.Id, "Parents", RelationshipType.Parent, initialAffinity: 85f, initialTrust: 90f, initialDate: world.CurrentSeason.StartDate),
+                Relationship.Create(player.Id, "Agent", RelationshipType.Agent, initialAffinity: 60f, initialTrust: 65f, initialDate: world.CurrentSeason.StartDate),
+                Relationship.Create(player.Id, "Academy Coach", RelationshipType.Manager, initialAffinity: 70f, initialTrust: 70f, initialDate: world.CurrentSeason.StartDate)
+            };
+
+            // 10. Update the club's squad roster
             var updatedClub = startingClub.WithAddedPlayer(player.Id);
 
-            // 10. Assemble the new WorldState — all operations are immutable
+            // 11. Assemble the new WorldState — all operations are immutable
             return world
-                .WithPlayer(player, abilities, state, careerState, potential, account)
+                .WithPlayer(player, abilities, state, careerState, potential, account, starterRelationships)
                 .WithContract(contract)
                 .WithClub(updatedClub);
         }
