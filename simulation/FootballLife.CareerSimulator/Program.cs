@@ -100,17 +100,28 @@ namespace FootballLife.CareerSimulator
                 reputation: 25f);
 
             var potential = new PlayerPotential(82, PotentialRange.Medium);
+            var account = FinanceAccount.Create(0m);
+            var lifestyle = LifestyleTier.Comfortable;
+            var bonuses = new ContractBonuses(
+                goalBonus: 150m,
+                assistBonus: 75m,
+                appearanceBonus: 50m,
+                cleanSheetBonus: 0m);
 
             var matchResults = new List<MatchResult>();
             int weeksInSeason = 38;
 
             Console.WriteLine($"Player: {player.Name} | Age: 19 | Position: {player.PrimaryPosition} | Club: {playerClub.Name}");
-            Console.WriteLine($"Starting Status: {career.Status} | Wage: £{career.WeeklySalary:N0}/wk | Potential: {potential.PotentialRating}");
+            Console.WriteLine($"Starting Status: {career.Status} | Wage: £{career.WeeklySalary:N0}/wk | Potential: {potential.PotentialRating} | Lifestyle: {lifestyle}");
             Console.WriteLine();
 
             for (int week = 1; week <= weeksInSeason; week++)
             {
                 var weekDate = new DateOnly(2026, 8, 1).AddDays((week - 1) * 7);
+
+                // Process weekly salary and lifestyle expenses
+                account = EconomySystem.ApplyWeeklySalary(account, career.WeeklySalary, weekDate);
+                account = EconomySystem.ApplyLifestyleExpenses(account, lifestyle, weekDate);
 
                 var season = new Season(
                     2026,
@@ -121,11 +132,12 @@ namespace FootballLife.CareerSimulator
                     currentWeek: week);
 
                 var world = WorldState.CreateEmpty(season)
-                    .WithPlayer(player, abilities, state, career, potential);
+                    .WithPlayer(player, abilities, state, career, potential, account);
 
                 Console.WriteLine("--------------------------------------------------------------------------------");
                 Console.WriteLine($"[WEEK {week:D2}/38] Date: {weekDate:yyyy-MM-dd}");
                 Console.WriteLine($"Condition -> Fatigue: {state.Fatigue:F1}% | Form: {state.Form:F1} | Confidence: {state.Confidence:F1} | Trust: {career.ManagerTrust:F1} | Status: {career.Status}");
+                Console.WriteLine($"Finances  -> Balance: £{account.Balance:N0} (Wage: +£{career.WeeklySalary:N0}, Lifestyle: -£{EconomySystem.GetLifestyleWeeklyCost(lifestyle):N0})");
                 Console.WriteLine($"Abilities -> OVR: {abilities.CalculateAverage():F1} | FIN: {abilities.Shooting} | PAC: {abilities.Pace} | DRI: {abilities.Dribbling} | PAS: {abilities.Passing}");
                 Console.WriteLine();
 
@@ -195,10 +207,27 @@ namespace FootballLife.CareerSimulator
                 float trustDelta = ManagerTrustSystem.CalculateTrustDelta(matchResult.PlayerRating, career.Status);
                 career = ManagerTrustSystem.ApplyMatchResult(career, matchResult, career.Status);
 
+                // Apply match bonuses to player account
+                var preBonusBalance = account.Balance;
+                account = EconomySystem.ApplyMatchBonuses(
+                    account,
+                    bonuses,
+                    matchResult,
+                    player.PrimaryPosition,
+                    weekDate,
+                    playerWasHome: isHomeMatch,
+                    playerId: playerId);
+
+                decimal bonusEarned = account.Balance - preBonusBalance;
+
                 string outcomeStr = matchResult.IsWin(isHomeMatch) ? "WIN" : (matchResult.IsDraw() ? "DRAW" : "LOSS");
                 Console.WriteLine($"Final Score: {matchResult.HomeScore} - {matchResult.AwayScore} ({outcomeStr})");
                 Console.WriteLine($"Performance Rating: {matchResult.PlayerRating:F1}/10.0 | Goals: {(matchResult.PlayerScored ? "1" : "0")} | Assists: {(matchResult.PlayerAssisted ? "1" : "0")}");
                 Console.WriteLine($"Manager Trust Delta: {(trustDelta >= 0 ? "+" : "")}{trustDelta:F1} -> New Trust: {career.ManagerTrust:F1}");
+                if (bonusEarned > 0m)
+                {
+                    Console.WriteLine($"Match Bonus Credited: +£{bonusEarned:N0} -> Bank: £{account.Balance:N0}");
+                }
 
                 // Mid-season and end-of-season status review
                 if (week == 19 || week == 38)
@@ -227,7 +256,8 @@ namespace FootballLife.CareerSimulator
             Console.WriteLine($"Goals: {seasonStats.Goals} | Assists: {seasonStats.Assists}");
             Console.WriteLine($"Average Match Rating: {seasonStats.AverageRating:F2}");
             Console.WriteLine($"Final Squad Hierarchy: {seasonStats.FinalStatus}");
-            Console.WriteLine($"Total Wages Earned: £{seasonStats.WageEarned:N0}");
+            Console.WriteLine($"Total Wages Contracted: £{seasonStats.WageEarned:N0}");
+            Console.WriteLine($"Final Bank Balance: £{account.Balance:N0} ({(account.IsInDebt ? "IN DEBT" : "SOLVENT")}, {account.History.Count} transactions)");
             Console.WriteLine($"Final Overall Ability: {abilities.CalculateAverage():F1} (+{abilities.CalculateAverage() - 55f:F1})");
             Console.WriteLine("================================================================================");
         }

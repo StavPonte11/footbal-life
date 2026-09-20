@@ -25,6 +25,10 @@ namespace FootballLife.Domain
         /// potential is only created at career initialisation or via <see cref="PlayerFactory"/>.
         /// </summary>
         public IReadOnlyDictionary<Guid, PlayerPotential> Potentials { get; init; }
+        /// <summary>
+        /// Bank accounts and financial transaction history for players.
+        /// </summary>
+        public IReadOnlyDictionary<Guid, FinanceAccount> Accounts { get; init; }
         public Season CurrentSeason { get; init; }
 
         public WorldState(
@@ -37,7 +41,8 @@ namespace FootballLife.Domain
             IReadOnlyDictionary<Guid, Manager> managers,
             IReadOnlyDictionary<Guid, Contract> contracts,
             IReadOnlyDictionary<Guid, PlayerPotential> potentials,
-            Season currentSeason)
+            Season currentSeason,
+            IReadOnlyDictionary<Guid, FinanceAccount>? accounts = null)
         {
             Clubs = clubs ?? throw new ArgumentNullException(nameof(clubs));
             Players = players ?? throw new ArgumentNullException(nameof(players));
@@ -49,6 +54,7 @@ namespace FootballLife.Domain
             Contracts = contracts ?? throw new ArgumentNullException(nameof(contracts));
             Potentials = potentials ?? throw new ArgumentNullException(nameof(potentials));
             CurrentSeason = currentSeason ?? throw new ArgumentNullException(nameof(currentSeason));
+            Accounts = accounts ?? new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>());
         }
 
         /// <summary>
@@ -66,7 +72,8 @@ namespace FootballLife.Domain
                 new ReadOnlyDictionary<Guid, Manager>(new Dictionary<Guid, Manager>()),
                 new ReadOnlyDictionary<Guid, Contract>(new Dictionary<Guid, Contract>()),
                 new ReadOnlyDictionary<Guid, PlayerPotential>(new Dictionary<Guid, PlayerPotential>()),
-                season);
+                season,
+                new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>()));
         }
 
         // ─── Query & Lookup Methods ───────────────────────────────────────────
@@ -135,18 +142,37 @@ namespace FootballLife.Domain
             throw new KeyNotFoundException($"Potential for Player '{playerId}' was not found in WorldState.");
         }
 
+        /// <summary>
+        /// Retrieves the <see cref="FinanceAccount"/> for the given player.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Thrown when no finance account exists for the player.</exception>
+        public FinanceAccount GetAccount(Guid playerId)
+        {
+            if (Accounts.TryGetValue(playerId, out var account)) return account;
+            throw new KeyNotFoundException($"FinanceAccount for Player '{playerId}' was not found in WorldState.");
+        }
+
+        /// <summary>
+        /// Attempts to retrieve the <see cref="FinanceAccount"/> for the given player without throwing.
+        /// </summary>
+        public bool TryGetAccount(Guid playerId, out FinanceAccount account)
+        {
+            return Accounts.TryGetValue(playerId, out account);
+        }
+
         // ─── Immutable Mutation Helpers ───────────────────────────────────────
 
         /// <summary>
         /// Registers or updates a player and all corresponding facets in the snapshot.
-        /// Optionally registers a <see cref="PlayerPotential"/> at the same time.
+        /// Optionally registers a <see cref="PlayerPotential"/> and/or <see cref="FinanceAccount"/> at the same time.
         /// </summary>
         public WorldState WithPlayer(
             Player player,
             PlayerAbilities abilities,
             PlayerState state,
             PlayerCareerState careerState,
-            PlayerPotential? potential = null)
+            PlayerPotential? potential = null,
+            FinanceAccount? account = null)
         {
             if (player is null) throw new ArgumentNullException(nameof(player));
             if (abilities is null) throw new ArgumentNullException(nameof(abilities));
@@ -169,7 +195,20 @@ namespace FootballLife.Domain
             if (potential is not null)
                 result = result.WithPlayerPotential(player.Id, potential);
 
+            if (account is not null)
+                result = result.WithPlayerAccount(player.Id, account);
+
             return result;
+        }
+
+        /// <summary>
+        /// Registers or replaces the <see cref="FinanceAccount"/> for a player.
+        /// </summary>
+        public WorldState WithPlayerAccount(Guid playerId, FinanceAccount account)
+        {
+            if (account is null) throw new ArgumentNullException(nameof(account));
+            var newAccounts = new Dictionary<Guid, FinanceAccount>(Accounts) { [playerId] = account };
+            return this with { Accounts = new ReadOnlyDictionary<Guid, FinanceAccount>(newAccounts) };
         }
 
         /// <summary>

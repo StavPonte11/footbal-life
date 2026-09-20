@@ -85,12 +85,15 @@ namespace FootballLife.Simulation
                 contractEnd,
                 SquadRole.Academy);
 
-            // 8. Update the club's squad roster
+            // 8. Create initial FinanceAccount
+            var account = FinanceAccount.Create(0m);
+
+            // 9. Update the club's squad roster
             var updatedClub = startingClub.WithAddedPlayer(player.Id);
 
-            // 9. Assemble the new WorldState — all operations are immutable
+            // 10. Assemble the new WorldState — all operations are immutable
             return world
-                .WithPlayer(player, abilities, state, careerState, potential)
+                .WithPlayer(player, abilities, state, careerState, potential, account)
                 .WithContract(contract)
                 .WithClub(updatedClub);
         }
