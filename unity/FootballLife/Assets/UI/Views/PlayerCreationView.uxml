@@ -1,0 +1,155 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="padding: 20px; flex-grow: 1;">
+        <!-- Header & Step Navigation -->
+        <ui:VisualElement class="app-bar" style="margin-bottom: 16px; border-radius: 8px;">
+            <ui:Label text="FOOTBALL LIFE" class="text-accent" style="font-size: 18px;" />
+            <ui:Label text="STEP 1 OF 2 : PLAYER IDENTITY" class="badge badge-gold" />
+        </ui:VisualElement>
+
+        <ui:ScrollView style="flex-grow: 1;">
+            <!-- Player Details Form -->
+            <ui:VisualElement class="card-elevated">
+                <ui:Label text="Personal Details" class="text-title" style="font-size: 18px; margin-bottom: 12px;" />
+                
+                <ui:VisualElement style="flex-direction: row; gap: 12px; margin-bottom: 10px;">
+                    <ui:VisualElement style="flex-grow: 1;">
+                        <ui:Label text="First Name" class="text-caption" />
+                        <ui:TextField name="input-firstname" value="Marcus" style="margin-top: 4px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 1;">
+                        <ui:Label text="Last Name" class="text-caption" />
+                        <ui:TextField name="input-lastname" value="Vance" style="margin-top: 4px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; gap: 8px; margin-bottom: 14px;">
+                    <ui:Button name="btn-randomize-name" text="🎲 Randomize Name" class="btn btn-secondary" style="font-size: 12px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; gap: 12px; margin-bottom: 14px;">
+                    <ui:VisualElement style="flex-grow: 1;">
+                        <ui:Label text="Nationality" class="text-caption" />
+                        <ui:DropdownField name="dropdown-nationality" choices="England,France,Germany,Spain,Italy,Brazil,Argentina,Netherlands,Portugal,USA" index="0" style="margin-top: 4px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 100px;">
+                        <ui:Label text="Kit Number" class="text-caption" />
+                        <ui:IntegerField name="input-kit-number" value="9" style="margin-top: 4px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:Label text="Preferred Foot" class="text-caption" style="margin-bottom: 4px;" />
+                <ui:VisualElement style="flex-direction: row; gap: 8px; margin-bottom: 12px;">
+                    <ui:Button name="btn-foot-left" text="Left" class="btn btn-secondary" style="flex-grow: 1;" />
+                    <ui:Button name="btn-foot-right" text="Right" class="btn btn-primary" style="flex-grow: 1;" />
+                    <ui:Button name="btn-foot-both" text="Both" class="btn btn-secondary" style="flex-grow: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Position Selector -->
+            <ui:VisualElement class="card">
+                <ui:Label text="Pitch Position" class="text-title" style="font-size: 18px; margin-bottom: 4px;" />
+                <ui:Label text="Select your core position to determine starting skill focus." class="text-subtitle" style="font-size: 13px; margin-bottom: 12px;" />
+
+                <!-- Forward / Attackers -->
+                <ui:Label text="ATTACK" class="text-caption" style="margin-bottom: 4px;" />
+                <ui:VisualElement style="flex-direction: row; gap: 8px; margin-bottom: 10px;">
+                    <ui:Button name="btn-pos-ST" text="ST (Striker)" class="btn btn-primary" style="flex-grow: 1;" />
+                    <ui:Button name="btn-pos-LW" text="LW (Left Wing)" class="btn btn-secondary" style="flex-grow: 1;" />
+                    <ui:Button name="btn-pos-RW" text="RW (Right Wing)" class="btn btn-secondary" style="flex-grow: 1;" />
+                </ui:VisualElement>
+
+                <!-- Midfielders -->
+                <ui:Label text="MIDFIELD" class="text-caption" style="margin-bottom: 4px;" />
+                <ui:VisualElement style="flex-direction: row; gap: 8px; margin-bottom: 10px;">
+                    <ui:Button name="btn-pos-AM" text="AM (Attacking Mid)" class="btn btn-secondary" style="flex-grow: 1;" />
+                    <ui:Button name="btn-pos-CM" text="CM (Central Mid)" class="btn btn-secondary" style="flex-grow: 1;" />
+                    <ui:Button name="btn-pos-DM" text="DM (Defensive Mid)" class="btn btn-secondary" style="flex-grow: 1;" />
+                </ui:VisualElement>
+
+                <!-- Defenders & Goalkeeper -->
+                <ui:Label text="DEFENSE &amp; GOAL" class="text-caption" style="margin-bottom: 4px;" />
+                <ui:VisualElement style="flex-direction: row; gap: 8px;">
+                    <ui:Button name="btn-pos-FB" text="FB (Fullback)" class="btn btn-secondary" style="flex-grow: 1;" />
+                    <ui:Button name="btn-pos-CB" text="CB (Center Back)" class="btn btn-secondary" style="flex-grow: 1;" />
+                    <ui:Button name="btn-pos-GK" text="GK (Goalkeeper)" class="btn btn-secondary" style="flex-grow: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Live Attribute Preview Card -->
+            <ui:VisualElement class="card">
+                <ui:VisualElement class="card-header">
+                    <ui:VisualElement>
+                        <ui:Label text="Starting Attributes Preview" class="text-title" style="font-size: 16px;" />
+                        <ui:Label name="label-position-desc" text="Striker • Key Focus: Shooting, Pace &amp; Composure" class="text-caption" />
+                    </ui:VisualElement>
+                    <ui:Label name="label-preview-ovr" text="61 OVR" class="badge badge-green" style="font-size: 13px;" />
+                </ui:VisualElement>
+
+                <!-- Attribute Bars -->
+                <ui:VisualElement style="margin-top: 8px;">
+                    <ui:VisualElement class="stat-meter-container">
+                        <ui:VisualElement class="stat-meter-header">
+                            <ui:Label text="Shooting / Finishing" class="text-caption" />
+                            <ui:Label name="val-shooting" text="67" class="text-caption" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-meter-track">
+                            <ui:VisualElement name="fill-shooting" class="stat-meter-fill stat-meter-fill-form" style="width: 67%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="stat-meter-container">
+                        <ui:VisualElement class="stat-meter-header">
+                            <ui:Label text="Pace &amp; Acceleration" class="text-caption" />
+                            <ui:Label name="val-pace" text="64" class="text-caption" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-meter-track">
+                            <ui:VisualElement name="fill-pace" class="stat-meter-fill stat-meter-fill-energy" style="width: 64%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="stat-meter-container">
+                        <ui:VisualElement class="stat-meter-header">
+                            <ui:Label text="Dribbling &amp; Control" class="text-caption" />
+                            <ui:Label name="val-dribbling" text="62" class="text-caption" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-meter-track">
+                            <ui:VisualElement name="fill-dribbling" class="stat-meter-fill stat-meter-fill-morale" style="width: 62%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="stat-meter-container">
+                        <ui:VisualElement class="stat-meter-header">
+                            <ui:Label text="Passing &amp; Vision" class="text-caption" />
+                            <ui:Label name="val-passing" text="58" class="text-caption" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-meter-track">
+                            <ui:VisualElement name="fill-passing" class="stat-meter-fill" style="width: 58%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="stat-meter-container">
+                        <ui:VisualElement class="stat-meter-header">
+                            <ui:Label text="Defending &amp; Tackling" class="text-caption" />
+                            <ui:Label name="val-tackling" text="48" class="text-caption" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-meter-track">
+                            <ui:VisualElement name="fill-tackling" class="stat-meter-fill" style="width: 48%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Error Label -->
+            <ui:Label name="label-error" text="" class="text-danger" style="color: #EF4444; margin-bottom: 8px; display: none;" />
+        </ui:ScrollView>
+
+        <!-- Navigation Action -->
+        <ui:VisualElement style="margin-top: 12px;">
+            <ui:Button name="btn-proceed" text="Proceed to Club Offers →" class="btn btn-primary" style="height: 48px; font-size: 15px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

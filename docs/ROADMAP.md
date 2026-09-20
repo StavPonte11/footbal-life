@@ -227,13 +227,14 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P2-004 (#98) | Scene architecture: Bootstrap, MainMenu, CareerHub, Match, Home | Unity | M | ✅ Complete |
 | #P2-005 (#99) | App UI design system: dark theme, typography, component library | Unity | L | ✅ Complete |
 
-### Milestone 2.2 — Player Creation Flow
+### Milestone 2.2 — Player Creation Flow ✅ (Complete)
+*Branch: `feature/milestone-2.2-player-creation` | Issues #102–#104*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P2-006 | Player creation screen: name, nationality, position, foot, appearance | Unity/UI | L |
-| #P2-007 | Starting club selection screen | Unity/UI | M |
-| #P2-008 | Career initialization: wire player creation to simulation | Unity | M |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P2-006 (#102) | Player creation screen: name, nationality, position, foot, appearance | Unity/UI | L | ✅ Complete |
+| #P2-007 (#103) | Starting club selection screen | Unity/UI | M | ✅ Complete |
+| #P2-008 (#104) | Career initialization: wire player creation to simulation | Unity | M | ✅ Complete |
 
 ### Milestone 2.3 — Home Screen (Daily Hub)
 
@@ -350,9 +351,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 2 — Unity Prototype (Milestone 2.1: Unity Project Bootstrap)
+## Current Focus: Phase 2 — Unity Prototype (Milestone 2.3: Home Screen / Daily Hub)
 
 > **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 524 passing tests).
-> **End-to-End Headless Simulation Validated** — `career-simulator` successfully runs 1,000 to 10,000 full 20-season careers headlessly in seconds, validating balance curves, aging, transfers, contracts, finances, and progression.
-> **Next issues to create:** `#P2-001` through `#P2-005` (Milestone 2.1 — Unity Project Bootstrap: Initialize Unity 6 URP project, App UI design system, integration bridge with pure C# SimulationRuntime, save/load persistence, and scene flow architecture).
+> **Milestones 2.1 & 2.2 ARE 100% COMPLETE** (Issues #95, #100, #97–#99, #102–#104 closed, 557 passing tests, Unity compilation verified).
+> **Next milestone to implement:** `#P2-009` through `#P2-012` (Milestone 2.3 — Home Screen / Daily Hub: Date, energy, form, fatigue, next match preview, training selection UI, rest/recovery, advance day simulation loop).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.
