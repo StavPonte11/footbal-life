@@ -196,5 +196,30 @@ namespace FootballLife.Domain
                       _vision + _composure + _positioning + _decisionMaking;
             return sum / 15f;
         }
+
+        /// <summary>
+        /// Returns the float value of a specific attribute by name.
+        /// Used by FatigueSystem and MatchSimulation for attribute-level calculations.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown for unknown attribute names.</exception>
+        public float Get(AttributeName attribute) => attribute switch
+        {
+            AttributeName.Pace          => _pace,
+            AttributeName.Acceleration  => _acceleration,
+            AttributeName.Stamina       => _stamina,
+            AttributeName.Strength      => _strength,
+            AttributeName.Agility       => _agility,
+            AttributeName.Passing       => _passing,
+            AttributeName.Shooting      => _shooting,
+            AttributeName.Dribbling     => _dribbling,
+            AttributeName.Crossing      => _crossing,
+            AttributeName.FirstTouch    => _firstTouch,
+            AttributeName.Tackling      => _tackling,
+            AttributeName.Vision        => _vision,
+            AttributeName.Composure     => _composure,
+            AttributeName.Positioning   => _positioning,
+            AttributeName.DecisionMaking => _decisionMaking,
+            _ => throw new ArgumentOutOfRangeException(nameof(attribute), $"Unknown attribute: {attribute}")
+        };
     }
 }
