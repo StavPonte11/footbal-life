@@ -1254,24 +1254,69 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 
 ---
 
+## MILESTONE 2.2 — Player Creation Flow ✅ Complete
+*Branch: `feature/milestone-2.2-player-creation` | Issues #102–#104*
+
+### Story P2-006: Player Creation Screen: Name, Nationality, Position, Foot, Appearance ✅
+**Branch:** `feature/milestone-2.2-player-creation`
+**Status:** Complete (Issue #102)
+
+> As a player, I want an intuitive and stylish player creation screen where I can configure my footballer's identity (name, nationality, preferred position, preferred foot, and appearance preset) and preview starting baseline attributes so that I can establish my footballer persona.
+
+**Acceptance Criteria:**
+- [x] `PlayerCreationView.uxml` created using dark sports theme tokens
+- [x] `PlayerCreationController.cs` managing interactive UI events and input validation
+- [x] Live attribute preview updates dynamically when position changes
+- [x] Random name generator utility supporting multiple nationalities (`RandomNameGenerator.cs`)
+- [x] Clean navigation flow to club selection screen
+
+---
+
+### Story P2-007: Starting Club Selection Screen ✅
+**Branch:** `feature/milestone-2.2-player-creation`
+**Status:** Complete (Issue #103)
+
+> As a player, I want to choose my starting rookie club from multiple realistic starter offers so that I can select my entry point into the professional football world based on club status, wage offer, and competition tier.
+
+**Acceptance Criteria:**
+- [x] `ClubSelectionView.uxml` created with interactive offer cards
+- [x] `ClubSelectionController.cs` populating dynamic club offer metadata
+- [x] Card selection states and visual highlighting with border colors and badges
+- [x] Confirmed club choice proceeds to career initialization
+
+---
+
+### Story P2-008: Career Initialization: Wire Player Creation to Simulation ✅
+**Branch:** `feature/milestone-2.2-player-creation`
+**Status:** Complete (Issue #104)
+
+> As a player, I want my created player and chosen starting club to initialize a new simulation session via `SimulationBridge` and save automatically so that I smoothly transition into my first week at the club in the CareerHub.
+
+**Acceptance Criteria:**
+- [x] End-to-end wiring from creation UI -> `SimulationBridge.StartNewCareer` -> `CareerHub`
+- [x] Immediate auto-save generated upon career start
+- [x] Starting condition initialized (Energy 100, Form 70, Morale 75, Manager Trust 50)
+- [x] Scene transition to `CareerHub` completes smoothly
+
+---
+
 ## Phase 2 Issue Status Overview
 
 ```
 COMPLETED:
   Milestone 2.1:    P2-001 → P2-005   (Unity Project Bootstrap)    ✅ Complete (Issues #95, #100, #97–#99)
+  Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)       ✅ Complete (Issues #102–#104)
 
-CURRENT ACTIVE TARGET:
-  Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)       🚀 Next Up
-```
+ACTIVE MILESTONE:
+  Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)
 
 UPCOMING MILESTONES:
-  Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)
-  Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)
   Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)
   Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)
   Milestone 2.6:    P2-018 → P2-020   (Post-Match & Season Summary)
   Milestone 2.7:    P2-021 → P2-023   (Prototype Playtest & Gate 2.1)
 ```
+
 
 
 

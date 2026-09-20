@@ -260,7 +260,7 @@ namespace FootballLife.Unity.Core.Bridge
                 OnWeekAdvanced?.Invoke(_currentSave.CurrentWeek);
 
                 // Check for random life event occurrence (approx 20% chance per week)
-                if (_simRandom.NextDouble() < 0.20)
+                if (_simRandom.NextFloat(0f, 1f) < 0.20f)
                 {
                     OnLifeEventOccurred?.Invoke(new LifeEventSnapshot(
                         eventId: Guid.NewGuid(),

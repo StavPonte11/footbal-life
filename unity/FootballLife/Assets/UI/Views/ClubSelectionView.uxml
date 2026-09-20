@@ -1,0 +1,116 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="padding: 20px; flex-grow: 1;">
+        <!-- Header & Step Navigation -->
+        <ui:VisualElement class="app-bar" style="margin-bottom: 16px; border-radius: 8px;">
+            <ui:Label text="FOOTBALL LIFE" class="text-accent" style="font-size: 18px;" />
+            <ui:Label text="STEP 2 OF 2 : ROOKIE CONTRACT" class="badge badge-gold" />
+        </ui:VisualElement>
+
+        <ui:VisualElement style="margin-bottom: 16px;">
+            <ui:Label text="Select Your Starting Club" class="text-title" />
+            <ui:Label text="Scouts have identified 3 entry-level professional contracts. Review terms and choose where to begin your journey." class="text-subtitle" style="font-size: 13px;" />
+        </ui:VisualElement>
+
+        <ui:ScrollView style="flex-grow: 1;">
+            <!-- Offer Card 0 -->
+            <ui:VisualElement name="card-offer-0" class="card-elevated" style="cursor: link; border-width: 2px; border-color: #10B981;">
+                <ui:VisualElement class="card-header">
+                    <ui:VisualElement>
+                        <ui:Label name="title-offer-0" text="Northfield Town" class="text-title" style="font-size: 18px;" />
+                        <ui:Label name="league-offer-0" text="Division 4 • Stadium: Meadow Lane" class="text-caption" />
+                    </ui:VisualElement>
+                    <ui:Label name="badge-offer-0" text="SELECTED" class="badge badge-green" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-top: 8px; margin-bottom: 4px;">
+                    <ui:VisualElement>
+                        <ui:Label text="Weekly Salary" class="text-caption" />
+                        <ui:Label name="wage-offer-0" text="£450 / week" class="text-gold" style="font-size: 16px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement>
+                        <ui:Label text="Squad Role" class="text-caption" />
+                        <ui:Label name="role-offer-0" text="Youth Prospect" class="text-accent" style="font-size: 14px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement>
+                        <ui:Label text="Contract Length" class="text-caption" />
+                        <ui:Label name="length-offer-0" text="2 Years" class="text-primary" style="font-size: 14px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement>
+                        <ui:Label text="Manager Trust" class="text-caption" />
+                        <ui:Label name="trust-offer-0" text="50%" class="text-primary" style="font-size: 14px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Offer Card 1 -->
+            <ui:VisualElement name="card-offer-1" class="card" style="cursor: link; border-width: 2px; border-color: #334155;">
+                <ui:VisualElement class="card-header">
+                    <ui:VisualElement>
+                        <ui:Label name="title-offer-1" text="Bristol Rovers" class="text-title" style="font-size: 18px;" />
+                        <ui:Label name="league-offer-1" text="Division 4 • Stadium: Memorial Ground" class="text-caption" />
+                    </ui:VisualElement>
+                    <ui:Label name="badge-offer-1" text="OFFER" class="badge badge-slate" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-top: 8px; margin-bottom: 4px;">
+                    <ui:VisualElement>
+                        <ui:Label text="Weekly Salary" class="text-caption" />
+                        <ui:Label name="wage-offer-1" text="£525 / week" class="text-gold" style="font-size: 16px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement>
+                        <ui:Label text="Squad Role" class="text-caption" />
+                        <ui:Label name="role-offer-1" text="Prospect" class="text-accent" style="font-size: 14px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement>
+                        <ui:Label text="Contract Length" class="text-caption" />
+                        <ui:Label name="length-offer-1" text="2 Years" class="text-primary" style="font-size: 14px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement>
+                        <ui:Label text="Manager Trust" class="text-caption" />
+                        <ui:Label name="trust-offer-1" text="45%" class="text-primary" style="font-size: 14px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Offer Card 2 -->
+            <ui:VisualElement name="card-offer-2" class="card" style="cursor: link; border-width: 2px; border-color: #334155;">
+                <ui:VisualElement class="card-header">
+                    <ui:VisualElement>
+                        <ui:Label name="title-offer-2" text="Harrogate Town" class="text-title" style="font-size: 18px;" />
+                        <ui:Label name="league-offer-2" text="Division 4 • Stadium: Wetherby Road" class="text-caption" />
+                    </ui:VisualElement>
+                    <ui:Label name="badge-offer-2" text="OFFER" class="badge badge-slate" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-top: 8px; margin-bottom: 4px;">
+                    <ui:VisualElement>
+                        <ui:Label text="Weekly Salary" class="text-caption" />
+                        <ui:Label name="wage-offer-2" text="£480 / week" class="text-gold" style="font-size: 16px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement>
+                        <ui:Label text="Squad Role" class="text-caption" />
+                        <ui:Label name="role-offer-2" text="Youth Prospect" class="text-accent" style="font-size: 14px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement>
+                        <ui:Label text="Contract Length" class="text-caption" />
+                        <ui:Label name="length-offer-2" text="2 Years" class="text-primary" style="font-size: 14px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement>
+                        <ui:Label text="Manager Trust" class="text-caption" />
+                        <ui:Label name="trust-offer-2" text="55%" class="text-primary" style="font-size: 14px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:ScrollView>
+
+        <!-- Action Controls -->
+        <ui:VisualElement style="flex-direction: row; gap: 12px; margin-top: 16px;">
+            <ui:Button name="btn-back" text="← Back" class="btn btn-secondary" style="height: 48px; width: 110px; font-size: 14px;" />
+            <ui:Button name="btn-sign-contract" text="Sign Contract &amp; Begin Career ✍️" class="btn btn-primary" style="flex-grow: 1; height: 48px; font-size: 15px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -135,8 +135,8 @@ public class _3DSkybox : MonoBehaviour
         }
 #endif
 
-        static ShaderTagId[] s_ShaderTagValues;
-        static RenderStateBlock[] s_RenderStateBlocks;
+        static ShaderTagId[] s_ShaderTagValues = new ShaderTagId[1];
+        static RenderStateBlock[] s_RenderStateBlocks = new RenderStateBlock[1];
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetStatics()
@@ -197,6 +197,14 @@ public class _3DSkybox : MonoBehaviour
 
             UniversalRenderingData renderingData = frameData.Get<UniversalRenderingData>();
             UniversalResourceData cameraData = frameData.Get<UniversalResourceData>();
+
+            // Guard: Skip rendering if cull results are not yet valid (e.g. first Editor frame before cull runs)
+            if (!renderingData.cullResults.visibleLights.IsCreated)
+                return;
+
+            // Guard: Skip if active render target handles are not valid yet
+            if (!cameraData.activeColorTexture.IsValid() || !cameraData.activeDepthTexture.IsValid())
+                return;
 
             using (var builder = renderGraph.AddRasterRenderPass("3D Skybox", out _3DSkyboxPassData passData))
             {
