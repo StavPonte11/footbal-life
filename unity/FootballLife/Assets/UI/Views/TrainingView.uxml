@@ -1,0 +1,81 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <!-- Training panel overlay (full screen dim + centred panel) -->
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.7);">
+
+        <ui:VisualElement class="card-elevated" style="width: 92%; max-width: 440px;">
+            <!-- Header -->
+            <ui:VisualElement class="card-header">
+                <ui:VisualElement>
+                    <ui:Label text="Training Session" class="text-title" style="font-size: 18px;" />
+                    <ui:Label text="Choose your focus for today. Higher intensity = more gain, more fatigue." class="text-caption" style="white-space: normal;" />
+                </ui:VisualElement>
+                <ui:Label name="label-energy-remaining" text="⚡ 100" class="badge badge-slate" />
+            </ui:VisualElement>
+
+            <!-- Intensity Selector -->
+            <ui:VisualElement style="flex-direction: row; gap: 8px; margin-bottom: 14px; margin-top: 4px;">
+                <ui:Button name="btn-intensity-low" text="Low" class="btn btn-secondary" style="flex-grow: 1; font-size: 12px;" />
+                <ui:Button name="btn-intensity-med" text="Medium" class="btn btn-primary" style="flex-grow: 1; font-size: 12px;" />
+                <ui:Button name="btn-intensity-high" text="High" class="btn btn-secondary" style="flex-grow: 1; font-size: 12px;" />
+            </ui:VisualElement>
+            <ui:Label name="label-intensity-desc" text="Energy Cost: -24 · Attribute Gain: +6 Form" class="text-caption" style="margin-bottom: 12px; text-align: center;" />
+
+            <!-- Category Cards -->
+            <ui:Label text="SELECT FOCUS" class="text-caption" style="margin-bottom: 8px;" />
+
+            <ui:Button name="btn-cat-physical" class="btn btn-secondary" style="margin-bottom: 8px; height: 56px;">
+                <ui:VisualElement style="flex-direction: row; align-items: center; gap: 10px;">
+                    <ui:Label text="🏃" style="font-size: 20px;" />
+                    <ui:VisualElement style="align-items: flex-start;">
+                        <ui:Label text="Physical" style="-unity-font-style: bold; font-size: 14px;" />
+                        <ui:Label text="Pace · Stamina · Acceleration" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:Button>
+
+            <ui:Button name="btn-cat-technical" class="btn btn-secondary" style="margin-bottom: 8px; height: 56px;">
+                <ui:VisualElement style="flex-direction: row; align-items: center; gap: 10px;">
+                    <ui:Label text="⚽" style="font-size: 20px;" />
+                    <ui:VisualElement style="align-items: flex-start;">
+                        <ui:Label text="Technical" style="-unity-font-style: bold; font-size: 14px;" />
+                        <ui:Label text="Shooting · Dribbling · First Touch" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:Button>
+
+            <ui:Button name="btn-cat-tactical" class="btn btn-secondary" style="margin-bottom: 8px; height: 56px;">
+                <ui:VisualElement style="flex-direction: row; align-items: center; gap: 10px;">
+                    <ui:Label text="🧠" style="font-size: 20px;" />
+                    <ui:VisualElement style="align-items: flex-start;">
+                        <ui:Label text="Tactical" style="-unity-font-style: bold; font-size: 14px;" />
+                        <ui:Label text="Passing · Vision · Positioning" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:Button>
+
+            <ui:Button name="btn-cat-goalkeeping" class="btn btn-secondary" style="margin-bottom: 14px; height: 56px;">
+                <ui:VisualElement style="flex-direction: row; align-items: center; gap: 10px;">
+                    <ui:Label text="🧤" style="font-size: 20px;" />
+                    <ui:VisualElement style="align-items: flex-start;">
+                        <ui:Label text="Goalkeeping" style="-unity-font-style: bold; font-size: 14px;" />
+                        <ui:Label text="Reflexes · Distribution · Handling" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:Button>
+
+            <!-- Fatigue Warning -->
+            <ui:Label name="label-fatigue-warning" text="⚠️ Too fatigued for this intensity! Choose lower or rest first." class="text-caption" style="color: #EF4444; display: none; white-space: normal; margin-bottom: 8px;" />
+
+            <!-- Action Buttons -->
+            <ui:VisualElement style="flex-direction: row; gap: 10px;">
+                <ui:Button name="btn-cancel" text="Cancel" class="btn btn-secondary" style="width: 100px; height: 44px;" />
+                <ui:Button name="btn-confirm-train" text="Start Training" class="btn btn-primary" style="flex-grow: 1; height: 44px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

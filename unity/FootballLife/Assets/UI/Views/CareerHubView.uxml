@@ -1,0 +1,148 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column;">
+
+        <!-- ====================================================
+             APP BAR: Player identity + Club + Date
+             ==================================================== -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:VisualElement style="flex-direction: row; align-items: center; gap: 10px;">
+                <!-- Avatar placeholder circle -->
+                <ui:VisualElement style="width: 36px; height: 36px; border-radius: 18px; background-color: var(--fl-color-primary); align-items: center; justify-content: center;">
+                    <ui:Label name="label-avatar-initial" text="M" style="color: #FFFFFF; font-size: 16px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+                <ui:VisualElement>
+                    <ui:Label name="label-player-name" text="Marcus Vance" class="text-title" style="font-size: 15px;" />
+                    <ui:Label name="label-club-position" text="Northfield Town · ST" class="text-caption" style="font-size: 11px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px;">
+                <ui:Label name="label-ovr" text="60 OVR" class="badge badge-green" style="font-size: 12px;" />
+                <ui:VisualElement style="align-items: flex-end;">
+                    <ui:Label name="label-date" text="Season 1 · Week 1" class="text-accent" style="font-size: 12px;" />
+                    <ui:Label name="label-day" text="Monday" class="text-caption" style="font-size: 11px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             SCROLLABLE MAIN CONTENT
+             ==================================================== -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 12px; padding-bottom: 12px;">
+
+            <!-- ── VITAL STATS CARD ──────────────────────────── -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 12px;">
+                <ui:Label text="Player Vitals" class="text-caption" style="margin-bottom: 8px;" />
+
+                <!-- Energy -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="⚡ Energy" class="text-caption" />
+                        <ui:Label name="val-energy" text="100" class="text-caption" style="color: #38BDF8;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-energy" class="stat-meter-fill stat-meter-fill-energy" style="width: 100%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Form -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="📈 Form" class="text-caption" />
+                        <ui:Label name="val-form" text="70" class="text-caption" style="color: #34D399;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-form" class="stat-meter-fill stat-meter-fill-form" style="width: 70%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Morale -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="💛 Morale" class="text-caption" />
+                        <ui:Label name="val-morale" text="75" class="text-caption" style="color: #FBBF24;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-morale" class="stat-meter-fill stat-meter-fill-morale" style="width: 75%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Manager Trust -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="🤝 Manager Trust" class="text-caption" />
+                        <ui:Label name="val-trust" text="50" class="text-caption" style="color: #A78BFA;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-trust" class="stat-meter-fill" style="width: 50%; background-color: #A78BFA;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── FINANCES ROW ───────────────────────────────── -->
+            <ui:VisualElement class="card" style="flex-direction: row; justify-content: space-between; margin-bottom: 12px;">
+                <ui:VisualElement style="align-items: center; flex-grow: 1;">
+                    <ui:Label text="Weekly Wage" class="text-caption" />
+                    <ui:Label name="label-wage" text="£500/wk" class="text-gold" style="font-size: 15px;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+                <ui:VisualElement style="align-items: center; flex-grow: 1;">
+                    <ui:Label text="Bank Balance" class="text-caption" />
+                    <ui:Label name="label-balance" text="£1,500" class="text-gold" style="font-size: 15px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── NEXT MATCH CARD (hidden when no match this week) ── -->
+            <ui:VisualElement name="card-next-match" class="card" style="margin-bottom: 12px; border-color: #F59E0B; border-width: 1px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="⚽ Next Match" class="text-title" style="font-size: 14px;" />
+                    <ui:Label name="label-match-countdown" text="Saturday · 3 days" class="badge badge-gold" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-top: 4px;">
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="label-match-home" text="NORTHFIELD TOWN" class="text-accent" style="font-size: 13px; -unity-font-style: bold;" />
+                        <ui:Label text="Home" class="text-caption" />
+                    </ui:VisualElement>
+                    <ui:Label text="VS" class="text-caption" style="font-size: 18px; -unity-font-style: bold;" />
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="label-match-opponent" text="WESTFORD UNITED" class="text-title" style="font-size: 13px; -unity-font-style: bold;" />
+                        <ui:Label name="label-match-competition" text="Division 4" class="text-caption" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── STATUS TICKER ─────────────────────────────── -->
+            <ui:VisualElement name="card-status" class="card" style="margin-bottom: 12px;">
+                <ui:Label text="📋 Latest News" class="text-caption" style="margin-bottom: 4px;" />
+                <ui:Label name="label-status" text="Career began at Northfield Town!" class="text-subtitle" style="font-size: 13px; white-space: normal;" />
+            </ui:VisualElement>
+
+            <!-- ── PRIMARY ACTIONS ───────────────────────────── -->
+            <ui:Label text="TODAY'S ACTIONS" class="text-caption" style="margin-bottom: 8px;" />
+
+            <ui:VisualElement style="flex-direction: row; gap: 10px; margin-bottom: 10px;">
+                <ui:Button name="btn-train" text="🏋️ Train" class="btn btn-primary" style="flex-grow: 1; height: 52px; font-size: 14px;" />
+                <ui:Button name="btn-rest" text="😴 Rest" class="btn btn-secondary" style="flex-grow: 1; height: 52px; font-size: 14px;" />
+            </ui:VisualElement>
+
+            <ui:VisualElement style="flex-direction: row; gap: 10px; margin-bottom: 10px;">
+                <ui:Button name="btn-match" text="⚽ Play Match" class="btn btn-gold" style="flex-grow: 1; height: 52px; font-size: 14px;" />
+                <ui:Button name="btn-career" text="📊 Career" class="btn btn-secondary" style="flex-grow: 1; height: 52px; font-size: 14px;" />
+            </ui:VisualElement>
+
+            <!-- Empty space at bottom for the fixed footer -->
+            <ui:VisualElement style="height: 16px;" />
+        </ui:ScrollView>
+
+        <!-- ====================================================
+             FIXED FOOTER: Advance Day
+             ==================================================== -->
+        <ui:VisualElement style="padding-left: 16px; padding-right: 16px; padding-top: 10px; padding-bottom: 12px; background-color: var(--fl-color-surface); border-top-width: 1px; border-top-color: var(--fl-color-border);">
+            <ui:Button name="btn-advance-day" text="Advance Day →" class="btn btn-primary" style="height: 50px; font-size: 15px;" />
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <!-- Life event dilemma overlay -->
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.75);">
+
+        <ui:VisualElement class="card-elevated" style="width: 90%; max-width: 420px;">
+            <ui:VisualElement style="flex-direction: row; align-items: center; gap: 10px; margin-bottom: 14px;">
+                <ui:Label name="label-event-icon" text="📰" style="font-size: 28px;" />
+                <ui:VisualElement>
+                    <ui:Label name="label-event-category" text="LIFESTYLE" class="badge badge-gold" style="margin-bottom: 4px;" />
+                    <ui:Label name="label-event-title" text="Sponsorship Offer" class="text-title" style="font-size: 18px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:Label name="label-event-description" text="A local sports apparel brand offers an endorsement contract worth £1,000 upfront plus a monthly retainer." class="text-subtitle" style="font-size: 13px; white-space: normal; margin-bottom: 18px;" />
+
+            <!-- Dynamic choice buttons: generated from OnLifeEventOccurred snapshot -->
+            <ui:VisualElement name="container-choices" style="gap: 8px;" />
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

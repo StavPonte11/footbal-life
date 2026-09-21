@@ -1,0 +1,49 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <!-- Rest panel overlay -->
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.7);">
+
+        <ui:VisualElement class="card-elevated" style="width: 88%; max-width: 380px;">
+            <!-- Header -->
+            <ui:VisualElement class="card-header">
+                <ui:Label text="Rest &amp; Recovery" class="text-title" style="font-size: 18px;" />
+                <ui:Label name="label-energy-display" text="⚡ 100" class="badge badge-slate" />
+            </ui:VisualElement>
+
+            <ui:Label text="Taking a day off will help your body recover." class="text-subtitle" style="font-size: 13px; margin-bottom: 16px; white-space: normal;" />
+
+            <!-- Light Rest Option -->
+            <ui:VisualElement name="card-light-rest" class="card" style="margin-bottom: 10px; cursor: link;">
+                <ui:VisualElement class="card-header" style="margin-bottom: 4px; padding-bottom: 4px;">
+                    <ui:Label text="😴  Light Rest" class="text-title" style="font-size: 16px;" />
+                    <ui:Label text="FREE" class="badge badge-green" />
+                </ui:VisualElement>
+                <ui:Label text="+20 Energy recovered" class="text-accent" style="font-size: 13px;" />
+                <ui:Label text="Sleep in, relax at home, avoid the training ground." class="text-caption" style="font-size: 11px; white-space: normal; margin-top: 2px;" />
+            </ui:VisualElement>
+
+            <!-- Physio Option -->
+            <ui:VisualElement name="card-physio" class="card" style="margin-bottom: 18px; cursor: link;">
+                <ui:VisualElement class="card-header" style="margin-bottom: 4px; padding-bottom: 4px;">
+                    <ui:Label text="🏥  Physio Session" class="text-title" style="font-size: 16px;" />
+                    <ui:Label text="£150" class="badge badge-gold" />
+                </ui:VisualElement>
+                <ui:Label text="+35 Energy · +5 Morale" class="text-accent" style="font-size: 13px;" />
+                <ui:Label text="Professional treatment speeds full recovery. Costs money." class="text-caption" style="font-size: 11px; white-space: normal; margin-top: 2px;" />
+            </ui:VisualElement>
+
+            <!-- Insufficient funds warning -->
+            <ui:Label name="label-funds-warning" text="⚠️ Insufficient funds for Physio (need £150)." class="text-caption" style="color: #EF4444; display: none; margin-bottom: 8px; white-space: normal;" />
+
+            <!-- Action Buttons -->
+            <ui:VisualElement style="flex-direction: row; gap: 10px;">
+                <ui:Button name="btn-cancel" text="Cancel" class="btn btn-secondary" style="width: 100px; height: 44px;" />
+                <ui:Button name="btn-confirm-rest" text="Take Light Rest" class="btn btn-primary" style="flex-grow: 1; height: 44px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

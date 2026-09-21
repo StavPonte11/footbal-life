@@ -1,0 +1,232 @@
+using System;
+using FootballLife.Unity.Core.Bridge;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace FootballLife.Unity.UI.Hub
+{
+    /// <summary>
+    /// Binds CareerHubView.uxml to SimulationBridge events.
+    /// Pure presentation: no game logic, only reads from SimulationDaySnapshot and CurrentSave.
+    /// </summary>
+    public class CareerHubController
+    {
+        // ── Queried Elements ──────────────────────────────────────────────────
+        private readonly Label _labelPlayerName;
+        private readonly Label _labelClubPosition;
+        private readonly Label _labelAvatarInitial;
+        private readonly Label _labelOvr;
+        private readonly Label _labelDate;
+        private readonly Label _labelDay;
+
+        private readonly VisualElement _fillEnergy;
+        private readonly VisualElement _fillForm;
+        private readonly VisualElement _fillMorale;
+        private readonly VisualElement _fillTrust;
+        private readonly Label _valEnergy;
+        private readonly Label _valForm;
+        private readonly Label _valMorale;
+        private readonly Label _valTrust;
+
+        private readonly Label _labelWage;
+        private readonly Label _labelBalance;
+
+        private readonly VisualElement _cardNextMatch;
+        private readonly Label _labelMatchCountdown;
+        private readonly Label _labelMatchHome;
+        private readonly Label _labelMatchOpponent;
+        private readonly Label _labelMatchCompetition;
+
+        private readonly Label _labelStatus;
+
+        private readonly Button _btnTrain;
+        private readonly Button _btnRest;
+        private readonly Button _btnMatch;
+        private readonly Button _btnCareer;
+        private readonly Button _btnAdvanceDay;
+
+        // ── Overlays controlled externally ───────────────────────────────────
+        private readonly Action _onOpenTraining;
+        private readonly Action _onOpenRest;
+        private readonly Action _onOpenCareer;
+        private readonly Action _onLifeEventPending;
+
+        private SimulationBridge? _bridge;
+
+        private static readonly string[] _dayNames =
+            { "", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+        // ── Constructor ───────────────────────────────────────────────────────
+        public CareerHubController(
+            VisualElement root,
+            Action onOpenTraining,
+            Action onOpenRest,
+            Action onOpenCareer,
+            Action onLifeEventPending)
+        {
+            _onOpenTraining = onOpenTraining;
+            _onOpenRest = onOpenRest;
+            _onOpenCareer = onOpenCareer;
+            _onLifeEventPending = onLifeEventPending;
+
+            // ── Query ─────────────────────────────────────────────────────────
+            _labelPlayerName   = root.Q<Label>("label-player-name");
+            _labelClubPosition = root.Q<Label>("label-club-position");
+            _labelAvatarInitial = root.Q<Label>("label-avatar-initial");
+            _labelOvr          = root.Q<Label>("label-ovr");
+            _labelDate         = root.Q<Label>("label-date");
+            _labelDay          = root.Q<Label>("label-day");
+
+            _fillEnergy  = root.Q<VisualElement>("fill-energy");
+            _fillForm    = root.Q<VisualElement>("fill-form");
+            _fillMorale  = root.Q<VisualElement>("fill-morale");
+            _fillTrust   = root.Q<VisualElement>("fill-trust");
+            _valEnergy   = root.Q<Label>("val-energy");
+            _valForm     = root.Q<Label>("val-form");
+            _valMorale   = root.Q<Label>("val-morale");
+            _valTrust    = root.Q<Label>("val-trust");
+
+            _labelWage    = root.Q<Label>("label-wage");
+            _labelBalance = root.Q<Label>("label-balance");
+
+            _cardNextMatch        = root.Q<VisualElement>("card-next-match");
+            _labelMatchCountdown  = root.Q<Label>("label-match-countdown");
+            _labelMatchHome       = root.Q<Label>("label-match-home");
+            _labelMatchOpponent   = root.Q<Label>("label-match-opponent");
+            _labelMatchCompetition= root.Q<Label>("label-match-competition");
+
+            _labelStatus  = root.Q<Label>("label-status");
+
+            _btnTrain       = root.Q<Button>("btn-train");
+            _btnRest        = root.Q<Button>("btn-rest");
+            _btnMatch       = root.Q<Button>("btn-match");
+            _btnCareer      = root.Q<Button>("btn-career");
+            _btnAdvanceDay  = root.Q<Button>("btn-advance-day");
+
+            // ── Wire buttons ──────────────────────────────────────────────────
+            _btnTrain.clicked      += () => _onOpenTraining?.Invoke();
+            _btnRest.clicked       += () => _onOpenRest?.Invoke();
+            _btnCareer.clicked     += () => _onOpenCareer?.Invoke();
+            _btnAdvanceDay.clicked += OnAdvanceDayClicked;
+
+            // Match button: navigates to match scene (stubbed for now)
+            _btnMatch.clicked += () => _labelStatus.text = "Match preparation coming in Milestone 2.5!";
+
+            // Hide match card initially (no pending match)
+            SetMatchCardVisible(false);
+        }
+
+        // ── Public: Bind / Unbind bridge ─────────────────────────────────────
+        public void Bind(SimulationBridge bridge)
+        {
+            Unbind();
+            _bridge = bridge;
+            _bridge.OnDayAdvanced      += OnDayAdvanced;
+            _bridge.OnMatchOpportunity += OnMatchOpportunity;
+            _bridge.OnLifeEventOccurred+= OnLifeEvent;
+            _bridge.OnStatusLog        += OnStatusLog;
+            RefreshIdentity();
+        }
+
+        public void Unbind()
+        {
+            if (_bridge == null) return;
+            _bridge.OnDayAdvanced       -= OnDayAdvanced;
+            _bridge.OnMatchOpportunity  -= OnMatchOpportunity;
+            _bridge.OnLifeEventOccurred -= OnLifeEvent;
+            _bridge.OnStatusLog         -= OnStatusLog;
+            _bridge = null;
+        }
+
+        // ── Private: Event Handlers ───────────────────────────────────────────
+        private void OnDayAdvanced(SimulationDaySnapshot snap)
+        {
+            // Header
+            _labelDate.text = $"Season {snap.Season} · Week {snap.Week}";
+            string dayName = snap.DayOfWeek >= 1 && snap.DayOfWeek <= 7
+                ? _dayNames[snap.DayOfWeek]
+                : $"Day {snap.DayOfWeek}";
+            _labelDay.text = dayName;
+            _labelOvr.text = $"{snap.OverallRating} OVR";
+
+            // Vital stat meters
+            SetMeter(_fillEnergy, _valEnergy, snap.Energy);
+            SetMeter(_fillForm,   _valForm,   snap.Form);
+            SetMeter(_fillMorale, _valMorale, snap.Morale);
+            SetMeter(_fillTrust,  _valTrust,  snap.ManagerTrust);
+
+            // Finances from CurrentSave (bridge has the authoritative numbers)
+            if (_bridge?.CurrentSave != null)
+            {
+                _labelWage.text    = $"£{_bridge.CurrentSave.WeeklyWage:N0}/wk";
+                _labelBalance.text = $"£{snap.BankBalance:N0}";
+            }
+
+            // Status ticker
+            if (!string.IsNullOrEmpty(snap.StatusMessage))
+                _labelStatus.text = snap.StatusMessage;
+
+            // Match button state (only enable on Saturday = day 6)
+            bool isMatchDay = snap.DayOfWeek == 6;
+            _btnMatch.SetEnabled(isMatchDay);
+        }
+
+        private void OnMatchOpportunity(MatchOpportunitySnapshot snap)
+        {
+            SetMatchCardVisible(true);
+            _labelMatchHome.text        = (_bridge?.CurrentSave?.ClubName ?? "Your Club").ToUpperInvariant();
+            _labelMatchOpponent.text    = snap.OpponentName.ToUpperInvariant();
+            _labelMatchCompetition.text = snap.Competition;
+            _labelMatchCountdown.text   = snap.IsHome ? "Today · Home" : "Today · Away";
+        }
+
+        private void OnLifeEvent(LifeEventSnapshot snap)
+        {
+            _labelStatus.text = $"📰 {snap.Title}: {snap.Description}";
+            _onLifeEventPending?.Invoke();
+        }
+
+        private void OnStatusLog(string message)
+        {
+            // Only update the ticker if it's a meaningful non-day message
+            if (!string.IsNullOrEmpty(message))
+                _labelStatus.text = message;
+        }
+
+        private void OnAdvanceDayClicked()
+        {
+            _bridge?.AdvanceDay();
+        }
+
+        // ── Private: Identity ─────────────────────────────────────────────────
+        private void RefreshIdentity()
+        {
+            var save = _bridge?.CurrentSave;
+            if (save == null) return;
+
+            _labelPlayerName.text   = save.PlayerName;
+            _labelClubPosition.text = $"{save.ClubName} · {save.PrimaryPosition}";
+            _labelAvatarInitial.text = save.PlayerName.Length > 0
+                ? save.PlayerName[0].ToString().ToUpperInvariant()
+                : "?";
+
+            _labelWage.text    = $"£{save.WeeklyWage:N0}/wk";
+            _labelBalance.text = $"£{save.BankBalance:N0}";
+            _labelOvr.text     = $"{save.OverallRating} OVR";
+        }
+
+        // ── Private: Helpers ──────────────────────────────────────────────────
+        private static void SetMeter(VisualElement fill, Label label, int value)
+        {
+            int clamped = Math.Clamp(value, 0, 100);
+            fill.style.width = new StyleLength(new Length(clamped, LengthUnit.Percent));
+            label.text = clamped.ToString();
+        }
+
+        private void SetMatchCardVisible(bool visible)
+        {
+            if (_cardNextMatch != null)
+                _cardNextMatch.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+    }
+}
