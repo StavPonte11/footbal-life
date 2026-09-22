@@ -1300,22 +1300,93 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 
 ---
 
+## MILESTONE 2.3 — Home Screen (Daily Hub) ✅ Complete
+*Branch: `feature/milestone-2.3-daily-hub` | Issues #106–#109*
+
+### Story P2-009: Home Screen (Daily Hub): Date, Form, Energy, Next Match, Primary Actions ✅
+**Branch:** `feature/milestone-2.3-daily-hub`
+**Status:** Complete (Issue #106)
+
+> As a player, after signing my contract I arrive at the Daily Hub — the main screen I see every day of my career. I want to see today's key info at a glance and decide my next action.
+
+**Acceptance Criteria:**
+- [x] Date header: Season N · Week N · Day (Mon/Tue/Wed/Thu/Fri/Sat/Sun)
+- [x] Player identity bar: name, position, club, overall rating badge
+- [x] Three stat meters: Energy, Form, Morale (with colour-coded fills)
+- [x] Manager Trust bar
+- [x] Finance row: weekly wage · bank balance
+- [x] Next Match card: opponent, competition, home/away, countdown days (hidden if no match this week)
+- [x] Status / news ticker: shows latest `OnStatusLog` or life event notification
+- [x] Four primary action buttons: Train · Rest · Match (disabled when no match) · View Career
+- [x] UI binds to `SimulationBridge.OnDayAdvanced` and refreshes all widgets reactively
+
+---
+
+### Story P2-010: Training Selection UI: Categories, Fatigue Cost, XP Preview ✅
+**Branch:** `feature/milestone-2.3-daily-hub`
+**Status:** Complete (Issue #107)
+
+> As a player, I want to open a Training panel showing available training categories with their energy cost and expected attribute gain. I pick one and confirm to apply it.
+
+**Acceptance Criteria:**
+- [x] Modal/overlay panel `TrainingView.uxml` with title "Training Session"
+- [x] 4 training category cards: Physical, Technical, Tactical, Goalkeeping
+- [x] Each card shows: category name, icon emoji, energy cost (intensity slider: Low 12 / Med 24 / High 36), expected attribute gain preview
+- [x] Confirm button calls `SimulationBridge.SelectWeeklyTraining(category, intensity)`
+- [x] Cancel/back button returns to Daily Hub without change
+- [x] If energy < 12, all options show "Too Fatigued" warning and confirm is disabled
+
+---
+
+### Story P2-011: Rest & Recovery Action Panel ✅
+**Branch:** `feature/milestone-2.3-daily-hub`
+**Status:** Complete (Issue #108)
+
+> As a player, I want to spend a day resting so that my energy recovers, especially before a match.
+
+**Acceptance Criteria:**
+- [x] Rest modal/overlay `RestView.uxml` with 2 options:
+  - **Light Rest** — free, +20 Energy, no morale change
+  - **Physio Session** — costs £150, +35 Energy, +5 Morale
+- [x] Calls `SimulationBridge.PerformRest("Light")` or `SimulationBridge.PerformRest("Physio")`
+- [x] Physio disabled if `BankBalance < 150`
+- [x] After confirming, view returns to Daily Hub with updated stats
+
+---
+
+### Story P2-012: Advance Day Button: Trigger Simulation Tick, Refresh Daily Hub ✅
+**Branch:** `feature/milestone-2.3-daily-hub`
+**Status:** Complete (Issue #109)
+
+> As a player, I want to click "Advance Day" to move time forward. The UI should update to show the new date, changed stats, and any triggered events (life event, match opportunity).
+
+**Acceptance Criteria:**
+- [x] "Advance Day" button on Daily Hub calls `SimulationBridge.AdvanceDay()`
+- [x] All stat widgets refresh via `OnDayAdvanced` event binding
+- [x] If `OnMatchOpportunity` fires → show "Match Day!" banner and enable Match action button
+- [x] If `OnLifeEventOccurred` fires → show life event modal with choices (`LifeEventView.uxml` + `LifeEventController.cs`)
+- [x] Day label cycles Mon → Tue → ... → Sun → Mon (with week counter incrementing)
+- [x] Status ticker updates to newest entry
+
+---
+
 ## Phase 2 Issue Status Overview
 
 ```
 COMPLETED:
   Milestone 2.1:    P2-001 → P2-005   (Unity Project Bootstrap)    ✅ Complete (Issues #95, #100, #97–#99)
   Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)       ✅ Complete (Issues #102–#104)
+  Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)    ✅ Complete (Issues #106–#109)
 
 ACTIVE MILESTONE:
-  Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)
+  Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)
 
 UPCOMING MILESTONES:
-  Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)
   Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)
   Milestone 2.6:    P2-018 → P2-020   (Post-Match & Season Summary)
   Milestone 2.7:    P2-021 → P2-023   (Prototype Playtest & Gate 2.1)
 ```
+
 
 
 

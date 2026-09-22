@@ -236,14 +236,15 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P2-007 (#103) | Starting club selection screen | Unity/UI | M | ✅ Complete |
 | #P2-008 (#104) | Career initialization: wire player creation to simulation | Unity | M | ✅ Complete |
 
-### Milestone 2.3 — Home Screen (Daily Hub)
+### Milestone 2.3 — Home Screen (Daily Hub) ✅ (Complete)
+*Branch: `feature/milestone-2.3-daily-hub` | Issues #106–#109*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P2-009 | Home screen: date, form, fatigue, next match, current events, primary actions | Unity/UI | L |
-| #P2-010 | Training selection UI: categories, fatigue cost, expected XP | Unity/UI | M |
-| #P2-011 | Rest/recovery action | Unity/UI | S |
-| #P2-012 | Advance day: trigger simulation tick, update UI | Unity | M |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P2-009 (#106) | Home screen: date, form, energy, next match, current events, primary actions | Unity/UI | L | ✅ Complete |
+| #P2-010 (#107) | Training selection UI: categories, energy cost, XP preview | Unity/UI | M | ✅ Complete |
+| #P2-011 (#108) | Rest/recovery action panel (Light Rest vs Physio) | Unity/UI | S | ✅ Complete |
+| #P2-012 (#109) | Advance day: trigger simulation tick, event dispatch, UI refresh | Unity | M | ✅ Complete |
 
 ### Milestone 2.4 — Career Screen
 
@@ -351,9 +352,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 2 — Unity Prototype (Milestone 2.3: Home Screen / Daily Hub)
+## Current Focus: Phase 2 — Unity Prototype (Milestone 2.4: Career Screen & Profile)
 
 > **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 524 passing tests).
-> **Milestones 2.1 & 2.2 ARE 100% COMPLETE** (Issues #95, #100, #97–#99, #102–#104 closed, 557 passing tests, Unity compilation verified).
-> **Next milestone to implement:** `#P2-009` through `#P2-012` (Milestone 2.3 — Home Screen / Daily Hub: Date, energy, form, fatigue, next match preview, training selection UI, rest/recovery, advance day simulation loop).
+> **Milestones 2.1, 2.2 & 2.3 ARE 100% COMPLETE** (Issues #95, #100, #97–#99, #102–#104, #106–#109 closed, Unity compilation verified).
+> **Next milestone to implement:** `#P2-013` & `#P2-014` (Milestone 2.4 — Career Screen & Profile: club overview, squad status, manager trust, contract terms, ability radar vs temporary condition).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.
