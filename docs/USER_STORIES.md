@@ -1370,6 +1370,40 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 
 ---
 
+### Milestone 2.4 — Career Screen & Player Profile
+
+#### #P2-013 — Career Screen: Club, Contract & Reputation Overview
+**Issue:** #115 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a player, I want to open my Career Overview to inspect my current club, squad role, manager trust, contract terms, weekly wage, market value, and career statistics.
+
+**Acceptance Criteria:**
+- [x] UI Toolkit layout (`CareerView.uxml`) using App UI dark sports design tokens
+- [x] Club & Squad Role Card: Club name, position, preferred foot, squad role badge, division, season/week
+- [x] Manager Trust Card: Trust score (0-100), trust status label, visual progress fill
+- [x] Contract & Finances Card: Weekly wage, contract expiry year, estimated market value, lifestyle tier
+- [x] Career Statistics Card: Total appearances, goals, assists, average rating
+- [x] Pure presentation bound to `CareerSaveData` via `CareerController.cs`
+- [x] Seamless navigation between Daily Hub, Career Overview, and Player Profile
+
+#### #P2-014 — Player Profile Screen: Attributes & Condition
+**Issue:** #116 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a player, I want to view my Player Profile to inspect my core abilities separated strictly from temporary condition vitals.
+
+**Acceptance Criteria:**
+- [x] UI Toolkit layout (`ProfileView.uxml`) using App UI dark sports design tokens
+- [x] Strict architectural separation between long-term permanent abilities and temporary dynamic condition
+- [x] Condition Card: Energy, Form, Morale, Manager Trust meters (0-100%)
+- [x] 15 core attributes organized into 3 category cards:
+  - Physical: Pace, Acceleration, Stamina, Strength, Agility
+  - Technical: Shooting/Finishing, Passing, Dribbling, First Touch, Crossing, Tackling
+  - Mental: Vision, Composure, Positioning, Decision Making
+- [x] Pure presentation bound to `CareerSaveData` via `ProfileController.cs`
+- [x] Interactive tab switching between Career Overview and Player Profile views
+
+---
+
 ## Phase 2 Issue Status Overview
 
 ```
@@ -1377,12 +1411,12 @@ COMPLETED:
   Milestone 2.1:    P2-001 → P2-005   (Unity Project Bootstrap)    ✅ Complete (Issues #95, #100, #97–#99)
   Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)       ✅ Complete (Issues #102–#104)
   Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)    ✅ Complete (Issues #106–#109)
+  Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)    ✅ Complete (Issues #115–#116)
 
 ACTIVE MILESTONE:
-  Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)
+  Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)
 
 UPCOMING MILESTONES:
-  Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)
   Milestone 2.6:    P2-018 → P2-020   (Post-Match & Season Summary)
   Milestone 2.7:    P2-021 → P2-023   (Prototype Playtest & Gate 2.1)
 ```

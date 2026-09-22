@@ -1,0 +1,291 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- ====================================================
+             APP BAR: Back to Hub + Screen Title
+             ==================================================== -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:Button name="btn-back" text="← Hub" class="btn btn-ghost" style="font-size: 13px; padding-left: 8px; padding-right: 8px;" />
+            <ui:Label text="Player Profile" class="text-title" style="font-size: 16px; -unity-font-style: bold;" />
+            <ui:Label name="label-ovr-badge" text="65 OVR" class="badge badge-green" style="font-size: 11px;" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             TAB BAR: Switch between Overview and Profile
+             ==================================================== -->
+        <ui:VisualElement class="tab-bar">
+            <ui:Button name="tab-career" text="📊 Career Overview" class="tab-button" />
+            <ui:Button name="tab-profile" text="👤 Player Profile" class="tab-button tab-button-active" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             SCROLLABLE MAIN CONTENT
+             ==================================================== -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- ── IDENTITY HEADER CARD ──────────────────────── -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 12px;">
+                <ui:VisualElement style="flex-direction: row; align-items: center; gap: 12px;">
+                    <ui:VisualElement style="width: 48px; height: 48px; border-radius: 24px; background-color: var(--fl-color-primary); align-items: center; justify-content: center;">
+                        <ui:Label name="label-avatar-initial" text="M" style="color: #FFFFFF; font-size: 22px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-grow: 1;">
+                        <ui:Label name="label-player-name" text="Marcus Vance" class="text-title" style="font-size: 17px; -unity-font-style: bold;" />
+                        <ui:Label name="label-player-meta" text="England · 17 Years Old · Right Foot" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:Label name="label-position-badge" text="ST" class="badge badge-green" style="font-size: 13px; padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom: 4px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── CURRENT CONDITION CARD (TEMPORARY STATE) ──── -->
+            <ui:VisualElement class="card" style="margin-bottom: 14px; border-color: rgba(56, 189, 248, 0.4);">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="⚡ Current Condition (Temporary State)" class="text-title" style="font-size: 14px;" />
+                    <ui:Label text="DYNAMIC" class="badge badge-slate" style="font-size: 10px;" />
+                </ui:VisualElement>
+                <ui:Label text="Varies daily based on training intensity, match fatigue, and lifestyle." class="text-caption" style="font-size: 11px; margin-bottom: 8px;" />
+
+                <!-- Energy -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Energy" class="text-caption" />
+                        <ui:Label name="val-condition-energy" text="100%" class="text-caption" style="color: #38BDF8;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-condition-energy" class="stat-meter-fill stat-meter-fill-energy" style="width: 100%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Form -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Form" class="text-caption" />
+                        <ui:Label name="val-condition-form" text="70%" class="text-caption" style="color: #34D399;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-condition-form" class="stat-meter-fill stat-meter-fill-form" style="width: 70%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Morale -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Morale" class="text-caption" />
+                        <ui:Label name="val-condition-morale" text="75%" class="text-caption" style="color: #FBBF24;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-condition-morale" class="stat-meter-fill stat-meter-fill-morale" style="width: 75%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Trust -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Manager Trust" class="text-caption" />
+                        <ui:Label name="val-condition-trust" text="50%" class="text-caption" style="color: #A78BFA;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-condition-trust" class="stat-meter-fill" style="width: 50%; background-color: #A78BFA;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── PERMANENT ABILITIES EXPLANATION ───────────── -->
+            <ui:Label text="PERMANENT ABILITIES (0 - 100)" class="text-caption" style="margin-bottom: 8px;" />
+
+            <!-- ── PHYSICAL ATTRIBUTES CARD ─────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="🏃 Physical Attributes" class="text-title" style="font-size: 14px;" />
+                </ui:VisualElement>
+
+                <!-- Pace -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Pace" class="text-caption" />
+                        <ui:Label name="val-pace" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-pace" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Acceleration -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Acceleration" class="text-caption" />
+                        <ui:Label name="val-acceleration" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-acceleration" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Stamina -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Stamina" class="text-caption" />
+                        <ui:Label name="val-stamina" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-stamina" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Strength -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Strength" class="text-caption" />
+                        <ui:Label name="val-strength" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-strength" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Agility -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Agility" class="text-caption" />
+                        <ui:Label name="val-agility" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-agility" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── TECHNICAL ATTRIBUTES CARD ────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="⚽ Technical Attributes" class="text-title" style="font-size: 14px;" />
+                </ui:VisualElement>
+
+                <!-- Shooting -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Shooting / Finishing" class="text-caption" />
+                        <ui:Label name="val-shooting" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold; color: #10B981;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-shooting" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Passing -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Passing" class="text-caption" />
+                        <ui:Label name="val-passing" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-passing" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Dribbling -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Dribbling" class="text-caption" />
+                        <ui:Label name="val-dribbling" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-dribbling" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- First Touch -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="First Touch" class="text-caption" />
+                        <ui:Label name="val-firsttouch" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-firsttouch" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Crossing -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Crossing" class="text-caption" />
+                        <ui:Label name="val-crossing" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-crossing" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Tackling -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Tackling" class="text-caption" />
+                        <ui:Label name="val-tackling" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-tackling" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── MENTAL ATTRIBUTES CARD ───────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 20px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="🧠 Mental Attributes" class="text-title" style="font-size: 14px;" />
+                </ui:VisualElement>
+
+                <!-- Vision -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Vision" class="text-caption" />
+                        <ui:Label name="val-vision" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-vision" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Composure -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Composure" class="text-caption" />
+                        <ui:Label name="val-composure" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-composure" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Positioning -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Positioning" class="text-caption" />
+                        <ui:Label name="val-positioning" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-positioning" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Decision Making -->
+                <ui:VisualElement class="stat-meter-container">
+                    <ui:VisualElement class="stat-meter-header">
+                        <ui:Label text="Decision Making" class="text-caption" />
+                        <ui:Label name="val-decisionmaking" text="60" class="text-subtitle" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="stat-meter-track">
+                        <ui:VisualElement name="fill-decisionmaking" class="stat-meter-fill" style="width: 60%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>

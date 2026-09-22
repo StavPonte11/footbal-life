@@ -17,18 +17,24 @@ namespace FootballLife.Unity.UI
         [SerializeField] private VisualTreeAsset? _trainingAsset;
         [SerializeField] private VisualTreeAsset? _restAsset;
         [SerializeField] private VisualTreeAsset? _lifeEventAsset;
+        [SerializeField] private VisualTreeAsset? _careerViewAsset;
+        [SerializeField] private VisualTreeAsset? _profileViewAsset;
 
         // ── Controllers ───────────────────────────────────────────────────────
         private CareerHubController?  _hubCtrl;
         private TrainingController?   _trainingCtrl;
         private RestController?       _restCtrl;
         private LifeEventController?  _lifeEventCtrl;
+        private CareerController?     _careerCtrl;
+        private ProfileController?    _profileCtrl;
 
         // ── Root panel elements ───────────────────────────────────────────────
         private VisualElement? _hubRoot;
         private VisualElement? _trainingOverlay;
         private VisualElement? _restOverlay;
         private VisualElement? _lifeEventOverlay;
+        private VisualElement? _careerOverlay;
+        private VisualElement? _profileOverlay;
 
         // ── Pending life event ────────────────────────────────────────────────
         private LifeEventSnapshot? _pendingLifeEvent;
@@ -159,6 +165,42 @@ namespace FootballLife.Unity.UI
                     _lifeEventOverlay,
                     onDismiss: HideLifeEvent);
             }
+
+            // ── Career View overlay ───────────────────────────────────────────
+            if (_careerViewAsset != null)
+            {
+                _careerOverlay = _careerViewAsset.Instantiate();
+                _careerOverlay.style.position  = Position.Absolute;
+                _careerOverlay.style.top    = 0;
+                _careerOverlay.style.left   = 0;
+                _careerOverlay.style.right  = 0;
+                _careerOverlay.style.bottom = 0;
+                _careerOverlay.style.display = DisplayStyle.None;
+                docRoot.Add(_careerOverlay);
+
+                _careerCtrl = new CareerController(
+                    _careerOverlay,
+                    onBackToHub:   ShowHub,
+                    onOpenProfile: ShowProfile);
+            }
+
+            // ── Profile View overlay ──────────────────────────────────────────
+            if (_profileViewAsset != null)
+            {
+                _profileOverlay = _profileViewAsset.Instantiate();
+                _profileOverlay.style.position  = Position.Absolute;
+                _profileOverlay.style.top    = 0;
+                _profileOverlay.style.left   = 0;
+                _profileOverlay.style.right  = 0;
+                _profileOverlay.style.bottom = 0;
+                _profileOverlay.style.display = DisplayStyle.None;
+                docRoot.Add(_profileOverlay);
+
+                _profileCtrl = new ProfileController(
+                    _profileOverlay,
+                    onBackToHub:  ShowHub,
+                    onOpenCareer: ShowCareer);
+            }
         }
 
         private void BindBridge()
@@ -167,6 +209,8 @@ namespace FootballLife.Unity.UI
             _hubCtrl?.Bind(bridge);
             _trainingCtrl?.Bind(bridge);
             _restCtrl?.Bind(bridge);
+            _careerCtrl?.Bind(bridge);
+            _profileCtrl?.Bind(bridge);
         }
 
         // ── Training overlay ──────────────────────────────────────────────────
@@ -229,11 +273,43 @@ namespace FootballLife.Unity.UI
                 _lifeEventOverlay.style.display = DisplayStyle.None;
         }
 
-        // ── Career Screen stub ────────────────────────────────────────────────
+        // ── Career & Profile Screens Navigation ───────────────────────────────
         private void OnOpenCareer()
         {
-            // Will navigate to Career screen in Milestone 2.4
-            Debug.Log("[CareerHubCoordinator] Career screen — coming in Milestone 2.4.");
+            ShowCareer();
+        }
+
+        public void ShowCareer()
+        {
+            if (SimulationBridge.Instance != null)
+                _careerCtrl?.Bind(SimulationBridge.Instance);
+
+            if (_profileOverlay != null)
+                _profileOverlay.style.display = DisplayStyle.None;
+
+            if (_careerOverlay != null)
+                _careerOverlay.style.display = DisplayStyle.Flex;
+        }
+
+        public void ShowProfile()
+        {
+            if (SimulationBridge.Instance != null)
+                _profileCtrl?.Bind(SimulationBridge.Instance);
+
+            if (_careerOverlay != null)
+                _careerOverlay.style.display = DisplayStyle.None;
+
+            if (_profileOverlay != null)
+                _profileOverlay.style.display = DisplayStyle.Flex;
+        }
+
+        public void ShowHub()
+        {
+            if (_careerOverlay != null)
+                _careerOverlay.style.display = DisplayStyle.None;
+
+            if (_profileOverlay != null)
+                _profileOverlay.style.display = DisplayStyle.None;
         }
     }
 }
