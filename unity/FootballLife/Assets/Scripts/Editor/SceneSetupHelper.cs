@@ -27,13 +27,15 @@ namespace FootballLife.Unity.Editor
         private const string kMatch      = "Assets/Scenes/Match.unity";
 
         // UXML asset paths
-        private const string kCareerHubUxml  = "Assets/UI/Views/CareerHubView.uxml";
-        private const string kTrainingUxml   = "Assets/UI/Views/TrainingView.uxml";
-        private const string kRestUxml       = "Assets/UI/Views/RestView.uxml";
-        private const string kLifeEventUxml  = "Assets/UI/Views/LifeEventView.uxml";
-        private const string kPanelSettings  = "Assets/UI/PanelSettings.asset";
-        private const string kCreationUxml   = "Assets/UI/Views/PlayerCreationView.uxml";
-        private const string kClubUxml       = "Assets/UI/Views/ClubSelectionView.uxml";
+        private const string kCareerHubUxml   = "Assets/UI/Views/CareerHubView.uxml";
+        private const string kTrainingUxml    = "Assets/UI/Views/TrainingView.uxml";
+        private const string kRestUxml        = "Assets/UI/Views/RestView.uxml";
+        private const string kLifeEventUxml   = "Assets/UI/Views/LifeEventView.uxml";
+        private const string kCareerViewUxml  = "Assets/UI/Views/CareerView.uxml";
+        private const string kProfileViewUxml = "Assets/UI/Views/ProfileView.uxml";
+        private const string kPanelSettings   = "Assets/UI/PanelSettings.asset";
+        private const string kCreationUxml    = "Assets/UI/Views/PlayerCreationView.uxml";
+        private const string kClubUxml        = "Assets/UI/Views/ClubSelectionView.uxml";
 
         [MenuItem("Football Life/Scene Setup/Setup All Scenes (Run Once)")]
         public static void SetupAllScenes()
@@ -200,16 +202,21 @@ namespace FootballLife.Unity.Editor
             if (hubAsset != null) existingDoc.visualTreeAsset = hubAsset;
 
             var coordType = System.Type.GetType("FootballLife.Unity.UI.CareerHubCoordinator, FootballLife.Unity.UI");
-            if (coordType != null && existingDoc.GetComponent(coordType) == null)
+            if (coordType != null)
             {
-                var coord = existingDoc.gameObject.AddComponent(coordType) as MonoBehaviour;
+                var coord = existingDoc.GetComponent(coordType) as MonoBehaviour;
+                if (coord == null)
+                    coord = existingDoc.gameObject.AddComponent(coordType) as MonoBehaviour;
+
                 var so = new SerializedObject(coord);
                 SetSerializedAsset(so, "_careerHubAsset", kCareerHubUxml);
                 SetSerializedAsset(so, "_trainingAsset",  kTrainingUxml);
                 SetSerializedAsset(so, "_restAsset",      kRestUxml);
                 SetSerializedAsset(so, "_lifeEventAsset", kLifeEventUxml);
+                SetSerializedAsset(so, "_careerViewAsset", kCareerViewUxml);
+                SetSerializedAsset(so, "_profileViewAsset", kProfileViewUxml);
                 so.ApplyModifiedProperties();
-                Debug.Log("[FullSceneSetup] CareerHub: Added CareerHubCoordinator with UXML refs.");
+                Debug.Log("[FullSceneSetup] CareerHub: Configured CareerHubCoordinator with all UXML refs.");
             }
 
             EditorSceneManager.MarkSceneDirty(scene);

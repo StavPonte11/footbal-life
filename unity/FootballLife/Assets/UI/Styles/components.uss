@@ -212,3 +212,59 @@
     padding-left: var(--fl-spacing-sm);
     padding-right: var(--fl-spacing-sm);
 }
+
+/* =========================================================================
+   TAB BAR & STAT ROWS
+   ========================================================================= */
+.tab-bar {
+    flex-direction: row;
+    background-color: var(--fl-color-surface);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--fl-color-border);
+    padding-left: var(--fl-spacing-md);
+    padding-right: var(--fl-spacing-md);
+    padding-top: 6px;
+    padding-bottom: 6px;
+    gap: 8px;
+}
+
+.tab-button {
+    flex-grow: 1;
+    height: 38px;
+    background-color: var(--fl-color-surface-elevated);
+    border-radius: var(--fl-radius-md);
+    border-width: 1px;
+    border-color: var(--fl-color-border);
+    color: var(--fl-color-text-secondary);
+    font-size: 13px;
+    -unity-font-style: bold;
+    align-items: center;
+    justify-content: center;
+    cursor: link;
+}
+
+.tab-button:hover {
+    background-color: var(--fl-color-surface-subtle);
+    color: var(--fl-color-text-primary);
+}
+
+.tab-button-active {
+    background-color: var(--fl-color-primary);
+    border-color: var(--fl-color-primary);
+    color: #FFFFFF;
+}
+
+.tab-button-active:hover {
+    background-color: var(--fl-color-primary-hover);
+    color: #FFFFFF;
+}
+
+.stat-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(51, 65, 85, 0.4);
+}

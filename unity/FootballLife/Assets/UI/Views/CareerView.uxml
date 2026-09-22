@@ -1,0 +1,156 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- ====================================================
+             APP BAR: Back to Hub + Screen Title
+             ==================================================== -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:Button name="btn-back" text="← Hub" class="btn btn-ghost" style="font-size: 13px; padding-left: 8px; padding-right: 8px;" />
+            <ui:Label text="Career Overview" class="text-title" style="font-size: 16px; -unity-font-style: bold;" />
+            <ui:Label name="label-ovr-badge" text="65 OVR" class="badge badge-green" style="font-size: 11px;" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             TAB BAR: Switch between Overview and Profile
+             ==================================================== -->
+        <ui:VisualElement class="tab-bar">
+            <ui:Button name="tab-career" text="📊 Career Overview" class="tab-button tab-button-active" />
+            <ui:Button name="tab-profile" text="👤 Player Profile" class="tab-button" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             SCROLLABLE MAIN CONTENT
+             ==================================================== -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- ── CLUB & SQUAD ROLE CARD ────────────────────── -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 12px;">
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <ui:VisualElement>
+                        <ui:Label name="label-club-name" text="Northfield Town" class="text-title" style="font-size: 18px; -unity-font-style: bold;" />
+                        <ui:Label name="label-position-foot" text="ST · Right Foot" class="text-caption" style="font-size: 12px;" />
+                    </ui:VisualElement>
+                    <ui:Label name="label-squad-role" text="Prospect" class="badge badge-gold" style="font-size: 12px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="height: 1px; background-color: var(--fl-color-border); margin-top: 6px; margin-bottom: 10px;" />
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                    <ui:VisualElement>
+                        <ui:Label text="League Division" class="text-caption" style="font-size: 11px;" />
+                        <ui:Label name="label-division" text="Division 4" class="text-subtitle" style="font-size: 13px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="align-items: flex-end;">
+                        <ui:Label text="Current Season" class="text-caption" style="font-size: 11px;" />
+                        <ui:Label name="label-season-week" text="Season 1 · Week 1" class="text-accent" style="font-size: 13px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── MANAGER TRUST CARD ────────────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="🤝 Manager Trust" class="text-title" style="font-size: 14px;" />
+                    <ui:Label name="val-trust-text" text="50 / 100" class="text-accent" style="font-size: 13px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-meter-track" style="height: 10px; margin-top: 6px; margin-bottom: 8px;">
+                    <ui:VisualElement name="fill-trust" class="stat-meter-fill" style="width: 50%; background-color: #A78BFA;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                    <ui:Label name="label-trust-status" text="Status: Squad Rotation" class="text-subtitle" style="font-size: 12px; color: #A78BFA;" />
+                    <ui:Label text="Target: 60+ for Starter" class="text-caption" style="font-size: 11px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── CONTRACT &amp; FINANCES CARD ──────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="💼 Contract &amp; Financial Terms" class="text-title" style="font-size: 14px;" />
+                    <ui:Label text="ACTIVE" class="badge badge-green" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row">
+                    <ui:Label text="Weekly Wage" class="text-caption" />
+                    <ui:Label name="val-wage" text="£500 / wk" class="text-gold" style="font-size: 13px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row">
+                    <ui:Label text="Contract Expiry" class="text-caption" />
+                    <ui:Label name="val-contract-expiry" text="June 2028 (3 Years)" class="text-subtitle" style="font-size: 13px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row">
+                    <ui:Label text="Est. Market Value" class="text-caption" />
+                    <ui:Label name="val-market-value" text="£50,000" class="text-accent" style="font-size: 13px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row" style="border-bottom-width: 0;">
+                    <ui:Label text="Lifestyle Tier" class="text-caption" />
+                    <ui:Label name="val-lifestyle-tier" text="Tier 1 · Modest Flat" class="text-subtitle" style="font-size: 13px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── CAREER STATISTICS CARD ────────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="📈 Career Statistics" class="text-title" style="font-size: 14px;" />
+                    <ui:Label text="All Competitions" class="text-caption" style="font-size: 11px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-around; margin-top: 8px; margin-bottom: 6px;">
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-appearances" text="0" class="text-title" style="font-size: 20px; -unity-font-style: bold;" />
+                        <ui:Label text="Apps" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-goals" text="0" class="text-title" style="font-size: 20px; -unity-font-style: bold; color: #10B981;" />
+                        <ui:Label text="Goals" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-assists" text="0" class="text-title" style="font-size: 20px; -unity-font-style: bold; color: #38BDF8;" />
+                        <ui:Label text="Assists" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-avg-rating" text="6.50" class="text-title" style="font-size: 20px; -unity-font-style: bold; color: #F59E0B;" />
+                        <ui:Label text="Avg Rating" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── SQUAD &amp; REPUTATION CARD ───────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 16px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="👥 Squad &amp; Club Standing" class="text-title" style="font-size: 14px;" />
+                    <ui:Label text="Locker Room" class="badge badge-slate" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row">
+                    <ui:Label text="Squad Morale Impact" class="text-caption" />
+                    <ui:Label text="Respected Teammate" class="text-subtitle" style="font-size: 13px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row" style="border-bottom-width: 0;">
+                    <ui:Label text="Transfer Status" class="text-caption" />
+                    <ui:Label text="Not for Sale" class="text-gold" style="font-size: 13px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>

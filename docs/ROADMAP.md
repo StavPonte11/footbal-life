@@ -246,12 +246,12 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P2-011 (#108) | Rest/recovery action panel (Light Rest vs Physio) | Unity/UI | S | ✅ Complete |
 | #P2-012 (#109) | Advance day: trigger simulation tick, event dispatch, UI refresh | Unity | M | ✅ Complete |
 
-### Milestone 2.4 — Career Screen
+### Milestone 2.4 — Career Screen & Profile
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P2-013 | Career screen: club, squad status, manager trust, contract, stats | Unity/UI | M |
-| #P2-014 | Profile screen: attributes separated from current state, development visual | Unity/UI | M |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P2-013 (#115) | Career screen: club, squad status, manager trust, contract, stats | Unity/UI | M | ✅ Complete |
+| #P2-014 (#116) | Profile screen: attributes separated from current state, development visual | Unity/UI | M | ✅ Complete |
 
 ### Milestone 2.5 — Match Preview & Basic Match
 
@@ -352,9 +352,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 2 — Unity Prototype (Milestone 2.4: Career Screen & Profile)
+## Current Focus: Phase 2 — Unity Prototype (Milestone 2.5: Match Preview & Basic Match)
 
 > **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 524 passing tests).
-> **Milestones 2.1, 2.2 & 2.3 ARE 100% COMPLETE** (Issues #95, #100, #97–#99, #102–#104, #106–#109 closed, Unity compilation verified).
-> **Next milestone to implement:** `#P2-013` & `#P2-014` (Milestone 2.4 — Career Screen & Profile: club overview, squad status, manager trust, contract terms, ability radar vs temporary condition).
+> **Milestones 2.1, 2.2, 2.3 & 2.4 ARE 100% COMPLETE** (Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116 closed, Unity compilation & UI verification verified).
+> **Next milestone to implement:** `#P2-015` → `#P2-017` (Milestone 2.5 — Match Preview & Basic Match: match preview screen, abstracted situation cards, post-match summary).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.
