@@ -45,23 +45,7 @@ namespace FootballLife.Unity.Editor
                     "Yes, Setup All", "Cancel"))
                 return;
 
-            // ── Build Settings ────────────────────────────────────────────────
-            SetupBuildSettings();
-
-            // ── Bootstrap Scene ───────────────────────────────────────────────
-            SetupBootstrapScene();
-
-            // ── MainMenu Scene ────────────────────────────────────────────────
-            SetupMainMenuScene();
-
-            // ── CareerHub Scene ───────────────────────────────────────────────
-            SetupCareerHubScene();
-
-            // ── Match Scene ───────────────────────────────────────────────────
-            SetupMatchScene();
-
-            // ── Return to Bootstrap ───────────────────────────────────────────
-            EditorSceneManager.OpenScene(kBootstrap, OpenSceneMode.Single);
+            ExecuteFullSetup();
 
             Debug.Log("[FullSceneSetup] ✅ All scenes configured! Open Bootstrap.unity and press Play to start.");
             EditorUtility.DisplayDialog(
@@ -70,6 +54,22 @@ namespace FootballLife.Unity.Editor
                 "► Open Bootstrap.unity and press ▶ Play to start the game.\n" +
                 "► The Bootstrap scene auto-loads MainMenu → Player Creation → CareerHub.",
                 "Got it!");
+        }
+
+        public static void SetupAllScenesBatchmode()
+        {
+            ExecuteFullSetup();
+            Debug.Log("[FullSceneSetup] ✅ Batchmode setup complete.");
+        }
+
+        public static void ExecuteFullSetup()
+        {
+            SetupBuildSettings();
+            SetupBootstrapScene();
+            SetupMainMenuScene();
+            SetupCareerHubScene();
+            SetupMatchScene();
+            EditorSceneManager.OpenScene(kBootstrap, OpenSceneMode.Single);
         }
 
         // ── Build Settings ────────────────────────────────────────────────────
@@ -84,6 +84,24 @@ namespace FootballLife.Unity.Editor
             };
             EditorBuildSettings.scenes = scenes;
             Debug.Log("[FullSceneSetup] Build Settings: 4 scenes registered (Bootstrap=0, MainMenu=1, CareerHub=2, Match=3).");
+        }
+
+        // ── PanelSettings Helper ──────────────────────────────────────────────
+        private static PanelSettings GetOrCreatePanelSettings()
+        {
+            var panelSettings = AssetDatabase.LoadAssetAtPath<PanelSettings>(kPanelSettings);
+            if (panelSettings == null)
+            {
+                panelSettings = ScriptableObject.CreateInstance<PanelSettings>();
+                panelSettings.scaleMode = PanelScaleMode.ScaleWithScreenSize;
+                panelSettings.referenceResolution = new Vector2Int(1080, 1920);
+                panelSettings.screenMatchMode = PanelScreenMatchMode.MatchWidthOrHeight;
+                panelSettings.match = 0.5f;
+                AssetDatabase.CreateAsset(panelSettings, kPanelSettings);
+                AssetDatabase.SaveAssets();
+                Debug.Log($"[FullSceneSetup] Created PanelSettings asset at {kPanelSettings}");
+            }
+            return panelSettings;
         }
 
         // ── Bootstrap Scene ───────────────────────────────────────────────────
@@ -128,42 +146,31 @@ namespace FootballLife.Unity.Editor
             EnsureStandardHierarchy();
 
             var uiRoot = GameObject.Find("[UI]");
+            var panelSettings = GetOrCreatePanelSettings();
 
-            // UIDocument for the main menu (PlayerCreation flow hosted here)
             var existingDoc = uiRoot.GetComponentInChildren<UIDocument>();
             if (existingDoc == null)
             {
                 var uiDocGo = new GameObject("UIDocument_PlayerCreation");
                 uiDocGo.transform.SetParent(uiRoot.transform, false);
-                var uiDoc = uiDocGo.AddComponent<UIDocument>();
+                existingDoc = uiDocGo.AddComponent<UIDocument>();
+            }
 
-                // Assign PanelSettings
-                var panelSettings = AssetDatabase.LoadAssetAtPath<PanelSettings>(kPanelSettings);
-                if (panelSettings != null) uiDoc.panelSettings = panelSettings;
-                else Debug.LogWarning($"[FullSceneSetup] PanelSettings not found at {kPanelSettings} — assign manually.");
+            if (panelSettings != null) existingDoc.panelSettings = panelSettings;
 
-                // Assign UXML (PlayerCreation as the initial view)
-                var creationAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(kCreationUxml);
-                if (creationAsset != null) uiDoc.visualTreeAsset = creationAsset;
-                else Debug.LogWarning($"[FullSceneSetup] PlayerCreationView.uxml not found — assign manually.");
+            var creationAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(kCreationUxml);
+            if (creationAsset != null) existingDoc.visualTreeAsset = creationAsset;
 
-                // Add PlayerCreationCoordinator
-                var coordType = System.Type.GetType("FootballLife.Unity.UI.Creation.PlayerCreationCoordinator, FootballLife.Unity.UI");
-                if (coordType != null)
-                {
-                    var coord = uiDocGo.AddComponent(coordType) as MonoBehaviour;
-                    // Wire VisualTreeAsset references via SerializedObject
-                    var so = new SerializedObject(coord);
-                    SetSerializedRef(so, "_uiDocument", uiDoc);
-                    SetSerializedAsset(so, "_playerCreationViewAsset", kCreationUxml);
-                    SetSerializedAsset(so, "_clubSelectionViewAsset",  kClubUxml);
-                    so.ApplyModifiedProperties();
-                    Debug.Log("[FullSceneSetup] MainMenu: Added PlayerCreationCoordinator with UXML refs.");
-                }
-                else
-                {
-                    Debug.LogWarning("[FullSceneSetup] MainMenu: PlayerCreationCoordinator type not found — add manually.");
-                }
+            var coordType = System.Type.GetType("FootballLife.Unity.UI.Creation.PlayerCreationCoordinator, FootballLife.Unity.UI");
+            if (coordType != null && existingDoc.GetComponent(coordType) == null)
+            {
+                var coord = existingDoc.gameObject.AddComponent(coordType) as MonoBehaviour;
+                var so = new SerializedObject(coord);
+                SetSerializedRef(so, "_uiDocument", existingDoc);
+                SetSerializedAsset(so, "_playerCreationViewAsset", kCreationUxml);
+                SetSerializedAsset(so, "_clubSelectionViewAsset",  kClubUxml);
+                so.ApplyModifiedProperties();
+                Debug.Log("[FullSceneSetup] MainMenu: Added PlayerCreationCoordinator with UXML refs.");
             }
 
             EditorSceneManager.MarkSceneDirty(scene);
@@ -177,35 +184,32 @@ namespace FootballLife.Unity.Editor
             EnsureStandardHierarchy();
 
             var uiRoot = GameObject.Find("[UI]");
+            var panelSettings = GetOrCreatePanelSettings();
 
             var existingDoc = uiRoot.GetComponentInChildren<UIDocument>();
             if (existingDoc == null)
             {
                 var uiDocGo = new GameObject("UIDocument_CareerHub");
                 uiDocGo.transform.SetParent(uiRoot.transform, false);
-                var uiDoc = uiDocGo.AddComponent<UIDocument>();
+                existingDoc = uiDocGo.AddComponent<UIDocument>();
+            }
 
-                var panelSettings = AssetDatabase.LoadAssetAtPath<PanelSettings>(kPanelSettings);
-                if (panelSettings != null) uiDoc.panelSettings = panelSettings;
-                else Debug.LogWarning($"[FullSceneSetup] PanelSettings not found at {kPanelSettings} — assign manually.");
+            if (panelSettings != null) existingDoc.panelSettings = panelSettings;
 
-                // Add CareerHubCoordinator
-                var coordType = System.Type.GetType("FootballLife.Unity.UI.CareerHubCoordinator, FootballLife.Unity.UI");
-                if (coordType != null)
-                {
-                    var coord = uiDocGo.AddComponent(coordType) as MonoBehaviour;
-                    var so = new SerializedObject(coord);
-                    SetSerializedAsset(so, "_careerHubAsset", kCareerHubUxml);
-                    SetSerializedAsset(so, "_trainingAsset",  kTrainingUxml);
-                    SetSerializedAsset(so, "_restAsset",      kRestUxml);
-                    SetSerializedAsset(so, "_lifeEventAsset", kLifeEventUxml);
-                    so.ApplyModifiedProperties();
-                    Debug.Log("[FullSceneSetup] CareerHub: Added CareerHubCoordinator with UXML refs.");
-                }
-                else
-                {
-                    Debug.LogWarning("[FullSceneSetup] CareerHub: CareerHubCoordinator type not found — add manually.");
-                }
+            var hubAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(kCareerHubUxml);
+            if (hubAsset != null) existingDoc.visualTreeAsset = hubAsset;
+
+            var coordType = System.Type.GetType("FootballLife.Unity.UI.CareerHubCoordinator, FootballLife.Unity.UI");
+            if (coordType != null && existingDoc.GetComponent(coordType) == null)
+            {
+                var coord = existingDoc.gameObject.AddComponent(coordType) as MonoBehaviour;
+                var so = new SerializedObject(coord);
+                SetSerializedAsset(so, "_careerHubAsset", kCareerHubUxml);
+                SetSerializedAsset(so, "_trainingAsset",  kTrainingUxml);
+                SetSerializedAsset(so, "_restAsset",      kRestUxml);
+                SetSerializedAsset(so, "_lifeEventAsset", kLifeEventUxml);
+                so.ApplyModifiedProperties();
+                Debug.Log("[FullSceneSetup] CareerHub: Added CareerHubCoordinator with UXML refs.");
             }
 
             EditorSceneManager.MarkSceneDirty(scene);

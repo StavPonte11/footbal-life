@@ -42,10 +42,30 @@ namespace FootballLife.Unity.UI
 
         private void OnEnable()
         {
-            if (_doc == null || SimulationBridge.Instance == null)
+            if (_doc == null)
             {
-                Debug.LogError("[CareerHubCoordinator] Missing UIDocument or SimulationBridge.Instance.");
+                _doc = GetComponent<UIDocument>();
+            }
+
+            if (_doc == null)
+            {
+                Debug.LogError("[CareerHubCoordinator] Missing UIDocument component.");
                 return;
+            }
+
+            // Auto-initialize mock bridge if testing CareerHub scene directly without Bootstrap
+            if (SimulationBridge.Instance == null)
+            {
+                var bridgeGo = new GameObject("SimulationBridge (Editor Preview)");
+                var previewBridge = bridgeGo.AddComponent<SimulationBridge>();
+                previewBridge.StartNewCareer(
+                    playerName: "Marcus Vance",
+                    nationality: "England",
+                    position: FootballLife.Domain.Position.ST,
+                    preferredFoot: FootballLife.Domain.Foot.Right,
+                    startingClubName: "Northfield Town"
+                );
+                Debug.Log("[CareerHubCoordinator] Auto-initialized mock SimulationBridge for direct scene preview.");
             }
 
             // Validate assets
