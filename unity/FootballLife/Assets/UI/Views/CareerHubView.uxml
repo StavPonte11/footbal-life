@@ -25,6 +25,7 @@
                 <ui:Button name="btn-quick-shop" text="🛍️" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Button name="btn-quick-outings" text="🌆" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Button name="btn-quick-press" text="🎙️" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
+                <ui:Button name="btn-quick-market" text="🤝" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Label name="label-ovr" text="60 OVR" class="badge badge-green" style="font-size: 12px;" />
                 <ui:VisualElement style="align-items: flex-end;">
                     <ui:Label name="label-date" text="Season 1 · Week 1" class="text-accent" style="font-size: 12px;" />
@@ -153,6 +154,10 @@
             </ui:VisualElement>
 
             <ui:VisualElement style="margin-bottom: 10px;">
+                <ui:Button name="btn-transfer-market" text="🤝 Global Transfer Market" class="btn btn-secondary" style="height: 48px; font-size: 14px; -unity-font-style: bold; background-color: rgba(37, 99, 235, 0.2); border-color: #2563EB; border-width: 1px;" />
+            </ui:VisualElement>
+
+            <ui:VisualElement style="margin-bottom: 10px;">
                 <ui:Button name="btn-home" text="🏠 Home Apartment" class="btn btn-secondary" style="height: 48px; font-size: 14px; -unity-font-style: bold;" />
             </ui:VisualElement>
 
@@ -181,6 +186,9 @@
 
         <ui:Template name="PressConferenceView" src="project://database/Assets/UI/Views/PressConferenceView.uxml" />
         <ui:Instance template="PressConferenceView" name="press-instance" />
+
+        <ui:Template name="TransferMarketView" src="project://database/Assets/UI/Views/TransferMarketView.uxml" />
+        <ui:Instance template="TransferMarketView" name="transfer-market-instance" />
 
     </ui:VisualElement>
 </ui:UXML>

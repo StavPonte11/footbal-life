@@ -1,0 +1,54 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ui:VisualElement name="transfer-market-root" style="flex-grow: 1; width: 100%; height: 100%; background-color: rgba(10, 14, 23, 0.94); padding: 24px; align-items: center; justify-content: center;">
+        <ui:VisualElement name="transfer-modal-card" style="width: 90%; max-width: 900px; height: 90%; max-height: 740px; background-color: #131926; border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; border-width: 1px; border-color: rgba(255, 215, 0, 0.25); padding: 24px; flex-direction: column;">
+            
+            <!-- Header -->
+            <ui:VisualElement name="transfer-header" style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom-width: 1px; border-bottom-color: rgba(255, 255, 255, 0.1); padding-bottom: 12px;">
+                <ui:VisualElement style="flex-direction: row; align-items: center;">
+                    <ui:Label text="🤝" style="font-size: 32px; margin-right: 12px;" />
+                    <ui:VisualElement>
+                        <ui:Label text="GLOBAL TRANSFER MARKET" style="font-size: 20px; -unity-font-style: bold; color: #FFFFFF; letter-spacing: 1px;" />
+                        <ui:Label text="Multi-Club Bidding &amp; League Ecosystem" style="font-size: 12px; color: #94A3B8;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                
+                <ui:VisualElement style="flex-direction: row; align-items: center;">
+                    <ui:VisualElement name="chip-market-val" style="background-color: rgba(16, 185, 129, 0.15); border-width: 1px; border-color: #10B981; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; padding: 6px 14px; margin-right: 12px;">
+                        <ui:Label name="label-market-val" text="VALUATION: £2,500,000" style="font-size: 12px; -unity-font-style: bold; color: #10B981;" />
+                    </ui:VisualElement>
+                    <ui:Button name="btn-close-market" text="✕" style="width: 36px; height: 36px; border-top-left-radius: 18px; border-top-right-radius: 18px; border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; background-color: rgba(255, 255, 255, 0.08); border-width: 0; color: #FFFFFF; font-size: 16px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Navigation Tabs -->
+            <ui:VisualElement name="transfer-tabs" style="flex-direction: row; margin-bottom: 16px;">
+                <ui:Button name="tab-bids" text="Active Club Bids" style="flex-grow: 1; height: 36px; background-color: #2563EB; border-width: 0; border-top-left-radius: 8px; border-bottom-left-radius: 8px; color: #FFFFFF; -unity-font-style: bold; font-size: 13px; margin-right: 4px;" />
+                <ui:Button name="tab-leagues" text="League Hierarchy" style="flex-grow: 1; height: 36px; background-color: rgba(255, 255, 255, 0.08); border-width: 0; border-top-right-radius: 8px; border-bottom-right-radius: 8px; color: #94A3B8; -unity-font-style: bold; font-size: 13px;" />
+            </ui:VisualElement>
+
+            <!-- Player Status & Request Bar -->
+            <ui:VisualElement name="player-status-bar" style="background-color: rgba(30, 41, 59, 0.7); border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; padding: 12px 16px; margin-bottom: 16px; flex-direction: row; justify-content: space-between; align-items: center; border-width: 1px; border-color: rgba(255, 255, 255, 0.05);">
+                <ui:VisualElement>
+                    <ui:Label name="label-player-status" text="Status: Under Contract at Northfield Town" style="font-size: 13px; -unity-font-style: bold; color: #FFFFFF;" />
+                    <ui:Label name="label-player-wages" text="Current Wage: £500/wk · Manager Trust: 50%" style="font-size: 11px; color: #94A3B8; margin-top: 2px;" />
+                </ui:VisualElement>
+                <ui:Button name="btn-request-transfer" text="Demand Transfer" style="background-color: rgba(239, 68, 68, 0.2); border-width: 1px; border-color: #EF4444; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; color: #FCA5A5; -unity-font-style: bold; font-size: 11px; padding: 6px 14px;" />
+            </ui:VisualElement>
+
+            <!-- Tab Content Viewport -->
+            <ui:ScrollView name="transfer-content-scroll" style="flex-grow: 1;">
+                <!-- Bids Container -->
+                <ui:VisualElement name="bids-container" style="flex-direction: column;" />
+
+                <!-- League Hierarchy Container (Hidden by default) -->
+                <ui:VisualElement name="leagues-container" style="flex-direction: column; display: none;" />
+            </ui:ScrollView>
+
+            <!-- Feedback Toast -->
+            <ui:VisualElement name="transfer-toast" style="display: none; background-color: rgba(16, 185, 129, 0.95); padding: 10px 16px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; margin-top: 12px; flex-direction: row; align-items: center;">
+                <ui:Label name="label-transfer-toast" text="Offer accepted! Contract signed." style="color: #FFFFFF; font-size: 12px; -unity-font-style: bold;" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
