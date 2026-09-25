@@ -1568,19 +1568,47 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 - [x] Dynamic field-of-view tightening during shots for cinematic drama (55° default to 45° shot track)
 - [x] Integrated into standard `[CAMERAS]` root in `Match.unity` scene
 
+### Milestone 3.2 — Player Pawn, Animations & Teammates
+
+#### #P3-001 — 3D Player Character: Humanoid Pawn, Rig & Locomotion/Kicking Presentation
+**Issue:** #135 | **Layer:** Unity/Art, Unity/Gameplay | **Status:** ✅ Complete
+
+> As a player in a 3D match situation, I want to see my footballer represented as an articulated 3D humanoid pawn with clean team kit colors, responsive locomotion (idle, run/jog), aiming stance, and dynamic kicking animations.
+
+**Acceptance Criteria:**
+- [x] Articulated 3D humanoid character pawn (torso, hips, head/face/hair, shoulders/arms, hips/legs, boots with studs) via `HumanoidPawnBuilder.cs`
+- [x] Team kit customization scheme (`PawnKitScheme`): Home Outfield (Navy/Cyan/White), Away Outfield (Crimson/Navy), Goalkeeper (Fluorescent Lime/Black)
+- [x] Procedural articulation controller (`PlayerPawnController.cs`) supporting `Idle`, `Jog`, `Run`, `PrepKick`, `Kick`, `Tackle`, `Celebrate`
+- [x] Smooth sinusoidal run cycles (alternating leg swing, arm counter-swing, and vertical bounce)
+- [x] Kick impact synchronization: forward leg strike through apex dispatches `OnKickImpact` event, launching the ball with `BallController.Kick()`
+- [x] Zero GC allocations in `Update()` / `LateUpdate()` loops
+
+#### #P3-003 — Situation-Driven Teammate & Opponent Pawns
+**Issue:** #136 | **Layer:** Unity/Gameplay, Unity/Presentation | **Status:** ✅ Complete
+
+> As a player taking part in a match situation, I want to see teammate and opponent pawns arranged dynamically on the pitch matching the attacking/defending tactical context, including an active goalkeeper tracking the goal line.
+
+**Acceptance Criteria:**
+- [x] `MatchPawn.cs` component holding identity (PlayerName, KitNumber, Role: UserStriker, Teammate, Defender, Goalkeeper; Team: Home, Away) and visual selection ring
+- [x] `GoalkeeperController.cs` on goal line ($Z = 34.8\text{ m}$) with crouched ready stance, continuous lateral tracking along goal line following ball $X$ coordinate (clamped to $[-3.2\text{ m}, +3.2\text{ m}]$)
+- [x] Goalkeeper dynamic reaction: detects incoming high-speed shots and initiates horizontal diving save or jump save postures
+- [x] `SituationPawnPresenter.cs`: arranges 5 situation pawns under `[ENTITIES]/Pawns` (User Striker at $Z=13.5\text{ m}$, Supporting Teammate at $Z=18.5\text{ m}$, Opponent CB1 at $Z=22.5\text{ m}$, Opponent CB2 at $Z=23.5\text{ m}$, Opponent GK at $Z=34.8\text{ m}$)
+- [x] Target linking to `MatchCameraRig` for smooth multi-mode camera tracking
+
 ---
 
 ## Phase 3 Issue Status Overview
 
 ```
-ACTIVE / COMPLETED:
-  Milestone 3.1:    P3-004, P3-002, P3-005 (3D Pitch, Stadium & Ball Physics) ✅ Complete (Issues #131–#133)
+COMPLETED IN PHASE 3:
+  Milestone 3.1:    P3-004, P3-002, P3-005 (3D Pitch, Stadium & Ball Physics)  ✅ Complete (Issues #131–#133)
+  Milestone 3.2:    P3-001, P3-003         (3D Player Character & Pawns)       ✅ Complete (Issues #135–#136)
 
 UPCOMING MILESTONES:
-  Milestone 3.2:    P3-001, P3-003         (3D Player Character, Animations & Pawns)
   Milestone 3.3:    P3-006 → P3-009        (Touch Controls & Interactive Gameplay Situations)
   Milestone 3.4:    P3-010 → P3-011        (Goal Celebrations & Match In-Game HUD)
 ```
+
 
 
 
