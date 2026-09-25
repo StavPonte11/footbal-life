@@ -397,10 +397,10 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 4 — Life Vertical Slice (Milestone 4.3: Life Events, Dilemmas & Media System)
+## Current Focus: Phase 4 — Life Vertical Slice (Milestone 4.4: Press Conferences, Media & Public Image)
 
 > **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 557 passing tests).
 > **PHASE 2 IS 100% COMPLETE & MERGED TO `main`** (Milestones 2.1–2.6: Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116, #118–#120, #122–#124 closed).
 > **PHASE 3 IS 100% COMPLETE & MERGED TO `main`** (Milestones 3.1–3.4: Issues #131–#133, #135–#136, #138–#141, #143–#144 closed).
-> **PHASE 4 IN PROGRESS:** Milestones 4.1 & 4.2 Complete (`#P4-001`–`#P4-004` closed; 580 passing tests). Next milestone: Milestone 4.3 — Life Events, Dilemmas & Media System (`#P4-005`, `#P4-006`).
+> **PHASE 4 IN PROGRESS:** Milestones 4.1, 4.2 & 4.3 Complete (`#P4-001`–`#P4-007` closed; 590 passing tests). Next milestone: Milestone 4.4 — Press Conferences, Media & Public Image (`#P4-008`, `#P4-009`).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

@@ -43,9 +43,13 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Button _btnRest;
         private readonly Button _btnMatch;
         private readonly Button _btnCareer;
-        private readonly Button _btnOffSeason;
+        private readonly Button? _btnOffSeason;
         private readonly Button? _btnHome;
         private readonly Button? _btnQuickPhone;
+        private readonly Button? _btnQuickFinances;
+        private readonly Button? _btnQuickShop;
+        private readonly Button? _btnFinances;
+        private readonly Button? _btnShop;
         private readonly Button _btnAdvanceDay;
 
         // ── Overlays controlled externally ───────────────────────────────────
@@ -56,6 +60,8 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Action _onOpenOffSeason;
         private readonly Action? _onOpenHome;
         private readonly Action? _onOpenPhone;
+        private readonly Action? _onOpenFinances;
+        private readonly Action? _onOpenShop;
         private readonly Action _onLifeEventPending;
 
         private SimulationBridge? _bridge;
@@ -73,7 +79,9 @@ namespace FootballLife.Unity.UI.Hub
             Action onLifeEventPending,
             Action? onOpenOffSeason = null,
             Action? onOpenHome = null,
-            Action? onOpenPhone = null)
+            Action? onOpenPhone = null,
+            Action? onOpenFinances = null,
+            Action? onOpenShop = null)
         {
             _onOpenTraining = onOpenTraining;
             _onOpenRest = onOpenRest;
@@ -83,6 +91,8 @@ namespace FootballLife.Unity.UI.Hub
             _onOpenOffSeason = onOpenOffSeason;
             _onOpenHome = onOpenHome;
             _onOpenPhone = onOpenPhone;
+            _onOpenFinances = onOpenFinances;
+            _onOpenShop = onOpenShop;
 
             // ── Query ─────────────────────────────────────────────────────────
             _labelPlayerName   = root.Q<Label>("label-player-name");
@@ -119,6 +129,10 @@ namespace FootballLife.Unity.UI.Hub
             _btnOffSeason   = root.Q<Button>("btn-offseason");
             _btnHome        = root.Q<Button>("btn-home");
             _btnQuickPhone  = root.Q<Button>("btn-quick-phone");
+            _btnQuickFinances = root.Q<Button>("btn-quick-finances");
+            _btnQuickShop   = root.Q<Button>("btn-quick-shop");
+            _btnFinances    = root.Q<Button>("btn-finances");
+            _btnShop        = root.Q<Button>("btn-shop");
             _btnAdvanceDay  = root.Q<Button>("btn-advance-day");
 
             // ── Wire buttons ──────────────────────────────────────────────────
@@ -132,6 +146,14 @@ namespace FootballLife.Unity.UI.Hub
                 _btnHome.clicked += () => _onOpenHome?.Invoke();
             if (_btnQuickPhone != null)
                 _btnQuickPhone.clicked += () => _onOpenPhone?.Invoke();
+            if (_btnQuickFinances != null)
+                _btnQuickFinances.clicked += () => _onOpenFinances?.Invoke();
+            if (_btnQuickShop != null)
+                _btnQuickShop.clicked += () => _onOpenShop?.Invoke();
+            if (_btnFinances != null)
+                _btnFinances.clicked += () => _onOpenFinances?.Invoke();
+            if (_btnShop != null)
+                _btnShop.clicked += () => _onOpenShop?.Invoke();
             _btnAdvanceDay.clicked += OnAdvanceDayClicked;
 
             // Hide match card initially (no pending match)

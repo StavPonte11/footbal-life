@@ -80,14 +80,25 @@ namespace FootballLife.Unity.Core.Bridge
         public string Description { get; }
         public string Category { get; }
         public IReadOnlyList<string> Choices { get; }
+        public string CharacterBadge { get; }
+        public IReadOnlyList<string> ChoiceEffects { get; }
 
-        public LifeEventSnapshot(Guid eventId, string title, string description, string category, IReadOnlyList<string> choices)
+        public LifeEventSnapshot(
+            Guid eventId,
+            string title,
+            string description,
+            string category,
+            IReadOnlyList<string> choices,
+            string characterBadge = "📋 Club Liaison",
+            IReadOnlyList<string>? choiceEffects = null)
         {
             EventId = eventId;
             Title = title;
             Description = description;
             Category = category;
             Choices = choices;
+            CharacterBadge = characterBadge;
+            ChoiceEffects = choiceEffects ?? Array.Empty<string>();
         }
     }
 
@@ -454,6 +465,87 @@ namespace FootballLife.Unity.Core.Bridge
             OnStatusLog?.Invoke($"Rest ({restMethod}) restored +{energyRestored} Energy.");
             PublishDaySnapshot("Rest session completed.");
         }
+
+        /// <summary>
+        /// Resolves a selected life event choice, applying state consequences and saving.
+        /// </summary>
+        public void ResolveLifeEventChoice(LifeEventSnapshot snap, int choiceIndex, string choiceText, int moneyDelta = 0, int moraleDelta = 0, int trustDelta = 0, int energyDelta = 0)
+        {
+            if (_currentSave == null) return;
+
+            if (moneyDelta != 0)
+            {
+                _currentSave.BankBalance += moneyDelta;
+            }
+
+            if (moraleDelta != 0)
+            {
+                _currentSave.Morale = Math.Clamp(_currentSave.Morale + moraleDelta, 0, 100);
+            }
+
+            if (trustDelta != 0)
+            {
+                _currentSave.ManagerTrust = Math.Clamp(_currentSave.ManagerTrust + trustDelta, 0, 100);
+            }
+
+            if (energyDelta != 0)
+            {
+                _currentSave.Energy = Math.Clamp(_currentSave.Energy + energyDelta, 0, 100);
+            }
+
+            string feedback = $"Resolved '{snap.Title}': {choiceText}";
+            OnStatusLog?.Invoke(feedback);
+            PublishDaySnapshot(feedback);
+        }
+
+        /// <summary>
+        /// Triggers a rich life event dilemma snapshot for testing or gameplay invocation.
+        /// </summary>
+        public void TriggerDilemma(int dilemmaIndex = 0)
+        {
+            var dilemmas = GetDefaultDilemmas();
+            int idx = Math.Clamp(dilemmaIndex, 0, dilemmas.Count - 1);
+            OnLifeEventOccurred?.Invoke(dilemmas[idx]);
+        }
+
+        public static IReadOnlyList<LifeEventSnapshot> GetDefaultDilemmas() => new[]
+        {
+            new LifeEventSnapshot(
+                Guid.NewGuid(),
+                "Commercial Endorsement Deal",
+                "A prominent luxury streetwear label wants you as the headline ambassador for their spring collection. The compensation is exceptional, but requires attending weekend photo sessions during crucial match preparation.",
+                "Commercial",
+                new[] { "Accept Lucrative Deal", "Decline to Stay Focused", "Negotiate Reduced Hours" },
+                "👔 Agent David Sterling",
+                new[] { "+£3,500 Bank • +8 Morale • -4 Energy", "+10 Manager Trust • +5 Energy", "+£1,500 Bank • +4 Morale" }),
+
+            new LifeEventSnapshot(
+                Guid.NewGuid(),
+                "Late Night Out with Teammates",
+                "After an impressive league performance, team captain Liam Walker invites you out to a private VIP lounge in town to celebrate with the squad.",
+                "Social",
+                new[] { "Join Full Squad Celebration", "One Drink & Head Home Early", "Politely Decline & Get Sleep" },
+                "⚡ Liam Walker (Vice Captain)",
+                new[] { "+15 Morale • -20 Energy • -8 Trust", "+6 Morale • -6 Energy", "+12 Energy • +6 Manager Trust" }),
+
+            new LifeEventSnapshot(
+                Guid.NewGuid(),
+                "Sensationalist Press Rumour",
+                "A sensationalist tabloid runs a front-page rumor claiming you are unhappy with your role and angling for an emergency transfer.",
+                "Media",
+                new[] { "Publicly Denounce Rumours", "No Comment / Stay Silent", "Feed Transfer Speculation" },
+                "📰 The Daily Pitch Gossip",
+                new[] { "+15 Manager Trust • +5 Morale", "No Stat Impact", "+12 Morale • -15 Manager Trust" }),
+
+            new LifeEventSnapshot(
+                Guid.NewGuid(),
+                "Manager Tactical Disagreement",
+                "Head Coach Elena Rostova pulls you aside in film analysis, pointing out tactical lapses in your defensive pressing work rate.",
+                "Club",
+                new[] { "Accept Criticism & Promise Extra Runs", "Argue You Need Attacking Freedom", "Ask for Private 1-on-1 Mentoring" },
+                "📋 Elena Rostova (Head Coach)",
+                new[] { "+12 Manager Trust • -5 Morale", "+8 Morale • -12 Manager Trust", "+8 Trust • +5 Positioning XP" })
+        };
 
         private void PublishDaySnapshot(string message)
         {
