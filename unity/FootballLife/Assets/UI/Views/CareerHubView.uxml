@@ -26,6 +26,8 @@
                 <ui:Button name="btn-quick-outings" text="🌆" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Button name="btn-quick-press" text="🎙️" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Button name="btn-quick-market" text="🤝" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
+                <ui:Button name="btn-quick-sponsorship" text="✨" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
+                <ui:Button name="btn-quick-legacy" text="👑" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Label name="label-ovr" text="60 OVR" class="badge badge-green" style="font-size: 12px;" />
                 <ui:VisualElement style="align-items: flex-end;">
                     <ui:Label name="label-date" text="Season 1 · Week 1" class="text-accent" style="font-size: 12px;" />
@@ -161,6 +163,11 @@
                 <ui:Button name="btn-continental" text="🏆 Champions Cup" class="btn btn-secondary" style="height: 48px; font-size: 14px; -unity-font-style: bold; background-color: rgba(245, 158, 11, 0.2); border-color: #F59E0B; border-width: 1px;" />
             </ui:VisualElement>
 
+            <ui:VisualElement style="flex-direction: row; gap: 8px; margin-bottom: 10px;">
+                <ui:Button name="btn-sponsorship" text="✨ Endorsements" class="btn btn-secondary" style="flex: 1; height: 46px; font-size: 13px; -unity-font-style: bold; background-color: rgba(245, 158, 11, 0.15); border-color: #F59E0B; border-width: 1px;" />
+                <ui:Button name="btn-legacy" text="👑 Hall of Fame" class="btn btn-secondary" style="flex: 1; height: 46px; font-size: 13px; -unity-font-style: bold; background-color: rgba(168, 85, 247, 0.15); border-color: #A855F7; border-width: 1px;" />
+            </ui:VisualElement>
+
             <ui:VisualElement style="margin-bottom: 10px;">
                 <ui:Button name="btn-home" text="🏠 Home Apartment" class="btn btn-secondary" style="height: 48px; font-size: 14px; -unity-font-style: bold;" />
             </ui:VisualElement>
@@ -196,6 +203,12 @@
 
         <ui:Template name="ContinentalView" src="project://database/Assets/UI/Views/ContinentalView.uxml" />
         <ui:Instance template="ContinentalView" name="continental-instance" />
+
+        <ui:Template name="SponsorshipView" src="project://database/Assets/UI/Views/SponsorshipView.uxml" />
+        <ui:Instance template="SponsorshipView" name="sponsorship-instance" />
+
+        <ui:Template name="LegacyView" src="project://database/Assets/UI/Views/LegacyView.uxml" />
+        <ui:Instance template="LegacyView" name="legacy-instance" />
 
     </ui:VisualElement>
 </ui:UXML>

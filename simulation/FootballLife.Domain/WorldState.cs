@@ -57,6 +57,22 @@ namespace FootballLife.Domain
         /// Historical log of manager change events.
         /// </summary>
         public IReadOnlyList<ManagerChangeEvent> ManagerChangeHistory { get; init; }
+        /// <summary>
+        /// Active commercial sponsorship deals held by the player.
+        /// </summary>
+        public IReadOnlyList<ActiveSponsorship> ActiveSponsorships { get; init; }
+        /// <summary>
+        /// Formal retirement decision and post-career trajectory for the player, or null if active.
+        /// </summary>
+        public RetirementDecision? PlayerRetirement { get; init; }
+        /// <summary>
+        /// Complete career legacy evaluation and score summary, or null if career in progress.
+        /// </summary>
+        public CareerLegacy? PlayerLegacy { get; init; }
+        /// <summary>
+        /// Historical register of all Hall of Fame inductees.
+        /// </summary>
+        public IReadOnlyList<HallOfFameEntry> HallOfFame { get; init; }
         public Season CurrentSeason { get; init; }
 
         public WorldState(
@@ -77,7 +93,11 @@ namespace FootballLife.Domain
             IReadOnlyDictionary<Guid, NationalTeam>? nationalTeams = null,
             IReadOnlyDictionary<Guid, InternationalCareer>? internationalCareers = null,
             ContinentalCompetition? activeContinentalCompetition = null,
-            IReadOnlyList<ManagerChangeEvent>? managerChangeHistory = null)
+            IReadOnlyList<ManagerChangeEvent>? managerChangeHistory = null,
+            IReadOnlyList<ActiveSponsorship>? activeSponsorships = null,
+            RetirementDecision? playerRetirement = null,
+            CareerLegacy? playerLegacy = null,
+            IReadOnlyList<HallOfFameEntry>? hallOfFame = null)
         {
             Clubs = clubs ?? throw new ArgumentNullException(nameof(clubs));
             Players = players ?? throw new ArgumentNullException(nameof(players));
@@ -97,6 +117,10 @@ namespace FootballLife.Domain
             InternationalCareers = internationalCareers ?? new ReadOnlyDictionary<Guid, InternationalCareer>(new Dictionary<Guid, InternationalCareer>());
             ActiveContinentalCompetition = activeContinentalCompetition;
             ManagerChangeHistory = managerChangeHistory ?? Array.Empty<ManagerChangeEvent>();
+            ActiveSponsorships = activeSponsorships ?? Array.Empty<ActiveSponsorship>();
+            PlayerRetirement = playerRetirement;
+            PlayerLegacy = playerLegacy;
+            HallOfFame = hallOfFame ?? Array.Empty<HallOfFameEntry>();
         }
 
         /// <summary>
@@ -551,5 +575,48 @@ namespace FootballLife.Domain
             newHistory.AddRange(history);
             return this with { ManagerChangeHistory = newHistory };
         }
+
+        // ─── Sponsorship Helpers (#P5-007) ────────────────────────────────────
+
+        public WorldState WithActiveSponsorships(IEnumerable<ActiveSponsorship> sponsorships)
+        {
+            if (sponsorships is null) throw new ArgumentNullException(nameof(sponsorships));
+            return this with { ActiveSponsorships = sponsorships.ToList() };
+        }
+
+        public WorldState WithAddedSponsorship(ActiveSponsorship sponsorship)
+        {
+            if (sponsorship is null) throw new ArgumentNullException(nameof(sponsorship));
+            var updated = new List<ActiveSponsorship>(ActiveSponsorships) { sponsorship };
+            return this with { ActiveSponsorships = updated };
+        }
+
+        // ─── Retirement Helpers (#P5-008) ─────────────────────────────────────
+
+        public WorldState WithPlayerRetirement(RetirementDecision? retirement)
+        {
+            return this with { PlayerRetirement = retirement };
+        }
+
+        // ─── Legacy & Hall of Fame Helpers (#P5-009) ──────────────────────────
+
+        public WorldState WithPlayerLegacy(CareerLegacy? legacy)
+        {
+            return this with { PlayerLegacy = legacy };
+        }
+
+        public WorldState WithHallOfFameEntry(HallOfFameEntry entry)
+        {
+            if (entry is null) throw new ArgumentNullException(nameof(entry));
+            var updated = new List<HallOfFameEntry>(HallOfFame) { entry };
+            return this with { HallOfFame = updated };
+        }
+
+        public WorldState WithHallOfFame(IEnumerable<HallOfFameEntry> entries)
+        {
+            if (entries is null) throw new ArgumentNullException(nameof(entries));
+            return this with { HallOfFame = entries.ToList() };
+        }
     }
 }
+

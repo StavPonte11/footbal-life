@@ -1,0 +1,49 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- APP BAR -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:Button name="btn-sponsorship-back" text="← Back" class="btn btn-ghost" style="font-size: 13px;" />
+            <ui:Label text="✨ Commercial Endorsements" class="text-title" style="font-size: 16px; -unity-font-style: bold;" />
+            <ui:Label name="label-slots-badge" text="0 / 3 Slots" class="badge badge-amber" style="font-size: 11px;" />
+        </ui:VisualElement>
+
+        <!-- TABS -->
+        <ui:VisualElement class="tab-bar">
+            <ui:Button name="tab-active-deals" text="Active Deals" class="tab-button tab-button-active" />
+            <ui:Button name="tab-available-offers" text="Available Offers" class="tab-button" />
+        </ui:VisualElement>
+
+        <!-- MAIN SCROLL CONTENT -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- REVENUE & PERKS SUMMARY CARD -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 14px; border-color: rgba(245, 158, 11, 0.4);">
+                <ui:VisualElement class="card-header">
+                    <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px;">
+                        <ui:Label text="💎" style="font-size: 18px;" />
+                        <ui:Label text="Commercial Value &amp; Brand Perks" class="text-title" style="font-size: 15px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:Label name="label-total-commercial-income" text="+£0 / wk" class="badge badge-green" style="font-size: 12px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+                <ui:Label name="label-perks-summary" text="Sign boots, apparel, or hydration deals to boost income, energy recovery, and global fame." class="text-caption" style="font-size: 12px; margin-top: 4px;" />
+            </ui:VisualElement>
+
+            <!-- ACTIVE DEALS CONTAINER -->
+            <ui:VisualElement name="container-active-deals" style="flex-direction: column; gap: 12px;">
+                <!-- Dynamically populated active cards -->
+            </ui:VisualElement>
+
+            <!-- AVAILABLE OFFERS CONTAINER -->
+            <ui:VisualElement name="container-available-offers" style="display: none; flex-direction: column; gap: 12px;">
+                <!-- Dynamically populated offer cards -->
+            </ui:VisualElement>
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>

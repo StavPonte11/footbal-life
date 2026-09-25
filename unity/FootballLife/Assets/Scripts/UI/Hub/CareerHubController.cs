@@ -67,8 +67,9 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Action? _onOpenShop;
         private readonly Action? _onOpenSocial;
         private readonly Action? _onOpenPress;
-        private readonly Action? _onOpenTransferMarket;
         private readonly Action? _onOpenContinental;
+        private readonly Action? _onOpenSponsorship;
+        private readonly Action? _onOpenLegacy;
         private readonly Action _onLifeEventPending;
 
         private SimulationBridge? _bridge;
@@ -92,7 +93,9 @@ namespace FootballLife.Unity.UI.Hub
             Action? onOpenSocial = null,
             Action? onOpenPress = null,
             Action? onOpenTransferMarket = null,
-            Action? onOpenContinental = null)
+            Action? onOpenContinental = null,
+            Action? onOpenSponsorship = null,
+            Action? onOpenLegacy = null)
         {
             _onOpenTraining = onOpenTraining;
             _onOpenRest = onOpenRest;
@@ -108,6 +111,8 @@ namespace FootballLife.Unity.UI.Hub
             _onOpenPress = onOpenPress;
             _onOpenTransferMarket = onOpenTransferMarket;
             _onOpenContinental = onOpenContinental;
+            _onOpenSponsorship = onOpenSponsorship;
+            _onOpenLegacy = onOpenLegacy;
 
             // ── Query ─────────────────────────────────────────────────────────
             _labelPlayerName   = root.Q<Label>("label-player-name");
@@ -151,6 +156,10 @@ namespace FootballLife.Unity.UI.Hub
             _btnShop        = root.Q<Button>("btn-shop");
             _btnTransferMarket = root.Q<Button>("btn-transfer-market");
             _btnContinental    = root.Q<Button>("btn-continental");
+            var btnSponsorship = root.Q<Button>("btn-sponsorship");
+            var btnLegacy      = root.Q<Button>("btn-legacy");
+            var btnQuickSponsorship = root.Q<Button>("btn-quick-sponsorship");
+            var btnQuickLegacy = root.Q<Button>("btn-quick-legacy");
             var btnQuickOutings = root.Q<Button>("btn-quick-outings");
             var btnQuickPress   = root.Q<Button>("btn-quick-press");
             var btnSocialOutings= root.Q<Button>("btn-social-outings");
@@ -174,6 +183,10 @@ namespace FootballLife.Unity.UI.Hub
                 _btnQuickShop.clicked += () => _onOpenShop?.Invoke();
             if (_btnQuickMarket != null)
                 _btnQuickMarket.clicked += () => _onOpenTransferMarket?.Invoke();
+            if (btnQuickSponsorship != null)
+                btnQuickSponsorship.clicked += () => _onOpenSponsorship?.Invoke();
+            if (btnQuickLegacy != null)
+                btnQuickLegacy.clicked += () => _onOpenLegacy?.Invoke();
             if (btnQuickOutings != null)
                 btnQuickOutings.clicked += () => _onOpenSocial?.Invoke();
             if (btnQuickPress != null)
@@ -186,6 +199,10 @@ namespace FootballLife.Unity.UI.Hub
                 _btnTransferMarket.clicked += () => _onOpenTransferMarket?.Invoke();
             if (_btnContinental != null)
                 _btnContinental.clicked += () => _onOpenContinental?.Invoke();
+            if (btnSponsorship != null)
+                btnSponsorship.clicked += () => _onOpenSponsorship?.Invoke();
+            if (btnLegacy != null)
+                btnLegacy.clicked += () => _onOpenLegacy?.Invoke();
             if (btnSocialOutings != null)
                 btnSocialOutings.clicked += () => _onOpenSocial?.Invoke();
             if (btnPressBriefing != null)

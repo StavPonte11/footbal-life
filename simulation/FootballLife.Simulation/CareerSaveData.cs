@@ -83,6 +83,23 @@ namespace FootballLife.Simulation.Persistence
         public int InternationalAssists { get; set; }
         public bool IsRetiredFromInternational { get; set; }
 
+        // Sponsorship & Commercial Endorsements (#P5-007)
+        public List<string> ActiveSponsorshipIds { get; set; } = new List<string>();
+
+        // Retirement Arc (#P5-008)
+        public bool IsRetired { get; set; }
+        public int RetirementAge { get; set; }
+        public int RetirementSeason { get; set; }
+        public string? RetirementReason { get; set; }
+        public string? PostPlayingRole { get; set; }
+
+        // Career Legacy & Hall of Fame (#P5-009)
+        public int CareerScore { get; set; }
+        public string LegacyGrade { get; set; } = "None";
+        public bool IsHallOfFameInductee { get; set; }
+        public int TotalTrophies { get; set; }
+        public long LifetimeEarnings { get; set; }
+
         // Relationships
         public List<RelationshipSaveEntry> Relationships { get; set; } = new List<RelationshipSaveEntry>();
 
