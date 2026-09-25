@@ -22,6 +22,8 @@ namespace FootballLife.Unity.UI.Match
         [SerializeField] private VisualTreeAsset? _matchPreviewAsset;
         [SerializeField] private VisualTreeAsset? _matchGameAsset;
         [SerializeField] private VisualTreeAsset? _matchPostAsset;
+        [Header("3D Match HUD (#P3-011)")]
+        [SerializeField] private MatchHUDController? _hudController;
 
         // ── Controllers ───────────────────────────────────────────────────────
         private MatchPreviewController? _previewCtrl;
@@ -68,8 +70,25 @@ namespace FootballLife.Unity.UI.Match
                 Debug.Log("[MatchCoordinator] Auto-initialized mock SimulationBridge for direct Match preview.");
             }
 
+            if (_hudController == null)
+            {
+                _hudController = FindAnyObjectByType<MatchHUDController>(FindObjectsInactive.Include);
+            }
+            if (_hudController != null)
+            {
+                _hudController.OnMatchFinishRequested += HandleHUDMatchFinished;
+            }
+
             BuildUI();
             ShowPreview();
+        }
+
+        private void OnDisable()
+        {
+            if (_hudController != null)
+            {
+                _hudController.OnMatchFinishRequested -= HandleHUDMatchFinished;
+            }
         }
 
         private void BuildUI()
@@ -143,6 +162,7 @@ namespace FootballLife.Unity.UI.Match
 
             if (_gameOverlay != null) _gameOverlay.style.display = DisplayStyle.None;
             if (_postOverlay != null) _postOverlay.style.display = DisplayStyle.None;
+            if (_hudController != null) _hudController.gameObject.SetActive(false);
             if (_previewOverlay != null) _previewOverlay.style.display = DisplayStyle.Flex;
         }
 
@@ -158,20 +178,55 @@ namespace FootballLife.Unity.UI.Match
 
             if (_previewOverlay != null) _previewOverlay.style.display = DisplayStyle.None;
             if (_postOverlay != null) _postOverlay.style.display = DisplayStyle.None;
-            if (_gameOverlay != null) _gameOverlay.style.display = DisplayStyle.Flex;
 
-            _gameCtrl?.StartMatch(opp, bridge?.CurrentSave);
+            if (_hudController != null)
+            {
+                _hudController.gameObject.SetActive(true);
+                if (_gameOverlay != null) _gameOverlay.style.display = DisplayStyle.None;
+
+                string home = opp.IsHome ? (bridge?.CurrentSave?.ClubName ?? "Northfield Town") : opp.OpponentName;
+                string away = opp.IsHome ? opp.OpponentName : (bridge?.CurrentSave?.ClubName ?? "Northfield Town");
+                float stamina = bridge?.CurrentSave != null ? (float)bridge.CurrentSave.Energy : 78f;
+                _hudController.SetMatchDetails(home, away, 0, 0, 68, stamina);
+            }
+            else if (_gameOverlay != null)
+            {
+                _gameOverlay.style.display = DisplayStyle.Flex;
+                _gameCtrl?.StartMatch(opp, bridge?.CurrentSave);
+            }
         }
 
         public void ShowPostMatch(MatchSummaryData summary)
         {
             var bridge = SimulationBridge.Instance;
 
+            if (_hudController != null) _hudController.gameObject.SetActive(false);
             if (_previewOverlay != null) _previewOverlay.style.display = DisplayStyle.None;
             if (_gameOverlay != null) _gameOverlay.style.display = DisplayStyle.None;
             if (_postOverlay != null) _postOverlay.style.display = DisplayStyle.Flex;
 
             _postCtrl?.Bind(summary, bridge?.CurrentSave, bridge);
+        }
+
+        private void HandleHUDMatchFinished(int homeScore, int awayScore)
+        {
+            var bridge = SimulationBridge.Instance;
+            var opp = bridge?.CurrentMatchOpportunity;
+            var summary = new MatchSummaryData
+            {
+                HomeClub = opp?.IsHome == true ? (bridge?.CurrentSave?.ClubName ?? "Northfield Town") : (opp?.OpponentName ?? "Northfield Town"),
+                AwayClub = opp?.IsHome == true ? (opp?.OpponentName ?? "Westford United") : (bridge?.CurrentSave?.ClubName ?? "Westford United"),
+                HomeScore = homeScore,
+                AwayScore = awayScore,
+                PlayerGoals = homeScore > 0 ? 1 : 0,
+                PlayerAssists = 0,
+                KeyActions = 3,
+                Errors = 0,
+                MatchRating = homeScore > awayScore ? 8.2 : 6.8,
+                Competition = opp?.Competition ?? "Division 4",
+                IsHome = opp?.IsHome ?? true
+            };
+            ShowPostMatch(summary);
         }
 
         public void ReturnToHub()

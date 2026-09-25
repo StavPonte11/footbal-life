@@ -1,0 +1,78 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <!-- Transparent Root Container for 3D In-Game Match View -->
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; justify-content: space-between; background-color: rgba(0, 0, 0, 0); pointer-events: box-none;">
+
+        <!-- ====================================================
+             TOP SCOREBOARD: Teams, Live Score, Clock & Stamina
+             ==================================================== -->
+        <ui:VisualElement style="background-color: rgba(15, 23, 42, 0.88); border-bottom-width: 1px; border-bottom-color: var(--fl-color-border); padding-left: 16px; padding-right: 16px; padding-top: 10px; padding-bottom: 10px;">
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                <!-- Home Team -->
+                <ui:VisualElement style="align-items: flex-start; flex: 1;">
+                    <ui:Label name="label-hud-home-name" text="Northfield Town" class="text-title" style="font-size: 13px; -unity-font-style: bold;" />
+                    <ui:Label text="Home" class="text-caption" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <!-- Score & Clock -->
+                <ui:VisualElement style="align-items: center; margin-left: 12px; margin-right: 12px;">
+                    <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px;">
+                        <ui:Label name="label-hud-home-score" text="0" style="font-size: 26px; -unity-font-style: bold; color: #FFFFFF;" />
+                        <ui:Label text="-" style="font-size: 22px; color: var(--fl-color-text-muted);" />
+                        <ui:Label name="label-hud-away-score" text="0" style="font-size: 26px; -unity-font-style: bold; color: #FFFFFF;" />
+                    </ui:VisualElement>
+                    <ui:Label name="label-hud-clock" text="68&apos;" class="badge badge-gold" style="font-size: 11px; margin-top: 2px;" />
+                </ui:VisualElement>
+
+                <!-- Away Team -->
+                <ui:VisualElement style="align-items: flex-end; flex: 1;">
+                    <ui:Label name="label-hud-away-name" text="Westford United" class="text-title" style="font-size: 13px; -unity-font-style: bold; -unity-text-align: middle-right;" />
+                    <ui:Label text="Away" class="text-caption" style="font-size: 10px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Player Stamina Progress Bar -->
+            <ui:VisualElement style="margin-top: 8px; flex-direction: row; align-items: center; gap: 8px;">
+                <ui:Label text="STAMINA" class="text-caption" style="font-size: 9px; width: 50px;" />
+                <ui:VisualElement style="flex-grow: 1; height: 6px; background-color: rgba(255, 255, 255, 0.15); border-radius: 3px; overflow: hidden;">
+                    <ui:VisualElement name="stamina-bar-fill" style="width: 78%; height: 100%; background-color: #10B981; border-radius: 3px;" />
+                </ui:VisualElement>
+                <ui:Label name="label-stamina-percent" text="78%" class="text-caption" style="font-size: 9px; -unity-font-style: bold; width: 30px; -unity-text-align: middle-right;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             CENTER: GOAL CELEBRATION OVERLAY BANNER (Hidden by default)
+             ==================================================== -->
+        <ui:VisualElement name="card-goal-celebration" style="align-self: center; background-color: rgba(15, 23, 42, 0.95); border-color: #F59E0B; border-width: 2px; border-radius: var(--fl-radius-lg); padding: 18px 24px; min-width: 280px; align-items: center; display: none; margin-top: 40px; box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.7);">
+            <ui:Label text="⚽ GOAL!" style="font-size: 32px; -unity-font-style: bold; color: #F59E0B; letter-spacing: 2px; margin-bottom: 4px;" />
+            <ui:Label name="label-goal-scorer" text="Marcus Vance 68&apos;" style="font-size: 16px; -unity-font-style: bold; color: #FFFFFF; margin-bottom: 6px;" />
+            <ui:Label name="label-goal-speed" text="⚡ Shot Speed: 95.3 km/h" class="text-accent" style="font-size: 13px; -unity-font-style: bold; margin-bottom: 12px;" />
+            <ui:VisualElement style="flex-direction: row; gap: 8px; align-items: center; margin-bottom: 16px;">
+                <ui:Label name="label-goal-scoreline" text="Northfield Town 1 - 0 Westford United" class="badge badge-green" style="font-size: 12px; padding: 4px 10px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; gap: 10px; width: 100%; justify-content: center;">
+                <ui:Button name="btn-goal-continue" text="Keep Playing 🔄" class="btn btn-secondary" style="height: 40px; flex: 1; font-size: 12px; -unity-font-style: bold;" />
+                <ui:Button name="btn-goal-finish" text="Full Time →" class="btn btn-primary" style="height: 40px; flex: 1; font-size: 12px; -unity-font-style: bold;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             BOTTOM HUD: Contextual Situation Hint & Controls
+             ==================================================== -->
+        <ui:VisualElement style="background-color: rgba(15, 23, 42, 0.88); border-top-width: 1px; border-top-color: var(--fl-color-border); padding-left: 16px; padding-right: 16px; padding-top: 10px; padding-bottom: 16px;">
+            <ui:Label name="label-action-hint" text="🎯 Tap teammate to pass · Swipe toward goal to shoot" class="text-gold" style="font-size: 12px; -unity-text-align: middle-center; margin-bottom: 10px; -unity-font-style: bold;" />
+
+            <!-- Quick Action Buttons -->
+            <ui:VisualElement style="flex-direction: row; justify-content: center; gap: 10px;">
+                <ui:Button name="btn-action-shoot" text="🎯 Aim Shot" class="btn btn-primary" style="height: 42px; flex: 1; font-size: 12px;" />
+                <ui:Button name="btn-action-pass" text="👟 Square Pass" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 12px;" />
+                <ui:Button name="btn-action-reset" text="🔄 Reset Ball" class="btn btn-gold" style="height: 42px; width: 90px; font-size: 12px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

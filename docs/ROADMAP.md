@@ -313,11 +313,13 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P3-008 (#140) | Shooting mini-interaction: 3D aim trajectory arc, power scaling, and Magnus curve spin | Unity/Gameplay | M | ✅ Complete |
 | #P3-009 (#141) | Passing mini-interaction: teammate target selection, delivery timing, and defender intercept evaluation | Unity/Gameplay | M | ✅ Complete |
 
-### Milestone 3.4 — Match Presentation & In-Game HUD
+### Milestone 3.4 — Match Presentation & In-Game HUD ✅ (Complete)
+*Branch: `feature/milestone-3.4-match-presentation-hud` | Issues #143–#144*
+
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P3-010 | Goal celebration: camera, VFX, crowd audio | Unity/Presentation | M | ⏳ Planned |
-| #P3-011 | Match HUD: score, time, stamina bar, contextual action buttons | Unity/UI | M | ⏳ Planned |
+| #P3-010 (#143) | Goal celebration: camera celebration orbit, VFX, dynamic goal banner overlay with shot speed | Unity/Presentation | M | ✅ Complete |
+| #P3-011 (#144) | Match HUD: live scoreline, match clock, stamina bar, and contextual action buttons | Unity/UI | M | ✅ Complete |
 
 ---
 

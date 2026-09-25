@@ -1648,6 +1648,36 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 
 ---
 
+#### #P3-010 — Goal Celebration: Camera Celebration Orbit & Dynamic Banner VFX
+**Issue:** #143 | **Layer:** Unity/Presentation | **Status:** ✅ Complete
+
+> As a player scoring a goal, I want an exciting celebration presentation featuring dynamic camera orbit tracking, goal audio/particle feedback, and a celebratory overlay banner displaying scorer name and shot speed in km/h.
+
+**Acceptance Criteria:**
+- [x] Detection of goal entry event via `GoalTrigger.OnGoalScored` with precise launch velocity derivation
+- [x] Smooth camera transition to `MatchCameraRig.CameraMode.Celebration` orbiting the scoring player
+- [x] Dynamic celebration card (`card-goal-celebration` in `MatchHUDView.uxml`) displaying:
+  - ⚽ GOAL! header
+  - Scorer name and minute (`Marcus Vance 68'`)
+  - Shot speed metric (`⚡ Shot Speed: xx.x km/h`)
+  - Live updated scoreline badge (`Home X - Y Away`)
+- [x] Interactive action buttons to continue/reset play or proceed to full-time match post summary
+
+#### #P3-011 — Match In-Game HUD: Scoreboard, Clock, Stamina Bar & Contextual Buttons
+**Issue:** #144 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a player during interactive 3D gameplay, I want a non-intrusive broadcast-style HUD showing the live scoreline, match clock, stamina bar, and quick-action touch controls.
+
+**Acceptance Criteria:**
+- [x] UI Toolkit transparent HUD overlay (`MatchHUDView.uxml`) using theme tokens and `picking-mode="Ignore"` for non-blocking pitch interaction
+- [x] Live scoreboard displaying Home & Away club names, current score, and match minute
+- [x] Dynamic stamina bar visualizer with percentage text label reflecting player fatigue
+- [x] Action hint label and touch-friendly quick action buttons (`btn-action-shoot`, `btn-action-pass`, `btn-action-reset`)
+- [x] Clean integration with `MatchCoordinator` to seamlessly transition between Pre-Match Preview, 3D Gameplay HUD, and Post-Match Summary
+- [x] Zero GC allocations during update cycles
+
+---
+
 ## Phase 3 Issue Status Overview
 
 ```
@@ -1655,10 +1685,11 @@ COMPLETED IN PHASE 3:
   Milestone 3.1:    P3-004, P3-002, P3-005 (3D Pitch, Stadium & Ball Physics)  ✅ Complete (Issues #131–#133)
   Milestone 3.2:    P3-001, P3-003         (3D Player Character & Pawns)       ✅ Complete (Issues #135–#136)
   Milestone 3.3:    P3-006 → P3-009        (Touch Controls & Situations)       ✅ Complete (Issues #138–#141)
+  Milestone 3.4:    P3-010 → P3-011        (Goal Celebrations & Match HUD)     ✅ Complete (Issues #143–#144)
 
-UPCOMING MILESTONES:
-  Milestone 3.4:    P3-010 → P3-011        (Goal Celebrations & Match In-Game HUD)
+PHASE 3 COMPLETE! Vertical slice football match gameplay, pawns, physics, touch controls, and match presentation operational.
 ```
+
 
 
 
