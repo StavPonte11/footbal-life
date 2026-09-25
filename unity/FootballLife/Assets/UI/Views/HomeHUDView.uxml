@@ -1,0 +1,96 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="home-hud-root" class="hud-root" style="width: 100%; height: 100%; justify-content: space-between; flex-direction: column;" picking-mode="Ignore">
+        <Style src="project://database/Assets/UI/common.uss" />
+
+        <!-- ====================================================
+             TOP BAR: Property Name, Lifestyle Tier & Financials
+             ==================================================== -->
+        <ui:VisualElement name="home-header-bar" class="card" style="margin-left: 16px; margin-right: 16px; margin-top: 14px; padding: 10px 18px; flex-direction: row; justify-content: space-between; align-items: center; background-color: rgba(15, 23, 42, 0.92); border-color: var(--fl-color-border); border-width: 1px; border-radius: var(--fl-radius-md);">
+            <!-- Property Details -->
+            <ui:VisualElement style="flex-direction: row; align-items: center; gap: 10px;">
+                <ui:Label text="🏠" style="font-size: 24px;" />
+                <ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px;">
+                        <ui:Label name="label-home-property-name" text="Riverside Modern Apartment" class="text-heading" style="font-size: 15px; -unity-font-style: bold; color: #FFFFFF;" />
+                        <ui:Label name="label-home-tier-badge" text="Tier 1 · Comfortable" class="badge badge-gold" style="font-size: 10px; padding: 2px 8px;" />
+                    </ui:VisualElement>
+                    <ui:Label name="label-home-location" text="Westford Marina · £500/wk upkeep" class="text-caption" style="font-size: 11px; color: #94A3B8;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Vitals (Energy & Balance) -->
+            <ui:VisualElement style="flex-direction: row; align-items: center; gap: 16px;">
+                <!-- Energy Bar -->
+                <ui:VisualElement style="min-width: 130px;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 2px;">
+                        <ui:Label text="⚡ Energy" class="text-caption" style="font-size: 10px; -unity-font-style: bold;" />
+                        <ui:Label name="label-home-energy-percent" text="78%" class="text-caption" style="font-size: 10px; -unity-font-style: bold; color: #10B981;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="height: 6px; background-color: rgba(255, 255, 255, 0.15); border-radius: 3px; overflow: hidden;">
+                        <ui:VisualElement name="home-energy-bar-fill" style="width: 78%; height: 100%; background-color: #10B981; border-radius: 3px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Bank Balance -->
+                <ui:VisualElement style="align-items: flex-end;">
+                    <ui:Label text="Savings" class="text-caption" style="font-size: 9px; color: #94A3B8;" />
+                    <ui:Label name="label-home-balance" text="£15,400" class="text-gold" style="font-size: 14px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             CENTER: Interactive Feedback Toast & Upgrade Modal
+             ==================================================== -->
+        <ui:VisualElement style="align-self: center; align-items: center; flex-grow: 1; justify-content: center;" picking-mode="Ignore">
+            <!-- Toast Feedback Banner -->
+            <ui:VisualElement name="card-home-toast" class="card" style="background-color: rgba(15, 23, 42, 0.95); border-color: var(--fl-color-accent); border-width: 1px; border-radius: var(--fl-radius-md); padding: 12px 24px; min-width: 280px; align-items: center; display: none; margin-bottom: 20px;">
+                <ui:Label name="label-toast-title" text="🛌 Rest Completed" style="font-size: 15px; -unity-font-style: bold; color: #FFFFFF; margin-bottom: 4px;" />
+                <ui:Label name="label-toast-message" text="You feel refreshed! +40 Energy recovered." class="text-accent" style="font-size: 12px; -unity-text-align: middle-center;" />
+            </ui:VisualElement>
+
+            <!-- Property Upgrade Modal -->
+            <ui:VisualElement name="card-home-upgrade-modal" class="card" style="background-color: rgba(15, 23, 42, 0.98); border-color: #F59E0B; border-width: 2px; border-radius: var(--fl-radius-lg); padding: 20px 24px; width: 380px; max-width: 90%; display: none;">
+                <ui:Label text="⭐ Lifestyle Property Upgrade" style="font-size: 18px; -unity-font-style: bold; color: #F59E0B; margin-bottom: 6px; -unity-text-align: middle-center;" />
+                <ui:Label name="label-upgrade-target-title" text="Skyline Luxury Penthouse" style="font-size: 16px; -unity-font-style: bold; color: #FFFFFF; margin-bottom: 4px; -unity-text-align: middle-center;" />
+                <ui:Label name="label-upgrade-target-desc" text="High-rise penthouse boasting panoramic skyline views, king-size orthopaedic bed, and private fitness suite." style="font-size: 12px; color: #94A3B8; margin-bottom: 14px; white-space: normal; -unity-text-align: middle-center;" />
+
+                <ui:VisualElement style="background-color: rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px; margin-bottom: 16px; gap: 6px;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Purchase Price:" class="text-caption" style="font-size: 11px;" />
+                        <ui:Label name="label-upgrade-price" text="£75,000" class="text-gold" style="font-size: 11px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Weekly Upkeep:" class="text-caption" style="font-size: 11px;" />
+                        <ui:Label name="label-upgrade-upkeep" text="£2,000/wk" style="font-size: 11px; color: #E2E8F0;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Rest Recovery Bonus:" class="text-caption" style="font-size: 11px;" />
+                        <ui:Label name="label-upgrade-rest-bonus" text="+30% Speed" style="font-size: 11px; color: #10B981; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Gym Training Bonus:" class="text-caption" style="font-size: 11px;" />
+                        <ui:Label name="label-upgrade-gym-bonus" text="+25% Physical XP" style="font-size: 11px; color: #38BDF8; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; gap: 10px; width: 100%;">
+                    <ui:Button name="btn-close-upgrade" text="Cancel" class="btn btn-secondary" style="flex: 1; height: 38px; font-size: 12px;" />
+                    <ui:Button name="btn-confirm-upgrade" text="Purchase Upgrade" class="btn btn-gold" style="flex: 1.5; height: 38px; font-size: 12px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             BOTTOM DOCK: Interactive Hotspot Shortcuts & Actions
+             ==================================================== -->
+        <ui:VisualElement name="home-bottom-dock" style="background-color: rgba(15, 23, 42, 0.94); border-top-width: 1px; border-top-color: var(--fl-color-border); padding: 10px 16px 16px 16px; flex-direction: row; justify-content: center; gap: 8px;">
+            <ui:Button name="btn-nav-overview" text="🏠 Room" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 12px;" />
+            <ui:Button name="btn-nav-bed" text="🛏️ Sleep" class="btn btn-primary" style="height: 42px; flex: 1.2; font-size: 12px;" />
+            <ui:Button name="btn-nav-gym" text="🏋️ Gym" class="btn btn-primary" style="height: 42px; flex: 1.2; font-size: 12px;" />
+            <ui:Button name="btn-nav-phone" text="📱 Phone" class="btn btn-secondary" style="height: 42px; flex: 1.1; font-size: 12px;" />
+            <ui:Button name="btn-home-upgrade" text="⭐ Upgrade" class="btn btn-gold" style="height: 42px; flex: 1.2; font-size: 12px;" />
+            <ui:Button name="btn-nav-door" text="🚪 Exit" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 12px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -28,6 +28,7 @@ namespace FootballLife.Unity.Editor
         private const string kMainMenu   = "Assets/Scenes/MainMenu.unity";
         private const string kCareerHub  = "Assets/Scenes/CareerHub.unity";
         private const string kMatch      = "Assets/Scenes/Match.unity";
+        private const string kHome       = "Assets/Scenes/Home.unity";
 
         // UXML asset paths
         private const string kCareerHubUxml   = "Assets/UI/Views/CareerHubView.uxml";
@@ -40,6 +41,7 @@ namespace FootballLife.Unity.Editor
         private const string kMatchGameUxml    = "Assets/UI/Views/MatchGameView.uxml";
         private const string kMatchPostUxml    = "Assets/UI/Views/MatchPostView.uxml";
         private const string kMatchHudUxml     = "Assets/UI/Views/MatchHUDView.uxml";
+        private const string kHomeHudUxml      = "Assets/UI/Views/HomeHUDView.uxml";
         private const string kSeasonSummaryUxml    = "Assets/UI/Views/SeasonSummaryView.uxml";
         private const string kAttributeGrowthUxml  = "Assets/UI/Views/AttributeGrowthView.uxml";
         private const string kTransferWindowUxml   = "Assets/UI/Views/TransferWindowView.uxml";
@@ -81,6 +83,7 @@ namespace FootballLife.Unity.Editor
             SetupMainMenuScene();
             SetupCareerHubScene();
             SetupMatchScene();
+            SetupHomeScene();
             EditorSceneManager.OpenScene(kBootstrap, OpenSceneMode.Single);
         }
 
@@ -93,9 +96,10 @@ namespace FootballLife.Unity.Editor
                 new EditorBuildSettingsScene(kMainMenu,   true),
                 new EditorBuildSettingsScene(kCareerHub,  true),
                 new EditorBuildSettingsScene(kMatch,      true),
+                new EditorBuildSettingsScene(kHome,       true),
             };
             EditorBuildSettings.scenes = scenes;
-            Debug.Log("[FullSceneSetup] Build Settings: 4 scenes registered (Bootstrap=0, MainMenu=1, CareerHub=2, Match=3).");
+            Debug.Log("[FullSceneSetup] Build Settings: 5 scenes registered (Bootstrap=0, MainMenu=1, CareerHub=2, Match=3, Home=4).");
         }
 
         // ── PanelSettings Helper ──────────────────────────────────────────────
@@ -390,6 +394,102 @@ namespace FootballLife.Unity.Editor
                 if (hudCtrl != null) SetSerializedRef(so, "_hudController", hudCtrl);
                 so.ApplyModifiedProperties();
                 Debug.Log("[FullSceneSetup] Match: Configured MatchCoordinator with all UXML & HUD refs.");
+            }
+
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+        }
+
+        // ── Home Scene (#P4-001, #P4-002) ─────────────────────────────────────
+        private static void SetupHomeScene()
+        {
+            Scene scene;
+            if (File.Exists(kHome))
+            {
+                scene = EditorSceneManager.OpenScene(kHome, OpenSceneMode.Single);
+            }
+            else
+            {
+                scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+                EditorSceneManager.SaveScene(scene, kHome);
+            }
+
+            EnsureStandardHierarchy();
+
+            // ── [ENVIRONMENT] 3D Apartment ────────────────────────────────────
+            var envRoot = GameObject.Find("[ENVIRONMENT]");
+            if (envRoot != null)
+            {
+                var existingApt = envRoot.transform.Find("Apartment_Environment");
+                if (existingApt != null)
+                {
+                    Object.DestroyImmediate(existingApt.gameObject);
+                }
+                ApartmentBuilder.BuildApartment(envRoot.transform, FootballLife.Domain.LifestyleTier.Comfortable);
+                Debug.Log("[FullSceneSetup] Home: Built 3D Apartment Environment.");
+            }
+
+            // ── [CAMERAS] Main Camera & HomeCameraRig ──────────────────────────
+            var cameras = GameObject.Find("[CAMERAS]");
+            if (cameras != null)
+            {
+                var camOnRoot = cameras.GetComponent<UnityEngine.Camera>();
+                if (camOnRoot != null) Object.DestroyImmediate(camOnRoot);
+
+                var camTransform = cameras.transform.Find("Main Camera");
+                GameObject camGo;
+                UnityEngine.Camera cam;
+                if (camTransform == null)
+                {
+                    camGo = new GameObject("Main Camera");
+                    camGo.transform.SetParent(cameras.transform, false);
+                    cam = camGo.AddComponent<UnityEngine.Camera>();
+                    camGo.tag = "MainCamera";
+                }
+                else
+                {
+                    camGo = camTransform.gameObject;
+                    cam = camGo.GetComponent<UnityEngine.Camera>() ?? camGo.AddComponent<UnityEngine.Camera>();
+                }
+
+                var rig = camGo.GetComponent<HomeCameraRig>() ?? camGo.AddComponent<HomeCameraRig>();
+                rig.SetZoneMode(FootballLife.Unity.Core.Gameplay.HomeZoneType.Overview, immediate: true);
+                Debug.Log("[FullSceneSetup] Home: Configured HomeCameraRig.");
+            }
+
+            // ── [ENTITIES] HomeInteractionController ───────────────────────────
+            var entities = GameObject.Find("[ENTITIES]");
+            if (entities != null)
+            {
+                var interactionCtrl = entities.GetComponent<HomeInteractionController>() ?? entities.AddComponent<HomeInteractionController>();
+                Debug.Log("[FullSceneSetup] Home: Configured HomeInteractionController.");
+            }
+
+            // ── [UI] UIDocument & HomeController ───────────────────────────────
+            var uiRoot = GameObject.Find("[UI]");
+            if (uiRoot != null)
+            {
+                var panelSettings = GetOrCreatePanelSettings();
+                var hudDoc = uiRoot.GetComponentInChildren<UIDocument>();
+                if (hudDoc == null)
+                {
+                    var uiDocGo = new GameObject("UIDocument_Home");
+                    uiDocGo.transform.SetParent(uiRoot.transform, false);
+                    hudDoc = uiDocGo.AddComponent<UIDocument>();
+                }
+
+                if (panelSettings != null) hudDoc.panelSettings = panelSettings;
+                var hudAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(kHomeHudUxml);
+                if (hudAsset != null) hudDoc.visualTreeAsset = hudAsset;
+
+                var homeCtrlType = System.Type.GetType("FootballLife.Unity.UI.Home.HomeController, FootballLife.Unity.UI");
+                if (homeCtrlType != null)
+                {
+                    var homeCtrl = hudDoc.GetComponent(homeCtrlType) as MonoBehaviour;
+                    if (homeCtrl == null)
+                        homeCtrl = hudDoc.gameObject.AddComponent(homeCtrlType) as MonoBehaviour;
+                }
+                Debug.Log("[FullSceneSetup] Home: Configured UIDocument_Home with HomeController.");
             }
 
             EditorSceneManager.MarkSceneDirty(scene);

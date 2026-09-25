@@ -1690,6 +1690,55 @@ COMPLETED IN PHASE 3:
 PHASE 3 COMPLETE! Vertical slice football match gameplay, pawns, physics, touch controls, and match presentation operational.
 ```
 
+---
+
+# Phase 4: Life Vertical Slice
+
+### Milestone 4.1: 3D Home Apartment Environment & Lifestyle Progression
+
+#### #P4-001 — Interactive 3D Home Apartment Environment
+**Issue:** #146 | **Layer:** Unity/Art | **Status:** ✅ Complete
+
+> As a footballer, I want an interactive 3D home apartment environment with dedicated hotspots for Bed (sleep), Gym (workout), Phone (smartphone OS), and Door (exit to club) so that my off-pitch life feels tangible and immersive.
+
+**Acceptance Criteria:**
+- [x] Dedicated Unity scene `Home.unity` configured with standard 5-root hierarchy (`[MANAGERS]`, `[ENVIRONMENT]`, `[ENTITIES]`, `[CAMERAS]`, `[UI]`) and registered in Editor Build Settings.
+- [x] Procedural 3D apartment environment generator (`ApartmentBuilder.cs`) constructing modern architectural interior (flooring, perimeter walls, ceiling, panoramic window overlooking city skyline with night lights, warm interior illumination).
+- [x] 3D interactive zones (`HomeInteractionZone.cs`) with colliders and camera focus anchors:
+  - 🛏️ **Bed Zone**: Rest and fatigue recovery hotspot
+  - 🏋️ **Gym Zone**: Dumbbells and workout mat for conditioning
+  - 📱 **Lounge/Phone Zone**: Modern sofa and smartphone coffee table
+  - 🚪 **Door Zone**: Apartment entrance returning to Career Hub
+- [x] Smooth camera rig (`HomeCameraRig.cs`) supporting ambient overview drift and smooth framed transitions to individual zones upon tap or button select.
+- [x] Touch and raycast interaction controller (`HomeInteractionController.cs`) translating taps to camera transitions and interaction event dispatch.
+- [x] UI Toolkit lifestyle HUD (`HomeHUDView.uxml` and `HomeController.cs`) providing vitals indicators (energy bar, bank balance, property name, tier badge), quick-dock shortcuts, and feedback toasts.
+
+#### #P4-002 — Home Progression & Lifestyle Apartment Tiers
+**Issue:** #147 | **Layer:** Unity/Simulation | **Status:** ✅ Complete
+
+> As a footballer rising through divisions and earning higher wages, I want to upgrade my home across 5 distinct lifestyle tiers (Modest to Superstar) so that my living quarters reflect my career success and boost physical recovery and workout gains.
+
+**Acceptance Criteria:**
+- [x] Pure C# domain model (`HomeProperty.cs`) defining 5 distinct property tiers:
+  - Tier 0: `Modest Studio` (£0 purchase, £80/wk upkeep, 1.00x rest, 1.00x gym)
+  - Tier 1: `Comfortable Townhome` (£35,000 purchase, £250/wk upkeep, 1.15x rest, 1.10x gym)
+  - Tier 2: `Luxurious Penthouse` (£180,000 purchase, £750/wk upkeep, 1.35x rest, 1.25x gym)
+  - Tier 3: `Extravagant Villa` (£850,000 purchase, £2,400/wk upkeep, 1.60x rest, 1.45x gym)
+  - Tier 4: `Superstar Estate` (£3,500,000 purchase, £7,500/wk upkeep, 2.00x rest, 1.75x gym)
+- [x] Pure C# simulation system (`HomeSystem.cs`) providing deterministic upgrade validation (`CanAffordUpgrade`), transaction execution (`UpgradeHome`), sleep recovery calculations (`CalculateSleepRecovery`), and home workout execution (`ExecuteHomeWorkout`).
+- [x] Real-time 3D environment re-theming (`ApartmentBuilder.RebuildForTier`) dynamically altering materials, wood finishes, lighting warmth, and luxury accents upon tier upgrade.
+- [x] Full UI modal in `HomeHUDView.uxml` with target property specifications, purchase cost, weekly upkeep requirements, rest bonus, and physical gym multiplier.
+- [x] 12 comprehensive unit tests in `HomeSystemTests.cs` validating economy curves, downscaling, sleep mathematics, and workout stamina/strength gains.
+
+---
+
+## Phase 4 Issue Status Overview
+
+```
+COMPLETED IN PHASE 4:
+  Milestone 4.1:    P4-001 (#146), P4-002 (#147)  (3D Home Apartment & Lifestyle Progression)  ✅ Complete
+```
+
 
 
 

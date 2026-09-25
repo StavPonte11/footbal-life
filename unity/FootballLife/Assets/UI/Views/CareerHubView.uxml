@@ -137,6 +137,10 @@
                 <ui:Button name="btn-offseason" text="🏆 Season Recap &amp; Transfers" class="btn btn-primary" style="height: 48px; font-size: 13px; -unity-font-style: bold; background-color: #D97706;" />
             </ui:VisualElement>
 
+            <ui:VisualElement style="margin-bottom: 10px;">
+                <ui:Button name="btn-home" text="🏠 Home Apartment" class="btn btn-secondary" style="height: 48px; font-size: 14px; -unity-font-style: bold;" />
+            </ui:VisualElement>
+
             <!-- Empty space at bottom for the fixed footer -->
             <ui:VisualElement style="height: 16px;" />
         </ui:ScrollView>
