@@ -262,13 +262,14 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P2-016 (#119) | Abstracted match screen: situation cards, player choices, outcome text | Unity/UI | L | ✅ Complete |
 | #P2-017 (#120) | Post-match summary: rating, goal/assist, manager reaction, trust delta | Unity/UI | M | ✅ Complete |
 
-### Milestone 2.6 — End-of-Season Screen
+### Milestone 2.6 — End-of-Season & Transfers ✅ (Complete)
+*Branch: `feature/milestone-2.6-season-end-transfers` | Issues #122–#124*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P2-018 | Season summary screen: appearances, goals, assists, trophies, progression | Unity/UI | L |
-| #P2-019 | Attribute growth visualization | Unity/UI | M |
-| #P2-020 | Transfer window screen: display offers, accept/reject flow | Unity/UI | L |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P2-018 (#122) | Season summary screen: appearances, goals, assists, trophies, progression, financial review | Unity/UI | L | ✅ Complete |
+| #P2-019 (#123) | Attribute growth visualization: OVR delta, physical/technical/mental changes, potential ceiling, age curve | Unity/UI | M | ✅ Complete |
+| #P2-020 (#124) | Transfer window screen: current contract, suitor bids, renewal offers, accept/reject, season rollover | Unity/UI | L | ✅ Complete |
 
 ---
 
@@ -353,9 +354,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 2 — Unity Prototype (Milestone 2.5: Match Preview & Basic Match)
+## Current Focus: Phase 3 — Football Vertical Slice (Milestone 3.1: 3D Match Experience)
 
-> **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 524 passing tests).
-> **Milestones 2.1, 2.2, 2.3 & 2.4 ARE 100% COMPLETE** (Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116 closed, Unity compilation & UI verification verified).
-> **Next milestone to implement:** `#P2-015` → `#P2-017` (Milestone 2.5 — Match Preview & Basic Match: match preview screen, abstracted situation cards, post-match summary).
+> **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 557 passing tests).
+> **PHASE 2 IS 100% COMPLETE & MERGED TO `main`** (Milestones 2.1–2.6: Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116, #118–#120, #122–#124 closed).
+> **Next phase to implement:** Phase 3 — Football Vertical Slice (`#P3-001` → `#P3-011`: Humanoid rig, ball physics, 3D match gameplay, touch controls, goal celebrations).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

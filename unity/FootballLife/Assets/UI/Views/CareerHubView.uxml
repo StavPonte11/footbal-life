@@ -133,6 +133,10 @@
                 <ui:Button name="btn-career" text="📊 Career" class="btn btn-secondary" style="flex-grow: 1; height: 52px; font-size: 14px;" />
             </ui:VisualElement>
 
+            <ui:VisualElement style="margin-bottom: 10px;">
+                <ui:Button name="btn-offseason" text="🏆 Season Recap &amp; Transfers" class="btn btn-primary" style="height: 48px; font-size: 13px; -unity-font-style: bold; background-color: #D97706;" />
+            </ui:VisualElement>
+
             <!-- Empty space at bottom for the fixed footer -->
             <ui:VisualElement style="height: 16px;" />
         </ui:ScrollView>

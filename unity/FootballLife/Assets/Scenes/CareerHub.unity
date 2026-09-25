@@ -378,6 +378,9 @@ MonoBehaviour:
   _lifeEventAsset: {fileID: 9197481963319205126, guid: dd85822d54099a443bf91f8f7f80dcce, type: 3}
   _careerViewAsset: {fileID: 9197481963319205126, guid: da76d7324675f4ee8b23d9b6bd4202fd, type: 3}
   _profileViewAsset: {fileID: 9197481963319205126, guid: 7e76d389b2e574cd4b1844045b182074, type: 3}
+  _seasonSummaryAsset: {fileID: 9197481963319205126, guid: 0c9c482a5fcd3491c8717217eafa9bf1, type: 3}
+  _attributeGrowthAsset: {fileID: 9197481963319205126, guid: 1bed3535d9bd64578913cbacc7d52e6a, type: 3}
+  _transferWindowAsset: {fileID: 9197481963319205126, guid: 09fb15e37635043368e18b8865d85d7e, type: 3}
 --- !u!114 &1009214139
 MonoBehaviour:
   m_ObjectHideFlags: 0

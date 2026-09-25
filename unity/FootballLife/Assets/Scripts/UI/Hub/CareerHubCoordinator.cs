@@ -1,5 +1,6 @@
 using FootballLife.Unity.Core.Bridge;
 using FootballLife.Unity.UI.Hub;
+using FootballLife.Unity.UI.OffSeason;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,7 +8,7 @@ namespace FootballLife.Unity.UI
 {
     /// <summary>
     /// MonoBehaviour mounted on the CareerHub scene's UIDocument.
-    /// Orchestrates: CareerHubView (main screen) ↔ TrainingView overlay ↔ RestView overlay ↔ LifeEventView overlay.
+    /// Orchestrates: CareerHubView (main screen) ↔ TrainingView ↔ RestView ↔ LifeEventView ↔ CareerView ↔ ProfileView ↔ OffSeason views.
     /// </summary>
     [RequireComponent(typeof(UIDocument))]
     public class CareerHubCoordinator : MonoBehaviour
@@ -19,14 +20,20 @@ namespace FootballLife.Unity.UI
         [SerializeField] private VisualTreeAsset? _lifeEventAsset;
         [SerializeField] private VisualTreeAsset? _careerViewAsset;
         [SerializeField] private VisualTreeAsset? _profileViewAsset;
+        [SerializeField] private VisualTreeAsset? _seasonSummaryAsset;
+        [SerializeField] private VisualTreeAsset? _attributeGrowthAsset;
+        [SerializeField] private VisualTreeAsset? _transferWindowAsset;
 
         // ── Controllers ───────────────────────────────────────────────────────
-        private CareerHubController?  _hubCtrl;
-        private TrainingController?   _trainingCtrl;
-        private RestController?       _restCtrl;
-        private LifeEventController?  _lifeEventCtrl;
-        private CareerController?     _careerCtrl;
-        private ProfileController?    _profileCtrl;
+        private CareerHubController?       _hubCtrl;
+        private TrainingController?        _trainingCtrl;
+        private RestController?            _restCtrl;
+        private LifeEventController?       _lifeEventCtrl;
+        private CareerController?          _careerCtrl;
+        private ProfileController?         _profileCtrl;
+        private SeasonSummaryController?   _seasonSummaryCtrl;
+        private AttributeGrowthController? _attributeGrowthCtrl;
+        private TransferWindowController?  _transferWindowCtrl;
 
         // ── Root panel elements ───────────────────────────────────────────────
         private VisualElement? _hubRoot;
@@ -35,6 +42,9 @@ namespace FootballLife.Unity.UI
         private VisualElement? _lifeEventOverlay;
         private VisualElement? _careerOverlay;
         private VisualElement? _profileOverlay;
+        private VisualElement? _seasonSummaryOverlay;
+        private VisualElement? _attributeGrowthOverlay;
+        private VisualElement? _transferWindowOverlay;
 
         // ── Pending life event ────────────────────────────────────────────────
         private LifeEventSnapshot? _pendingLifeEvent;
@@ -112,7 +122,8 @@ namespace FootballLife.Unity.UI
                 onOpenRest:         ShowRest,
                 onOpenCareer:       OnOpenCareer,
                 onOpenMatch:        OnOpenMatch,
-                onLifeEventPending: ShowPendingLifeEvent);
+                onLifeEventPending: ShowPendingLifeEvent,
+                onOpenOffSeason:    ShowSeasonSummary);
 
             // ── Training overlay ──────────────────────────────────────────────
             if (_trainingAsset != null)
@@ -201,6 +212,61 @@ namespace FootballLife.Unity.UI
                     _profileOverlay,
                     onBackToHub:  ShowHub,
                     onOpenCareer: ShowCareer);
+            }
+
+            // ── Season Summary overlay ────────────────────────────────────────
+            if (_seasonSummaryAsset != null)
+            {
+                _seasonSummaryOverlay = _seasonSummaryAsset.Instantiate();
+                _seasonSummaryOverlay.style.position = Position.Absolute;
+                _seasonSummaryOverlay.style.top = 0;
+                _seasonSummaryOverlay.style.left = 0;
+                _seasonSummaryOverlay.style.right = 0;
+                _seasonSummaryOverlay.style.bottom = 0;
+                _seasonSummaryOverlay.style.display = DisplayStyle.None;
+                docRoot.Add(_seasonSummaryOverlay);
+
+                _seasonSummaryCtrl = new SeasonSummaryController(
+                    _seasonSummaryOverlay,
+                    onViewGrowth:  ShowAttributeGrowth,
+                    onReturnToHub: ShowHub);
+            }
+
+            // ── Attribute Growth overlay ──────────────────────────────────────
+            if (_attributeGrowthAsset != null)
+            {
+                _attributeGrowthOverlay = _attributeGrowthAsset.Instantiate();
+                _attributeGrowthOverlay.style.position = Position.Absolute;
+                _attributeGrowthOverlay.style.top = 0;
+                _attributeGrowthOverlay.style.left = 0;
+                _attributeGrowthOverlay.style.right = 0;
+                _attributeGrowthOverlay.style.bottom = 0;
+                _attributeGrowthOverlay.style.display = DisplayStyle.None;
+                docRoot.Add(_attributeGrowthOverlay);
+
+                _attributeGrowthCtrl = new AttributeGrowthController(
+                    _attributeGrowthOverlay,
+                    onProceedToTransfers: ShowTransferWindow,
+                    onBackToSummary:      ShowSeasonSummary);
+            }
+
+            // ── Transfer Window overlay ───────────────────────────────────────
+            if (_transferWindowAsset != null)
+            {
+                _transferWindowOverlay = _transferWindowAsset.Instantiate();
+                _transferWindowOverlay.style.position = Position.Absolute;
+                _transferWindowOverlay.style.top = 0;
+                _transferWindowOverlay.style.left = 0;
+                _transferWindowOverlay.style.right = 0;
+                _transferWindowOverlay.style.bottom = 0;
+                _transferWindowOverlay.style.display = DisplayStyle.None;
+                docRoot.Add(_transferWindowOverlay);
+
+                _transferWindowCtrl = new TransferWindowController(
+                    _transferWindowOverlay,
+                    onAcceptOffer:     OnAcceptTransferOffer,
+                    onStartNextSeason: OnStartNextSeason,
+                    onBackToGrowth:    ShowAttributeGrowth);
             }
         }
 
@@ -318,11 +384,79 @@ namespace FootballLife.Unity.UI
 
         public void ShowHub()
         {
-            if (_careerOverlay != null)
-                _careerOverlay.style.display = DisplayStyle.None;
+            HideAllOverlays();
+        }
 
-            if (_profileOverlay != null)
-                _profileOverlay.style.display = DisplayStyle.None;
+        // ── Milestone 2.6 Off-Season & Transfers Navigation ───────────────────
+        public void ShowSeasonSummary()
+        {
+            if (SimulationBridge.Instance != null)
+            {
+                var summary = SimulationBridge.Instance.GetSeasonSummaryData();
+                _seasonSummaryCtrl?.Bind(summary, SimulationBridge.Instance.CurrentSave);
+            }
+
+            HideAllOverlays();
+            if (_seasonSummaryOverlay != null)
+                _seasonSummaryOverlay.style.display = DisplayStyle.Flex;
+        }
+
+        public void ShowAttributeGrowth()
+        {
+            if (SimulationBridge.Instance != null)
+            {
+                var growth = SimulationBridge.Instance.GetAttributeGrowthData();
+                _attributeGrowthCtrl?.Bind(growth, SimulationBridge.Instance.CurrentSave);
+            }
+
+            HideAllOverlays();
+            if (_attributeGrowthOverlay != null)
+                _attributeGrowthOverlay.style.display = DisplayStyle.Flex;
+        }
+
+        public void ShowTransferWindow()
+        {
+            if (SimulationBridge.Instance != null)
+            {
+                var offers = SimulationBridge.Instance.GetTransferOffers();
+                _transferWindowCtrl?.Bind(offers, SimulationBridge.Instance.CurrentSave);
+            }
+
+            HideAllOverlays();
+            if (_transferWindowOverlay != null)
+                _transferWindowOverlay.style.display = DisplayStyle.Flex;
+        }
+
+        private void OnAcceptTransferOffer(TransferOfferSnapshot offer)
+        {
+            if (SimulationBridge.Instance != null)
+            {
+                SimulationBridge.Instance.AcceptTransferOffer(offer);
+                var offers = SimulationBridge.Instance.GetTransferOffers();
+                _transferWindowCtrl?.Bind(offers, SimulationBridge.Instance.CurrentSave);
+            }
+        }
+
+        private void OnStartNextSeason()
+        {
+            if (SimulationBridge.Instance != null)
+            {
+                SimulationBridge.Instance.AdvanceToNextSeason();
+            }
+
+            HideAllOverlays();
+        }
+
+        private void HideAllOverlays()
+        {
+            if (_trainingOverlay != null) _trainingOverlay.style.display = DisplayStyle.None;
+            if (_restOverlay != null) _restOverlay.style.display = DisplayStyle.None;
+            if (_lifeEventOverlay != null) _lifeEventOverlay.style.display = DisplayStyle.None;
+            if (_careerOverlay != null) _careerOverlay.style.display = DisplayStyle.None;
+            if (_profileOverlay != null) _profileOverlay.style.display = DisplayStyle.None;
+            if (_seasonSummaryOverlay != null) _seasonSummaryOverlay.style.display = DisplayStyle.None;
+            if (_attributeGrowthOverlay != null) _attributeGrowthOverlay.style.display = DisplayStyle.None;
+            if (_transferWindowOverlay != null) _transferWindowOverlay.style.display = DisplayStyle.None;
         }
     }
 }
