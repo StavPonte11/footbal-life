@@ -339,18 +339,20 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P4-003 (#149) | Phone UI: messages (WhatsApp), news feed (Football Daily), agent, manager, social (FootyGram) | Unity/UI | M | ✅ Complete |
 | #P4-004 (#150) | Relationship hub: partner, family, teammates displayed as people with affinity/trust meters & social actions | Unity/UI | M | ✅ Complete |
 
-### Milestone 4.3: Life Events, Finances & Lifestyle Shop (Upcoming)
+### Milestone 4.3: Life Events, Finances & Lifestyle Shop
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P4-005 | Life event system: immersive choice-cards with character context | Unity/UI | M | Planned |
-| #P4-006 | Finances screen: balance, income, expenses, lifestyle tier | Unity/UI | M | Planned |
-| #P4-007 | Lifestyle item shop: optional purchases that affect state and home visuals | Unity | M | Planned |
+| #P4-005 (#152) | Life event system: immersive choice-cards with character context | Unity/UI | M | ✅ Complete |
+| #P4-006 (#153) | Finances screen: balance, income, expenses, lifestyle tier | Unity/UI | M | ✅ Complete |
+| #P4-007 (#154) | Lifestyle item shop: optional purchases that affect state and home visuals | Unity | M | ✅ Complete |
 
-### Milestone 4.4: Social Activities & Dynamic Media Reports (Upcoming)
+### Milestone 4.4: Social Activities & Dynamic Media Reports ✅ (Complete)
+*Branch: `feature/milestone-4.4-social-activities-press-media` | Issues #156, #157*
+
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P4-008 | Social activity: go out events that cost fatigue, gain happiness | Unity | S | Planned |
-| #P4-009 | Media section: AI-generated match reports, transfer rumors, interviews | Unity/LLM | L | Planned |
+| #P4-008 (#156) | Social activity: go out events that cost fatigue, gain happiness & outing catalog | Simulation/Unity | S | ✅ Complete |
+| #P4-009 (#157) | Media section: dynamic match reports, transfer rumors, interactive press conferences | Domain/Simulation/Unity | L | ✅ Complete |
 
 ---
 
@@ -397,10 +399,11 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 4 — Life Vertical Slice (Milestone 4.4: Press Conferences, Media & Public Image)
+## Current Focus: Phase 5 — Career World (Milestone 5.1: World Simulation & Dynamic Transfers)
 
 > **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 557 passing tests).
 > **PHASE 2 IS 100% COMPLETE & MERGED TO `main`** (Milestones 2.1–2.6: Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116, #118–#120, #122–#124 closed).
 > **PHASE 3 IS 100% COMPLETE & MERGED TO `main`** (Milestones 3.1–3.4: Issues #131–#133, #135–#136, #138–#141, #143–#144 closed).
-> **PHASE 4 IN PROGRESS:** Milestones 4.1, 4.2 & 4.3 Complete (`#P4-001`–`#P4-007` closed; 590 passing tests). Next milestone: Milestone 4.4 — Press Conferences, Media & Public Image (`#P4-008`, `#P4-009`).
+> **PHASE 4 IS 100% COMPLETE & MERGED TO `main`** (Milestones 4.1–4.4: Issues #146–#147, #149–#150, #152–#154, #156–#157 closed; 602 passing tests).
+> **PHASE 5 CURRENT FOCUS:** Milestone 5.1 — Living World Simulation & Dynamic Transfers (`#P5-001`, `#P5-002`).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

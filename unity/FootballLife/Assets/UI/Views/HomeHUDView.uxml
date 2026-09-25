@@ -93,6 +93,7 @@
             <ui:Button name="btn-nav-phone" text="📱 Phone" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 11px;" />
             <ui:Button name="btn-nav-finances" text="💰 Finance" class="btn btn-secondary" style="height: 42px; flex: 1.1; font-size: 11px;" />
             <ui:Button name="btn-nav-shop" text="🛍️ Shop" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 11px;" />
+            <ui:Button name="btn-nav-outings" text="🌆 Outings" class="btn btn-secondary" style="height: 42px; flex: 1.1; font-size: 11px;" />
             <ui:Button name="btn-home-upgrade" text="⭐ Upgrade" class="btn btn-gold" style="height: 42px; flex: 1.1; font-size: 11px;" />
             <ui:Button name="btn-nav-door" text="🚪 Exit" class="btn btn-secondary" style="height: 42px; flex: 0.9; font-size: 11px;" />
         </ui:VisualElement>
@@ -103,6 +104,9 @@
 
         <ui:Template name="LifestyleShopView" src="project://database/Assets/UI/Views/LifestyleShopView.uxml" />
         <ui:Instance template="LifestyleShopView" name="shop-instance" />
+
+        <ui:Template name="SocialActivitiesView" src="project://database/Assets/UI/Views/SocialActivitiesView.uxml" />
+        <ui:Instance template="SocialActivitiesView" name="social-instance" />
 
     </ui:VisualElement>
 </ui:UXML>

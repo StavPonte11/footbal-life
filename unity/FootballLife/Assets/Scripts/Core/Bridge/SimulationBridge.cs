@@ -771,5 +771,71 @@ namespace FootballLife.Unity.Core.Bridge
             AutoSave();
             PublishDaySnapshot(log);
         }
+
+        public SocialActivityResult ExecuteSocialActivity(SocialActivity activity, bool nearMatchday = false)
+        {
+            if (_currentSave == null)
+            {
+                return new SocialActivityResult { Success = false, Message = "No active career." };
+            }
+
+            var date = new DateOnly(2026, 9, 25);
+            var result = SocialActivitySystem.ExecuteActivity(_currentSave, activity, date, nearMatchday);
+
+            if (result.Success)
+            {
+                OnStatusLog?.Invoke(result.Message);
+                PublishDaySnapshot(result.Message);
+                AutoSave();
+            }
+
+            return result;
+        }
+
+        public PressConference GetPendingPressConference(MatchResult? recentMatch = null)
+        {
+            if (_currentSave == null)
+            {
+                EnsureMockSaveForTesting();
+            }
+
+            return PressConferenceSystem.GeneratePressConference(_currentSave!, recentMatch);
+        }
+
+        public PressAnswerResult AnswerPressQuestion(PressQuestion question, PressResponseChoice choice)
+        {
+            if (_currentSave == null)
+            {
+                return new PressAnswerResult { Success = false, Message = "No active career." };
+            }
+
+            var result = PressConferenceSystem.AnswerQuestion(_currentSave, question, choice);
+            if (result.Success)
+            {
+                OnStatusLog?.Invoke(result.Message);
+                PublishDaySnapshot(result.Message);
+                AutoSave();
+            }
+
+            return result;
+        }
+
+        public List<MediaArticle> GetMediaArticles(MatchResult? recentMatch = null)
+        {
+            if (_currentSave == null)
+            {
+                EnsureMockSaveForTesting();
+            }
+
+            return MediaFeedSystem.GenerateArticles(_currentSave!, recentMatch);
+        }
+
+        private void EnsureMockSaveForTesting()
+        {
+            if (_currentSave == null)
+            {
+                StartNewCareer("Young Prospect", "England", Position.ST, Foot.Right, "Northfield Town");
+            }
+        }
     }
 }
