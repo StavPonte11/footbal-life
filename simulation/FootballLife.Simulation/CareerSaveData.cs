@@ -60,6 +60,8 @@ namespace FootballLife.Simulation.Persistence
         public int Form { get; set; } = 70;
         public int Morale { get; set; } = 75;
         public int ManagerTrust { get; set; } = 50;
+        public int FanPopularity { get; set; } = 50;
+        public int MediaReputation { get; set; } = 50;
 
         // Contract & Finances
         public int WeeklyWage { get; set; } = 500;

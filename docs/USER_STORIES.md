@@ -1806,6 +1806,36 @@ PHASE 3 COMPLETE! Vertical slice football match gameplay, pawns, physics, touch 
 
 ---
 
+### Milestone 4.4: Social Activities, Dynamic Media Reports & Press Conferences
+
+#### #P4-008 — Social Activities: Go Out Events with Fatigue/Morale Trade-Offs & Outing Catalog
+**Issue:** #156 | **Layer:** Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As a footballer, I want to participate in social outings and leisure activities (fine dining, concerts, charity galas, nightlife, coffee strolls) that provide morale, prestige, and team affinity boosts at the cost of energy, money, and manager disapproval risk if too close to matchday.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models (`SocialActivity.cs`, `SocialActivityCategory`, `SocialActivityCatalog`) with 12 curated outings across `Casual`, `TeamBonding`, `Nightlife`, `Glamour`, and `Philanthropy` categories.
+- [x] Pure C# Simulation system (`SocialActivitySystem.cs`) implementing `CanAffordActivity`, `ExecuteActivity` with deterministic energy/balance deduction, morale/teammate affinity boosts, and near-matchday manager disapproval risk roll using `SimulationRandom`.
+- [x] Social Activities UI (`SocialActivitiesView.uxml` and `SocialActivitiesController.cs`) with category filter tabs, energy/wallet chips, interactive outing cards, dynamic state badges (`GO OUT`, `EXHAUSTED`, `NO FUNDS`), and feedback toasts.
+- [x] Integration with both `CareerHub` (`CareerHubView.uxml`, `CareerHubController.cs`, `CareerHubCoordinator.cs`) and `Home` (`HomeHUDView.uxml`, `HomeController.cs`) scenes with seamless modal presentation and vitals refreshing.
+- [x] 6 automated unit tests in `SocialActivitySystemTests.cs` validating catalog, affordability, execution, teammate bonding, pre-matchday risk, and philanthropy.
+
+#### #P4-009 — Dynamic Media & Press Conference System: Match Reports, Rumors & Interviews
+**Issue:** #157 | **Layer:** Domain, Simulation, Unity/UI, LLM Hook | **Status:** ✅ Complete
+
+> As a footballer, I want dynamic sports journalism media feeds covering my performances and transfer rumors, and interactive post-match press conferences where my dialogue choices impact manager trust, fan popularity, teammate morale, and media reputation.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models (`PressConference.cs`, `PressTone`, `Journalist`, `PressResponseChoice`, `PressQuestion`, `MediaArticle.cs`) capturing tone variations (`Humble`, `Confident`, `Defiant`, `Diplomatic`) and journalist temperaments (`Supportive`, `Sensationalist`, `Tactical`).
+- [x] Pure C# Simulation systems:
+  - `PressConferenceSystem.cs`: Generates context-aware questions based on recent match results (wins, losses, debut) and answers choices modifying `ManagerTrust`, `FanPopularity`, `TeammateMorale`, and `MediaReputation`.
+  - `MediaFeedSystem.cs`: Generates dynamic journalism articles from publications (*The Athletic*, *Sky Sports*, *The Daily Mirror*, *GQ Sports Style*, *BBC Football*) with engagement metrics (likes, views) and an LLM prompt builder conforming to `llm-game-integration`.
+- [x] Interactive Press Conference UI (`PressConferenceView.uxml` and `PressConferenceController.cs`) with live broadcast badge, journalist spotlight, question block, 4 tone choice cards with consequence previews, and conference debrief summary.
+- [x] CareerHub integration with dedicated header button (`btn-quick-press`), action button (`btn-press-briefing`), and modal orchestration via `CareerHubCoordinator.cs`.
+- [x] 6 automated unit tests in `PressConferenceAndMediaTests.cs` (602/602 total passing tests across the entire solution).
+
+---
+
 ## Phase 4 Issue Status Overview
 
 ```
@@ -1813,6 +1843,7 @@ COMPLETED IN PHASE 4:
   Milestone 4.1:    P4-001 (#146), P4-002 (#147)  (3D Home Apartment & Lifestyle Progression)  ✅ Complete
   Milestone 4.2:    P4-003 (#149), P4-004 (#150)  (Smartphone OS UI & Relationship Hub)        ✅ Complete
   Milestone 4.3:    P4-005 (#152), P4-006 (#153), P4-007 (#154) (Life Events, Finances & Shop) ✅ Complete
+  Milestone 4.4:    P4-008 (#156), P4-009 (#157)  (Social Activities & Press Conferences)      ✅ Complete
 ```
 
 

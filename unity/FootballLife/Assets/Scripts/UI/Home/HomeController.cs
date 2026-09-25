@@ -15,13 +15,14 @@ using FootballLife.Unity.Core.SceneManagement;
 using FootballLife.Unity.UI.Finances;
 using FootballLife.Unity.UI.Phone;
 using FootballLife.Unity.UI.Shop;
+using FootballLife.Unity.UI.Social;
 
 namespace FootballLife.Unity.UI.Home
 {
     /// <summary>
-    /// Presentation and interaction controller for the 3D Apartment HUD (#P4-001, #P4-002, #P4-006, #P4-007).
+    /// Presentation and interaction controller for the 3D Apartment HUD (#P4-001, #P4-002, #P4-006, #P4-007, #P4-008).
     /// Manages vitals display, hotspot navigation buttons, sleep & gym training execution,
-    /// lifestyle property upgrades, finances dashboard, and lifestyle boutique.
+    /// lifestyle property upgrades, finances dashboard, lifestyle boutique, and social outings.
     /// </summary>
     [RequireComponent(typeof(UIDocument))]
     public class HomeController : MonoBehaviour
@@ -32,8 +33,10 @@ namespace FootballLife.Unity.UI.Home
         private PhoneOSController? _phoneController;
         private FinancesController? _financesController;
         private LifestyleShopController? _shopController;
+        private SocialActivitiesController? _socialController;
         private VisualElement? _financesOverlay;
         private VisualElement? _shopOverlay;
+        private VisualElement? _socialOverlay;
 
         // HUD Elements
         private Label? _labelPropName;
@@ -50,6 +53,7 @@ namespace FootballLife.Unity.UI.Home
         private Button? _btnNavPhone;
         private Button? _btnNavFinances;
         private Button? _btnNavShop;
+        private Button? _btnNavOutings;
         private Button? _btnNavDoor;
         private Button? _btnHomeUpgrade;
 
@@ -139,6 +143,7 @@ namespace FootballLife.Unity.UI.Home
             _btnNavPhone = root.Q<Button>("btn-nav-phone");
             _btnNavFinances = root.Q<Button>("btn-nav-finances");
             _btnNavShop = root.Q<Button>("btn-nav-shop");
+            _btnNavOutings = root.Q<Button>("btn-nav-outings");
             _btnNavDoor = root.Q<Button>("btn-nav-door");
             _btnHomeUpgrade = root.Q<Button>("btn-home-upgrade");
 
@@ -165,6 +170,7 @@ namespace FootballLife.Unity.UI.Home
             if (_btnNavPhone != null) _btnNavPhone.clicked += OnPhoneClicked;
             if (_btnNavFinances != null) _btnNavFinances.clicked += OnFinancesClicked;
             if (_btnNavShop != null) _btnNavShop.clicked += OnShopClicked;
+            if (_btnNavOutings != null) _btnNavOutings.clicked += OnOutingsClicked;
             if (_btnNavDoor != null) _btnNavDoor.clicked += OnDoorClicked;
             if (_btnHomeUpgrade != null) _btnHomeUpgrade.clicked += OnUpgradeClicked;
             if (_btnConfirmUpgrade != null) _btnConfirmUpgrade.clicked += OnConfirmUpgradeClicked;
@@ -196,6 +202,19 @@ namespace FootballLife.Unity.UI.Home
                 _shopController = new LifestyleShopController(_shopOverlay, onBack: HideShop);
             }
 
+            // Social Outings Overlay
+            _socialOverlay = root.Q<VisualElement>("social-instance");
+            if (_socialOverlay != null)
+            {
+                _socialOverlay.style.position = UnityEngine.UIElements.Position.Absolute;
+                _socialOverlay.style.top = 0;
+                _socialOverlay.style.left = 0;
+                _socialOverlay.style.right = 0;
+                _socialOverlay.style.bottom = 0;
+                _socialOverlay.style.display = DisplayStyle.None;
+                _socialController = new SocialActivitiesController(_socialOverlay, onBack: HideSocial);
+            }
+
             if (_phoneController == null)
             {
                 _phoneController = gameObject.GetComponent<PhoneOSController>() ?? gameObject.AddComponent<PhoneOSController>();
@@ -216,6 +235,7 @@ namespace FootballLife.Unity.UI.Home
             if (_btnNavPhone != null) _btnNavPhone.clicked -= OnPhoneClicked;
             if (_btnNavFinances != null) _btnNavFinances.clicked -= OnFinancesClicked;
             if (_btnNavShop != null) _btnNavShop.clicked -= OnShopClicked;
+            if (_btnNavOutings != null) _btnNavOutings.clicked -= OnOutingsClicked;
             if (_btnNavDoor != null) _btnNavDoor.clicked -= OnDoorClicked;
             if (_btnHomeUpgrade != null) _btnHomeUpgrade.clicked -= OnUpgradeClicked;
             if (_btnConfirmUpgrade != null) _btnConfirmUpgrade.clicked -= OnConfirmUpgradeClicked;
@@ -315,6 +335,22 @@ namespace FootballLife.Unity.UI.Home
         {
             if (_shopOverlay != null)
                 _shopOverlay.style.display = DisplayStyle.None;
+            RefreshVitalsUI();
+        }
+
+        private void OnOutingsClicked()
+        {
+            if (_socialOverlay != null && _socialController != null)
+            {
+                _socialController.Refresh();
+                _socialOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void HideSocial()
+        {
+            if (_socialOverlay != null)
+                _socialOverlay.style.display = DisplayStyle.None;
             RefreshVitalsUI();
         }
 

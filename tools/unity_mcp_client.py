@@ -22,7 +22,7 @@ class UnityMcpClient:
             headers["mcp-session-id"] = self.session_id
 
         req = urllib.request.Request(self.base_url, data=data, headers=headers)
-        with urllib.request.urlopen(req, timeout=15) as resp:
+        with urllib.request.urlopen(req, timeout=60) as resp:
             new_session = resp.headers.get("mcp-session-id")
             if new_session:
                 self.session_id = new_session

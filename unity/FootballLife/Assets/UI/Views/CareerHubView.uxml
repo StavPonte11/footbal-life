@@ -23,6 +23,8 @@
                 <ui:Button name="btn-quick-phone" text="📱 Phone" class="btn btn-secondary" style="height: 32px; font-size: 11px; padding: 4px 6px;" />
                 <ui:Button name="btn-quick-finances" text="💰" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Button name="btn-quick-shop" text="🛍️" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
+                <ui:Button name="btn-quick-outings" text="🌆" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
+                <ui:Button name="btn-quick-press" text="🎙️" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Label name="label-ovr" text="60 OVR" class="badge badge-green" style="font-size: 12px;" />
                 <ui:VisualElement style="align-items: flex-end;">
                     <ui:Label name="label-date" text="Season 1 · Week 1" class="text-accent" style="font-size: 12px;" />
@@ -145,6 +147,11 @@
                 <ui:Button name="btn-shop" text="🛍️ Lifestyle Boutique" class="btn btn-secondary" style="flex: 1; height: 46px; font-size: 13px; -unity-font-style: bold;" />
             </ui:VisualElement>
 
+            <ui:VisualElement style="flex-direction: row; gap: 8px; margin-bottom: 10px;">
+                <ui:Button name="btn-social-outings" text="🌆 City Outings" class="btn btn-secondary" style="flex: 1; height: 46px; font-size: 13px; -unity-font-style: bold;" />
+                <ui:Button name="btn-press-briefing" text="🎙️ Press Conference" class="btn btn-secondary" style="flex: 1; height: 46px; font-size: 13px; -unity-font-style: bold;" />
+            </ui:VisualElement>
+
             <ui:VisualElement style="margin-bottom: 10px;">
                 <ui:Button name="btn-home" text="🏠 Home Apartment" class="btn btn-secondary" style="height: 48px; font-size: 14px; -unity-font-style: bold;" />
             </ui:VisualElement>
@@ -168,6 +175,12 @@
 
         <ui:Template name="LifestyleShopView" src="project://database/Assets/UI/Views/LifestyleShopView.uxml" />
         <ui:Instance template="LifestyleShopView" name="shop-instance" />
+
+        <ui:Template name="SocialActivitiesView" src="project://database/Assets/UI/Views/SocialActivitiesView.uxml" />
+        <ui:Instance template="SocialActivitiesView" name="social-instance" />
+
+        <ui:Template name="PressConferenceView" src="project://database/Assets/UI/Views/PressConferenceView.uxml" />
+        <ui:Instance template="PressConferenceView" name="press-instance" />
 
     </ui:VisualElement>
 </ui:UXML>

@@ -1,0 +1,44 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles/Common.uss" />
+
+    <ui:VisualElement name="press-root" class="screen-container" style="background-color: rgba(4, 7, 14, 0.96); justify-content: center; align-items: center; padding: 24px;">
+        <ui:VisualElement name="press-card" class="card-elevated" style="width: 100%; max-width: 640px; background-color: rgba(10, 16, 28, 0.98); border-radius: 16px; border-width: 1px; border-color: rgba(56, 189, 248, 0.3); padding: 24px;">
+            <!-- Header with Live Badge -->
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <ui:VisualElement style="flex-direction: row; align-items: center;">
+                    <ui:VisualElement style="width: 8px; height: 8px; border-radius: 4px; background-color: #ef4444; margin-right: 8px;" />
+                    <ui:Label text="LIVE PRESS CONFERENCE" style="font-size: 11px; -unity-font-style: bold; color: #ef4444; letter-spacing: 1px;" />
+                </ui:VisualElement>
+                <ui:Label name="lbl-press-title" text="Post-Match Briefing" style="font-size: 12px; color: #94a3b8;" />
+            </ui:VisualElement>
+
+            <!-- Journalist Spotlight Card -->
+            <ui:VisualElement name="box-journalist" style="flex-direction: row; align-items: center; background-color: rgba(15, 23, 42, 0.85); border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; border-width: 1px; border-color: rgba(30, 41, 59, 0.8);">
+                <ui:Label name="lbl-journalist-avatar" text="🎙️" style="font-size: 28px; margin-right: 14px;" />
+                <ui:VisualElement style="flex: 1;">
+                    <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 2px;">
+                        <ui:Label name="lbl-journalist-name" text="James Thornton" style="font-size: 14px; -unity-font-style: bold; color: #f8fafc; margin-right: 8px;" />
+                        <ui:Label name="lbl-journalist-outlet" text="Sky Sports News" class="badge" style="font-size: 10px; padding: 2px 8px; background-color: rgba(56, 189, 248, 0.2); color: #38bdf8;" />
+                    </ui:VisualElement>
+                    <ui:Label name="lbl-press-context" text="Asking regarding your match performance today." style="font-size: 11px; color: #64748b;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Question Block -->
+            <ui:VisualElement style="background-color: rgba(15, 23, 42, 0.5); border-radius: 10px; padding: 14px; margin-bottom: 18px; border-left-width: 3px; border-left-color: #00e5ff;">
+                <ui:Label name="lbl-press-question" text="Sensational result out there today! The fans are calling this a defining performance. How do you assess your contribution?" style="font-size: 14px; -unity-font-style: bold; color: #f1f5f9; white-space: normal; line-height: 20px;" />
+            </ui:VisualElement>
+
+            <!-- Response Choices Container -->
+            <ui:Label text="CHOOSE YOUR RESPONSE" style="font-size: 10px; -unity-font-style: bold; color: #64748b; letter-spacing: 1px; margin-bottom: 8px;" />
+            <ui:VisualElement name="container-press-choices" style="width: 100%; margin-bottom: 16px;" />
+
+            <!-- Summary / Conclusion Block (Shown after questions) -->
+            <ui:VisualElement name="box-press-conclusion" style="display: none; width: 100%; align-items: center; padding-top: 10px;">
+                <ui:Label name="lbl-conclusion-title" text="🎙️ PRESS CONFERENCE CONCLUDED" style="font-size: 14px; -unity-font-style: bold; color: #34d399; margin-bottom: 6px;" />
+                <ui:Label name="lbl-conclusion-summary" text="Your comments have been broadcast live to supporters and pundits." style="font-size: 11px; color: #94a3b8; margin-bottom: 14px; text-align: center;" />
+                <ui:Button name="btn-press-finish" text="CONTINUE" class="btn-primary" style="width: 100%; height: 38px; font-size: 12px; -unity-font-style: bold;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

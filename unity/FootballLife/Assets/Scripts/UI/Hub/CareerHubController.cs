@@ -62,6 +62,8 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Action? _onOpenPhone;
         private readonly Action? _onOpenFinances;
         private readonly Action? _onOpenShop;
+        private readonly Action? _onOpenSocial;
+        private readonly Action? _onOpenPress;
         private readonly Action _onLifeEventPending;
 
         private SimulationBridge? _bridge;
@@ -81,7 +83,9 @@ namespace FootballLife.Unity.UI.Hub
             Action? onOpenHome = null,
             Action? onOpenPhone = null,
             Action? onOpenFinances = null,
-            Action? onOpenShop = null)
+            Action? onOpenShop = null,
+            Action? onOpenSocial = null,
+            Action? onOpenPress = null)
         {
             _onOpenTraining = onOpenTraining;
             _onOpenRest = onOpenRest;
@@ -93,6 +97,8 @@ namespace FootballLife.Unity.UI.Hub
             _onOpenPhone = onOpenPhone;
             _onOpenFinances = onOpenFinances;
             _onOpenShop = onOpenShop;
+            _onOpenSocial = onOpenSocial;
+            _onOpenPress = onOpenPress;
 
             // ── Query ─────────────────────────────────────────────────────────
             _labelPlayerName   = root.Q<Label>("label-player-name");
@@ -133,6 +139,10 @@ namespace FootballLife.Unity.UI.Hub
             _btnQuickShop   = root.Q<Button>("btn-quick-shop");
             _btnFinances    = root.Q<Button>("btn-finances");
             _btnShop        = root.Q<Button>("btn-shop");
+            var btnQuickOutings = root.Q<Button>("btn-quick-outings");
+            var btnQuickPress   = root.Q<Button>("btn-quick-press");
+            var btnSocialOutings= root.Q<Button>("btn-social-outings");
+            var btnPressBriefing= root.Q<Button>("btn-press-briefing");
             _btnAdvanceDay  = root.Q<Button>("btn-advance-day");
 
             // ── Wire buttons ──────────────────────────────────────────────────
@@ -150,10 +160,18 @@ namespace FootballLife.Unity.UI.Hub
                 _btnQuickFinances.clicked += () => _onOpenFinances?.Invoke();
             if (_btnQuickShop != null)
                 _btnQuickShop.clicked += () => _onOpenShop?.Invoke();
+            if (btnQuickOutings != null)
+                btnQuickOutings.clicked += () => _onOpenSocial?.Invoke();
+            if (btnQuickPress != null)
+                btnQuickPress.clicked += () => _onOpenPress?.Invoke();
             if (_btnFinances != null)
                 _btnFinances.clicked += () => _onOpenFinances?.Invoke();
             if (_btnShop != null)
                 _btnShop.clicked += () => _onOpenShop?.Invoke();
+            if (btnSocialOutings != null)
+                btnSocialOutings.clicked += () => _onOpenSocial?.Invoke();
+            if (btnPressBriefing != null)
+                btnPressBriefing.clicked += () => _onOpenPress?.Invoke();
             _btnAdvanceDay.clicked += OnAdvanceDayClicked;
 
             // Hide match card initially (no pending match)
