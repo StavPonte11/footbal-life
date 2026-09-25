@@ -113,15 +113,16 @@ namespace FootballLife.Simulation
 
         /// <summary>
         /// Calculates sleep and rest recovery in the home bed.
-        /// Higher property tiers provide faster recovery and higher stamina ceilings.
+        /// Higher property tiers and owned wellness equipment provide faster recovery and higher stamina ceilings.
         /// </summary>
-        public static SleepRecoveryResult CalculateSleepRecovery(LifestyleTier tier, int currentEnergy, int hoursSlept = 8)
+        public static SleepRecoveryResult CalculateSleepRecovery(LifestyleTier tier, int currentEnergy, int hoursSlept = 8, float additionalRecoveryBonus = 0f)
         {
             var prop = HomePropertyCatalog.GetProperty(tier);
             hoursSlept = Math.Clamp(hoursSlept, 1, 12);
 
-            // Base recovery: ~5 energy per hour of quality sleep, multiplied by property tier comfort
-            float rawGained = hoursSlept * 5.0f * prop.RestRecoveryMultiplier;
+            // Base recovery: ~5 energy per hour of quality sleep, multiplied by property tier comfort + wellness equipment perks
+            float multiplier = prop.RestRecoveryMultiplier + Math.Max(0f, additionalRecoveryBonus);
+            float rawGained = hoursSlept * 5.0f * multiplier;
             int energyGained = Math.Max(5, (int)Math.Round(rawGained));
 
             int newEnergy = Math.Min(100, currentEnergy + energyGained);
@@ -131,7 +132,7 @@ namespace FootballLife.Simulation
                 InitialEnergy: currentEnergy,
                 RecoveredEnergy: newEnergy,
                 EnergyGained: actualGained,
-                TierMultiplier: prop.RestRecoveryMultiplier
+                TierMultiplier: multiplier
             );
         }
 

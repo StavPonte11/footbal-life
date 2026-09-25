@@ -3,22 +3,38 @@
     <ui:Style src="../Styles/theme-dark.uss" />
     <ui:Style src="../Styles/components.uss" />
 
-    <!-- Life event dilemma overlay -->
-    <ui:VisualElement class="theme-dark" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.75);">
+    <!-- Fullscreen Life Event Dilemma Modal Overlay -->
+    <ui:VisualElement name="life-event-overlay" class="theme-dark" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(6, 11, 25, 0.88); padding: 16px;">
 
-        <ui:VisualElement class="card-elevated" style="width: 90%; max-width: 420px;">
-            <ui:VisualElement style="flex-direction: row; align-items: center; gap: 10px; margin-bottom: 14px;">
-                <ui:Label name="label-event-icon" text="📰" style="font-size: 28px;" />
-                <ui:VisualElement>
-                    <ui:Label name="label-event-category" text="LIFESTYLE" class="badge badge-gold" style="margin-bottom: 4px;" />
-                    <ui:Label name="label-event-title" text="Sponsorship Offer" class="text-title" style="font-size: 18px;" />
+        <ui:VisualElement class="card-elevated" style="width: 100%; max-width: 480px; padding: 22px; border-radius: 16px; border-width: 1px; border-color: rgba(0, 229, 255, 0.35); background-color: rgba(15, 23, 42, 0.98);">
+            
+            <!-- Category & Character Header -->
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px;">
+                    <ui:Label name="label-event-icon" text="📰" style="font-size: 26px;" />
+                    <ui:Label name="label-event-category" text="MEDIA DILEMMA" class="badge badge-gold" style="font-size: 11px; padding: 3px 10px;" />
                 </ui:VisualElement>
+                <ui:Label name="label-character-badge" text="👔 Agent David Sterling" class="text-caption" style="color: #94A3B8; font-size: 11px;" />
             </ui:VisualElement>
 
-            <ui:Label name="label-event-description" text="A local sports apparel brand offers an endorsement contract worth £1,000 upfront plus a monthly retainer." class="text-subtitle" style="font-size: 13px; white-space: normal; margin-bottom: 18px;" />
+            <!-- Event Title -->
+            <ui:Label name="label-event-title" text="Commercial Endorsement Offer" class="text-title" style="font-size: 20px; font-weight: bold; color: #F8FAFC; margin-bottom: 8px;" />
 
-            <!-- Dynamic choice buttons: generated from OnLifeEventOccurred snapshot -->
-            <ui:VisualElement name="container-choices" style="gap: 8px;" />
+            <!-- Event Narrative Description -->
+            <ui:VisualElement style="background-color: rgba(30, 41, 59, 0.5); padding: 12px; border-radius: 10px; margin-bottom: 18px; border-left-width: 3px; border-left-color: #00E5FF;">
+                <ui:Label name="label-event-description" text="A global luxury apparel brand wants you as the front face of their upcoming urban campaign. The commercial deal is lucrative, but demands several weekend photo shoots during pre-season." class="text-subtitle" style="font-size: 13px; color: #CBD5E1; white-space: normal; line-height: 19px;" />
+            </ui:VisualElement>
+
+            <ui:Label text="CHOOSE YOUR RESPONSE:" class="text-caption" style="color: #64748B; font-weight: bold; margin-bottom: 8px; letter-spacing: 1px;" />
+
+            <!-- Dynamic Choice Option Cards Container -->
+            <ui:VisualElement name="container-choices" style="gap: 10px;" />
+
+            <!-- Result Feedback Toast Banner (hidden by default) -->
+            <ui:VisualElement name="panel-event-feedback" style="display: none; margin-top: 14px; padding: 10px 14px; border-radius: 8px; background-color: rgba(16, 185, 129, 0.2); border-width: 1px; border-color: rgba(16, 185, 129, 0.5);">
+                <ui:Label name="label-event-feedback-text" text="Decision recorded!" style="color: #34D399; font-size: 12px; font-weight: bold; text-align: center;" />
+            </ui:VisualElement>
+
         </ui:VisualElement>
 
     </ui:VisualElement>

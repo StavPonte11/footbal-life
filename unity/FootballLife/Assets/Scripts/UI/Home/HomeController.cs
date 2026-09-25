@@ -12,14 +12,16 @@ using FootballLife.Unity.Core.Camera;
 using FootballLife.Unity.Core.Environment;
 using FootballLife.Unity.Core.Gameplay;
 using FootballLife.Unity.Core.SceneManagement;
+using FootballLife.Unity.UI.Finances;
 using FootballLife.Unity.UI.Phone;
+using FootballLife.Unity.UI.Shop;
 
 namespace FootballLife.Unity.UI.Home
 {
     /// <summary>
-    /// Presentation and interaction controller for the 3D Apartment HUD (#P4-001, #P4-002).
+    /// Presentation and interaction controller for the 3D Apartment HUD (#P4-001, #P4-002, #P4-006, #P4-007).
     /// Manages vitals display, hotspot navigation buttons, sleep & gym training execution,
-    /// and lifestyle property upgrades with real-time environment re-skinning.
+    /// lifestyle property upgrades, finances dashboard, and lifestyle boutique.
     /// </summary>
     [RequireComponent(typeof(UIDocument))]
     public class HomeController : MonoBehaviour
@@ -28,6 +30,10 @@ namespace FootballLife.Unity.UI.Home
         private HomeInteractionController? _interactionCtrl;
         private HomeCameraRig? _cameraRig;
         private PhoneOSController? _phoneController;
+        private FinancesController? _financesController;
+        private LifestyleShopController? _shopController;
+        private VisualElement? _financesOverlay;
+        private VisualElement? _shopOverlay;
 
         // HUD Elements
         private Label? _labelPropName;
@@ -42,6 +48,8 @@ namespace FootballLife.Unity.UI.Home
         private Button? _btnNavBed;
         private Button? _btnNavGym;
         private Button? _btnNavPhone;
+        private Button? _btnNavFinances;
+        private Button? _btnNavShop;
         private Button? _btnNavDoor;
         private Button? _btnHomeUpgrade;
 
@@ -129,6 +137,8 @@ namespace FootballLife.Unity.UI.Home
             _btnNavBed = root.Q<Button>("btn-nav-bed");
             _btnNavGym = root.Q<Button>("btn-nav-gym");
             _btnNavPhone = root.Q<Button>("btn-nav-phone");
+            _btnNavFinances = root.Q<Button>("btn-nav-finances");
+            _btnNavShop = root.Q<Button>("btn-nav-shop");
             _btnNavDoor = root.Q<Button>("btn-nav-door");
             _btnHomeUpgrade = root.Q<Button>("btn-home-upgrade");
 
@@ -153,10 +163,38 @@ namespace FootballLife.Unity.UI.Home
             if (_btnNavBed != null) _btnNavBed.clicked += OnBedClicked;
             if (_btnNavGym != null) _btnNavGym.clicked += OnGymClicked;
             if (_btnNavPhone != null) _btnNavPhone.clicked += OnPhoneClicked;
+            if (_btnNavFinances != null) _btnNavFinances.clicked += OnFinancesClicked;
+            if (_btnNavShop != null) _btnNavShop.clicked += OnShopClicked;
             if (_btnNavDoor != null) _btnNavDoor.clicked += OnDoorClicked;
             if (_btnHomeUpgrade != null) _btnHomeUpgrade.clicked += OnUpgradeClicked;
             if (_btnConfirmUpgrade != null) _btnConfirmUpgrade.clicked += OnConfirmUpgradeClicked;
             if (_btnCloseUpgrade != null) _btnCloseUpgrade.clicked += OnCloseUpgradeClicked;
+
+            // Finances Overlay
+            _financesOverlay = root.Q<VisualElement>("finances-instance");
+            if (_financesOverlay != null)
+            {
+                _financesOverlay.style.position = UnityEngine.UIElements.Position.Absolute;
+                _financesOverlay.style.top = 0;
+                _financesOverlay.style.left = 0;
+                _financesOverlay.style.right = 0;
+                _financesOverlay.style.bottom = 0;
+                _financesOverlay.style.display = DisplayStyle.None;
+                _financesController = new FinancesController(_financesOverlay, onBack: HideFinances);
+            }
+
+            // Shop Overlay
+            _shopOverlay = root.Q<VisualElement>("shop-instance");
+            if (_shopOverlay != null)
+            {
+                _shopOverlay.style.position = UnityEngine.UIElements.Position.Absolute;
+                _shopOverlay.style.top = 0;
+                _shopOverlay.style.left = 0;
+                _shopOverlay.style.right = 0;
+                _shopOverlay.style.bottom = 0;
+                _shopOverlay.style.display = DisplayStyle.None;
+                _shopController = new LifestyleShopController(_shopOverlay, onBack: HideShop);
+            }
 
             if (_phoneController == null)
             {
@@ -176,6 +214,8 @@ namespace FootballLife.Unity.UI.Home
             if (_btnNavBed != null) _btnNavBed.clicked -= OnBedClicked;
             if (_btnNavGym != null) _btnNavGym.clicked -= OnGymClicked;
             if (_btnNavPhone != null) _btnNavPhone.clicked -= OnPhoneClicked;
+            if (_btnNavFinances != null) _btnNavFinances.clicked -= OnFinancesClicked;
+            if (_btnNavShop != null) _btnNavShop.clicked -= OnShopClicked;
             if (_btnNavDoor != null) _btnNavDoor.clicked -= OnDoorClicked;
             if (_btnHomeUpgrade != null) _btnHomeUpgrade.clicked -= OnUpgradeClicked;
             if (_btnConfirmUpgrade != null) _btnConfirmUpgrade.clicked -= OnConfirmUpgradeClicked;
@@ -246,6 +286,38 @@ namespace FootballLife.Unity.UI.Home
             _phoneController?.OpenPhone();
         }
 
+        private void OnFinancesClicked()
+        {
+            if (_financesOverlay != null && _financesController != null)
+            {
+                _financesController.Refresh();
+                _financesOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void HideFinances()
+        {
+            if (_financesOverlay != null)
+                _financesOverlay.style.display = DisplayStyle.None;
+            RefreshVitalsUI();
+        }
+
+        private void OnShopClicked()
+        {
+            if (_shopOverlay != null && _shopController != null)
+            {
+                _shopController.Refresh();
+                _shopOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void HideShop()
+        {
+            if (_shopOverlay != null)
+                _shopOverlay.style.display = DisplayStyle.None;
+            RefreshVitalsUI();
+        }
+
         private void OnDoorClicked()
         {
             _interactionCtrl?.ExitToClub();
@@ -308,7 +380,14 @@ namespace FootballLife.Unity.UI.Home
             var tier = save != null ? (LifestyleTier)save.LifestyleTier : LifestyleTier.Comfortable;
             int currentEnergy = save?.Energy ?? 70;
 
-            var result = HomeSystem.CalculateSleepRecovery(tier, currentEnergy, hoursSlept: 8);
+            float wellnessBonus = 0f;
+            if (save?.OwnedLifestyleItemIds != null)
+            {
+                var (_, energyBonus, _) = LifestyleShopSystem.CalculateTotalPerks(save.OwnedLifestyleItemIds);
+                wellnessBonus = energyBonus;
+            }
+
+            var result = HomeSystem.CalculateSleepRecovery(tier, currentEnergy, hoursSlept: 8, additionalRecoveryBonus: wellnessBonus);
             if (save != null)
             {
                 save.Energy = result.RecoveredEnergy;
@@ -316,7 +395,8 @@ namespace FootballLife.Unity.UI.Home
             }
 
             RefreshVitalsUI();
-            ShowToast("🛌 Rest Completed", $"Deep sleep in your home bed recovered +{result.EnergyGained}% Energy! ({result.TierMultiplier:F2}x tier efficiency)");
+            string perkNote = wellnessBonus > 0f ? $" (includes +{wellnessBonus * 100:0}% wellness gear perk)" : "";
+            ShowToast("🛌 Rest Completed", $"Deep sleep in your home bed recovered +{result.EnergyGained}% Energy! ({result.TierMultiplier:F2}x efficiency{perkNote})");
         }
 
         private void HandleGymInteracted()

@@ -1766,13 +1766,55 @@ PHASE 3 COMPLETE! Vertical slice football match gameplay, pawns, physics, touch 
 
 ---
 
+### Milestone 4.3: Life Events, Finances & Lifestyle Shop
+
+#### #P4-005 — Life Event System: Immersive Choice-Cards with Character Context
+**Issue:** #152 | **Layer:** Unity/UI, Simulation | **Status:** ✅ Complete
+
+> As a footballer, I want random and contextual life events and moral dilemmas presented as rich choice-cards featuring character portraits, background lore, and transparent trade-offs so that my personal decisions have meaningful consequences on my career, finances, and relationships.
+
+**Acceptance Criteria:**
+- [x] Immersive choice-card UI (`LifeEventView.uxml` and `LifeEventController.cs`) featuring event character avatar, author name, category badge, atmospheric description block, and dynamic action cards.
+- [x] Choice cards displaying visual stat impact chips (+/- Money, Energy, Morale, Trust) before confirmation.
+- [x] Integration with `SimulationBridge.Instance.ResolveLifeEventChoice(choice)` to deterministically apply attribute, financial, and relational consequences.
+- [x] Default curated dilemmas (`Night Out Before Matchday`, `Sponsorship Controversy`, `Family Request`) providing high-stakes narrative choices.
+- [x] Seamless invocation from both `CareerHubController` and `HomeController`.
+
+#### #P4-006 — Finances Screen: Balance, Cash Flow, Weekly Income/Expenses & Lifestyle Tier
+**Issue:** #153 | **Layer:** Unity/UI, Simulation | **Status:** ✅ Complete
+
+> As a footballer, I want a comprehensive personal finance dashboard showing my bank balance, net weekly cash flow, detailed breakdown of income and expenses (wages, taxes, agent fees, housing upkeep), and lifestyle spending tier so that I can manage my wealth sustainably.
+
+**Acceptance Criteria:**
+- [x] Pure C# domain model `FinanceBreakdown` calculating gross weekly wage, match bonuses, sponsorships, tax withholding (35%), agent commission (5%), property upkeep, lifestyle tier expenses, net cash flow, and estimated net worth.
+- [x] Interactive Finances UI (`FinancesView.uxml` and `FinancesController.cs`) with 4 top-level metric cards (`Bank Balance`, `Net Weekly Cash Flow`, `Estimated Net Worth`, `Prestige Rating`).
+- [x] Collapsible/tabulated Income Breakdown (gross wage, bonuses, sponsors) and Expenses Breakdown (taxes, agent fees, property upkeep, item upkeep, living tier).
+- [x] Living Standard Selector allowing toggling between `Modest`, `Comfortable`, `Luxury`, and `Excessive` tiers with real-time recalculation of cash flow.
+- [x] Chronological transaction ledger with color-coded credit/debit indicators, dates, and category tags.
+
+#### #P4-007 — Lifestyle Item Shop: Vehicles, Fashion, Tech & Wellness Upgrades
+**Issue:** #154 | **Layer:** Domain, Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As a footballer, I want a luxury lifestyle boutique where I can purchase high-end items across Vehicles, Fashion, Tech, and Wellness categories that grant persistent morale, prestige, and recovery perks to reflect my rising status.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models (`LifestyleItem.cs`, `LifestyleCategory`, `LifestyleCatalog`) featuring 16 luxury items across `Vehicles`, `Fashion`, `Tech`, and `Wellness` with unique price, weekly upkeep, morale perk, rest recovery bonus, and prestige score.
+- [x] Pure C# Simulation system (`LifestyleShopSystem.cs`) providing `CanAffordItem`, `PurchaseItem` with duplicate prevention and transaction recording, `CalculateTotalItemUpkeep`, and `CalculateTotalPerks`.
+- [x] Lifestyle Shop UI (`LifestyleShopView.uxml` and `LifestyleShopController.cs`) with category filter tabs, luxury item cards, owned state badges, perk indicators, live wallet balance, and purchase toast feedback.
+- [x] Wellness gear integration with `HomeSystem.CalculateSleepRecovery` providing rest multipliers (e.g. Cryo Chamber, Espresso Machine, Hyperbaric Pod) directly buffing bed recovery.
+- [x] 8 comprehensive automated unit tests in `LifestyleShopSystemTests.cs` and `FinancesBreakdownTests.cs` (590/590 passing tests).
+
+---
+
 ## Phase 4 Issue Status Overview
 
 ```
 COMPLETED IN PHASE 4:
   Milestone 4.1:    P4-001 (#146), P4-002 (#147)  (3D Home Apartment & Lifestyle Progression)  ✅ Complete
   Milestone 4.2:    P4-003 (#149), P4-004 (#150)  (Smartphone OS UI & Relationship Hub)        ✅ Complete
+  Milestone 4.3:    P4-005 (#152), P4-006 (#153), P4-007 (#154) (Life Events, Finances & Shop) ✅ Complete
 ```
+
 
 
 

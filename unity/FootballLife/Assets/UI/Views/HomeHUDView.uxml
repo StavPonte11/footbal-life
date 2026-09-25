@@ -86,13 +86,23 @@
         <!-- ====================================================
              BOTTOM DOCK: Interactive Hotspot Shortcuts & Actions
              ==================================================== -->
-        <ui:VisualElement name="home-bottom-dock" style="background-color: rgba(15, 23, 42, 0.94); border-top-width: 1px; border-top-color: var(--fl-color-border); padding: 10px 16px 16px 16px; flex-direction: row; justify-content: center; gap: 8px;">
-            <ui:Button name="btn-nav-overview" text="🏠 Room" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 12px;" />
-            <ui:Button name="btn-nav-bed" text="🛏️ Sleep" class="btn btn-primary" style="height: 42px; flex: 1.2; font-size: 12px;" />
-            <ui:Button name="btn-nav-gym" text="🏋️ Gym" class="btn btn-primary" style="height: 42px; flex: 1.2; font-size: 12px;" />
-            <ui:Button name="btn-nav-phone" text="📱 Phone" class="btn btn-secondary" style="height: 42px; flex: 1.1; font-size: 12px;" />
-            <ui:Button name="btn-home-upgrade" text="⭐ Upgrade" class="btn btn-gold" style="height: 42px; flex: 1.2; font-size: 12px;" />
-            <ui:Button name="btn-nav-door" text="🚪 Exit" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 12px;" />
+        <ui:VisualElement name="home-bottom-dock" style="background-color: rgba(15, 23, 42, 0.94); border-top-width: 1px; border-top-color: var(--fl-color-border); padding: 10px 16px 16px 16px; flex-direction: row; justify-content: center; gap: 6px;">
+            <ui:Button name="btn-nav-overview" text="🏠 Room" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 11px;" />
+            <ui:Button name="btn-nav-bed" text="🛏️ Sleep" class="btn btn-primary" style="height: 42px; flex: 1.1; font-size: 11px;" />
+            <ui:Button name="btn-nav-gym" text="🏋️ Gym" class="btn btn-primary" style="height: 42px; flex: 1.1; font-size: 11px;" />
+            <ui:Button name="btn-nav-phone" text="📱 Phone" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 11px;" />
+            <ui:Button name="btn-nav-finances" text="💰 Finance" class="btn btn-secondary" style="height: 42px; flex: 1.1; font-size: 11px;" />
+            <ui:Button name="btn-nav-shop" text="🛍️ Shop" class="btn btn-secondary" style="height: 42px; flex: 1; font-size: 11px;" />
+            <ui:Button name="btn-home-upgrade" text="⭐ Upgrade" class="btn btn-gold" style="height: 42px; flex: 1.1; font-size: 11px;" />
+            <ui:Button name="btn-nav-door" text="🚪 Exit" class="btn btn-secondary" style="height: 42px; flex: 0.9; font-size: 11px;" />
         </ui:VisualElement>
+
+        <!-- Modals & Overlays -->
+        <ui:Template name="FinancesView" src="project://database/Assets/UI/Views/FinancesView.uxml" />
+        <ui:Instance template="FinancesView" name="finances-instance" />
+
+        <ui:Template name="LifestyleShopView" src="project://database/Assets/UI/Views/LifestyleShopView.uxml" />
+        <ui:Instance template="LifestyleShopView" name="shop-instance" />
+
     </ui:VisualElement>
 </ui:UXML>

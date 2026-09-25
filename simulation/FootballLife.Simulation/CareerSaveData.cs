@@ -67,6 +67,7 @@ namespace FootballLife.Simulation.Persistence
         public int MarketValue { get; set; } = 50000;
         public string SquadRole { get; set; } = "Prospect";
         public int LifestyleTier { get; set; } = 1;
+        public List<string> OwnedLifestyleItemIds { get; set; } = new List<string>();
 
         // Statistical Tracking
         public int TotalAppearances { get; set; }

@@ -1,7 +1,9 @@
 using FootballLife.Unity.Core.Bridge;
+using FootballLife.Unity.UI.Finances;
 using FootballLife.Unity.UI.Hub;
 using FootballLife.Unity.UI.OffSeason;
 using FootballLife.Unity.UI.Phone;
+using FootballLife.Unity.UI.Shop;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,7 +11,7 @@ namespace FootballLife.Unity.UI
 {
     /// <summary>
     /// MonoBehaviour mounted on the CareerHub scene's UIDocument.
-    /// Orchestrates: CareerHubView (main screen) ↔ TrainingView ↔ RestView ↔ LifeEventView ↔ CareerView ↔ ProfileView ↔ OffSeason views.
+    /// Orchestrates: CareerHubView (main screen) ↔ TrainingView ↔ RestView ↔ LifeEventView ↔ CareerView ↔ ProfileView ↔ OffSeason views ↔ FinancesView ↔ LifestyleShopView.
     /// </summary>
     [RequireComponent(typeof(UIDocument))]
     public class CareerHubCoordinator : MonoBehaviour
@@ -36,6 +38,8 @@ namespace FootballLife.Unity.UI
         private AttributeGrowthController? _attributeGrowthCtrl;
         private TransferWindowController?  _transferWindowCtrl;
         private PhoneOSController?         _phoneOSCtrl;
+        private FinancesController?        _financesCtrl;
+        private LifestyleShopController?   _lifestyleShopCtrl;
 
         // ── Root panel elements ───────────────────────────────────────────────
         private VisualElement? _hubRoot;
@@ -47,6 +51,8 @@ namespace FootballLife.Unity.UI
         private VisualElement? _seasonSummaryOverlay;
         private VisualElement? _attributeGrowthOverlay;
         private VisualElement? _transferWindowOverlay;
+        private VisualElement? _financesOverlay;
+        private VisualElement? _lifestyleShopOverlay;
 
         // ── Pending life event ────────────────────────────────────────────────
         private LifeEventSnapshot? _pendingLifeEvent;
@@ -130,7 +136,9 @@ namespace FootballLife.Unity.UI
                 onLifeEventPending: ShowPendingLifeEvent,
                 onOpenOffSeason:    ShowSeasonSummary,
                 onOpenHome:         OnOpenHome,
-                onOpenPhone:        () => _phoneOSCtrl?.OpenPhone());
+                onOpenPhone:        () => _phoneOSCtrl?.OpenPhone(),
+                onOpenFinances:     ShowFinances,
+                onOpenShop:         ShowShop);
 
             // ── Training overlay ──────────────────────────────────────────────
             if (_trainingAsset != null)
@@ -274,6 +282,32 @@ namespace FootballLife.Unity.UI
                     onAcceptOffer:     OnAcceptTransferOffer,
                     onStartNextSeason: OnStartNextSeason,
                     onBackToGrowth:    ShowAttributeGrowth);
+            }
+
+            // ── Finances overlay ──────────────────────────────────────────────
+            _financesOverlay = docRoot.Q<VisualElement>("finances-instance");
+            if (_financesOverlay != null)
+            {
+                _financesOverlay.style.position = Position.Absolute;
+                _financesOverlay.style.top = 0;
+                _financesOverlay.style.left = 0;
+                _financesOverlay.style.right = 0;
+                _financesOverlay.style.bottom = 0;
+                _financesOverlay.style.display = DisplayStyle.None;
+                _financesCtrl = new FinancesController(_financesOverlay, onBack: ShowHub);
+            }
+
+            // ── Lifestyle Shop overlay ────────────────────────────────────────
+            _lifestyleShopOverlay = docRoot.Q<VisualElement>("shop-instance");
+            if (_lifestyleShopOverlay != null)
+            {
+                _lifestyleShopOverlay.style.position = Position.Absolute;
+                _lifestyleShopOverlay.style.top = 0;
+                _lifestyleShopOverlay.style.left = 0;
+                _lifestyleShopOverlay.style.right = 0;
+                _lifestyleShopOverlay.style.bottom = 0;
+                _lifestyleShopOverlay.style.display = DisplayStyle.None;
+                _lifestyleShopCtrl = new LifestyleShopController(_lifestyleShopOverlay, onBack: ShowHub);
             }
         }
 
@@ -446,6 +480,26 @@ namespace FootballLife.Unity.UI
                 _transferWindowOverlay.style.display = DisplayStyle.Flex;
         }
 
+        private void ShowFinances()
+        {
+            HideAllOverlays();
+            if (_financesOverlay != null && _financesCtrl != null)
+            {
+                _financesCtrl.Refresh();
+                _financesOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void ShowShop()
+        {
+            HideAllOverlays();
+            if (_lifestyleShopOverlay != null && _lifestyleShopCtrl != null)
+            {
+                _lifestyleShopCtrl.Refresh();
+                _lifestyleShopOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
         private void OnAcceptTransferOffer(TransferOfferSnapshot offer)
         {
             if (SimulationBridge.Instance != null)
@@ -476,6 +530,8 @@ namespace FootballLife.Unity.UI
             if (_seasonSummaryOverlay != null) _seasonSummaryOverlay.style.display = DisplayStyle.None;
             if (_attributeGrowthOverlay != null) _attributeGrowthOverlay.style.display = DisplayStyle.None;
             if (_transferWindowOverlay != null) _transferWindowOverlay.style.display = DisplayStyle.None;
+            if (_financesOverlay != null) _financesOverlay.style.display = DisplayStyle.None;
+            if (_lifestyleShopOverlay != null) _lifestyleShopOverlay.style.display = DisplayStyle.None;
         }
     }
 }
