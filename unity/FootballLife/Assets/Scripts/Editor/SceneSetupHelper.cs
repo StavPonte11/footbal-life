@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using FootballLife.Unity.Core.SceneManagement;
+using FootballLife.Unity.Core.Camera;
+using FootballLife.Unity.Core.Environment;
+using FootballLife.Unity.Core.Gameplay;
 
 namespace FootballLife.Unity.Editor
 {
@@ -238,16 +241,77 @@ namespace FootballLife.Unity.Editor
             var scene = EditorSceneManager.OpenScene(kMatch, OpenSceneMode.Single);
             EnsureStandardHierarchy();
 
-            // Add a Camera to the [CAMERAS] root so the scene isn't black
-            var cameras = GameObject.Find("[CAMERAS]");
-            if (cameras != null && cameras.GetComponentInChildren<Camera>() == null)
+            // ── [ENVIRONMENT] 3D Stadium & Pitch ──────────────────────────────
+            var envRoot = GameObject.Find("[ENVIRONMENT]");
+            if (envRoot != null)
             {
-                var camGo = new GameObject("Main Camera");
-                camGo.transform.SetParent(cameras.transform, false);
-                camGo.transform.localPosition = new Vector3(0, 1, -10);
-                camGo.AddComponent<Camera>();
-                camGo.tag = "MainCamera";
-                Debug.Log("[FullSceneSetup] Match: Added Main Camera.");
+                var existingPitch = envRoot.transform.Find("Pitch_Environment");
+                if (existingPitch != null)
+                {
+                    Object.DestroyImmediate(existingPitch.gameObject);
+                }
+                PitchBuilder.BuildFullPitchEnvironment(envRoot.transform);
+                Debug.Log("[FullSceneSetup] Match: Built 3D Pitch Environment.");
+            }
+
+            // ── [ENTITIES] Match Ball ──────────────────────────────────────────
+            var entitiesRoot = GameObject.Find("[ENTITIES]");
+            GameObject? ballGo = null;
+            if (entitiesRoot != null)
+            {
+                var existingBall = entitiesRoot.transform.Find("Match_Ball");
+                if (existingBall == null)
+                {
+                    ballGo = BallController.CreateBallGameObject(entitiesRoot.transform, new Vector3(0f, 0.11f, 15f));
+                    Debug.Log("[FullSceneSetup] Match: Created 3D Match Ball.");
+                }
+                else
+                {
+                    ballGo = existingBall.gameObject;
+                }
+            }
+
+            // ── [CAMERAS] Camera & MatchCameraRig ──────────────────────────────
+            var cameras = GameObject.Find("[CAMERAS]");
+            if (cameras != null)
+            {
+                var camOnRoot = cameras.GetComponent<UnityEngine.Camera>();
+                if (camOnRoot != null)
+                {
+                    Object.DestroyImmediate(camOnRoot);
+                }
+
+                var camTransform = cameras.transform.Find("Main Camera");
+                GameObject camGo;
+                UnityEngine.Camera cam;
+                if (camTransform == null)
+                {
+                    camGo = new GameObject("Main Camera");
+                    camGo.transform.SetParent(cameras.transform, false);
+                    cam = camGo.AddComponent<UnityEngine.Camera>();
+                    camGo.tag = "MainCamera";
+                    Debug.Log("[FullSceneSetup] Match: Added Main Camera as child of [CAMERAS].");
+                }
+                else
+                {
+                    camGo = camTransform.gameObject;
+                    cam = camGo.GetComponent<UnityEngine.Camera>() ?? camGo.AddComponent<UnityEngine.Camera>();
+                }
+
+                var rig = camGo.GetComponent<MatchCameraRig>();
+                if (rig == null)
+                {
+                    rig = camGo.AddComponent<MatchCameraRig>();
+                }
+
+                var goalStructure = GameObject.Find("Goal_Structure");
+                rig.SetTargets(
+                    player: null,
+                    ball: ballGo != null ? ballGo.transform : null,
+                    goal: goalStructure != null ? goalStructure.transform : null);
+                rig.SetMode(MatchCameraRig.CameraMode.ActionAim);
+                rig.SnapToTarget();
+                Debug.Log("[FullSceneSetup] Match: Configured MatchCameraRig (ActionAim mode).");
             }
 
             var uiRoot = GameObject.Find("[UI]");

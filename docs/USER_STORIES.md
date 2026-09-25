@@ -1520,23 +1520,68 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 
 ---
 
-## Phase 2 Issue Status Overview
+---
+
+## Phase 3 — Football Vertical Slice
+
+### Milestone 3.1 — 3D Pitch, Stadium & Ball Physics
+
+#### #P3-004 — Stadium Environment: Regulation Pitch, Line Markings, 3D Goalposts & Lighting
+**Issue:** #131 | **Layer:** Unity/Art | **Status:** ✅ Complete
+
+> As a player in a 3D match, I want to see a regulation football pitch with grass turf, official FIFA pitch markings, 3D goalposts with net enclosure, perimeter advertising boards, and realistic stadium floodlighting.
+
+**Acceptance Criteria:**
+- [x] Regulation attacking half pitch (68m width x 55m length) with rich green grass turf shader and realistic friction
+- [x] Regulation pitch markings: touchlines, goal line, penalty area (40.32m x 16.5m), 6-yard box (18.32m x 5.5m), and penalty spot (11m)
+- [x] Official regulation 3D goalposts: 7.32m wide x 2.44m high cylindrical posts, crossbar, and 2.0m depth net enclosure
+- [x] Realistic metal post PhysicMaterial (bounciness 0.85, high rebound combine)
+- [x] Stadium perimeter advertising boards along touchlines and behind goal
+- [x] Dual stadium floodlight setup (key directional sun + soft fill light)
+- [x] Procedural automated generation via `PitchBuilder.cs` inside standard hierarchy `[ENVIRONMENT]`
+
+#### #P3-002 — Realistic Ball Physics: Trajectory, Magnus Effect Spin & Goal Detection
+**Issue:** #132 | **Layer:** Unity/Physics | **Status:** ✅ Complete
+
+> As a player taking shots or passes, I want the ball to respond with authentic football physics including regulation mass, bounciness, aerodynamic Magnus effect curve, dynamic trail renderer, and automated goal detection inside the net.
+
+**Acceptance Criteria:**
+- [x] Ball physics model in `BallController.cs` with regulation FIFA size 5 mass (0.43kg), radius (0.11m), and PhysicMaterial (0.68 bounciness)
+- [x] Continuous dynamic collision detection preventing high-velocity tunneling through posts or net
+- [x] Aerodynamic Magnus effect calculation in `FixedUpdate` applying cross-product curve force from ball spin
+- [x] Visual dynamic `TrailRenderer` indicating shot speed and curve during flight
+- [x] 3D trigger volume (`GoalTrigger.cs`) inside the net dispatching `GoalScoredEvent` with entry position, speed (km/h), and timestamp
+- [x] Debounce cooldown preventing duplicate goal trigger events
+
+#### #P3-005 — Dynamic Match Camera Rig: Broadcast, ActionAim & ShotTrack Modes
+**Issue:** #133 | **Layer:** Unity/Camera | **Status:** ✅ Complete
+
+> As a player experiencing different match phases, I want the camera to dynamically transition between broadcast overview, behind-the-ball aiming, and dramatic ball-tracking follow views with smooth damping.
+
+**Acceptance Criteria:**
+- [x] Multi-mode camera rig in `MatchCameraRig.cs` supporting 4 distinct modes:
+  - `Broadcast`: Elevated tactical view showing attacking pitch, player, and open space
+  - `ActionAim`: Over-the-shoulder behind-the-ball view facing the opponent goal for shot aiming
+  - `ShotTrack`: Dynamic zoomed follow cam tracking behind the ball flight towards the net
+  - `Celebration`: Low-angle dramatic framing for goals and celebrations
+- [x] Smooth position tracking via `Vector3.SmoothDamp` and rotational damping with zero GC allocations in `LateUpdate`
+- [x] Dynamic field-of-view tightening during shots for cinematic drama (55° default to 45° shot track)
+- [x] Integrated into standard `[CAMERAS]` root in `Match.unity` scene
+
+---
+
+## Phase 3 Issue Status Overview
 
 ```
-COMPLETED (PHASE 2 IS 100% COMPLETE):
-  Milestone 2.1:    P2-001 → P2-005   (Unity Project Bootstrap)    ✅ Complete (Issues #95, #100, #97–#99)
-  Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)       ✅ Complete (Issues #102–#104)
-  Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)    ✅ Complete (Issues #106–#109)
-  Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)    ✅ Complete (Issues #115–#116)
-  Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)✅ Complete (Issues #118–#120)
-  Milestone 2.6:    P2-018 → P2-020   (End-of-Season & Transfers)  ✅ Complete (Issues #122–#124)
-  Milestone 2.7:    P2-021 → P2-023   (Prototype Playtest & Gate 2.1)✅ Complete (Issues #127–#129)
+ACTIVE / COMPLETED:
+  Milestone 3.1:    P3-004, P3-002, P3-005 (3D Pitch, Stadium & Ball Physics) ✅ Complete (Issues #131–#133)
 
-GATE 2.1 DECISION: APPROVED (GO)
-
-UPCOMING PHASE:
-  Phase 3:          P3-001 → P3-011   (Football Vertical Slice - 3D Match Experience)
+UPCOMING MILESTONES:
+  Milestone 3.2:    P3-001, P3-003         (3D Player Character, Animations & Pawns)
+  Milestone 3.3:    P3-006 → P3-009        (Touch Controls & Interactive Gameplay Situations)
+  Milestone 3.4:    P3-010 → P3-011        (Goal Celebrations & Match In-Game HUD)
 ```
+
 
 
 
