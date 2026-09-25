@@ -286,19 +286,34 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 **Goal:** Real-time 3D match experience for one position. The player inhabits their footballer on the pitch.
 **Exit Criteria:** Complete a full playable 3D match as a striker with visible opponents, camera, animations, touch controls.
 
-| Issue | User Story | Layer |
-|---|---|---|
-| #P3-001 | 3D player character: humanoid rig, basic animations (run, walk, kick, tackle) | Unity/Art |
-| #P3-002 | Ball physics: realistic trajectory and collision | Unity/Physics |
-| #P3-003 | Simulated teammate and opponent pawns (non-AI, situation-driven) | Unity |
-| #P3-004 | Stadium environment: pitch, goals, crowd, lights | Unity/Art |
-| #P3-005 | Dynamic camera rig: follow player, zoom on shots, match context | Unity/Camera |
-| #P3-006 | Touch control system: tap-to-select situation, swipe-to-shoot | Unity/Input |
-| #P3-007 | Match situation presenter: 3D situation setup from simulation events | Unity |
-| #P3-008 | Shooting mini-interaction: aim + power system | Unity/Gameplay |
-| #P3-009 | Passing mini-interaction: target select + timing | Unity/Gameplay |
-| #P3-010 | Goal celebration: camera, VFX, crowd audio | Unity/Presentation |
-| #P3-011 | Match HUD: score, time, stamina bar, contextual action buttons | Unity/UI |
+### Milestone 3.1 — 3D Pitch, Stadium & Ball Physics ✅ (Complete)
+*Branch: `feature/milestone-3.1-pitch-stadium-physics` | Issues #131–#133*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P3-004 (#131) | Stadium environment: regulation pitch, line markings, 3D goalposts, net, perimeter boards & lighting | Unity/Art | M | ✅ Complete |
+| #P3-002 (#132) | Ball physics: realistic trajectory, friction, aerodynamic Magnus effect & goal detection volume trigger | Unity/Physics | M | ✅ Complete |
+| #P3-005 (#133) | Dynamic match camera rig: Broadcast, ActionAim, ShotTrack & Celebration modes with smooth tracking | Unity/Camera | M | ✅ Complete |
+
+### Milestone 3.2 — Player Pawn, Animations & Teammates (Next)
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P3-001 | 3D player character: humanoid rig, basic animations (run, walk, kick, tackle) | Unity/Art | M | ⏳ Planned |
+| #P3-003 | Simulated teammate and opponent pawns (non-AI, situation-driven) | Unity | M | ⏳ Planned |
+
+### Milestone 3.3 — Touch Controls & Interactive Gameplay Situations
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P3-006 | Touch control system: tap-to-select situation, swipe-to-shoot | Unity/Input | M | ⏳ Planned |
+| #P3-007 | Match situation presenter: 3D situation setup from simulation events | Unity | M | ⏳ Planned |
+| #P3-008 | Shooting mini-interaction: aim + power system | Unity/Gameplay | M | ⏳ Planned |
+| #P3-009 | Passing mini-interaction: target select + timing | Unity/Gameplay | M | ⏳ Planned |
+
+### Milestone 3.4 — Match Presentation & In-Game HUD
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P3-010 | Goal celebration: camera, VFX, crowd audio | Unity/Presentation | M | ⏳ Planned |
+| #P3-011 | Match HUD: score, time, stamina bar, contextual action buttons | Unity/UI | M | ⏳ Planned |
 
 ---
 
