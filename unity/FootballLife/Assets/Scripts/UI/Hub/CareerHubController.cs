@@ -49,6 +49,7 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Action _onOpenTraining;
         private readonly Action _onOpenRest;
         private readonly Action _onOpenCareer;
+        private readonly Action _onOpenMatch;
         private readonly Action _onLifeEventPending;
 
         private SimulationBridge? _bridge;
@@ -62,11 +63,13 @@ namespace FootballLife.Unity.UI.Hub
             Action onOpenTraining,
             Action onOpenRest,
             Action onOpenCareer,
+            Action onOpenMatch,
             Action onLifeEventPending)
         {
             _onOpenTraining = onOpenTraining;
             _onOpenRest = onOpenRest;
             _onOpenCareer = onOpenCareer;
+            _onOpenMatch = onOpenMatch;
             _onLifeEventPending = onLifeEventPending;
 
             // ── Query ─────────────────────────────────────────────────────────
@@ -107,10 +110,8 @@ namespace FootballLife.Unity.UI.Hub
             _btnTrain.clicked      += () => _onOpenTraining?.Invoke();
             _btnRest.clicked       += () => _onOpenRest?.Invoke();
             _btnCareer.clicked     += () => _onOpenCareer?.Invoke();
+            _btnMatch.clicked      += () => _onOpenMatch?.Invoke();
             _btnAdvanceDay.clicked += OnAdvanceDayClicked;
-
-            // Match button: navigates to match scene (stubbed for now)
-            _btnMatch.clicked += () => _labelStatus.text = "Match preparation coming in Milestone 2.5!";
 
             // Hide match card initially (no pending match)
             SetMatchCardVisible(false);

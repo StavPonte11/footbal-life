@@ -111,6 +111,7 @@ namespace FootballLife.Unity.UI
                 onOpenTraining:     ShowTraining,
                 onOpenRest:         ShowRest,
                 onOpenCareer:       OnOpenCareer,
+                onOpenMatch:        OnOpenMatch,
                 onLifeEventPending: ShowPendingLifeEvent);
 
             // ── Training overlay ──────────────────────────────────────────────
@@ -277,6 +278,18 @@ namespace FootballLife.Unity.UI
         private void OnOpenCareer()
         {
             ShowCareer();
+        }
+
+        private void OnOpenMatch()
+        {
+            if (FootballLife.Unity.Core.SceneManagement.SceneFlowManager.Instance != null)
+            {
+                FootballLife.Unity.Core.SceneManagement.SceneFlowManager.Instance.LoadMatch();
+            }
+            else
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Match");
+            }
         }
 
         public void ShowCareer()

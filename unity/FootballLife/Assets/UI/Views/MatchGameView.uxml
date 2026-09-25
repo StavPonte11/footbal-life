@@ -1,0 +1,117 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- ====================================================
+             TOP SCOREBOARD: Teams, Live Score, Clock
+             ==================================================== -->
+        <ui:VisualElement style="background-color: var(--fl-color-surface); border-bottom-width: 1px; border-bottom-color: var(--fl-color-border); padding-left: 16px; padding-right: 16px; padding-top: 12px; padding-bottom: 12px;">
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                <!-- Home Team -->
+                <ui:VisualElement style="align-items: flex-start; flex: 1;">
+                    <ui:Label name="label-game-home-name" text="Northfield Town" class="text-title" style="font-size: 13px; -unity-font-style: bold;" />
+                    <ui:Label text="Home" class="text-caption" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <!-- Score & Clock -->
+                <ui:VisualElement style="align-items: center; margin-left: 10px; margin-right: 10px;">
+                    <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px;">
+                        <ui:Label name="label-game-home-score" text="0" style="font-size: 24px; -unity-font-style: bold; color: #FFFFFF;" />
+                        <ui:Label text="-" style="font-size: 20px; color: var(--fl-color-text-muted);" />
+                        <ui:Label name="label-game-away-score" text="0" style="font-size: 24px; -unity-font-style: bold; color: #FFFFFF;" />
+                    </ui:VisualElement>
+                    <ui:Label name="label-game-clock" text="15&apos;" class="badge badge-gold" style="font-size: 11px; margin-top: 2px;" />
+                </ui:VisualElement>
+
+                <!-- Away Team -->
+                <ui:VisualElement style="align-items: flex-end; flex: 1;">
+                    <ui:Label name="label-game-away-name" text="Westford United" class="text-title" style="font-size: 13px; -unity-font-style: bold; -unity-text-align: middle-right;" />
+                    <ui:Label text="Away" class="text-caption" style="font-size: 10px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             MATCH COMMENTARY TICKER
+             ==================================================== -->
+        <ui:VisualElement style="background-color: var(--fl-color-surface-elevated); padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; border-bottom-width: 1px; border-bottom-color: var(--fl-color-border);">
+            <ui:Label name="label-commentary-text" text="15&apos; — Fast build-up through midfield. Player finds an opening!" class="text-accent" style="font-size: 12px; white-space: normal;" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             SCROLLABLE GAMEPLAY BODY
+             ==================================================== -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- ── SITUATION CARD ────────────────────────────── -->
+            <ui:VisualElement name="card-situation" class="card-elevated" style="margin-bottom: 14px; border-color: rgba(16, 185, 129, 0.4);">
+                <ui:VisualElement class="card-header">
+                    <ui:Label name="label-situation-title" text="⚽ Match Situation · Counter-Attack" class="text-title" style="font-size: 15px; -unity-font-style: bold;" />
+                    <ui:Label name="label-situation-minute" text="15&apos;" class="badge badge-green" style="font-size: 11px;" />
+                </ui:VisualElement>
+
+                <ui:Label name="label-situation-narrative" text="You break past the defensive line into the open channel. The goalkeeper begins rushing out while your winger makes a supporting run on your left!" class="text-subtitle" style="font-size: 13px; line-height: 20px; white-space: normal; margin-bottom: 12px;" />
+
+                <!-- Context metrics bar -->
+                <ui:VisualElement style="background-color: var(--fl-color-surface); padding: 10px; border-radius: var(--fl-radius-md); border-width: 1px; border-color: var(--fl-color-border); margin-bottom: 14px;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 4px;">
+                        <ui:Label text="Opponent Pressure" class="text-caption" style="font-size: 11px;" />
+                        <ui:Label name="label-situation-pressure" text="Moderate (4.2/10)" class="text-gold" style="font-size: 11px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Positional Advantage" class="text-caption" style="font-size: 11px;" />
+                        <ui:Label name="label-situation-advantage" text="High (+0.60)" class="text-accent" style="font-size: 11px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:Label text="SELECT YOUR ACTION:" class="text-caption" style="font-size: 11px; margin-bottom: 8px; letter-spacing: 0.5px;" />
+
+                <!-- Action choices -->
+                <ui:VisualElement style="gap: 8px;">
+                    <ui:Button name="btn-choice-1" text="🎯 Finesse Shot (Risk: 35%)" class="btn btn-primary" style="height: 48px; font-size: 13px;" />
+                    <ui:Button name="btn-choice-2" text="👟 Square Pass to Teammate (Risk: 15%)" class="btn btn-secondary" style="height: 48px; font-size: 13px;" />
+                    <ui:Button name="btn-choice-3" text="💨 Dribble Past Goalkeeper (Risk: 55%)" class="btn btn-gold" style="height: 48px; font-size: 13px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── RESOLUTION FEEDBACK CARD (shown after player choice) ── -->
+            <ui:VisualElement name="card-resolution" class="card" style="margin-bottom: 14px; border-color: #10B981; border-width: 1px; display: none;">
+                <ui:VisualElement style="align-items: center; margin-bottom: 10px;">
+                    <ui:Label name="label-resolution-outcome" text="GOAL SCORED! ⚽" class="badge badge-green" style="font-size: 14px; padding-left: 14px; padding-right: 14px; padding-top: 6px; padding-bottom: 6px;" />
+                </ui:VisualElement>
+
+                <ui:Label name="label-resolution-narrative" text="Superb technique! You curl the ball past the outstretched glove of the keeper right into the top corner!" class="text-subtitle" style="font-size: 13px; line-height: 20px; white-space: normal; -unity-text-align: middle-center; margin-bottom: 10px;" />
+
+                <ui:VisualElement style="flex-direction: row; justify-content: center; gap: 16px; margin-bottom: 14px;">
+                    <ui:Label name="label-resolution-rating-delta" text="+0.60 Match Rating" class="text-accent" style="font-size: 12px; -unity-font-style: bold;" />
+                    <ui:Label name="label-resolution-confidence-delta" text="+5 Confidence" class="text-gold" style="font-size: 12px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+
+                <ui:Button name="btn-next-moment" text="Next Situation →" class="btn btn-primary" style="height: 48px; font-size: 14px; -unity-font-style: bold;" />
+            </ui:VisualElement>
+
+            <!-- ── LIVE PLAYER MATCH STATS ROW ───────────────── -->
+            <ui:VisualElement class="card" style="flex-direction: row; justify-content: space-around; padding-top: 10px; padding-bottom: 10px;">
+                <ui:VisualElement style="align-items: center;">
+                    <ui:Label text="Rating" class="text-caption" style="font-size: 10px;" />
+                    <ui:Label name="val-live-rating" text="6.80" class="text-gold" style="font-size: 16px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+                <ui:VisualElement style="align-items: center;">
+                    <ui:Label text="Goals" class="text-caption" style="font-size: 10px;" />
+                    <ui:Label name="val-live-goals" text="0" class="text-accent" style="font-size: 16px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+                <ui:VisualElement style="align-items: center;">
+                    <ui:Label text="Assists" class="text-caption" style="font-size: 10px;" />
+                    <ui:Label name="val-live-assists" text="0" class="text-title" style="font-size: 16px; -unity-font-style: bold; color: #38BDF8;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>

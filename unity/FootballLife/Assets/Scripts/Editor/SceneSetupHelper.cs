@@ -33,6 +33,9 @@ namespace FootballLife.Unity.Editor
         private const string kLifeEventUxml   = "Assets/UI/Views/LifeEventView.uxml";
         private const string kCareerViewUxml  = "Assets/UI/Views/CareerView.uxml";
         private const string kProfileViewUxml = "Assets/UI/Views/ProfileView.uxml";
+        private const string kMatchPreviewUxml = "Assets/UI/Views/MatchPreviewView.uxml";
+        private const string kMatchGameUxml    = "Assets/UI/Views/MatchGameView.uxml";
+        private const string kMatchPostUxml    = "Assets/UI/Views/MatchPostView.uxml";
         private const string kPanelSettings   = "Assets/UI/PanelSettings.asset";
         private const string kCreationUxml    = "Assets/UI/Views/PlayerCreationView.uxml";
         private const string kClubUxml        = "Assets/UI/Views/ClubSelectionView.uxml";
@@ -239,6 +242,37 @@ namespace FootballLife.Unity.Editor
                 camGo.AddComponent<Camera>();
                 camGo.tag = "MainCamera";
                 Debug.Log("[FullSceneSetup] Match: Added Main Camera.");
+            }
+
+            var uiRoot = GameObject.Find("[UI]");
+            var panelSettings = GetOrCreatePanelSettings();
+
+            var existingDoc = uiRoot.GetComponentInChildren<UIDocument>();
+            if (existingDoc == null)
+            {
+                var uiDocGo = new GameObject("UIDocument_Match");
+                uiDocGo.transform.SetParent(uiRoot.transform, false);
+                existingDoc = uiDocGo.AddComponent<UIDocument>();
+            }
+
+            if (panelSettings != null) existingDoc.panelSettings = panelSettings;
+
+            var previewAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(kMatchPreviewUxml);
+            if (previewAsset != null) existingDoc.visualTreeAsset = previewAsset;
+
+            var coordType = System.Type.GetType("FootballLife.Unity.UI.Match.MatchCoordinator, FootballLife.Unity.UI");
+            if (coordType != null)
+            {
+                var coord = existingDoc.GetComponent(coordType) as MonoBehaviour;
+                if (coord == null)
+                    coord = existingDoc.gameObject.AddComponent(coordType) as MonoBehaviour;
+
+                var so = new SerializedObject(coord);
+                SetSerializedAsset(so, "_matchPreviewAsset", kMatchPreviewUxml);
+                SetSerializedAsset(so, "_matchGameAsset",    kMatchGameUxml);
+                SetSerializedAsset(so, "_matchPostAsset",    kMatchPostUxml);
+                so.ApplyModifiedProperties();
+                Debug.Log("[FullSceneSetup] Match: Configured MatchCoordinator with all UXML refs.");
             }
 
             EditorSceneManager.MarkSceneDirty(scene);
