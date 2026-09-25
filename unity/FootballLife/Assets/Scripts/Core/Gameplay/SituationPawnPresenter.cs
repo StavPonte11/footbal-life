@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using FootballLife.Domain;
 using FootballLife.Unity.Core.Camera;
 
 namespace FootballLife.Unity.Core.Gameplay
 {
     /// <summary>
-    /// Spawns and configures situation-driven pawns on the pitch:
-    /// User Striker, Supporting Teammate, Opponent Center-backs, and Opponent Goalkeeper.
-    /// Integrates cleanly under [ENTITIES]/Pawns and binds targets to MatchCameraRig.
+    /// Spawns, arranges, and manages 3D match situations driven by simulation events.
+    /// Sets up User Striker, Supporting Teammate, Opponent Defenders, and Goalkeeper,
+    /// wires touch gestures, aim trajectory guide, shooting, and passing interactions.
     /// </summary>
     public sealed class SituationPawnPresenter : MonoBehaviour
     {
@@ -18,9 +19,16 @@ namespace FootballLife.Unity.Core.Gameplay
         [SerializeField] private MatchPawn? _defender2;
         [SerializeField] private MatchPawn? _goalkeeper;
 
+        [Header("Interactions")]
+        [SerializeField] private ShootingInteraction? _shooting;
+        [SerializeField] private PassingInteraction? _passing;
+        [SerializeField] private AimTrajectoryRenderer? _trajectoryGuide;
+        [SerializeField] private TouchGestureController? _touchGesture;
+
         public MatchPawn? UserPlayer => _userPlayer;
         public MatchPawn? Teammate => _teammate;
         public MatchPawn? Goalkeeper => _goalkeeper;
+        public MatchPawn[] Defenders => new[] { _defender1!, _defender2! };
 
         /// <summary>
         /// Builds and spawns the full attacking situation pawn layout.
@@ -72,12 +80,12 @@ namespace FootballLife.Unity.Core.Gameplay
             var tmPawn = tmGo.GetComponent<MatchPawn>();
             tmPawn.Initialize("Liam Sterling", 11, PawnRole.Teammate, PawnTeam.Home);
             var tmController = tmGo.GetComponent<PlayerPawnController>();
-            tmController.SetState(PawnAnimState.Jog); // Making dynamic supporting run
+            tmController.SetState(PawnAnimState.Jog);
             presenter._teammate = tmPawn;
 
             // 3. Opponent Center Back 1 (Left CB jockeying)
             var cb1Pos = new Vector3(-3.5f, 0f, 22.5f);
-            var cb1Rot = Quaternion.Euler(0f, 180f, 0f); // Facing attacker
+            var cb1Rot = Quaternion.Euler(0f, 180f, 0f);
             var cb1Go = HumanoidPawnBuilder.CreatePawn(
                 pawnsRoot.transform,
                 cb1Pos,
@@ -111,7 +119,7 @@ namespace FootballLife.Unity.Core.Gameplay
 
             // 5. Opponent Goalkeeper (Positioned on goal line at Z = 34.8m)
             var gkPos = new Vector3(0f, 0f, 34.8f);
-            var gkRot = Quaternion.Euler(0f, 180f, 0f); // Facing incoming play
+            var gkRot = Quaternion.Euler(0f, 180f, 0f);
             var gkGo = HumanoidPawnBuilder.CreatePawn(
                 pawnsRoot.transform,
                 gkPos,
@@ -123,33 +131,45 @@ namespace FootballLife.Unity.Core.Gameplay
             var gkPawn = gkGo.GetComponent<MatchPawn>();
             gkPawn.Initialize("Oliver Kahn", 1, PawnRole.Goalkeeper, PawnTeam.Away);
 
-            // Replace standard player controller with specialized GoalkeeperController
             var defaultController = gkGo.GetComponent<PlayerPawnController>();
             if (defaultController != null)
             {
                 Object.DestroyImmediate(defaultController);
             }
-
-            var hips = gkGo.transform.Find("Hips");
-            var torso = hips?.Find("Torso");
-            var head = torso?.Find("Head");
-            var leftArm = torso?.Find("Arm_L");
-            var rightArm = torso?.Find("Arm_R");
-            var leftLeg = hips?.Find("Leg_L");
-            var rightLeg = hips?.Find("Leg_R");
-            var leftFoot = leftLeg?.Find("Foot_L");
-            var rightFoot = rightLeg?.Find("Foot_R");
-
-            if (hips != null && torso != null && head != null && leftArm != null && rightArm != null &&
-                leftLeg != null && rightLeg != null && leftFoot != null && rightFoot != null)
-            {
-                var gkRig = new PawnRigTransforms(
-                    hips, torso, head, leftArm, rightArm, leftLeg, rightLeg, leftFoot, rightFoot
-                );
-                var gkController = gkGo.AddComponent<GoalkeeperController>();
-                gkController.Initialize(gkRig, ball);
-            }
+            var gkController = gkGo.AddComponent<GoalkeeperController>();
             presenter._goalkeeper = gkPawn;
+
+            // ── Trajectory Guide & Reticle ──────────────────────────────────────
+            var guideGo = new GameObject("Aim_Trajectory_Guide");
+            guideGo.transform.SetParent(pawnsRoot.transform, false);
+            var trajGuide = guideGo.AddComponent<AimTrajectoryRenderer>();
+            presenter._trajectoryGuide = trajGuide;
+
+            // ── Touch Gesture Controller ────────────────────────────────────────
+            var inputGo = GameObject.Find("TouchGestureController");
+            if (inputGo == null)
+            {
+                inputGo = new GameObject("TouchGestureController");
+                var managers = GameObject.Find("[MANAGERS]");
+                if (managers != null) inputGo.transform.SetParent(managers.transform, false);
+            }
+            var gestureCtrl = inputGo.GetComponent<TouchGestureController>() ?? inputGo.AddComponent<TouchGestureController>();
+            presenter._touchGesture = gestureCtrl;
+
+            // ── Shooting Interaction ────────────────────────────────────────────
+            var shootGo = new GameObject("ShootingInteraction");
+            shootGo.transform.SetParent(pawnsRoot.transform, false);
+            var shooting = shootGo.AddComponent<ShootingInteraction>();
+            var strikerCtrl = userGo.GetComponent<PlayerPawnController>();
+            shooting.Initialize(ball, strikerCtrl, trajGuide, cameraRig);
+            presenter._shooting = shooting;
+
+            // ── Passing Interaction ─────────────────────────────────────────────
+            var passGo = new GameObject("PassingInteraction");
+            passGo.transform.SetParent(pawnsRoot.transform, false);
+            var passing = passGo.AddComponent<PassingInteraction>();
+            passing.Initialize(ball, strikerCtrl, tmPawn, new[] { cb1Pawn, cb2Pawn });
+            presenter._passing = passing;
 
             // Connect camera rig targets
             if (cameraRig != null && ball != null)
@@ -158,6 +178,77 @@ namespace FootballLife.Unity.Core.Gameplay
             }
 
             return presenter;
+        }
+
+        /// <summary>
+        /// Applies situation positions corresponding to simulation domain SituationType.
+        /// </summary>
+        public void ApplySituationPreset(SituationType type, BallController? ball, MatchCameraRig? cameraRig)
+        {
+            if (_userPlayer == null || ball == null) return;
+
+            switch (type)
+            {
+                case SituationType.ReceivingInBox:
+                case SituationType.OpenPlay:
+                    // Central Box Shot
+                    _userPlayer.transform.position = new Vector3(0f, 0f, 13.5f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    ball.ResetBall(new Vector3(0f, 0.11f, 15.0f));
+
+                    if (_teammate != null) _teammate.transform.position = new Vector3(11.5f, 0f, 18.5f);
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(-3.5f, 0f, 22.5f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(4.0f, 0f, 23.5f);
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 34.8f);
+                    break;
+
+                case SituationType.OneOnOne:
+                    // Clean Breakaway
+                    _userPlayer.transform.position = new Vector3(0f, 0f, 18.0f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    ball.ResetBall(new Vector3(0f, 0.11f, 19.5f));
+
+                    // Defenders trailing behind
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(-4.0f, 0f, 12.0f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(4.0f, 0f, 12.0f);
+                    if (_teammate != null) _teammate.transform.position = new Vector3(-10.0f, 0f, 16.0f);
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 33.5f); // Rushing off line
+                    break;
+
+                case SituationType.Cross:
+                    // Wing Cross setup
+                    if (_teammate != null)
+                    {
+                        _teammate.transform.position = new Vector3(16.0f, 0f, 24.0f);
+                        _teammate.transform.rotation = Quaternion.Euler(0f, -60f, 0f);
+                    }
+                    _userPlayer.transform.position = new Vector3(-1.5f, 0f, 25.0f); // Striker attacking cross
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, 25f, 0f);
+                    ball.ResetBall(new Vector3(15.0f, 0.11f, 24.0f));
+
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(0f, 0f, 26.0f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(2.5f, 0f, 27.0f);
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0.5f, 0f, 34.8f);
+                    break;
+
+                case SituationType.ThroughBall:
+                    // Ball rolling into space
+                    _userPlayer.transform.position = new Vector3(0f, 0f, 11.0f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    ball.ResetBall(new Vector3(0f, 0.11f, 17.5f));
+
+                    if (_teammate != null) _teammate.transform.position = new Vector3(-8.0f, 0f, 10.0f);
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(2.5f, 0f, 16.0f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(-4.0f, 0f, 21.0f);
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 34.8f);
+                    break;
+            }
+
+            if (cameraRig != null)
+            {
+                cameraRig.SetMode(MatchCameraRig.CameraMode.ActionAim);
+                cameraRig.SnapToTarget();
+            }
         }
     }
 }

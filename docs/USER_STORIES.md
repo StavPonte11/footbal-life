@@ -1595,6 +1595,57 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 - [x] `SituationPawnPresenter.cs`: arranges 5 situation pawns under `[ENTITIES]/Pawns` (User Striker at $Z=13.5\text{ m}$, Supporting Teammate at $Z=18.5\text{ m}$, Opponent CB1 at $Z=22.5\text{ m}$, Opponent CB2 at $Z=23.5\text{ m}$, Opponent GK at $Z=34.8\text{ m}$)
 - [x] Target linking to `MatchCameraRig` for smooth multi-mode camera tracking
 
+### Milestone 3.3 — Touch Controls & Interactive Gameplay Situations
+
+#### #P3-006 — Touch Control System: Tap-to-Target & Swipe-to-Kick
+**Issue:** #138 | **Layer:** Unity/Input | **Status:** ✅ Complete
+
+> As a mobile player, I want responsive touch controls (tap on teammate to pass, swipe/flick trajectory toward goal to shoot) with visual gesture feedback.
+
+**Acceptance Criteria:**
+- [x] Input system handling touch gestures and mouse fallback via `UnityEngine.InputSystem.Pointer.current` (`TouchGestureController.cs`)
+- [x] Tap detection (< 0.25s duration, < 15px drift) for selecting teammates or passing lanes
+- [x] Drag/swipe detection measuring direction, swipe displacement distance (power), and curvature (Magnus spin)
+- [x] Visual gesture event dispatching (`OnAimStarted`, `OnAimUpdated`, `OnAimReleased`, `OnTapDetected`)
+- [x] Zero GC allocations in input processing loop
+
+#### #P3-007 — Match Situation Presenter: 3D Situation Setup from Simulation Events
+**Issue:** #139 | **Layer:** Unity/Gameplay | **Status:** ✅ Complete
+
+> As a player during match play, I want 3D situations to be dynamically constructed from simulation opportunities (ReceivingInBox, OneOnOne, Cross, ThroughBall).
+
+**Acceptance Criteria:**
+- [x] `SituationPawnPresenter.ApplySituationPreset` translating domain `SituationType` into spatial pitch coordinates
+- [x] Distinct situation setups:
+  - `ReceivingInBox`: Central box finish at $Z=13.5\text{ m}$ with defenders jockeying
+  - `OneOnOne`: Striker breakaway at $Z=18.0\text{ m}$ with goalkeeper rushing out
+  - `Cross`: Teammate on right wing at $Z=24\text{ m}, X=16\text{ m}$ crossing to striker at $Z=25\text{ m}$
+  - `ThroughBall`: Ball rolling into space at $Z=17.5\text{ m}$ with striker sprinting from deep
+- [x] Automatic camera alignment and target binding via `MatchCameraRig`
+
+#### #P3-008 — Shooting Mini-Interaction: Aim Trajectory & Power System
+**Issue:** #140 | **Layer:** Unity/Gameplay | **Status:** ✅ Complete
+
+> As a striker shooting at goal, I want an aim and power mechanic where swipe trajectory, length, and curve directly determine the ball launch velocity and Magnus spin.
+
+**Acceptance Criteria:**
+- [x] Real-time 3D ballistic trajectory preview arc (`AimTrajectoryRenderer.cs`) with gravity, drag, and Magnus curve prediction
+- [x] Target ground/net reticle updating dynamically during swipe drag
+- [x] Swipe power scaling launch velocity ($18\text{ m/s}$ to $30\text{ m/s}$) with vertical lift angle
+- [x] Gesture curvature deriving Magnus spin rate ($-10\text{ rad/s}$ to $+10\text{ rad/s}$) for dipping and curling shots
+- [x] Striker windup and kick synchronization with camera tracking switch to `ShotTrack` and `Celebration`
+
+#### #P3-009 — Passing Mini-Interaction: Teammate Target & Delivery Timing
+**Issue:** #141 | **Layer:** Unity/Gameplay | **Status:** ✅ Complete
+
+> As a player with passing options, I want to tap a supporting teammate to trigger a grounded or lobbed pass, with intercept checks from marking defenders.
+
+**Acceptance Criteria:**
+- [x] Teammate tap detection via screen raycast and screen-space proximity touch targeting (`PassingInteraction.cs`)
+- [x] Calibrated ground pass velocity calculation leading teammate's stride
+- [x] Defender interception evaluation calculating proximity of opponent center-backs to the passing ray
+- [x] Successful pass receipt: teammate traps ball and turns to face the opponent goal
+
 ---
 
 ## Phase 3 Issue Status Overview
@@ -1603,11 +1654,12 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 COMPLETED IN PHASE 3:
   Milestone 3.1:    P3-004, P3-002, P3-005 (3D Pitch, Stadium & Ball Physics)  ✅ Complete (Issues #131–#133)
   Milestone 3.2:    P3-001, P3-003         (3D Player Character & Pawns)       ✅ Complete (Issues #135–#136)
+  Milestone 3.3:    P3-006 → P3-009        (Touch Controls & Situations)       ✅ Complete (Issues #138–#141)
 
 UPCOMING MILESTONES:
-  Milestone 3.3:    P3-006 → P3-009        (Touch Controls & Interactive Gameplay Situations)
   Milestone 3.4:    P3-010 → P3-011        (Goal Celebrations & Match In-Game HUD)
 ```
+
 
 
 
