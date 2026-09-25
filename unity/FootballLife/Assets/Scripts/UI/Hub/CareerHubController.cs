@@ -45,6 +45,7 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Button _btnCareer;
         private readonly Button _btnOffSeason;
         private readonly Button? _btnHome;
+        private readonly Button? _btnQuickPhone;
         private readonly Button _btnAdvanceDay;
 
         // ── Overlays controlled externally ───────────────────────────────────
@@ -54,6 +55,7 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Action _onOpenMatch;
         private readonly Action _onOpenOffSeason;
         private readonly Action? _onOpenHome;
+        private readonly Action? _onOpenPhone;
         private readonly Action _onLifeEventPending;
 
         private SimulationBridge? _bridge;
@@ -70,7 +72,8 @@ namespace FootballLife.Unity.UI.Hub
             Action onOpenMatch,
             Action onLifeEventPending,
             Action? onOpenOffSeason = null,
-            Action? onOpenHome = null)
+            Action? onOpenHome = null,
+            Action? onOpenPhone = null)
         {
             _onOpenTraining = onOpenTraining;
             _onOpenRest = onOpenRest;
@@ -79,6 +82,7 @@ namespace FootballLife.Unity.UI.Hub
             _onLifeEventPending = onLifeEventPending;
             _onOpenOffSeason = onOpenOffSeason;
             _onOpenHome = onOpenHome;
+            _onOpenPhone = onOpenPhone;
 
             // ── Query ─────────────────────────────────────────────────────────
             _labelPlayerName   = root.Q<Label>("label-player-name");
@@ -114,6 +118,7 @@ namespace FootballLife.Unity.UI.Hub
             _btnCareer      = root.Q<Button>("btn-career");
             _btnOffSeason   = root.Q<Button>("btn-offseason");
             _btnHome        = root.Q<Button>("btn-home");
+            _btnQuickPhone  = root.Q<Button>("btn-quick-phone");
             _btnAdvanceDay  = root.Q<Button>("btn-advance-day");
 
             // ── Wire buttons ──────────────────────────────────────────────────
@@ -125,6 +130,8 @@ namespace FootballLife.Unity.UI.Hub
                 _btnOffSeason.clicked += () => _onOpenOffSeason?.Invoke();
             if (_btnHome != null)
                 _btnHome.clicked += () => _onOpenHome?.Invoke();
+            if (_btnQuickPhone != null)
+                _btnQuickPhone.clicked += () => _onOpenPhone?.Invoke();
             _btnAdvanceDay.clicked += OnAdvanceDayClicked;
 
             // Hide match card initially (no pending match)

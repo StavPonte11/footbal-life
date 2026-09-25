@@ -333,14 +333,22 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P4-001 (#146) | Home environment: interactive 3D apartment with bed, gym, phone, door hotspots and camera rig | Unity/Art | L | ✅ Complete |
 | #P4-002 (#147) | Home progression: 5 apartment tiers (Modest to Superstar), sleep recovery, home gym workout, and real-time reskin | Unity/Simulation | L | ✅ Complete |
 
-### Milestone 4.2: Smartphone OS & Social Layer (Upcoming)
+### Milestone 4.2: Smartphone OS & Social Layer
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P4-003 | Phone UI: messages, news feed, agent, manager, social | Unity/UI | M | Planned |
-| #P4-004 | Relationship hub: partner, family, teammates displayed as people, not numbers | Unity/UI | M | Planned |
+| #P4-003 (#149) | Phone UI: messages (WhatsApp), news feed (Football Daily), agent, manager, social (FootyGram) | Unity/UI | M | ✅ Complete |
+| #P4-004 (#150) | Relationship hub: partner, family, teammates displayed as people with affinity/trust meters & social actions | Unity/UI | M | ✅ Complete |
+
+### Milestone 4.3: Life Events, Finances & Lifestyle Shop (Upcoming)
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
 | #P4-005 | Life event system: immersive choice-cards with character context | Unity/UI | M | Planned |
 | #P4-006 | Finances screen: balance, income, expenses, lifestyle tier | Unity/UI | M | Planned |
 | #P4-007 | Lifestyle item shop: optional purchases that affect state and home visuals | Unity | M | Planned |
+
+### Milestone 4.4: Social Activities & Dynamic Media Reports (Upcoming)
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
 | #P4-008 | Social activity: go out events that cost fatigue, gain happiness | Unity | S | Planned |
 | #P4-009 | Media section: AI-generated match reports, transfer rumors, interviews | Unity/LLM | L | Planned |
 
@@ -389,10 +397,10 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 4 — Life Vertical Slice (Milestone 4.2: Smartphone OS & Social Layer)
+## Current Focus: Phase 4 — Life Vertical Slice (Milestone 4.3: Life Events, Dilemmas & Media System)
 
 > **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 557 passing tests).
 > **PHASE 2 IS 100% COMPLETE & MERGED TO `main`** (Milestones 2.1–2.6: Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116, #118–#120, #122–#124 closed).
 > **PHASE 3 IS 100% COMPLETE & MERGED TO `main`** (Milestones 3.1–3.4: Issues #131–#133, #135–#136, #138–#141, #143–#144 closed).
-> **PHASE 4 IN PROGRESS:** Milestone 4.1 Complete (`#P4-001`, `#P4-002` closed; 569 passing tests). Next milestone: Milestone 4.2 — Smartphone OS & Social Layer (`#P4-003`, `#P4-004`).
+> **PHASE 4 IN PROGRESS:** Milestones 4.1 & 4.2 Complete (`#P4-001`–`#P4-004` closed; 580 passing tests). Next milestone: Milestone 4.3 — Life Events, Dilemmas & Media System (`#P4-005`, `#P4-006`).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

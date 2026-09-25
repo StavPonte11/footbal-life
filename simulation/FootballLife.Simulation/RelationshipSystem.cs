@@ -1,9 +1,24 @@
 using System;
 using System.Collections.Generic;
 using FootballLife.Domain;
+using FootballLife.Simulation.Persistence;
 
 namespace FootballLife.Simulation
 {
+    /// <summary>
+    /// Result payload from performing a lifestyle social interaction (#P4-004).
+    /// </summary>
+    public readonly record struct SocialActionResult(
+        bool Success,
+        string Message,
+        Relationship UpdatedRelationship,
+        int EnergyCost,
+        int MoneyCost,
+        float AffinityGained,
+        float TrustGained,
+        int MoraleGained
+    );
+
     /// <summary>
     /// Stateless simulation system governing interpersonal dynamics, affinity decay from neglect,
     /// dialogue and social interaction outcomes, and transfer disruptions.
@@ -11,6 +26,123 @@ namespace FootballLife.Simulation
     public static class RelationshipSystem
     {
         public const float DefaultWeeklyDecay = 0.5f;
+
+        /// <summary>
+        /// Executes a purposeful social interaction with a person in the player's life.
+        /// Deterministically adjusts energy, finances, morale, and relationship affinity/trust.
+        /// </summary>
+        public static SocialActionResult ExecuteSocialAction(
+            Relationship rel,
+            SocialActionType action,
+            CareerSaveData save,
+            decimal customGiftAmount = 0m,
+            DateOnly? currentDate = null)
+        {
+            if (rel is null) throw new ArgumentNullException(nameof(rel));
+            if (save is null) throw new ArgumentNullException(nameof(save));
+
+            var date = currentDate ?? new DateOnly(2026, 8, 1).AddDays(save.CurrentWeek * 7);
+
+            switch (action)
+            {
+                case SocialActionType.CallCatchUp:
+                {
+                    const int energyCost = 5;
+                    if (save.Energy < energyCost)
+                    {
+                        return new SocialActionResult(false, "Too exhausted to call right now.", rel, 0, 0, 0f, 0f, 0);
+                    }
+
+                    save.Energy -= energyCost;
+                    save.Morale = Math.Min(100, save.Morale + 3);
+
+                    float affinityDelta = 4.0f;
+                    float trustDelta = 2.0f;
+                    string note = "Caught up on a warm phone call.";
+                    var updated = rel.WithInteraction(date, affinityDelta, trustDelta, note);
+
+                    return new SocialActionResult(true, $"Had a great catch-up call with {rel.Name} (+{affinityDelta:F1} Affinity)", updated, energyCost, 0, affinityDelta, trustDelta, 3);
+                }
+
+                case SocialActionType.SendGift:
+                {
+                    int giftCost = customGiftAmount > 0 ? (int)customGiftAmount : (rel.IsFamily || rel.Type == RelationshipType.Partner ? 350 : 150);
+                    if (save.BankBalance < giftCost)
+                    {
+                        return new SocialActionResult(false, $"Insufficient funds to send this gift (£{giftCost:N0} required).", rel, 0, 0, 0f, 0f, 0);
+                    }
+
+                    save.BankBalance -= giftCost;
+                    save.Morale = Math.Min(100, save.Morale + 5);
+
+                    float affinityDelta = 8.5f;
+                    float trustDelta = 4.0f;
+                    string note = $"Sent a thoughtful gift (£{giftCost:N0}).";
+                    var updated = rel.WithInteraction(date, affinityDelta, trustDelta, note);
+
+                    return new SocialActionResult(true, $"Sent a gift to {rel.Name} (-£{giftCost:N0}, +{affinityDelta:F1} Affinity)", updated, 0, giftCost, affinityDelta, trustDelta, 5);
+                }
+
+                case SocialActionType.DinnerHangOut:
+                {
+                    const int energyCost = 15;
+                    const int dinnerCost = 250;
+
+                    if (save.Energy < energyCost)
+                    {
+                        return new SocialActionResult(false, "Too tired for an evening dinner out.", rel, 0, 0, 0f, 0f, 0);
+                    }
+
+                    if (save.BankBalance < dinnerCost)
+                    {
+                        return new SocialActionResult(false, $"Need at least £{dinnerCost:N0} for dinner.", rel, 0, 0, 0f, 0f, 0);
+                    }
+
+                    save.Energy -= energyCost;
+                    save.BankBalance -= dinnerCost;
+                    save.Morale = Math.Min(100, save.Morale + 8);
+
+                    float affinityDelta = 12.0f;
+                    float trustDelta = 6.0f;
+                    string note = "Enjoyed a relaxing dinner and quality time together.";
+                    var updated = rel.WithInteraction(date, affinityDelta, trustDelta, note);
+
+                    return new SocialActionResult(true, $"Wonderful dinner with {rel.Name}! (+{affinityDelta:F1} Affinity, +8 Morale)", updated, energyCost, dinnerCost, affinityDelta, trustDelta, 8);
+                }
+
+                case SocialActionType.TalkTactics:
+                {
+                    if (rel.Type != RelationshipType.Manager && rel.Type != RelationshipType.Teammate)
+                    {
+                        return new SocialActionResult(false, "Can only discuss match tactics with your manager or teammates.", rel, 0, 0, 0f, 0f, 0);
+                    }
+
+                    const int energyCost = 8;
+                    if (save.Energy < energyCost)
+                    {
+                        return new SocialActionResult(false, "Too drained to analyze tactics right now.", rel, 0, 0, 0f, 0f, 0);
+                    }
+
+                    save.Energy -= energyCost;
+                    save.Form = Math.Min(100, save.Form + 2);
+
+                    float affinityDelta = 3.0f;
+                    float trustDelta = 10.0f;
+                    string note = "Discussed pitch positioning and tactical match plans.";
+                    var updated = rel.WithInteraction(date, affinityDelta, trustDelta, note);
+
+                    if (rel.Type == RelationshipType.Manager)
+                    {
+                        save.ManagerTrust = Math.Min(100, save.ManagerTrust + 4);
+                    }
+
+                    return new SocialActionResult(true, $"Productive tactical review with {rel.Name}! (+{trustDelta:F1} Trust, +4 Manager Trust)", updated, energyCost, 0, affinityDelta, trustDelta, 2);
+                }
+
+                default:
+                    return new SocialActionResult(false, "Unknown social action.", rel, 0, 0, 0f, 0f, 0);
+            }
+        }
 
         /// <summary>
         /// Applies a single week's worth of affinity decay to a relationship from neglect.
