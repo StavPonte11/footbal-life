@@ -261,6 +261,8 @@ namespace FootballLife.Unity.Core.Bridge
         public event Action<MatchOpportunitySnapshot>? OnMatchOpportunity;
         public event Action<LifeEventSnapshot>? OnLifeEventOccurred;
         public event Action<string>? OnStatusLog;
+        public event Action<string>? OnInternationalCallUp;
+        public event Action<string, string>? OnManagerChanged;
 
         private void Awake()
         {
@@ -985,6 +987,128 @@ namespace FootballLife.Unity.Core.Bridge
             AutoSave();
 
             return resolution;
+        }
+
+        public (int Caps, int Goals, int Assists, string NationalTeamName) GetPlayerInternationalStats()
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+            return (_currentSave!.InternationalCaps, _currentSave.InternationalGoals, _currentSave.InternationalAssists, _currentSave.Nationality);
+        }
+
+        public bool ProcessInternationalWindow(string tournamentName = "World Cup Qualifier")
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+
+            var world = GetOrCreateWorld();
+            var nationality = _currentSave!.Nationality;
+
+            var nationalTeam = world.NationalTeams.Values.FirstOrDefault(t =>
+                string.Equals(t.CountryName, nationality, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(t.CountryCode, nationality, StringComparison.OrdinalIgnoreCase));
+
+            if (nationalTeam == null)
+            {
+                string code = nationality.Length >= 3 ? nationality.Substring(0, 3).ToUpperInvariant() : "NAT";
+                nationalTeam = NationalTeam.Create(nationality, code, fifaRanking: 15, confederation: "UEFA", managerName: $"{nationality} Coach");
+                world = world.WithNationalTeam(nationalTeam);
+                _world = world;
+            }
+
+            var pos = Enum.TryParse<Position>(_currentSave.PrimaryPosition, out var p) ? p : Position.ST;
+            var player = new Player(_currentSave.PlayerId, _currentSave.PlayerName, _currentSave.Nationality, new DateOnly(2005, 1, 1), Foot.Right, pos);
+
+            if (!world.Players.ContainsKey(player.Id))
+            {
+                var abilities = PlayerAbilities.CreateUniform((byte)_currentSave.OverallRating);
+                var state = PlayerState.Default with { Form = _currentSave.Form, Fatigue = 100 - _currentSave.Energy, Confidence = 60f };
+                var currentClub = world.Clubs.Values.FirstOrDefault(c => c.Name.Equals(_currentSave.ClubName, StringComparison.OrdinalIgnoreCase)) ?? world.Clubs.Values.First();
+                var career = new PlayerCareerState(currentClub.Id, SquadStatus.Starter, _currentSave.ManagerTrust, _currentSave.WeeklyWage, _currentSave.MarketValue, _currentSave.OverallRating);
+                world = world.WithPlayer(player, abilities, state, career);
+                _world = world;
+            }
+
+            var (updatedWorld, callUp) = InternationalSystem.ProcessPlayerCallUp(
+                player.Id, nationalTeam.Id, tournamentName, new DateOnly(2026, 9, 1), world, _simRandom);
+
+            _world = updatedWorld;
+
+            if (callUp.Status == CallUpStatus.CalledUp)
+            {
+                _currentSave.InternationalCaps += callUp.CapsEarned;
+                _currentSave.InternationalGoals += callUp.GoalsScored;
+                _currentSave.Energy = Math.Max(10, _currentSave.Energy - 20);
+
+                string msg = $"Called up for {nationalTeam.CountryName}! Earned {callUp.CapsEarned} cap, scored {callUp.GoalsScored} goals in {tournamentName}.";
+                OnInternationalCallUp?.Invoke(msg);
+                OnStatusLog?.Invoke(msg);
+                PublishDaySnapshot(msg);
+                AutoSave();
+                return true;
+            }
+
+            return false;
+        }
+
+        public ContinentalCompetition? GetActiveContinentalCompetition()
+        {
+            var world = GetOrCreateWorld();
+            return world.ActiveContinentalCompetition;
+        }
+
+        public (WorldSeasonResolution SeasonResolution, ContinentalCompetition? ContinentalTournament) AdvanceSeasonWithContinental()
+        {
+            var seasonResolution = AdvanceSeasonWithWorldProgression();
+            var world = GetOrCreateWorld();
+
+            var qualifiedClubs = ContinentalCompetitionSystem.QualifyClubs(
+                world, seasonResolution.LeagueResolutions, slotsPerTopLeague: 4, totalSlots: 32);
+
+            var (finalWorld, completedTournament) = ContinentalCompetitionSystem.SimulateFullTournament(
+                qualifiedClubs, world, _simRandom, "Champions Cup");
+
+            _world = finalWorld;
+
+            string winnerName = finalWorld.Clubs.TryGetValue(completedTournament.WinnerId ?? Guid.Empty, out var wClub)
+                ? wClub.Name
+                : "Unknown";
+
+            string msg = $"Champions Cup concluded! Winner: {winnerName} (£20,000,000 prize awarded).";
+            OnStatusLog?.Invoke(msg);
+            PublishDaySnapshot(msg);
+            AutoSave();
+
+            return (seasonResolution, completedTournament);
+        }
+
+        public ManagerChangeEvent? CheckAndProcessManagerChange(ClubSeasonOutcome outcome)
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+            var world = GetOrCreateWorld();
+
+            var currentClub = world.Clubs.Values.FirstOrDefault(c => c.Name.Equals(_currentSave!.ClubName, StringComparison.OrdinalIgnoreCase));
+            if (currentClub == null) return null;
+
+            float sackProb = ManagerChangeSystem.EvaluateManagerPerformance(currentClub, outcome, world);
+
+            if (_simRandom.NextFloat(0f, 1f) < sackProb)
+            {
+                var (updatedWorld, changeEvent) = ManagerChangeSystem.TriggerManagerChange(
+                    currentClub, ManagerChangeReason.Sacked, world, _simRandom, new DateOnly(2027, 6, 15), _currentSave.PlayerId);
+
+                _world = updatedWorld;
+                _currentSave.ManagerTrust = 50;
+
+                var newManager = updatedWorld.Managers[changeEvent.NewManagerId];
+                string msg = $"New Manager appointed at {currentClub.Name}: {newManager.Name}! Tactical philosophy: {newManager.TacticalStyle}. Manager trust reset to 50.";
+                OnManagerChanged?.Invoke(currentClub.Name, newManager.Name);
+                OnStatusLog?.Invoke(msg);
+                PublishDaySnapshot(msg);
+                AutoSave();
+
+                return changeEvent;
+            }
+
+            return null;
         }
 
         private void EnsureMockSaveForTesting()

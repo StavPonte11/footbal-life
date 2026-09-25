@@ -158,6 +158,10 @@
             </ui:VisualElement>
 
             <ui:VisualElement style="margin-bottom: 10px;">
+                <ui:Button name="btn-continental" text="🏆 Champions Cup" class="btn btn-secondary" style="height: 48px; font-size: 14px; -unity-font-style: bold; background-color: rgba(245, 158, 11, 0.2); border-color: #F59E0B; border-width: 1px;" />
+            </ui:VisualElement>
+
+            <ui:VisualElement style="margin-bottom: 10px;">
                 <ui:Button name="btn-home" text="🏠 Home Apartment" class="btn btn-secondary" style="height: 48px; font-size: 14px; -unity-font-style: bold;" />
             </ui:VisualElement>
 
@@ -189,6 +193,9 @@
 
         <ui:Template name="TransferMarketView" src="project://database/Assets/UI/Views/TransferMarketView.uxml" />
         <ui:Instance template="TransferMarketView" name="transfer-market-instance" />
+
+        <ui:Template name="ContinentalView" src="project://database/Assets/UI/Views/ContinentalView.uxml" />
+        <ui:Instance template="ContinentalView" name="continental-instance" />
 
     </ui:VisualElement>
 </ui:UXML>

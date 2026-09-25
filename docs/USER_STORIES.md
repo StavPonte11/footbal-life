@@ -1892,14 +1892,65 @@ COMPLETED IN PHASE 4:
 
 ---
 
+---
+
+## MILESTONE 5.2 — International Football, Continental Tournaments & Manager Changes ✅ Complete
+
+### Story P5-004: National Team System — Eligibility, Call-Ups, International Tournaments & Career Caps ✅
+**Issue:** #P5-004 | **Layer:** Domain, Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As a footballer, I want to earn call-ups for my national team based on my form, rating, and positional need, compete in international fixtures, accumulate caps and goals, and experience the physical fatigue and prestige rewards of representing my country.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models for international football (`NationalTeam.cs`, `InternationalCallUp.cs`, `InternationalCareer.cs`, `InternationalFixture.cs`, `InternationalTier`).
+- [x] Pure C# Simulation system `InternationalSystem.cs` implementing nationality eligibility matching, national squad selection by rating/form with positional quotas (3 GK, 7 DEF, 7 MID, 6 FWD), dynamic call-up invitations, and international match simulation with caps, goals, and assists.
+- [x] Physical and psychological feedback: fatigue increase (+18 to +25), confidence boost on victory (+6 to +10), and career reputation gain (+3 to +6).
+- [x] Persistence in `CareerSaveData.cs` tracking `InternationalCaps`, `InternationalGoals`, `InternationalAssists`, and `IsRetiredFromInternational`.
+- [x] UI Toolkit presentation in `ProfileView.uxml` with an International Football card displaying national team badge, caps, goals, assists, active call-up status, and action button.
+- [x] Automated unit test suite `InternationalSystemTests.cs` (7 tests) passing with 0 failures.
+
+---
+
+### Story P5-005: Continental Competitions — Champions Cup, Qualification, Group Stage & Knockouts ✅
+**Issue:** #P5-005 | **Layer:** Domain, Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As an elite club footballer, I want my club to qualify for the Champions Cup continental tournament based on league finish, compete in a 32-team group stage and 2-legged knockout bracket, and win prestigious continental glory and massive prize money.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models for continental tournaments (`ContinentalCompetition.cs`, `ContinentalFixture.cs`, `ContinentalGroupStanding.cs`, `ContinentalStage`).
+- [x] Pure C# Simulation system `ContinentalCompetitionSystem.cs` managing 32-club tournament setup with 8 groups of 4 (with same-league avoidance where possible), home/away round-robin group stage resolution (6 matchdays), and 2-legged knockout bracket (RO16, Quarter-Finals, Semi-Finals, and Final).
+- [x] Knockout aggregate resolution with away goals / extra time and penalty shootouts if aggregate scores are tied.
+- [x] Financial rewards: £50,000,000 champion prize money distributed to the winning club's budget and prize money for runner-up (£30M) and semi-finalists (£15M).
+- [x] Full UI Toolkit screen `ContinentalView.uxml` and controller `ContinentalViewController.cs` presenting Groups A-H standings, knockout bracket tree, player's club status, and interactive match simulation button.
+- [x] Integrated into `CareerHubView.uxml` with quick header button (`btn-quick-continental`), action grid button (`btn-continental`), and overlay coordinator handling in `CareerHubCoordinator.cs`.
+- [x] Automated unit test suite `ContinentalCompetitionSystemTests.cs` (5 tests) passing with 0 failures.
+
+---
+
+### Story P5-006: Manager Change System — Manager Sacking, Hiring & Tactical Trust Reset ✅
+**Issue:** #P5-006 | **Layer:** Domain, Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As a footballer, I want clubs to hold managers accountable with sackings when performance falls below expectations, appoint new managers with distinct tactical identities, and reset my manager trust so I must prove myself again to the new boss.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models for managerial appointments and sackings (`ManagerChangeEvent.cs`, `ManagerReason`).
+- [x] Pure C# Simulation system `ManagerChangeSystem.cs` evaluating seasonal performance against board expectations and patience, calculating sacking probability, and appointing a new manager from tier-appropriate names, tactical identities (Attacking, Possessional, Counter, Direct, Defensive), and trust tolerances.
+- [x] Dynamic player impact: player manager trust resets to neutral (50.0) upon a managerial change, requiring the player to earn starting status through training and performances.
+- [x] Real-time event propagation via `SimulationBridge.OnManagerChanged` updating player identity, hub header, and manager trust indicators.
+- [x] Manager change history logged in `WorldState.ManagerChangeHistory`.
+- [x] Automated unit test suite `ManagerChangeSystemTests.cs` (6 tests) passing with 0 failures.
+
+---
+
 ## Phase 5 Issue Status Overview
 
 ```
 ACTIVE IN PHASE 5 (Career World):
   Milestone 5.1:    P5-001 (#159), P5-002 (#160), P5-003 (#161) (World Sim, League Hierarchy & Transfers) ✅ Complete
-  Milestone 5.2:    P5-004, P5-005, P5-006 (International Football & Continental Tournaments) ⏳ Next Focus
-  Milestone 5.3:    P5-007, P5-008, P5-009 (Dynamic Rivalries, Manager AI & Career Longevity) ⏳ Planned
+  Milestone 5.2:    P5-004, P5-005, P5-006 (International Football & Continental Tournaments) ✅ Complete
+  Milestone 5.3:    P5-007, P5-008, P5-009 (Endorsements, Career Longevity & Legacy) ⏳ Next Focus
 ```
+
 
 
 

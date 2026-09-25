@@ -264,5 +264,21 @@ namespace FootballLife.Domain
         {
             return this with { LeagueId = leagueId };
         }
+
+        /// <summary>
+        /// Updates the manager assigned to the club, returning a new immutable Club instance.
+        /// </summary>
+        public Club WithManager(Guid? managerId)
+        {
+            return this with { ManagerId = managerId };
+        }
+
+        /// <summary>
+        /// Updates the finances of the club, returning a new immutable Club instance.
+        /// </summary>
+        public Club WithFinances(ClubFinances finances)
+        {
+            return this with { Finances = finances ?? throw new ArgumentNullException(nameof(finances)) };
+        }
     }
 }

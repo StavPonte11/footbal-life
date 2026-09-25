@@ -41,6 +41,22 @@ namespace FootballLife.Domain
         /// Active and historical transfer offers submitted in the simulated world.
         /// </summary>
         public IReadOnlyDictionary<Guid, TransferOffer> TransferOffers { get; init; }
+        /// <summary>
+        /// National teams competing in international football.
+        /// </summary>
+        public IReadOnlyDictionary<Guid, NationalTeam> NationalTeams { get; init; }
+        /// <summary>
+        /// Player international careers, keyed by PlayerId.
+        /// </summary>
+        public IReadOnlyDictionary<Guid, InternationalCareer> InternationalCareers { get; init; }
+        /// <summary>
+        /// Active continental tournament instance (e.g. Champions Cup), or null if none active.
+        /// </summary>
+        public ContinentalCompetition? ActiveContinentalCompetition { get; init; }
+        /// <summary>
+        /// Historical log of manager change events.
+        /// </summary>
+        public IReadOnlyList<ManagerChangeEvent> ManagerChangeHistory { get; init; }
         public Season CurrentSeason { get; init; }
 
         public WorldState(
@@ -57,7 +73,11 @@ namespace FootballLife.Domain
             IReadOnlyDictionary<Guid, FinanceAccount>? accounts = null,
             IReadOnlyDictionary<string, DateOnly>? eventCooldowns = null,
             IReadOnlyDictionary<Guid, Relationship>? relationships = null,
-            IReadOnlyDictionary<Guid, TransferOffer>? transferOffers = null)
+            IReadOnlyDictionary<Guid, TransferOffer>? transferOffers = null,
+            IReadOnlyDictionary<Guid, NationalTeam>? nationalTeams = null,
+            IReadOnlyDictionary<Guid, InternationalCareer>? internationalCareers = null,
+            ContinentalCompetition? activeContinentalCompetition = null,
+            IReadOnlyList<ManagerChangeEvent>? managerChangeHistory = null)
         {
             Clubs = clubs ?? throw new ArgumentNullException(nameof(clubs));
             Players = players ?? throw new ArgumentNullException(nameof(players));
@@ -73,6 +93,10 @@ namespace FootballLife.Domain
             EventCooldowns = eventCooldowns ?? new ReadOnlyDictionary<string, DateOnly>(new Dictionary<string, DateOnly>());
             Relationships = relationships ?? new ReadOnlyDictionary<Guid, Relationship>(new Dictionary<Guid, Relationship>());
             TransferOffers = transferOffers ?? new ReadOnlyDictionary<Guid, TransferOffer>(new Dictionary<Guid, TransferOffer>());
+            NationalTeams = nationalTeams ?? new ReadOnlyDictionary<Guid, NationalTeam>(new Dictionary<Guid, NationalTeam>());
+            InternationalCareers = internationalCareers ?? new ReadOnlyDictionary<Guid, InternationalCareer>(new Dictionary<Guid, InternationalCareer>());
+            ActiveContinentalCompetition = activeContinentalCompetition;
+            ManagerChangeHistory = managerChangeHistory ?? Array.Empty<ManagerChangeEvent>();
         }
 
         /// <summary>
@@ -94,7 +118,11 @@ namespace FootballLife.Domain
                 new ReadOnlyDictionary<Guid, FinanceAccount>(new Dictionary<Guid, FinanceAccount>()),
                 new ReadOnlyDictionary<string, DateOnly>(new Dictionary<string, DateOnly>()),
                 new ReadOnlyDictionary<Guid, Relationship>(new Dictionary<Guid, Relationship>()),
-                new ReadOnlyDictionary<Guid, TransferOffer>(new Dictionary<Guid, TransferOffer>()));
+                new ReadOnlyDictionary<Guid, TransferOffer>(new Dictionary<Guid, TransferOffer>()),
+                new ReadOnlyDictionary<Guid, NationalTeam>(new Dictionary<Guid, NationalTeam>()),
+                new ReadOnlyDictionary<Guid, InternationalCareer>(new Dictionary<Guid, InternationalCareer>()),
+                null,
+                Array.Empty<ManagerChangeEvent>());
         }
 
         // ─── Query & Lookup Methods ───────────────────────────────────────────
@@ -293,6 +321,17 @@ namespace FootballLife.Domain
             return this with { Clubs = new ReadOnlyDictionary<Guid, Club>(newClubs) };
         }
 
+        public WorldState WithClubs(IEnumerable<Club> clubs)
+        {
+            if (clubs is null) throw new ArgumentNullException(nameof(clubs));
+            var newClubs = new Dictionary<Guid, Club>(Clubs);
+            foreach (var c in clubs)
+            {
+                newClubs[c.Id] = c;
+            }
+            return this with { Clubs = new ReadOnlyDictionary<Guid, Club>(newClubs) };
+        }
+
         public WorldState WithLeague(League league)
         {
             if (league is null) throw new ArgumentNullException(nameof(league));
@@ -438,6 +477,79 @@ namespace FootballLife.Domain
             var newOffers = new Dictionary<Guid, TransferOffer>(TransferOffers);
             newOffers.Remove(offerId);
             return this with { TransferOffers = new ReadOnlyDictionary<Guid, TransferOffer>(newOffers) };
+        }
+
+        // ─── International Football & National Team Helpers ───────────────────
+
+        public NationalTeam GetNationalTeam(Guid id)
+        {
+            if (NationalTeams.TryGetValue(id, out var team)) return team;
+            throw new KeyNotFoundException($"NationalTeam with ID '{id}' was not found in WorldState.");
+        }
+
+        public WorldState WithNationalTeam(NationalTeam nationalTeam)
+        {
+            if (nationalTeam is null) throw new ArgumentNullException(nameof(nationalTeam));
+            var newTeams = new Dictionary<Guid, NationalTeam>(NationalTeams) { [nationalTeam.Id] = nationalTeam };
+            return this with { NationalTeams = new ReadOnlyDictionary<Guid, NationalTeam>(newTeams) };
+        }
+
+        public WorldState WithNationalTeams(IEnumerable<NationalTeam> nationalTeams)
+        {
+            if (nationalTeams is null) throw new ArgumentNullException(nameof(nationalTeams));
+            var newTeams = new Dictionary<Guid, NationalTeam>(NationalTeams);
+            foreach (var team in nationalTeams)
+            {
+                newTeams[team.Id] = team;
+            }
+            return this with { NationalTeams = new ReadOnlyDictionary<Guid, NationalTeam>(newTeams) };
+        }
+
+        public InternationalCareer? GetPlayerInternationalCareer(Guid playerId)
+        {
+            return InternationalCareers.TryGetValue(playerId, out var career) ? career : null;
+        }
+
+        public WorldState WithInternationalCareer(InternationalCareer career)
+        {
+            if (career is null) throw new ArgumentNullException(nameof(career));
+            var newCareers = new Dictionary<Guid, InternationalCareer>(InternationalCareers) { [career.PlayerId] = career };
+            return this with { InternationalCareers = new ReadOnlyDictionary<Guid, InternationalCareer>(newCareers) };
+        }
+
+        public WorldState WithInternationalCareers(IEnumerable<InternationalCareer> careers)
+        {
+            if (careers is null) throw new ArgumentNullException(nameof(careers));
+            var newCareers = new Dictionary<Guid, InternationalCareer>(InternationalCareers);
+            foreach (var career in careers)
+            {
+                newCareers[career.PlayerId] = career;
+            }
+            return this with { InternationalCareers = new ReadOnlyDictionary<Guid, InternationalCareer>(newCareers) };
+        }
+
+        // ─── Continental Competition Helpers ──────────────────────────────────
+
+        public WorldState WithActiveContinentalCompetition(ContinentalCompetition? competition)
+        {
+            return this with { ActiveContinentalCompetition = competition };
+        }
+
+        // ─── Manager Change Helpers ───────────────────────────────────────────
+
+        public WorldState WithManagerChangeEvent(ManagerChangeEvent changeEvent)
+        {
+            if (changeEvent is null) throw new ArgumentNullException(nameof(changeEvent));
+            var newHistory = new List<ManagerChangeEvent>(ManagerChangeHistory) { changeEvent };
+            return this with { ManagerChangeHistory = newHistory };
+        }
+
+        public WorldState WithManagerChangeHistory(IEnumerable<ManagerChangeEvent> history)
+        {
+            if (history is null) throw new ArgumentNullException(nameof(history));
+            var newHistory = new List<ManagerChangeEvent>(ManagerChangeHistory);
+            newHistory.AddRange(history);
+            return this with { ManagerChangeHistory = newHistory };
         }
     }
 }
