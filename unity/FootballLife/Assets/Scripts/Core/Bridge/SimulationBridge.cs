@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FootballLife.Domain;
 using FootballLife.Simulation;
 using FootballLife.Simulation.Persistence;

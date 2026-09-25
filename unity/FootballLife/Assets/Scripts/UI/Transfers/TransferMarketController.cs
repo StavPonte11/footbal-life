@@ -257,7 +257,10 @@ namespace FootballLife.Unity.UI.Transfers
                     borderTopRightRadius = 8,
                     borderBottomLeftRadius = 8,
                     borderBottomRightRadius = 8,
-                    borderWidth = 0,
+                    borderTopWidth = 0,
+                    borderRightWidth = 0,
+                    borderBottomWidth = 0,
+                    borderLeftWidth = 0,
                     marginRight = 8
                 }
             };
@@ -279,7 +282,10 @@ namespace FootballLife.Unity.UI.Transfers
                     borderTopRightRadius = 8,
                     borderBottomLeftRadius = 8,
                     borderBottomRightRadius = 8,
-                    borderWidth = 0
+                    borderTopWidth = 0,
+                    borderRightWidth = 0,
+                    borderBottomWidth = 0,
+                    borderLeftWidth = 0
                 }
             };
 

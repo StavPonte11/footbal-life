@@ -272,7 +272,7 @@ namespace FootballLife.Unity.UI.Hub
         }
 
         // ── Private: Identity ─────────────────────────────────────────────────
-        private void RefreshIdentity()
+        public void RefreshIdentity()
         {
             var save = _bridge?.CurrentSave;
             if (save == null) return;
