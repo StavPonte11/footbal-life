@@ -39,6 +39,7 @@ namespace FootballLife.Unity.Editor
         private const string kMatchPreviewUxml = "Assets/UI/Views/MatchPreviewView.uxml";
         private const string kMatchGameUxml    = "Assets/UI/Views/MatchGameView.uxml";
         private const string kMatchPostUxml    = "Assets/UI/Views/MatchPostView.uxml";
+        private const string kMatchHudUxml     = "Assets/UI/Views/MatchHUDView.uxml";
         private const string kSeasonSummaryUxml    = "Assets/UI/Views/SeasonSummaryView.uxml";
         private const string kAttributeGrowthUxml  = "Assets/UI/Views/AttributeGrowthView.uxml";
         private const string kTransferWindowUxml   = "Assets/UI/Views/TransferWindowView.uxml";
@@ -342,6 +343,39 @@ namespace FootballLife.Unity.Editor
             var previewAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(kMatchPreviewUxml);
             if (previewAsset != null) existingDoc.visualTreeAsset = previewAsset;
 
+            // ── In-Game 3D Match HUD (#P3-010, #P3-011) ────────────────────────
+            var hudTransform = uiRoot.transform.Find("UIDocument_MatchHUD");
+            GameObject hudGo;
+            UIDocument hudDoc;
+            if (hudTransform == null)
+            {
+                hudGo = new GameObject("UIDocument_MatchHUD");
+                hudGo.transform.SetParent(uiRoot.transform, false);
+                hudDoc = hudGo.AddComponent<UIDocument>();
+            }
+            else
+            {
+                hudGo = hudTransform.gameObject;
+                hudDoc = hudGo.GetComponent<UIDocument>() ?? hudGo.AddComponent<UIDocument>();
+            }
+
+            if (panelSettings != null) hudDoc.panelSettings = panelSettings;
+            var hudAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(kMatchHudUxml);
+            if (hudAsset != null) hudDoc.visualTreeAsset = hudAsset;
+
+            var hudCtrlType = System.Type.GetType("FootballLife.Unity.UI.Match.MatchHUDController, FootballLife.Unity.UI");
+            MonoBehaviour? hudCtrl = null;
+            if (hudCtrlType != null)
+            {
+                hudCtrl = hudGo.GetComponent(hudCtrlType) as MonoBehaviour;
+                if (hudCtrl == null)
+                {
+                    hudCtrl = hudGo.AddComponent(hudCtrlType) as MonoBehaviour;
+                }
+            }
+            hudGo.SetActive(true);
+            Debug.Log("[FullSceneSetup] Match: Configured UIDocument_MatchHUD with MatchHUDController.");
+
             var coordType = System.Type.GetType("FootballLife.Unity.UI.Match.MatchCoordinator, FootballLife.Unity.UI");
             if (coordType != null)
             {
@@ -353,8 +387,9 @@ namespace FootballLife.Unity.Editor
                 SetSerializedAsset(so, "_matchPreviewAsset", kMatchPreviewUxml);
                 SetSerializedAsset(so, "_matchGameAsset",    kMatchGameUxml);
                 SetSerializedAsset(so, "_matchPostAsset",    kMatchPostUxml);
+                if (hudCtrl != null) SetSerializedRef(so, "_hudController", hudCtrl);
                 so.ApplyModifiedProperties();
-                Debug.Log("[FullSceneSetup] Match: Configured MatchCoordinator with all UXML refs.");
+                Debug.Log("[FullSceneSetup] Match: Configured MatchCoordinator with all UXML & HUD refs.");
             }
 
             EditorSceneManager.MarkSceneDirty(scene);

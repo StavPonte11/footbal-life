@@ -29,10 +29,14 @@ class UnityMcpClient:
 
             raw_body = resp.read().decode("utf-8")
             # Parse SSE format: event: message\ndata: {...}
+            final_data = None
             for line in raw_body.splitlines():
                 if line.startswith("data: "):
-                    return json.loads(line[6:])
-            return {"raw": raw_body}
+                    msg = json.loads(line[6:])
+                    if "result" in msg or "error" in msg:
+                        return msg
+                    final_data = msg
+            return final_data or {"raw": raw_body}
 
     def initialize(self):
         payload = {
