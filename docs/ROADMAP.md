@@ -253,13 +253,14 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P2-013 (#115) | Career screen: club, squad status, manager trust, contract, stats | Unity/UI | M | ✅ Complete |
 | #P2-014 (#116) | Profile screen: attributes separated from current state, development visual | Unity/UI | M | ✅ Complete |
 
-### Milestone 2.5 — Match Preview & Basic Match
+### Milestone 2.5 — Match Preview & Basic Match ✅ (Complete)
+*Branch: `feature/milestone-2.5-match-system` | Issues #118–#120*
 
-| Issue | User Story | Layer | Complexity |
-|---|---|---|---|
-| #P2-015 | Match preview screen: opponent, competition, role, manager expectations | Unity/UI | M |
-| #P2-016 | Abstracted match screen: situation cards, player choices, outcome text | Unity/UI | L |
-| #P2-017 | Post-match summary: rating, goal/assist, manager reaction, trust delta | Unity/UI | M |
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P2-015 (#118) | Match preview screen: opponent, competition, role, manager expectations | Unity/UI | M | ✅ Complete |
+| #P2-016 (#119) | Abstracted match screen: situation cards, player choices, outcome text | Unity/UI | L | ✅ Complete |
+| #P2-017 (#120) | Post-match summary: rating, goal/assist, manager reaction, trust delta | Unity/UI | M | ✅ Complete |
 
 ### Milestone 2.6 — End-of-Season Screen
 

@@ -1402,6 +1402,48 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 - [x] Pure presentation bound to `CareerSaveData` via `ProfileController.cs`
 - [x] Interactive tab switching between Career Overview and Player Profile views
 
+### Milestone 2.5: Match Preview & Basic Match
+
+#### #P2-015 — Match Preview Screen
+**Issue:** #118 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a player on match day, I want to see a tactical match preview showing opponent details, competition context, my squad role, and manager expectations before kicking off.
+
+**Acceptance Criteria:**
+- [x] UI Toolkit layout (`MatchPreviewView.uxml`) using App UI dark sports design tokens
+- [x] Opponent Card: Home vs Away club names, badge initials, competition fixture label, venue badge
+- [x] Player Context Card: Starting role badge, primary position, preferred foot, energy %, form %
+- [x] Manager Tactical Briefing Card: Concrete match objective (e.g. win by +1 goal) and tactical instruction
+- [x] Action Buttons: "Kick Off Match" (`btn-kickoff`) and "Back / Cancel" (`btn-preview-back`)
+- [x] Pure presentation bound to `MatchOpportunitySnapshot` and `CareerSaveData` via `MatchPreviewController.cs`
+
+#### #P2-016 — Abstracted Match Screen
+**Issue:** #119 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a player during a match, I want an interactive match situation interface with a live scoreboard, match clock, situation cards, tactical choices, and simulation-resolved outcomes.
+
+**Acceptance Criteria:**
+- [x] UI Toolkit layout (`MatchGameView.uxml`) using App UI dark sports design tokens
+- [x] Live Scoreboard: Home/away club names, live scores, match clock (e.g. 18'), commentary ticker
+- [x] Situation Card: Dynamic situation title, narrative text, pressure badge, advantage badge
+- [x] 3 Player Action Choices: Contextual action buttons with risk indicators
+- [x] Simulation Resolution: Pure simulation outcome computation via `ActionResolver` and `SimulationRandom`
+- [x] Resolution Card: Outcome badge, narrative breakdown, match rating delta, confidence delta, "Next Moment" button
+- [x] Live Player Stats: Real-time match rating, goals, and assists updated dynamically
+
+#### #P2-017 — Post-Match Summary Screen
+**Issue:** #120 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a player after the final whistle, I want a post-match breakdown displaying the full-time result, my match rating, goals and assists, manager reaction, attribute/vital deltas, and automated progress saving.
+
+**Acceptance Criteria:**
+- [x] UI Toolkit layout (`MatchPostView.uxml`) using App UI dark sports design tokens
+- [x] Final Result Card: Match outcome tag (VICTORY 🏆, DRAW ⚖️, DEFEAT), final scoreline, competition label
+- [x] Individual Performance Card: Large match rating (e.g. 8.10 ★), goals, assists, key actions, errors
+- [x] Manager Dressing Room Reaction: Context-sensitive manager quote based on rating and scoreline
+- [x] Attribute & Vital Deltas: Manager trust delta (+/-), player form delta (+/-), match energy expenditure (-25)
+- [x] Simulation & Persistence: Invokes `SimulationBridge.RecordMatchResult`, updates career stats (`TotalAppearances`, `TotalGoals`), auto-saves career state, returns cleanly to `CareerHub`
+
 ---
 
 ## Phase 2 Issue Status Overview
@@ -1412,12 +1454,12 @@ COMPLETED:
   Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)       ✅ Complete (Issues #102–#104)
   Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)    ✅ Complete (Issues #106–#109)
   Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)    ✅ Complete (Issues #115–#116)
+  Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)✅ Complete (Issues #118–#120)
 
 ACTIVE MILESTONE:
-  Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)
+  Milestone 2.6:    P2-018 → P2-020   (End-of-Season & Transfers)
 
 UPCOMING MILESTONES:
-  Milestone 2.6:    P2-018 → P2-020   (Post-Match & Season Summary)
   Milestone 2.7:    P2-021 → P2-023   (Prototype Playtest & Gate 2.1)
 ```
 

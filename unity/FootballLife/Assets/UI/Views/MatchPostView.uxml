@@ -1,0 +1,112 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- ====================================================
+             APP BAR: Full Time Header
+             ==================================================== -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:Label text="Full Time Summary" class="text-title" style="font-size: 16px; -unity-font-style: bold;" />
+            <ui:Label name="label-post-result-tag" text="VICTORY 🏆" class="badge badge-green" style="font-size: 11px;" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             SCROLLABLE BODY
+             ==================================================== -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- ── FINAL SCORE CARD ──────────────────────────── -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 12px; align-items: center; padding-top: 16px; padding-bottom: 16px;">
+                <ui:Label text="FULL TIME · 90&apos;" class="text-caption" style="font-size: 11px; margin-bottom: 8px; letter-spacing: 1px;" />
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-around; align-items: center; width: 100%;">
+                    <ui:VisualElement style="align-items: center; flex: 1;">
+                        <ui:Label name="label-post-home-team" text="Northfield Town" class="text-title" style="font-size: 14px; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px; margin-left: 10px; margin-right: 10px;">
+                        <ui:Label name="label-post-home-score" text="2" style="font-size: 28px; -unity-font-style: bold; color: #FFFFFF;" />
+                        <ui:Label text="-" style="font-size: 22px; color: var(--fl-color-text-muted);" />
+                        <ui:Label name="label-post-away-score" text="1" style="font-size: 28px; -unity-font-style: bold; color: #FFFFFF;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="align-items: center; flex: 1;">
+                        <ui:Label name="label-post-away-team" text="Westford United" class="text-title" style="font-size: 14px; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement style="height: 1px; background-color: var(--fl-color-border); width: 100%; margin-top: 12px; margin-bottom: 8px;" />
+                <ui:Label name="label-post-competition" text="Division 4 · League Fixture" class="text-accent" style="font-size: 11px;" />
+            </ui:VisualElement>
+
+            <!-- ── PLAYER PERFORMANCE RATING CARD ────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="⭐ Player Performance" class="text-title" style="font-size: 14px;" />
+                    <ui:Label name="label-post-rating" text="7.80 ★" class="badge badge-gold" style="font-size: 13px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-around; margin-top: 8px; margin-bottom: 6px;">
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-post-goals" text="1" class="text-accent" style="font-size: 20px; -unity-font-style: bold;" />
+                        <ui:Label text="Goals" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-post-assists" text="1" class="text-title" style="font-size: 20px; -unity-font-style: bold; color: #38BDF8;" />
+                        <ui:Label text="Assists" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-post-keyactions" text="2" class="text-title" style="font-size: 20px; -unity-font-style: bold; color: #A78BFA;" />
+                        <ui:Label text="Key Actions" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-post-errors" text="0" class="text-title" style="font-size: 20px; -unity-font-style: bold; color: var(--fl-color-text-muted);" />
+                        <ui:Label text="Errors" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── MANAGER &amp; LOCKER ROOM FEEDBACK CARD ───── -->
+            <ui:VisualElement class="card" style="margin-bottom: 16px; border-color: rgba(16, 185, 129, 0.4);">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="🗣️ Manager&apos;s Post-Match Reaction" class="text-title" style="font-size: 14px;" />
+                    <ui:Label text="LOCKER ROOM" class="badge badge-slate" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <ui:Label name="label-post-manager-quote" text="&quot;Outstanding performance today! You created chances, finished your opportunity clinically, and worked relentlessly for the team.&quot;" class="text-subtitle" style="font-size: 13px; line-height: 20px; white-space: normal; -unity-font-style: italic; margin-bottom: 12px;" />
+
+                <ui:VisualElement class="stat-row">
+                    <ui:Label text="Manager Trust" class="text-caption" />
+                    <ui:Label name="val-post-trust-delta" text="+8 Trust (Now 58 / 100)" class="text-accent" style="font-size: 12px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row">
+                    <ui:Label text="Form Impact" class="text-caption" />
+                    <ui:Label name="val-post-form-delta" text="+5 Form (Now 75%)" class="text-gold" style="font-size: 12px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row" style="border-bottom-width: 0;">
+                    <ui:Label text="Match Fatigue" class="text-caption" />
+                    <ui:Label name="val-post-energy-cost" text="-25 Energy (Now 75%)" class="text-caption" style="font-size: 12px; color: #EF4444; -unity-font-style: bold;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── RETURN ACTION ─────────────────────────────── -->
+            <ui:Button name="btn-return-hub" text="Return to Daily Hub →" class="btn btn-primary" style="height: 52px; font-size: 15px; -unity-font-style: bold;" />
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>

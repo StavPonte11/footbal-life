@@ -1,0 +1,100 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- ====================================================
+             APP BAR: Matchday header
+             ==================================================== -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:Button name="btn-preview-back" text="← Hub" class="btn btn-ghost" style="font-size: 13px; padding-left: 8px; padding-right: 8px;" />
+            <ui:Label text="Match Preview" class="text-title" style="font-size: 16px; -unity-font-style: bold;" />
+            <ui:Label name="label-venue-badge" text="HOME MATCH" class="badge badge-green" style="font-size: 10px;" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             SCROLLABLE CONTENT
+             ==================================================== -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- ── MATCHUP CARD ──────────────────────────────── -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 12px; align-items: center; padding-top: 20px; padding-bottom: 20px;">
+                <ui:Label name="label-competition" text="DIVISION 4 · MATCHDAY FIXTURE" class="text-accent" style="font-size: 12px; -unity-font-style: bold; margin-bottom: 14px; letter-spacing: 1px;" />
+
+                <ui:VisualElement style="flex-direction: row; align-items: center; justify-content: space-around; width: 100%;">
+                    <!-- Home Club -->
+                    <ui:VisualElement style="align-items: center; flex: 1;">
+                        <ui:VisualElement style="width: 52px; height: 52px; border-radius: 26px; background-color: var(--fl-color-primary); align-items: center; justify-content: center; margin-bottom: 8px;">
+                            <ui:Label name="label-home-initial" text="N" style="color: #FFFFFF; font-size: 24px; -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                        <ui:Label name="label-home-club" text="NORTHFIELD TOWN" class="text-title" style="font-size: 14px; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="Home Team" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <!-- VS Badge -->
+                    <ui:VisualElement style="align-items: center; margin-left: 8px; margin-right: 8px;">
+                        <ui:Label text="VS" class="badge badge-gold" style="font-size: 14px; padding-left: 12px; padding-right: 12px; padding-top: 6px; padding-bottom: 6px;" />
+                    </ui:VisualElement>
+
+                    <!-- Away Club -->
+                    <ui:VisualElement style="align-items: center; flex: 1;">
+                        <ui:VisualElement style="width: 52px; height: 52px; border-radius: 26px; background-color: #3B82F6; align-items: center; justify-content: center; margin-bottom: 8px;">
+                            <ui:Label name="label-away-initial" text="W" style="color: #FFFFFF; font-size: 24px; -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                        <ui:Label name="label-away-club" text="WESTFORD UNITED" class="text-title" style="font-size: 14px; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="Away Team" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement style="height: 1px; background-color: var(--fl-color-border); width: 100%; margin-top: 16px; margin-bottom: 12px;" />
+                <ui:Label text="🏟️ Northfield Community Stadium · Capacity 8,500" class="text-caption" style="font-size: 11px;" />
+            </ui:VisualElement>
+
+            <!-- ── SQUAD SELECTION &amp; ROLE CARD ────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="👕 Your Squad Selection" class="text-title" style="font-size: 14px;" />
+                    <ui:Label name="label-role-badge" text="FIRST TEAM STARTER" class="badge badge-green" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row">
+                    <ui:Label text="Assigned Position" class="text-caption" />
+                    <ui:Label name="label-player-position" text="Striker (ST)" class="text-subtitle" style="font-size: 13px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row">
+                    <ui:Label text="Current Match Fitness" class="text-caption" />
+                    <ui:Label name="label-player-energy" text="100% Energy" class="text-accent" style="font-size: 13px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="stat-row" style="border-bottom-width: 0;">
+                    <ui:Label text="Current Form" class="text-caption" />
+                    <ui:Label name="label-player-form" text="70% (Match Sharp)" class="text-gold" style="font-size: 13px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── TACTICAL BRIEFING CARD ────────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 16px; border-color: rgba(245, 158, 11, 0.4);">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="📋 Manager's Tactical Briefing" class="text-title" style="font-size: 14px;" />
+                    <ui:Label text="OBJECTIVE" class="badge badge-gold" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <ui:Label name="label-tactical-objective" text="Target: Secure 3 points with a positive goal difference (+1)." class="text-subtitle" style="font-size: 13px; -unity-font-style: bold; margin-bottom: 6px;" />
+                <ui:Label name="label-tactical-briefing" text="Westford United play an expansive style with a high defensive line. Attack the half-spaces, make incisive runs in behind, and test their goalkeeper early." class="text-caption" style="font-size: 12px; line-height: 18px; margin-bottom: 8px; white-space: normal;" />
+
+                <ui:VisualElement style="background-color: var(--fl-color-surface-elevated); padding: 8px; border-radius: var(--fl-radius-md); border-width: 1px; border-color: var(--fl-color-border);">
+                    <ui:Label text="💡 Tip: Balanced decisions yield steady manager trust, while high-risk choices can turn the match into a memorable victory." class="text-caption" style="font-size: 11px; color: #94A3B8; white-space: normal;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── KICK OFF ACTION ───────────────────────────── -->
+            <ui:Button name="btn-kickoff" text="⚡ KICK OFF MATCH" class="btn btn-primary" style="height: 52px; font-size: 15px; -unity-font-style: bold; margin-bottom: 10px;" />
+            <ui:Button name="btn-preview-cancel" text="Return to Daily Hub" class="btn btn-secondary" style="height: 44px; font-size: 13px;" />
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>

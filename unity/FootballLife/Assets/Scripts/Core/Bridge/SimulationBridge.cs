@@ -110,6 +110,7 @@ namespace FootballLife.Unity.Core.Bridge
         public bool IsCareerActive => _currentSave != null;
         public CareerSaveData? CurrentSave => _currentSave;
         public SaveLoadManager SaveManager => _saveLoadManager ??= new SaveLoadManager();
+        public MatchOpportunitySnapshot? CurrentMatchOpportunity { get; set; }
 
         // High-frequency UI presentation events
         public event Action<SimulationDaySnapshot>? OnDayAdvanced;
@@ -237,12 +238,14 @@ namespace FootballLife.Unity.Core.Bridge
             if (_currentDayOfWeek == 6)
             {
                 status = "Match Day! Generating match opportunity.";
-                OnMatchOpportunity?.Invoke(new MatchOpportunitySnapshot(
+                var matchOpp = new MatchOpportunitySnapshot(
                     opponentName: "Westford United",
                     competition: "Division 4",
                     isHome: true,
                     squadRole: _currentSave.SquadRole,
-                    targetScoreDiff: 1));
+                    targetScoreDiff: 1);
+                CurrentMatchOpportunity = matchOpp;
+                OnMatchOpportunity?.Invoke(matchOpp);
             }
             // Sunday (Day 7) completes the week cycle
             else if (_currentDayOfWeek > 7)
@@ -342,6 +345,49 @@ namespace FootballLife.Unity.Core.Bridge
 
             OnDayAdvanced?.Invoke(snapshot);
             OnStatusLog?.Invoke(message);
+        }
+
+        /// <summary>
+        /// Records match results, updates player statistics, applies condition changes, and auto-saves.
+        /// </summary>
+        public void RecordMatchResult(
+            int playerGoals,
+            int playerAssists,
+            double matchRating,
+            int homeScore,
+            int awayScore,
+            int managerTrustDelta = 5,
+            int formDelta = 4,
+            int moraleDelta = 5,
+            int energyCost = 25)
+        {
+            if (_currentSave == null) return;
+
+            _currentSave.TotalAppearances++;
+            _currentSave.TotalGoals += playerGoals;
+            _currentSave.TotalAssists += playerAssists;
+
+            if (_currentSave.TotalAppearances == 1)
+            {
+                _currentSave.AverageRating = Math.Round(matchRating, 2);
+            }
+            else
+            {
+                double prevTotal = _currentSave.AverageRating * (_currentSave.TotalAppearances - 1);
+                _currentSave.AverageRating = Math.Round((prevTotal + matchRating) / _currentSave.TotalAppearances, 2);
+            }
+
+            _currentSave.Energy = Math.Max(10, _currentSave.Energy - energyCost);
+            _currentSave.Form = Math.Clamp(_currentSave.Form + formDelta, 0, 100);
+            _currentSave.Morale = Math.Clamp(_currentSave.Morale + moraleDelta, 0, 100);
+            _currentSave.ManagerTrust = Math.Clamp(_currentSave.ManagerTrust + managerTrustDelta, 0, 100);
+
+            string outcomeStr = homeScore > awayScore ? "Won" : (homeScore == awayScore ? "Drew" : "Lost");
+            string logMsg = $"Match complete! {outcomeStr} ({homeScore}-{awayScore}). Rating: {matchRating:F2}. Goals: {playerGoals}.";
+            OnStatusLog?.Invoke(logMsg);
+
+            AutoSave();
+            PublishDaySnapshot(logMsg);
         }
     }
 }
