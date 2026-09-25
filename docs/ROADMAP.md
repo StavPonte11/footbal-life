@@ -359,16 +359,28 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 ## Phase 5 — Career World
 **Goal:** A living football world that evolves independently of the player's club.
 
-| Issue | User Story | Layer |
-|---|---|---|
-| #P5-001 | World simulation: other players develop/decline/transfer each season | Simulation |
-| #P5-002 | Transfer window: multiple clubs can bid, player can initiate interest | Simulation |
-| #P5-003 | Multiple leagues: different prestige, salary ranges, competition quality | Domain |
-| #P5-004 | National team system: eligibility, call-ups, international career | Simulation |
-| #P5-005 | Manager change system: new manager may reset trust | Simulation |
-| #P5-006 | Sponsorship system: reputation-gated endorsement income | Simulation |
-| #P5-007 | Retirement arc: late-career decline, retirement decision | Simulation |
-| #P5-008 | Legacy system: hall of fame, career grade, post-retirement summary | Domain |
+### Milestone 5.1: World Simulation, Multi-Tier League Hierarchy & Dynamic Transfer Market ✅ (Complete)
+*Branch: `feature/milestone-5.1-world-simulation-transfers` | Issues #159, #160, #161*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P5-001 (#159) | World simulation: NPC player development/aging/decline, squad replenishment, league progression | Simulation | L | ✅ Complete |
+| #P5-002 (#160) | Transfer market: multi-club bidding wars, transfer requests & Transfer Market UI | Domain/Simulation/UI | L | ✅ Complete |
+| #P5-003 (#161) | Multi-tier league ecosystem: division prestige, wage scaling, promotion & relegation | Domain/Simulation/UI | M | ✅ Complete |
+
+### Milestone 5.2: International Football & Continental Tournaments (Upcoming)
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P5-004 | National team system: eligibility, call-ups, international career | Simulation | L | ⏳ Next |
+| #P5-005 | Continental competitions: Champions Cup, continental qualification & fixtures | Domain/Simulation | L | ⏳ Planned |
+| #P5-006 | Manager change system: new manager hiring, style & trust reset | Simulation | M | ⏳ Planned |
+
+### Milestone 5.3: Endorsements, Career Longevity & Legacy (Upcoming)
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P5-007 | Sponsorship system: reputation-gated endorsement deals & commercial perks | Simulation | M | ⏳ Planned |
+| #P5-008 | Retirement arc: late-career physical decline, contract winds down, retirement choice | Simulation | M | ⏳ Planned |
+| #P5-009 | Legacy system: hall of fame, career grade, post-retirement summary | Domain | M | ⏳ Planned |
 
 ---
 
@@ -399,11 +411,12 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 5 — Career World (Milestone 5.1: World Simulation & Dynamic Transfers)
+## Current Focus: Phase 5 — Career World (Milestone 5.2: International Football & Continental Tournaments)
 
 > **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 557 passing tests).
 > **PHASE 2 IS 100% COMPLETE & MERGED TO `main`** (Milestones 2.1–2.6: Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116, #118–#120, #122–#124 closed).
 > **PHASE 3 IS 100% COMPLETE & MERGED TO `main`** (Milestones 3.1–3.4: Issues #131–#133, #135–#136, #138–#141, #143–#144 closed).
 > **PHASE 4 IS 100% COMPLETE & MERGED TO `main`** (Milestones 4.1–4.4: Issues #146–#147, #149–#150, #152–#154, #156–#157 closed; 602 passing tests).
-> **PHASE 5 CURRENT FOCUS:** Milestone 5.1 — Living World Simulation & Dynamic Transfers (`#P5-001`, `#P5-002`).
+> **PHASE 5 MILESTONE 5.1 IS 100% COMPLETE & MERGED TO `main`** (Milestone 5.1: Issues #159, #160, #161 closed; 612 passing tests).
+> **PHASE 5 CURRENT FOCUS:** Milestone 5.2 — International Football & Continental Tournaments (`#P5-004`, `#P5-005`, `#P5-006`).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

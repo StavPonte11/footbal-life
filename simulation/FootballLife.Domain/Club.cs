@@ -256,5 +256,13 @@ namespace FootballLife.Domain
             updated.Remove(playerId);
             return this with { SquadPlayerIds = updated.AsReadOnly() };
         }
+
+        /// <summary>
+        /// Updates the league affiliation of the club, returning a new immutable Club instance.
+        /// </summary>
+        public Club WithLeague(Guid leagueId)
+        {
+            return this with { LeagueId = leagueId };
+        }
     }
 }

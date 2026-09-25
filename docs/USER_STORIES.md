@@ -1846,6 +1846,62 @@ COMPLETED IN PHASE 4:
   Milestone 4.4:    P4-008 (#156), P4-009 (#157)  (Social Activities & Press Conferences)      ✅ Complete
 ```
 
+---
+
+## MILESTONE 5.1 — World Simulation, Multi-Tier League Hierarchy & Dynamic Transfer Market ✅ Complete
+
+### Story P5-001: World Simulation — NPC Player Development, Aging/Decline, AI Squad Replenishment & League Progression ✅
+**Issue:** #159 | **Layer:** Domain, Simulation | **Status:** ✅ Complete
+
+> As a simulation engine, I want living world progression where NPC players develop, age, and decline realistically, clubs replenish aging squads with fresh talent, and leagues simulate seasonal standings so that the football world evolves dynamically around the player.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models for world player progression and season resolution (`LeagueSeasonResolution.cs`, `ClubSeasonOutcome`, `WorldSeasonResolution`).
+- [x] Pure C# Simulation system `WorldSimulationSystem.cs` implementing `AgeAndDevelopNpcPlayers` with age curves: youth growth (<21), prime maturation (21-28), peak plateau (29-30), physical decline (31-34), and retirement at 36+ or severe decline.
+- [x] Squad replenishment in `WorldSimulationSystem.ReplenishSquads` generating balanced squads of at least 18 players with position coverage across GK, DEF, MID, FWD.
+- [x] League season resolution `ResolveLeagueSeason` ranking clubs deterministically, evaluating champion, continental spots, and promotion/relegation between divisions.
+- [x] Automated unit test suite `WorldSimulationSystemTests.cs` (5 tests) passing with 0 failures.
+
+---
+
+### Story P5-002: Transfer Window & Market — Multi-Club Bidding Wars, Player Transfer Requests & Market UI ✅
+**Issue:** #160 | **Layer:** Domain, Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As a footballer, I want a dynamic transfer market where multiple clubs bid for my signature with competitive wage offers and promised squad roles, and where I can submit formal transfer requests to force a move to a bigger club.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models for player transfer listing and bidding wars (`TransferListing.cs`, `TransferBiddingWar.cs`, `ClubBid`, `PlayerTransferStatus`).
+- [x] Pure C# Simulation system `TransferMarketSystem.cs` providing `GenerateBiddingWar` (2-4 competitive club bids with tier-scaled wages, signing bonuses, and squad roles), `RequestTransferListing` (manager trust and squad status evaluation), and `AcceptBid` (atomic contract, signing bonus, and club transition).
+- [x] Interactive UI Toolkit Transfer Market interface (`TransferMarketView.uxml`, `TransferMarketController.cs`) with player market valuation badge, multi-club bid cards with wage comparisons and accept buttons, tab navigation (`Active Bids`, `League Pyramid`), and transfer request button with toast feedback.
+- [x] Integrated into `CareerHubView.uxml` with quick header button (`btn-quick-market`), action grid button (`btn-transfer-market`), and modal coordinator handling in `CareerHubCoordinator.cs`.
+- [x] Automated unit test suite `TransferMarketSystemTests.cs` (5 tests) passing with 0 failures.
+
+---
+
+### Story P5-003: Multi-Tier League Ecosystem — Division Prestige, Wage Scaling, Promotion & Relegation ✅
+**Issue:** #161 | **Layer:** Domain, Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As a player climbing the football ladder, I want a multi-tier league ecosystem with distinct divisional prestige, authentic wage bands, and functioning promotion and relegation so that moving up divisions feels rewarding and transformative.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models (`LeagueTierConfig.cs`, `LeagueTier`, `LeagueTierProfile`) defining a 4-tier English football pyramid (`Tier1_Premier`, `Tier2_Championship`, `Tier3_LeagueOne`, `Tier4_LeagueTwo`) with distinct prestige ratings (55 to 95), weekly wage ranges (£500 up to £250,000), promotion/relegation spots, continental spots, and trophies.
+- [x] Pure C# simulation logic in `WorldSimulationSystem.ResolveLeagueSeason` handling inter-division swaps with `clubsAlreadyMoved` guard preventing multi-tier cascades in a single season.
+- [x] Contract wage generation dynamically scaled based on target club's league tier and player overall rating.
+- [x] Presentation of multi-tier league pyramid cards in `TransferMarketView.uxml` with tier badge, prestige rating, wage band, and promotional spot indicators.
+- [x] Fully verified with unit tests and headless career test suites (612/612 total passing tests).
+
+---
+
+## Phase 5 Issue Status Overview
+
+```
+ACTIVE IN PHASE 5 (Career World):
+  Milestone 5.1:    P5-001 (#159), P5-002 (#160), P5-003 (#161) (World Sim, League Hierarchy & Transfers) ✅ Complete
+  Milestone 5.2:    P5-004, P5-005, P5-006 (International Football & Continental Tournaments) ⏳ Next Focus
+  Milestone 5.3:    P5-007, P5-008, P5-009 (Dynamic Rivalries, Manager AI & Career Longevity) ⏳ Planned
+```
+
+
 
 
 

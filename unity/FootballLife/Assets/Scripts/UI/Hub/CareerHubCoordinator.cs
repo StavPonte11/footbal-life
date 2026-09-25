@@ -6,6 +6,7 @@ using FootballLife.Unity.UI.OffSeason;
 using FootballLife.Unity.UI.Phone;
 using FootballLife.Unity.UI.Shop;
 using FootballLife.Unity.UI.Social;
+using FootballLife.Unity.UI.Transfers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -44,6 +45,7 @@ namespace FootballLife.Unity.UI
         private LifestyleShopController?   _lifestyleShopCtrl;
         private SocialActivitiesController? _socialCtrl;
         private PressConferenceController?  _pressCtrl;
+        private TransferMarketController?   _transferMarketCtrl;
 
         // ── Root panel elements ───────────────────────────────────────────────
         private VisualElement? _hubRoot;
@@ -59,6 +61,7 @@ namespace FootballLife.Unity.UI
         private VisualElement? _lifestyleShopOverlay;
         private VisualElement? _socialOverlay;
         private VisualElement? _pressOverlay;
+        private VisualElement? _transferMarketOverlay;
 
         // ── Pending life event ────────────────────────────────────────────────
         private LifeEventSnapshot? _pendingLifeEvent;
@@ -146,7 +149,8 @@ namespace FootballLife.Unity.UI
                 onOpenFinances:     ShowFinances,
                 onOpenShop:         ShowShop,
                 onOpenSocial:       ShowSocial,
-                onOpenPress:        ShowPress);
+                onOpenPress:        ShowPress,
+                onOpenTransferMarket: ShowTransferMarket);
 
             // ── Training overlay ──────────────────────────────────────────────
             if (_trainingAsset != null)
@@ -342,6 +346,22 @@ namespace FootballLife.Unity.UI
                 _pressOverlay.style.bottom = 0;
                 _pressOverlay.style.display = DisplayStyle.None;
                 _pressCtrl = new PressConferenceController(_pressOverlay, onFinish: ShowHub);
+            }
+
+            // ── Transfer Market overlay ────────────────────────────────────────
+            _transferMarketOverlay = docRoot.Q<VisualElement>("transfer-market-instance");
+            if (_transferMarketOverlay != null)
+            {
+                _transferMarketOverlay.style.position = Position.Absolute;
+                _transferMarketOverlay.style.top = 0;
+                _transferMarketOverlay.style.left = 0;
+                _transferMarketOverlay.style.right = 0;
+                _transferMarketOverlay.style.bottom = 0;
+                _transferMarketOverlay.style.display = DisplayStyle.None;
+                _transferMarketCtrl = new TransferMarketController(
+                    _transferMarketOverlay,
+                    onBack: ShowHub,
+                    onTransferCompleted: OnTransferCompleted);
             }
         }
 
@@ -558,6 +578,22 @@ namespace FootballLife.Unity.UI
             }
         }
 
+        private void ShowTransferMarket()
+        {
+            HideAllOverlays();
+            if (_transferMarketOverlay != null && _transferMarketCtrl != null)
+            {
+                _transferMarketCtrl.Refresh();
+                _transferMarketOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void OnTransferCompleted()
+        {
+            ShowHub();
+            _hubCtrl?.RefreshIdentity();
+        }
+
         private void OnAcceptTransferOffer(TransferOfferSnapshot offer)
         {
             if (SimulationBridge.Instance != null)
@@ -592,6 +628,7 @@ namespace FootballLife.Unity.UI
             if (_lifestyleShopOverlay != null) _lifestyleShopOverlay.style.display = DisplayStyle.None;
             if (_socialOverlay != null) _socialOverlay.style.display = DisplayStyle.None;
             if (_pressOverlay != null) _pressOverlay.style.display = DisplayStyle.None;
+            if (_transferMarketOverlay != null) _transferMarketOverlay.style.display = DisplayStyle.None;
         }
     }
 }

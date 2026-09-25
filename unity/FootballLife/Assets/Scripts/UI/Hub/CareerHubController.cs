@@ -48,8 +48,10 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Button? _btnQuickPhone;
         private readonly Button? _btnQuickFinances;
         private readonly Button? _btnQuickShop;
+        private readonly Button? _btnQuickMarket;
         private readonly Button? _btnFinances;
         private readonly Button? _btnShop;
+        private readonly Button? _btnTransferMarket;
         private readonly Button _btnAdvanceDay;
 
         // ── Overlays controlled externally ───────────────────────────────────
@@ -64,6 +66,7 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Action? _onOpenShop;
         private readonly Action? _onOpenSocial;
         private readonly Action? _onOpenPress;
+        private readonly Action? _onOpenTransferMarket;
         private readonly Action _onLifeEventPending;
 
         private SimulationBridge? _bridge;
@@ -85,7 +88,8 @@ namespace FootballLife.Unity.UI.Hub
             Action? onOpenFinances = null,
             Action? onOpenShop = null,
             Action? onOpenSocial = null,
-            Action? onOpenPress = null)
+            Action? onOpenPress = null,
+            Action? onOpenTransferMarket = null)
         {
             _onOpenTraining = onOpenTraining;
             _onOpenRest = onOpenRest;
@@ -99,6 +103,7 @@ namespace FootballLife.Unity.UI.Hub
             _onOpenShop = onOpenShop;
             _onOpenSocial = onOpenSocial;
             _onOpenPress = onOpenPress;
+            _onOpenTransferMarket = onOpenTransferMarket;
 
             // ── Query ─────────────────────────────────────────────────────────
             _labelPlayerName   = root.Q<Label>("label-player-name");
@@ -137,8 +142,10 @@ namespace FootballLife.Unity.UI.Hub
             _btnQuickPhone  = root.Q<Button>("btn-quick-phone");
             _btnQuickFinances = root.Q<Button>("btn-quick-finances");
             _btnQuickShop   = root.Q<Button>("btn-quick-shop");
+            _btnQuickMarket = root.Q<Button>("btn-quick-market");
             _btnFinances    = root.Q<Button>("btn-finances");
             _btnShop        = root.Q<Button>("btn-shop");
+            _btnTransferMarket = root.Q<Button>("btn-transfer-market");
             var btnQuickOutings = root.Q<Button>("btn-quick-outings");
             var btnQuickPress   = root.Q<Button>("btn-quick-press");
             var btnSocialOutings= root.Q<Button>("btn-social-outings");
@@ -160,6 +167,8 @@ namespace FootballLife.Unity.UI.Hub
                 _btnQuickFinances.clicked += () => _onOpenFinances?.Invoke();
             if (_btnQuickShop != null)
                 _btnQuickShop.clicked += () => _onOpenShop?.Invoke();
+            if (_btnQuickMarket != null)
+                _btnQuickMarket.clicked += () => _onOpenTransferMarket?.Invoke();
             if (btnQuickOutings != null)
                 btnQuickOutings.clicked += () => _onOpenSocial?.Invoke();
             if (btnQuickPress != null)
@@ -168,6 +177,8 @@ namespace FootballLife.Unity.UI.Hub
                 _btnFinances.clicked += () => _onOpenFinances?.Invoke();
             if (_btnShop != null)
                 _btnShop.clicked += () => _onOpenShop?.Invoke();
+            if (_btnTransferMarket != null)
+                _btnTransferMarket.clicked += () => _onOpenTransferMarket?.Invoke();
             if (btnSocialOutings != null)
                 btnSocialOutings.clicked += () => _onOpenSocial?.Invoke();
             if (btnPressBriefing != null)

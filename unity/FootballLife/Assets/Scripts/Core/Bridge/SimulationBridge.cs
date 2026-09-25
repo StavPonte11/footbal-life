@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using FootballLife.Domain;
@@ -828,6 +829,161 @@ namespace FootballLife.Unity.Core.Bridge
             }
 
             return MediaFeedSystem.GenerateArticles(_currentSave!, recentMatch);
+        }
+
+        private WorldState? _world;
+
+        public WorldState GetOrCreateWorld()
+        {
+            if (_world != null) return _world;
+
+            var season = new Season(2026, new DateOnly(2026, 8, 1), new DateOnly(2027, 5, 30), new LeagueTable(Guid.NewGuid(), Array.Empty<LeagueTableRow>()), Array.Empty<Matchday>(), 1);
+            var world = WorldState.CreateEmpty(season);
+
+            var l1 = League.Create("Premier League", "ENG", 1, 20, 38, 0, 3);
+            var l2 = League.Create("Championship", "ENG", 2, 24, 46, 3, 3);
+            var l3 = League.Create("League One", "ENG", 3, 24, 46, 3, 4);
+            var l4 = League.Create("League Two", "ENG", 4, 24, 46, 4, 2);
+
+            world = world.WithLeague(l1).WithLeague(l2).WithLeague(l3).WithLeague(l4);
+
+            var clubs = new List<Club>
+            {
+                Club.Create("Arsenal FC", "ARS", l1.Id, 86, new ClubFinances(250000000m, 180000m), 5, TacticalIdentity.Possession),
+                Club.Create("Manchester City", "MCI", l1.Id, 89, new ClubFinances(300000000m, 220000m), 5, TacticalIdentity.Possession),
+                Club.Create("Chelsea FC", "CHE", l1.Id, 82, new ClubFinances(200000000m, 160000m), 4, TacticalIdentity.HighPress),
+                Club.Create("Aston Villa", "AVL", l1.Id, 78, new ClubFinances(120000000m, 95000m), 4, TacticalIdentity.HighPress),
+
+                Club.Create("Leeds United", "LEE", l2.Id, 66, new ClubFinances(40000000m, 45000m), 3, TacticalIdentity.HighPress),
+                Club.Create("Sheffield United", "SHU", l2.Id, 63, new ClubFinances(35000000m, 40000m), 3, TacticalIdentity.Direct),
+                Club.Create("Bristol City", "BRC", l2.Id, 56, new ClubFinances(20000000m, 28000m), 3, TacticalIdentity.Possession),
+                Club.Create("Northfield Town", "NOR", l2.Id, 54, new ClubFinances(18000000m, 24000m), 2, TacticalIdentity.Counter),
+
+                Club.Create("Portsmouth FC", "POR", l3.Id, 50, new ClubFinances(12000000m, 14000m), 2, TacticalIdentity.Direct),
+                Club.Create("Derby County", "DER", l3.Id, 48, new ClubFinances(10000000m, 12000m), 2, TacticalIdentity.Possession),
+                Club.Create("Bolton Wanderers", "BOL", l3.Id, 46, new ClubFinances(8000000m, 9500m), 2, TacticalIdentity.HighPress),
+                Club.Create("Reading FC", "REA", l3.Id, 44, new ClubFinances(7000000m, 8000m), 2, TacticalIdentity.Counter),
+
+                Club.Create("Wrexham AFC", "WRX", l4.Id, 42, new ClubFinances(6000000m, 7000m), 2, TacticalIdentity.Direct),
+                Club.Create("Stockport County", "STK", l4.Id, 40, new ClubFinances(4500000m, 5000m), 1, TacticalIdentity.Possession),
+                Club.Create("Salford City", "SAL", l4.Id, 37, new ClubFinances(3500000m, 3800m), 1, TacticalIdentity.HighPress),
+                Club.Create("Accrington Stanley", "ACC", l4.Id, 34, new ClubFinances(2500000m, 2500m), 1, TacticalIdentity.Counter)
+            };
+
+            foreach (var club in clubs)
+            {
+                world = world.WithClub(club);
+            }
+
+            world = WorldSimulationSystem.ReplenishSquads(world, _simRandom);
+            _world = world;
+            return _world;
+        }
+
+        public TransferBiddingWar GetTransferBiddingWar(bool isTransferRequested = false)
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+
+            var world = GetOrCreateWorld();
+            var pos = Enum.TryParse<Position>(_currentSave!.PrimaryPosition, out var p) ? p : Position.ST;
+            var player = new Player(_currentSave.PlayerId, _currentSave.PlayerName, _currentSave.Nationality, new DateOnly(2005, 1, 1), Foot.Right, pos);
+
+            var abilities = new PlayerAbilities(
+                pace: _currentSave.Pace,
+                acceleration: _currentSave.Acceleration,
+                stamina: _currentSave.Stamina,
+                strength: _currentSave.Strength,
+                agility: _currentSave.Agility,
+                passing: _currentSave.Passing,
+                shooting: _currentSave.Shooting,
+                dribbling: _currentSave.Dribbling,
+                crossing: _currentSave.Crossing,
+                firstTouch: _currentSave.FirstTouch,
+                tackling: _currentSave.Tackling,
+                vision: _currentSave.Vision,
+                composure: _currentSave.Composure,
+                positioning: _currentSave.Positioning,
+                decisionMaking: _currentSave.DecisionMaking);
+
+            var currentClub = world.Clubs.Values.FirstOrDefault(c => c.Name.Equals(_currentSave.ClubName, StringComparison.OrdinalIgnoreCase))
+                ?? world.Clubs.Values.First();
+
+            var careerState = new PlayerCareerState(
+                clubId: currentClub.Id,
+                status: SquadStatus.Starter,
+                managerTrust: _currentSave.ManagerTrust,
+                weeklySalary: _currentSave.WeeklyWage,
+                marketValue: _currentSave.MarketValue > 0 ? _currentSave.MarketValue : 1500000m,
+                reputation: _currentSave.OverallRating * 0.7f);
+
+            var date = new DateOnly(2026, 8, 15);
+            return TransferMarketSystem.GenerateBiddingWar(player, abilities, careerState, world, _simRandom, date, _currentSave.CurrentWeek, isTransferRequested);
+        }
+
+        public TransferRequestResult RequestTransferListing(string reason)
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+
+            var world = GetOrCreateWorld();
+            var currentClub = world.Clubs.Values.FirstOrDefault(c => c.Name.Equals(_currentSave!.ClubName, StringComparison.OrdinalIgnoreCase))
+                ?? world.Clubs.Values.First();
+
+            var pos = Enum.TryParse<Position>(_currentSave!.PrimaryPosition, out var p) ? p : Position.ST;
+            var player = new Player(_currentSave.PlayerId, _currentSave.PlayerName, _currentSave.Nationality, new DateOnly(2005, 1, 1), Foot.Right, pos);
+
+            var careerState = new PlayerCareerState(
+                clubId: currentClub.Id,
+                status: _currentSave.ManagerTrust > 60 ? SquadStatus.KeyPlayer : SquadStatus.Starter,
+                managerTrust: _currentSave.ManagerTrust,
+                weeklySalary: _currentSave.WeeklyWage,
+                marketValue: _currentSave.MarketValue > 0 ? _currentSave.MarketValue : 1500000m,
+                reputation: _currentSave.OverallRating * 0.7f);
+
+            var date = new DateOnly(2026, 8, 15);
+            var result = TransferMarketSystem.RequestTransferListing(player, careerState, currentClub, reason, _simRandom, date);
+
+            _currentSave.ManagerTrust = Math.Max(0, _currentSave.ManagerTrust + (int)result.ManagerTrustDelta);
+            OnStatusLog?.Invoke(result.ManagerResponse);
+            AutoSave();
+
+            return result;
+        }
+
+        public bool AcceptTransferBid(ClubBid bid)
+        {
+            if (_currentSave == null || bid == null) return false;
+
+            _currentSave.ClubName = bid.BiddingClubName;
+            _currentSave.WeeklyWage = (int)bid.OfferedWeeklyWage;
+            _currentSave.BankBalance += (int)bid.SigningBonus;
+            _currentSave.MarketValue = (int)bid.TransferFee;
+            _currentSave.ManagerTrust = 65; // Fresh start with new manager
+
+            string msg = $"Transferred to {bid.BiddingClubName}! Wage: £{bid.OfferedWeeklyWage:N0}/wk. Signing bonus £{bid.SigningBonus:N0} received.";
+            OnStatusLog?.Invoke(msg);
+            PublishDaySnapshot(msg);
+            AutoSave();
+
+            return true;
+        }
+
+        public WorldSeasonResolution AdvanceSeasonWithWorldProgression()
+        {
+            var world = GetOrCreateWorld();
+            int seasonYear = _currentSave?.CurrentSeason ?? 1;
+
+            var (worldWithResolvedLeagues, resolution) = WorldSimulationSystem.ResolveLeagueSeason(world, seasonYear, _simRandom);
+            var (finalWorld, retiredCount) = WorldSimulationSystem.AgeAndDevelopNpcPlayers(worldWithResolvedLeagues, _currentSave?.PlayerId, new DateOnly(2027, 6, 1), _simRandom);
+            finalWorld = WorldSimulationSystem.ReplenishSquads(finalWorld, _simRandom);
+
+            _world = finalWorld;
+
+            string msg = $"Season {seasonYear} concluded! {resolution.PromotedClubIds.Count} clubs promoted, {retiredCount} veterans retired.";
+            OnStatusLog?.Invoke(msg);
+            PublishDaySnapshot(msg);
+            AutoSave();
+
+            return resolution;
         }
 
         private void EnsureMockSaveForTesting()
