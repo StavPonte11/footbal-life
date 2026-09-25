@@ -271,6 +271,15 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P2-019 (#123) | Attribute growth visualization: OVR delta, physical/technical/mental changes, potential ceiling, age curve | Unity/UI | M | ✅ Complete |
 | #P2-020 (#124) | Transfer window screen: current contract, suitor bids, renewal offers, accept/reject, season rollover | Unity/UI | L | ✅ Complete |
 
+### 🛑 Milestone 2.7 — Prototype Playtest & Gate 2.1 ✅ (Complete)
+*Branch: `feature/milestone-2.7-playtest-gate-2.1` | Issues #127–#129 | Validation Decision: GO*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P2-021 (#127) | End-to-end Unity playable loop harness: automated validation runner (5/5 stages pass) | Unity/Editor | M | ✅ Complete |
+| #P2-022 (#128) | Full prototype UX, performance & zero-GC memory audit | Quality | S | ✅ Complete |
+| #P2-023 (#129) | Gate 2.1 review documentation: [`docs/gate-2.1-review.md`](file:///Users/stavponte/Desktop/stav/projects/footbal-life/docs/gate-2.1-review.md) formal evaluation & GO approval | Docs/Quality | S | ✅ Complete |
+
 ---
 
 ## Phase 3 — Football Vertical Slice

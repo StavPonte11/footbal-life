@@ -1480,24 +1480,62 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 - [x] Suitor Transfer Bids: External club offers (e.g. Southport Athletic, Bristol Rovers) with higher division, higher wages, signing bonuses, and squad role expectations
 - [x] Contract Signing & Rollover: "Accept & Sign Contract" credits signing bonus to bank balance, updates wage and club in `SimulationBridge`, and "Start Next Season" advances season counter to `Season++`, resets week to `Week 1`, and restores player energy to 100
 
+#### #P2-021 — End-to-End Unity Playable Loop Harness
+**Issue:** #127 | **Layer:** Unity/Editor | **Status:** ✅ Complete
+
+> As a developer and player, I want an automated end-to-end integration playtest harness that steps through the complete Phase 2 Unity player journey (Bootstrap -> Player Creation -> Daily Hub -> Matchday -> Season Finale & Transfers) and validates state preservation, UI transitions, and deterministic simulation synchronization.
+
+**Acceptance Criteria:**
+- [x] Automated end-to-end playtest runner class in `FootballLife.Unity.Editor` (`PrototypePlaytestRunner.cs`)
+- [x] Stage 1 (Assets): Validates Build Settings (4 registered scenes) and presence of all 14 UXML views
+- [x] Stage 2 (Creation): Validates Player Creation & Club Selection data flow into `SimulationBridge` (Marcus Vance, ST, Northfield Town, OVR 60, £500/wk)
+- [x] Stage 3 (Hub): Validates Career Hub daily actions (Training consumes energy/boosts form, Physio rest recovers energy, Save Slot 0 roundtrip)
+- [x] Stage 4 (Matchday): Validates Match flow (`MatchOpportunitySnapshot`, deterministic resolution, 8.4 rating, 2 goals, manager trust delta +6, match fatigue -25 energy)
+- [x] Stage 5 (Off-Season): Validates Off-Season flow (Season summary stats, attribute growth OVR +3/youth curve, transfer acceptance to Southport Athletic with £1,500 signing bonus, season rollover to Season 2, Week 1)
+- [x] Batch execution support via Unity MCP / command line with zero errors (5/5 stages pass)
+
+#### #P2-022 — Full Prototype UX, Performance & Zero-GC Memory Audit
+**Issue:** #128 | **Layer:** Quality/Performance | **Status:** ✅ Complete
+
+> As a player on mobile devices, I want the entire prototype UI to adhere strictly to mobile-first touch ergonomics, App UI dark theme design tokens, 60 FPS performance, and zero GC allocations in hot paths.
+
+**Acceptance Criteria:**
+- [x] All 4 scenes (`Bootstrap.unity`, `MainMenu.unity`, `CareerHub.unity`, `Match.unity`) verified for standard hierarchy `[MANAGERS]`, `[ENVIRONMENT]`, `[ENTITIES]`, `[CAMERAS]`, `[UI]`
+- [x] All UI Toolkit layouts verified for dark theme sports styling (`tokens.uss`, `theme-dark.uss`, `components.uss`) and mobile responsiveness (1080x1920 reference)
+- [x] Hot paths (`Update`, `FixedUpdate`) verified for zero GC allocations (event-driven subscriptions used across all controllers)
+- [x] Clean editor preview fallback verified for every scene when launched directly in Unity Editor
+
+#### #P2-023 — Gate 2.1 Formal Review Documentation & Go/No-Go Checkpoint
+**Issue:** #129 | **Layer:** Docs/Quality | **Status:** ✅ Complete
+
+> As project stakeholders, we want a comprehensive Gate 2.1 review document (`docs/gate-2.1-review.md`) formally auditing Phase 2 against architectural principles, design questions, deterministic benchmarks, and providing the Go/No-Go decision to proceed to Phase 3 (Football Vertical Slice).
+
+**Acceptance Criteria:**
+- [x] Formal review document created at `docs/gate-2.1-review.md`
+- [x] Executive summary covering Milestones 2.1–2.6
+- [x] Design evaluation answering key questions (core fantasy, touch ergonomics, loop engagement, season progression)
+- [x] Automated verification & test benchmarks (557 pure C# tests + Unity playmode validation 5/5 stages pass)
+- [x] Architecture compliance audit (Separation of layers, determinism, data-driven content, zero GC in hot paths)
+- [x] Formal Go/No-Go approval recommendation for Phase 3: APPROVED (GO)
+
 ---
 
 ## Phase 2 Issue Status Overview
 
 ```
-COMPLETED:
+COMPLETED (PHASE 2 IS 100% COMPLETE):
   Milestone 2.1:    P2-001 → P2-005   (Unity Project Bootstrap)    ✅ Complete (Issues #95, #100, #97–#99)
   Milestone 2.2:    P2-006 → P2-008   (Player Creation Flow)       ✅ Complete (Issues #102–#104)
   Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)    ✅ Complete (Issues #106–#109)
   Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)    ✅ Complete (Issues #115–#116)
   Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)✅ Complete (Issues #118–#120)
   Milestone 2.6:    P2-018 → P2-020   (End-of-Season & Transfers)  ✅ Complete (Issues #122–#124)
+  Milestone 2.7:    P2-021 → P2-023   (Prototype Playtest & Gate 2.1)✅ Complete (Issues #127–#129)
 
-ACTIVE MILESTONE:
-  Milestone 2.7:    P2-021 → P2-023   (Prototype Playtest & Gate 2.1)
+GATE 2.1 DECISION: APPROVED (GO)
 
 UPCOMING PHASE:
-  Phase 3:          P3-001 → P3-011   (Football Vertical Slice - 3D Match)
+  Phase 3:          P3-001 → P3-011   (Football Vertical Slice - 3D Match Experience)
 ```
 
 
