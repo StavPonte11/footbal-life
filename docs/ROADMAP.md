@@ -295,11 +295,13 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P3-002 (#132) | Ball physics: realistic trajectory, friction, aerodynamic Magnus effect & goal detection volume trigger | Unity/Physics | M | ✅ Complete |
 | #P3-005 (#133) | Dynamic match camera rig: Broadcast, ActionAim, ShotTrack & Celebration modes with smooth tracking | Unity/Camera | M | ✅ Complete |
 
-### Milestone 3.2 — Player Pawn, Animations & Teammates (Next)
+### Milestone 3.2 — Player Pawn, Animations & Teammates ✅ (Complete)
+*Branch: `feature/milestone-3.2-player-and-pawns` | Issues #135–#136*
+
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P3-001 | 3D player character: humanoid rig, basic animations (run, walk, kick, tackle) | Unity/Art | M | ⏳ Planned |
-| #P3-003 | Simulated teammate and opponent pawns (non-AI, situation-driven) | Unity | M | ⏳ Planned |
+| #P3-001 (#135) | 3D player character: humanoid rig, basic animations (run, walk, kick, tackle, celebrate) | Unity/Art | M | ✅ Complete |
+| #P3-003 (#136) | Simulated teammate and opponent pawns (situation-driven, active goalkeeper goal line tracking) | Unity | M | ✅ Complete |
 
 ### Milestone 3.3 — Touch Controls & Interactive Gameplay Situations
 | Issue | User Story | Layer | Complexity | Status |

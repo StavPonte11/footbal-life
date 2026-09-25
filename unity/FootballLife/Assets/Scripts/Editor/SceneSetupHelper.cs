@@ -312,6 +312,18 @@ namespace FootballLife.Unity.Editor
                 rig.SetMode(MatchCameraRig.CameraMode.ActionAim);
                 rig.SnapToTarget();
                 Debug.Log("[FullSceneSetup] Match: Configured MatchCameraRig (ActionAim mode).");
+
+                // ── [ENTITIES] Situation Pawns (Striker, Teammate, Defenders, GK) ──
+                if (entitiesRoot != null)
+                {
+                    var ballController = ballGo?.GetComponent<BallController>();
+                    SituationPawnPresenter.SetupMatchSituationPawns(
+                        entitiesRoot.transform,
+                        ballController,
+                        rig,
+                        goalStructure != null ? goalStructure.transform : null);
+                    Debug.Log("[FullSceneSetup] Match: Spawned 3D Situation Pawns.");
+                }
             }
 
             var uiRoot = GameObject.Find("[UI]");
