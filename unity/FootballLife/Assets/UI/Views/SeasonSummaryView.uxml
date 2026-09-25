@@ -1,0 +1,101 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- ====================================================
+             APP BAR: Season Recap Header
+             ==================================================== -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:Label text="Season Summary &amp; Review" class="text-title" style="font-size: 16px; -unity-font-style: bold;" />
+            <ui:Label name="label-season-badge" text="SEASON 1 RECAP 🏆" class="badge badge-gold" style="font-size: 11px;" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             SCROLLABLE BODY
+             ==================================================== -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- ── TEAM STANDINGS & TROPHY CARD ──────────────── -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="🏆 Campaign Achievements" class="text-title" style="font-size: 14px;" />
+                    <ui:Label name="label-season-finish" text="1st · Champions" class="badge badge-green" style="font-size: 11px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="margin-top: 8px;">
+                    <ui:Label name="label-season-club-div" text="Northfield Town · Division 4" class="text-accent" style="font-size: 13px; -unity-font-style: bold; margin-bottom: 4px;" />
+                    <ui:Label name="label-season-trophy" text="Division 4 Championship Trophy 🏆" class="text-primary" style="font-size: 15px; -unity-font-style: bold; color: #F59E0B; margin-bottom: 6px;" />
+                    <ui:Label text="Squad Promoted to Division 3 for Next Season!" class="text-secondary" style="font-size: 12px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── INDIVIDUAL STATS CARD ─────────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="⭐ Player Performance Recap" class="text-title" style="font-size: 14px;" />
+                    <ui:Label name="label-season-rating" text="7.45 ★" class="badge badge-gold" style="font-size: 12px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-around; margin-top: 10px; margin-bottom: 10px;">
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-season-apps" text="34" class="text-accent" style="font-size: 22px; -unity-font-style: bold;" />
+                        <ui:Label text="Appearances" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-season-goals" text="18" class="text-accent" style="font-size: 22px; -unity-font-style: bold;" />
+                        <ui:Label text="Goals" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="width: 1px; background-color: var(--fl-color-border);" />
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-season-assists" text="9" class="text-accent" style="font-size: 22px; -unity-font-style: bold;" />
+                        <ui:Label text="Assists" class="text-caption" style="font-size: 11px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement style="height: 1px; background-color: var(--fl-color-border); margin-top: 4px; margin-bottom: 8px;" />
+                <ui:Label name="label-season-honor" text="🏅 Award: Golden Boot Winner &amp; Fans' Player of the Year" class="text-secondary" style="font-size: 12px; -unity-font-style: italic;" />
+            </ui:VisualElement>
+
+            <!-- ── FINANCIAL YEAR IN REVIEW CARD ─────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 16px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="💰 Financial Year in Review" class="text-title" style="font-size: 14px;" />
+                    <ui:Label text="38 WEEKS" class="badge badge-slate" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="margin-top: 8px; gap: 6px;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Total Salary Credited" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-season-wages" text="£38,000" class="text-accent" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Lifestyle Expenses Deducted" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-season-expenses" text="-£4,560" class="text-danger" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="height: 1px; background-color: var(--fl-color-border); margin-top: 4px; margin-bottom: 4px;" />
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Net Annual Savings" class="text-primary" style="font-size: 13px; -unity-font-style: bold;" />
+                        <ui:Label name="val-season-net" text="+£33,440" class="text-success" style="font-size: 13px; -unity-font-style: bold; color: #10B981;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── NAVIGATION ACTIONS ────────────────────────── -->
+            <ui:Button name="btn-summary-growth" text="View Attribute Growth →" class="btn btn-primary" style="margin-bottom: 10px; height: 46px; -unity-font-style: bold; font-size: 14px;" />
+            <ui:Button name="btn-summary-hub" text="Return to Hub" class="btn btn-secondary" style="height: 40px; font-size: 13px;" />
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>

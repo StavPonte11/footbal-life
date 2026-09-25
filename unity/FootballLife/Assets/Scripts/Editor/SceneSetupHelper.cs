@@ -36,6 +36,9 @@ namespace FootballLife.Unity.Editor
         private const string kMatchPreviewUxml = "Assets/UI/Views/MatchPreviewView.uxml";
         private const string kMatchGameUxml    = "Assets/UI/Views/MatchGameView.uxml";
         private const string kMatchPostUxml    = "Assets/UI/Views/MatchPostView.uxml";
+        private const string kSeasonSummaryUxml    = "Assets/UI/Views/SeasonSummaryView.uxml";
+        private const string kAttributeGrowthUxml  = "Assets/UI/Views/AttributeGrowthView.uxml";
+        private const string kTransferWindowUxml   = "Assets/UI/Views/TransferWindowView.uxml";
         private const string kPanelSettings   = "Assets/UI/PanelSettings.asset";
         private const string kCreationUxml    = "Assets/UI/Views/PlayerCreationView.uxml";
         private const string kClubUxml        = "Assets/UI/Views/ClubSelectionView.uxml";
@@ -218,6 +221,9 @@ namespace FootballLife.Unity.Editor
                 SetSerializedAsset(so, "_lifeEventAsset", kLifeEventUxml);
                 SetSerializedAsset(so, "_careerViewAsset", kCareerViewUxml);
                 SetSerializedAsset(so, "_profileViewAsset", kProfileViewUxml);
+                SetSerializedAsset(so, "_seasonSummaryAsset", kSeasonSummaryUxml);
+                SetSerializedAsset(so, "_attributeGrowthAsset", kAttributeGrowthUxml);
+                SetSerializedAsset(so, "_transferWindowAsset", kTransferWindowUxml);
                 so.ApplyModifiedProperties();
                 Debug.Log("[FullSceneSetup] CareerHub: Configured CareerHubCoordinator with all UXML refs.");
             }

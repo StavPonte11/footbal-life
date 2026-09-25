@@ -1,0 +1,118 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- ====================================================
+             APP BAR: Attribute Growth Header
+             ==================================================== -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:Label text="Annual Attribute Growth" class="text-title" style="font-size: 16px; -unity-font-style: bold;" />
+            <ui:Label name="label-growth-badge" text="62 → 65 (+3 OVR)" class="badge badge-green" style="font-size: 11px;" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             SCROLLABLE BODY
+             ==================================================== -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- ── OVERALL PROGRESSION & CEILING CARD ────────── -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 12px; align-items: center; padding-top: 14px; padding-bottom: 14px;">
+                <ui:VisualElement style="flex-direction: row; justify-content: space-around; width: 100%; align-items: center;">
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-ovr-previous" text="62" style="font-size: 26px; color: var(--fl-color-text-muted); -unity-font-style: bold;" />
+                        <ui:Label text="START OF SEASON" class="text-caption" style="font-size: 9px; letter-spacing: 0.5px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label text="➔" style="font-size: 20px; color: #10B981; -unity-font-style: bold;" />
+                        <ui:Label name="val-ovr-delta" text="+3" class="badge badge-green" style="font-size: 11px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-ovr-current" text="65" style="font-size: 28px; color: #FFFFFF; -unity-font-style: bold;" />
+                        <ui:Label text="CURRENT OVR" class="text-caption" style="font-size: 9px; letter-spacing: 0.5px; -unity-font-style: bold; color: var(--fl-color-accent);" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="width: 1px; height: 36px; background-color: var(--fl-color-border);" />
+
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label name="val-ovr-ceiling" text="78" style="font-size: 24px; color: #F59E0B; -unity-font-style: bold;" />
+                        <ui:Label text="POTENTIAL CEILING" class="text-caption" style="font-size: 9px; letter-spacing: 0.5px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement style="height: 1px; background-color: var(--fl-color-border); width: 100%; margin-top: 12px; margin-bottom: 8px;" />
+                <ui:Label name="label-growth-phase" text="⚡ Rapid Youth Surge (Age 18 · 2.0x Multiplier)" class="text-accent" style="font-size: 11px; -unity-font-style: italic;" />
+            </ui:VisualElement>
+
+            <!-- ── TECHNICAL GAINS CARD ──────────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="⚽ Technical Development" class="text-title" style="font-size: 13px;" />
+                    <ui:Label text="MATCH IMPACT" class="badge badge-slate" style="font-size: 9px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="margin-top: 6px; gap: 6px;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                        <ui:Label text="Shooting &amp; Finishing" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-delta-shooting" text="+3 (Now 62)" class="badge badge-green" style="font-size: 10px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                        <ui:Label text="Short &amp; Long Passing" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-delta-passing" text="+2 (Now 60)" class="badge badge-green" style="font-size: 10px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                        <ui:Label text="Dribbling &amp; Ball Control" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-delta-dribbling" text="+2 (Now 62)" class="badge badge-green" style="font-size: 10px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── PHYSICAL GAINS CARD ───────────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="⚡ Physical Conditioning" class="text-title" style="font-size: 13px;" />
+                    <ui:Label text="TRAINING IMPACT" class="badge badge-slate" style="font-size: 9px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="margin-top: 6px; gap: 6px;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                        <ui:Label text="Pace &amp; Acceleration" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-delta-pace" text="+2 (Now 64)" class="badge badge-green" style="font-size: 10px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                        <ui:Label text="Match Stamina" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-delta-stamina" text="+1 (Now 61)" class="badge badge-green" style="font-size: 10px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── MENTAL GAINS CARD ─────────────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 16px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="🧠 Tactical Vision &amp; Composure" class="text-title" style="font-size: 13px;" />
+                    <ui:Label text="EXPERIENCE" class="badge badge-slate" style="font-size: 9px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="margin-top: 6px; gap: 6px;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                        <ui:Label text="Vision &amp; Decision Making" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-delta-vision" text="+2 (Now 57)" class="badge badge-green" style="font-size: 10px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── NAVIGATION ACTIONS ────────────────────────── -->
+            <ui:Button name="btn-growth-transfers" text="Proceed to Transfer Window →" class="btn btn-primary" style="margin-bottom: 10px; height: 46px; -unity-font-style: bold; font-size: 14px;" />
+            <ui:Button name="btn-growth-back" text="Back to Season Summary" class="btn btn-secondary" style="height: 40px; font-size: 13px;" />
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>

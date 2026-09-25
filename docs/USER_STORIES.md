@@ -1444,6 +1444,42 @@ COMPLETED & MERGED TO MAIN (PHASE 1 - 100% COMPLETE):
 - [x] Attribute & Vital Deltas: Manager trust delta (+/-), player form delta (+/-), match energy expenditure (-25)
 - [x] Simulation & Persistence: Invokes `SimulationBridge.RecordMatchResult`, updates career stats (`TotalAppearances`, `TotalGoals`), auto-saves career state, returns cleanly to `CareerHub`
 
+#### #P2-018 — Season Summary Screen
+**Issue:** #122 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a footballer at the conclusion of a 38-week season, I want an end-of-season summary screen displaying final league standings, individual accomplishments, trophies/honors, and financial year-in-review so that I feel the culmination and achievements of my season's effort.
+
+**Acceptance Criteria:**
+- [x] UI Toolkit layout (`SeasonSummaryView.uxml`) using App UI dark theme design tokens
+- [x] Campaign Achievements Card: Final league position, club & division badge, trophies won (Championship trophy, promotion medals, top scorer award)
+- [x] Player Performance Recap: Season appearances, total goals, total assists, average match rating, season honors & awards
+- [x] Financial Year-in-Review: 38-week salary credited, total lifestyle expenses deducted, net annual savings calculated
+- [x] Navigation: "View Attribute Growth →" button and "Return to Hub" fallback button
+
+#### #P2-019 — Attribute Growth Visualization
+**Issue:** #123 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a developing footballer entering the off-season, I want to review my annual attribute progress, OVR delta, developmental phase, and potential ceiling so that I understand how training and match performance have developed my player.
+
+**Acceptance Criteria:**
+- [x] UI Toolkit layout (`AttributeGrowthView.uxml`) with dark sports card styling
+- [x] OVR Progression Header: Starting OVR, ending OVR, large green +delta badge (e.g. +3 OVR)
+- [x] Development Curve Feedback: Age display, developmental phase badge (e.g. Rapid Youth Development 2.0x vs Peak Plateau), potential ceiling rating
+- [x] Attribute Breakdown Categories: Physical attributes (Pace, Stamina, Strength), Technical attributes (Finishing, Passing, Dribbling), Mental attributes (Vision, Positioning, Composure)
+- [x] Navigation: "Proceed to Transfers →" button and "← Back to Summary" button
+
+#### #P2-020 — Transfer Window & Contract Renewal Screen
+**Issue:** #124 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a footballer during the summer transfer window, I want to review my current contract status, consider contract extension offers from my current club, and review formal bids from interested suitors with wage/bonus incentives so that I can decide where to play next season.
+
+**Acceptance Criteria:**
+- [x] UI Toolkit layout (`TransferWindowView.uxml`) with mobile-first card list
+- [x] Current Contract Card: Current club, weekly wage, expiry year, estimated market value, squad role
+- [x] Contract Extension Offer: Current club renewal proposal with wage increase (+50%) and loyalty signing bonus
+- [x] Suitor Transfer Bids: External club offers (e.g. Southport Athletic, Bristol Rovers) with higher division, higher wages, signing bonuses, and squad role expectations
+- [x] Contract Signing & Rollover: "Accept & Sign Contract" credits signing bonus to bank balance, updates wage and club in `SimulationBridge`, and "Start Next Season" advances season counter to `Season++`, resets week to `Week 1`, and restores player energy to 100
+
 ---
 
 ## Phase 2 Issue Status Overview
@@ -1455,12 +1491,13 @@ COMPLETED:
   Milestone 2.3:    P2-009 → P2-012   (Home Screen / Daily Hub)    ✅ Complete (Issues #106–#109)
   Milestone 2.4:    P2-013 → P2-014   (Career Screen & Profile)    ✅ Complete (Issues #115–#116)
   Milestone 2.5:    P2-015 → P2-017   (Match Preview & Basic Match)✅ Complete (Issues #118–#120)
+  Milestone 2.6:    P2-018 → P2-020   (End-of-Season & Transfers)  ✅ Complete (Issues #122–#124)
 
 ACTIVE MILESTONE:
-  Milestone 2.6:    P2-018 → P2-020   (End-of-Season & Transfers)
-
-UPCOMING MILESTONES:
   Milestone 2.7:    P2-021 → P2-023   (Prototype Playtest & Gate 2.1)
+
+UPCOMING PHASE:
+  Phase 3:          P3-001 → P3-011   (Football Vertical Slice - 3D Match)
 ```
 
 

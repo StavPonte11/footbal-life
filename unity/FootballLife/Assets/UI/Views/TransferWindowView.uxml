@@ -1,0 +1,128 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- ====================================================
+             APP BAR: Transfer Window Header
+             ==================================================== -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:Label text="Transfer Window &amp; Contracts" class="text-title" style="font-size: 16px; -unity-font-style: bold;" />
+            <ui:Label name="label-window-badge" text="SUMMER WINDOW OPEN 📝" class="badge badge-green" style="font-size: 11px;" />
+        </ui:VisualElement>
+
+        <!-- ====================================================
+             SCROLLABLE BODY
+             ==================================================== -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- ── CURRENT CONTRACT OVERVIEW CARD ────────────── -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 12px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="📋 Current Contract Standing" class="text-title" style="font-size: 13px;" />
+                    <ui:Label name="label-cur-role" text="FIRST TEAM STARTER" class="badge badge-slate" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="margin-top: 6px; gap: 4px;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Active Club" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-cur-club" text="Northfield Town" class="text-accent" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Current Wage" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-cur-wage" text="£1,000 / week" class="text-primary" style="font-size: 12px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Contract Expiry" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-cur-expiry" text="June 2028 (2 Years)" class="text-primary" style="font-size: 12px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Estimated Market Value" class="text-secondary" style="font-size: 12px;" />
+                        <ui:Label name="val-cur-market-val" text="£450,000" class="text-success" style="font-size: 12px; -unity-font-style: bold; color: #10B981;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── CURRENT CLUB EXTENSION CARD ───────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px; border-color: rgba(245, 158, 11, 0.4);">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="🤝 Club Extension Offer" class="text-title" style="font-size: 13px;" />
+                    <ui:Label text="RENEWAL" class="badge badge-gold" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <ui:Label text="Northfield Town want to secure your future following promotion!" class="text-secondary" style="font-size: 11px; margin-top: 4px; margin-bottom: 6px;" />
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 4px;">
+                    <ui:Label text="Proposed Wage:" class="text-secondary" style="font-size: 12px;" />
+                    <ui:Label name="val-renewal-wage" text="£1,500 / wk (+50%)" class="text-accent" style="font-size: 12px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 8px;">
+                    <ui:Label text="Signing Loyalty Bonus:" class="text-secondary" style="font-size: 12px;" />
+                    <ui:Label name="val-renewal-bonus" text="£10,000" class="text-success" style="font-size: 12px; -unity-font-style: bold; color: #10B981;" />
+                </ui:VisualElement>
+
+                <ui:Button name="btn-accept-renewal" text="✍️ Sign Club Contract Extension" class="btn btn-secondary" style="height: 38px; font-size: 12px; -unity-font-style: bold;" />
+            </ui:VisualElement>
+
+            <!-- ── INCOMING SUITOR BIDS ───────────────────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 16px;">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="🌐 Incoming Suitor Bids" class="text-title" style="font-size: 13px;" />
+                    <ui:Label text="2 BIDS RECEIVED" class="badge badge-green" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <!-- Suitor Bid 1 -->
+                <ui:VisualElement class="card-elevated" style="margin-top: 8px; margin-bottom: 10px; padding: 10px; background-color: var(--fl-color-bg-card);">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <ui:Label name="val-bid-1-club" text="Southport Athletic" class="text-title" style="font-size: 13px; -unity-font-style: bold;" />
+                        <ui:Label text="LEAGUE TWO · ★★★" class="badge badge-slate" style="font-size: 9px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 2px;">
+                        <ui:Label text="Offered Wage:" class="text-secondary" style="font-size: 11px;" />
+                        <ui:Label name="val-bid-1-wage" text="£2,200 / week" class="text-accent" style="font-size: 11px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 8px;">
+                        <ui:Label text="Signing Bonus:" class="text-secondary" style="font-size: 11px;" />
+                        <ui:Label name="val-bid-1-bonus" text="£25,000" class="text-success" style="font-size: 11px; -unity-font-style: bold; color: #10B981;" />
+                    </ui:VisualElement>
+
+                    <ui:Button name="btn-accept-bid-1" text="Accept Transfer to Southport Athletic" class="btn btn-primary" style="height: 36px; font-size: 11px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+
+                <!-- Suitor Bid 2 -->
+                <ui:VisualElement class="card-elevated" style="padding: 10px; background-color: var(--fl-color-bg-card);">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <ui:Label name="val-bid-2-club" text="Bristol Rovers" class="text-title" style="font-size: 13px; -unity-font-style: bold;" />
+                        <ui:Label text="LEAGUE ONE · ★★★★" class="badge badge-gold" style="font-size: 9px;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 2px;">
+                        <ui:Label text="Offered Wage:" class="text-secondary" style="font-size: 11px;" />
+                        <ui:Label name="val-bid-2-wage" text="£3,500 / week" class="text-accent" style="font-size: 11px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 8px;">
+                        <ui:Label text="Signing Bonus:" class="text-secondary" style="font-size: 11px;" />
+                        <ui:Label name="val-bid-2-bonus" text="£50,000" class="text-success" style="font-size: 11px; -unity-font-style: bold; color: #10B981;" />
+                    </ui:VisualElement>
+
+                    <ui:Button name="btn-accept-bid-2" text="Accept Transfer to Bristol Rovers" class="btn btn-primary" style="height: 36px; font-size: 11px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── BOTTOM DECISION & SEASON ROLLOVER ─────────── -->
+            <ui:Button name="btn-start-next-season" text="Stay &amp; Kick Off Next Season ⚽" class="btn btn-primary" style="margin-bottom: 10px; height: 46px; -unity-font-style: bold; font-size: 14px;" />
+            <ui:Button name="btn-transfers-back" text="Back to Attribute Growth" class="btn btn-secondary" style="height: 40px; font-size: 13px;" />
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>

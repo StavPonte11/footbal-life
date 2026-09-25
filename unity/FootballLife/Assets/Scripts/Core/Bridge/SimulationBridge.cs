@@ -92,6 +92,135 @@ namespace FootballLife.Unity.Core.Bridge
     }
 
     /// <summary>
+    /// Snapshot payload for end-of-season summary screen (#P2-018).
+    /// </summary>
+    public readonly struct SeasonSummarySnapshot
+    {
+        public int Season { get; }
+        public string ClubName { get; }
+        public string Division { get; }
+        public string LeaguePosition { get; }
+        public int TotalAppearances { get; }
+        public int TotalGoals { get; }
+        public int TotalAssists { get; }
+        public double AverageRating { get; }
+        public int TotalWagesEarned { get; }
+        public int TotalExpenses { get; }
+        public int NetSavings { get; }
+        public string TrophyAchievement { get; }
+
+        public SeasonSummarySnapshot(
+            int season,
+            string clubName,
+            string division,
+            string leaguePosition,
+            int totalAppearances,
+            int totalGoals,
+            int totalAssists,
+            double averageRating,
+            int totalWagesEarned,
+            int totalExpenses,
+            int netSavings,
+            string trophyAchievement)
+        {
+            Season = season;
+            ClubName = clubName;
+            Division = division;
+            LeaguePosition = leaguePosition;
+            TotalAppearances = totalAppearances;
+            TotalGoals = totalGoals;
+            TotalAssists = totalAssists;
+            AverageRating = averageRating;
+            TotalWagesEarned = totalWagesEarned;
+            TotalExpenses = totalExpenses;
+            NetSavings = netSavings;
+            TrophyAchievement = trophyAchievement;
+        }
+    }
+
+    /// <summary>
+    /// Snapshot payload for annual attribute development visualization (#P2-019).
+    /// </summary>
+    public readonly struct AttributeGrowthSnapshot
+    {
+        public int StartOvr { get; }
+        public int EndOvr { get; }
+        public int PotentialRating { get; }
+        public int Age { get; }
+        public string Phase { get; }
+        public int PaceDelta { get; }
+        public int ShootingDelta { get; }
+        public int PassingDelta { get; }
+        public int DribblingDelta { get; }
+        public int StaminaDelta { get; }
+        public int VisionDelta { get; }
+
+        public AttributeGrowthSnapshot(
+            int startOvr,
+            int endOvr,
+            int potentialRating,
+            int age,
+            string phase,
+            int paceDelta,
+            int shootingDelta,
+            int passingDelta,
+            int dribblingDelta,
+            int staminaDelta,
+            int visionDelta)
+        {
+            StartOvr = startOvr;
+            EndOvr = endOvr;
+            PotentialRating = potentialRating;
+            Age = age;
+            Phase = phase;
+            PaceDelta = paceDelta;
+            ShootingDelta = shootingDelta;
+            PassingDelta = passingDelta;
+            DribblingDelta = dribblingDelta;
+            StaminaDelta = staminaDelta;
+            VisionDelta = visionDelta;
+        }
+    }
+
+    /// <summary>
+    /// Snapshot payload for transfer window offers and contract extensions (#P2-020).
+    /// </summary>
+    public readonly struct TransferOfferSnapshot
+    {
+        public string OfferId { get; }
+        public string ClubName { get; }
+        public string Division { get; }
+        public int OfferedWeeklyWage { get; }
+        public int SigningBonus { get; }
+        public int TransferFee { get; }
+        public string SquadRole { get; }
+        public int PrestigeStars { get; }
+        public bool IsRenewal { get; }
+
+        public TransferOfferSnapshot(
+            string offerId,
+            string clubName,
+            string division,
+            int offeredWeeklyWage,
+            int signingBonus,
+            int transferFee,
+            string squadRole,
+            int prestigeStars,
+            bool isRenewal)
+        {
+            OfferId = offerId;
+            ClubName = clubName;
+            Division = division;
+            OfferedWeeklyWage = offeredWeeklyWage;
+            SigningBonus = signingBonus;
+            TransferFee = transferFee;
+            SquadRole = squadRole;
+            PrestigeStars = prestigeStars;
+            IsRenewal = isRenewal;
+        }
+    }
+
+    /// <summary>
     /// Runtime adapter bridging the pure C# CareerSimulationEngine with Unity presentation.
     /// Follows strict architecture rule: Simulation State -> Unity Adapter -> Presentation.
     /// </summary>
@@ -388,6 +517,167 @@ namespace FootballLife.Unity.Core.Bridge
 
             AutoSave();
             PublishDaySnapshot(logMsg);
+        }
+
+        // ── Milestone 2.6 Off-Season & Transfers ──────────────────────────────
+
+        public SeasonSummarySnapshot GetSeasonSummaryData()
+        {
+            if (_currentSave == null)
+            {
+                return new SeasonSummarySnapshot(
+                    season: 1,
+                    clubName: "Northfield Town",
+                    division: "Division 4",
+                    leaguePosition: "1st (Champions & Promoted)",
+                    totalAppearances: 34,
+                    totalGoals: 18,
+                    totalAssists: 9,
+                    averageRating: 7.45,
+                    totalWagesEarned: 38000,
+                    totalExpenses: 4560,
+                    netSavings: 33440,
+                    trophyAchievement: "Division 4 Championship Trophy 🏆");
+            }
+
+            int season = _currentSave.CurrentSeason;
+            string club = !string.IsNullOrEmpty(_currentSave.ClubName) ? _currentSave.ClubName : "Northfield Town";
+            string div = "Division 4";
+            int apps = Math.Max(1, _currentSave.TotalAppearances);
+            int goals = _currentSave.TotalGoals;
+            int assists = _currentSave.TotalAssists;
+            double rating = _currentSave.AverageRating > 0 ? _currentSave.AverageRating : 7.20;
+
+            string pos = goals >= 15 ? "1st (Champions & Promoted)" : (goals >= 8 ? "2nd (Automatic Promotion)" : "4th (Playoff Contender)");
+            string trophy = goals >= 15 ? $"{div} Champions Trophy 🏆" : (goals >= 8 ? $"{div} Promotion Medal 🥈" : "Top Scorer Award 👟");
+
+            int wages = _currentSave.WeeklyWage * 38;
+            int expenses = _currentSave.LifestyleTier * 120 * 38;
+            int net = wages - expenses;
+
+            return new SeasonSummarySnapshot(
+                season: season,
+                clubName: club,
+                division: div,
+                leaguePosition: pos,
+                totalAppearances: apps,
+                totalGoals: goals,
+                totalAssists: assists,
+                averageRating: rating,
+                totalWagesEarned: wages,
+                totalExpenses: expenses,
+                netSavings: net,
+                trophyAchievement: trophy);
+        }
+
+        public AttributeGrowthSnapshot GetAttributeGrowthData()
+        {
+            int ovr = _currentSave != null ? _currentSave.OverallRating : 62;
+            int startOvr = Math.Max(50, ovr - 3);
+            int age = 18 + (_currentSave?.CurrentSeason ?? 1) - 1;
+            string phase = age < 23 ? "⚡ Rapid Youth Development (2.0x Multiplier)" : "📈 Peak Development Plateau";
+
+            return new AttributeGrowthSnapshot(
+                startOvr: startOvr,
+                endOvr: ovr,
+                potentialRating: 78,
+                age: age,
+                phase: phase,
+                paceDelta: 2,
+                shootingDelta: 3,
+                passingDelta: 2,
+                dribblingDelta: 2,
+                staminaDelta: 1,
+                visionDelta: 2);
+        }
+
+        public IReadOnlyList<TransferOfferSnapshot> GetTransferOffers()
+        {
+            string currentClub = _currentSave != null && !string.IsNullOrEmpty(_currentSave.ClubName)
+                ? _currentSave.ClubName
+                : "Northfield Town";
+            int curWage = _currentSave != null ? _currentSave.WeeklyWage : 1000;
+
+            return new List<TransferOfferSnapshot>
+            {
+                new TransferOfferSnapshot(
+                    offerId: "renewal_1",
+                    clubName: currentClub,
+                    division: "Division 3 (Promoted)",
+                    offeredWeeklyWage: (int)(curWage * 1.5m),
+                    signingBonus: 10000,
+                    transferFee: 0,
+                    squadRole: "Key Player / Star",
+                    prestigeStars: 3,
+                    isRenewal: true),
+                new TransferOfferSnapshot(
+                    offerId: "transfer_1",
+                    clubName: "Southport Athletic",
+                    division: "League Two",
+                    offeredWeeklyWage: (int)(curWage * 2.2m),
+                    signingBonus: 25000,
+                    transferFee: 450000,
+                    squadRole: "First Team Regular",
+                    prestigeStars: 3,
+                    isRenewal: false),
+                new TransferOfferSnapshot(
+                    offerId: "transfer_2",
+                    clubName: "Bristol Rovers",
+                    division: "League One",
+                    offeredWeeklyWage: (int)(curWage * 3.5m),
+                    signingBonus: 50000,
+                    transferFee: 1200000,
+                    squadRole: "Rotation / High Prospect",
+                    prestigeStars: 4,
+                    isRenewal: false)
+            };
+        }
+
+        public void AcceptTransferOffer(TransferOfferSnapshot offer)
+        {
+            if (_currentSave == null) return;
+
+            _currentSave.ClubName = offer.ClubName;
+            _currentSave.WeeklyWage = offer.OfferedWeeklyWage;
+            _currentSave.SquadRole = offer.SquadRole;
+            _currentSave.ContractEndYear = 2026 + _currentSave.CurrentSeason + 2;
+            _currentSave.BankBalance += offer.SigningBonus;
+
+            if (offer.IsRenewal)
+            {
+                _currentSave.ManagerTrust = Math.Min(100, _currentSave.ManagerTrust + 15);
+            }
+            else
+            {
+                _currentSave.ManagerTrust = 55; // Fresh clean slate at new club
+            }
+
+            string log = offer.IsRenewal
+                ? $"Signed contract extension with {offer.ClubName}! New wage: £{offer.OfferedWeeklyWage:N0}/wk."
+                : $"Transferred to {offer.ClubName}! Wage: £{offer.OfferedWeeklyWage:N0}/wk. Bonus: £{offer.SigningBonus:N0}.";
+            OnStatusLog?.Invoke(log);
+
+            AutoSave();
+            PublishDaySnapshot(log);
+        }
+
+        public void AdvanceToNextSeason()
+        {
+            if (_currentSave == null) return;
+
+            _currentSave.CurrentSeason++;
+            _currentSave.CurrentWeek = 1;
+            _currentDayOfWeek = 1;
+            _currentSave.Energy = 100; // Fresh pre-season condition
+            _currentSave.Form = 65;
+
+            string log = $"Season {_currentSave.CurrentSeason} has begun! Welcome back to training.";
+            OnSeasonAdvanced?.Invoke(_currentSave.CurrentSeason);
+            OnWeekAdvanced?.Invoke(1);
+            OnStatusLog?.Invoke(log);
+
+            AutoSave();
+            PublishDaySnapshot(log);
         }
     }
 }
