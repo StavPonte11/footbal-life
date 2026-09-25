@@ -123,7 +123,8 @@ namespace FootballLife.Unity.UI
                 onOpenCareer:       OnOpenCareer,
                 onOpenMatch:        OnOpenMatch,
                 onLifeEventPending: ShowPendingLifeEvent,
-                onOpenOffSeason:    ShowSeasonSummary);
+                onOpenOffSeason:    ShowSeasonSummary,
+                onOpenHome:         OnOpenHome);
 
             // ── Training overlay ──────────────────────────────────────────────
             if (_trainingAsset != null)
@@ -355,6 +356,18 @@ namespace FootballLife.Unity.UI
             else
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Match");
+            }
+        }
+
+        private void OnOpenHome()
+        {
+            if (FootballLife.Unity.Core.SceneManagement.SceneFlowManager.Instance != null)
+            {
+                FootballLife.Unity.Core.SceneManagement.SceneFlowManager.Instance.LoadHome();
+            }
+            else
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Home");
             }
         }
 

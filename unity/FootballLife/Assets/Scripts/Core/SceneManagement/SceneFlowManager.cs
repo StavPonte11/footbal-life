@@ -15,6 +15,7 @@ namespace FootballLife.Unity.Core.SceneManagement
         public const string SceneMainMenu = "MainMenu";
         public const string SceneCareerHub = "CareerHub";
         public const string SceneMatch = "Match";
+        public const string SceneHome = "Home";
 
         public static SceneFlowManager? Instance { get; private set; }
 
@@ -59,6 +60,11 @@ namespace FootballLife.Unity.Core.SceneManagement
         public void LoadMatch(Action? onComplete = null)
         {
             StartCoroutine(LoadSceneRoutine(SceneMatch, onComplete));
+        }
+
+        public void LoadHome(Action? onComplete = null)
+        {
+            StartCoroutine(LoadSceneRoutine(SceneHome, onComplete));
         }
 
         public void TransitionTo(string targetScene, Action? onComplete = null)
