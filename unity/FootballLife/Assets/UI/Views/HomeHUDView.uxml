@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
     <ui:VisualElement name="home-hud-root" class="hud-root" style="width: 100%; height: 100%; justify-content: space-between; flex-direction: column;" picking-mode="Ignore">
         <Style src="project://database/Assets/UI/common.uss" />
+        <ui:Template name="PhoneOSView" src="project://database/Assets/UI/Views/PhoneOSView.uxml" />
+        <ui:Instance template="PhoneOSView" name="phone-os-instance" />
 
         <!-- ====================================================
              TOP BAR: Property Name, Lifestyle Tier & Financials

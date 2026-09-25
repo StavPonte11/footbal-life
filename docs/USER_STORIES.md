@@ -1732,12 +1732,48 @@ PHASE 3 COMPLETE! Vertical slice football match gameplay, pawns, physics, touch 
 
 ---
 
+### Milestone 4.2: Smartphone OS & Social Layer
+
+#### #P4-003 — Smartphone OS UI: Messages, Social Feed & Journalism News
+**Issue:** #149 | **Layer:** Unity/UI | **Status:** ✅ Complete
+
+> As a footballer, I want a smartphone OS overlay accessible from my home lounge or career hub featuring messaging (WhatsApp style), social media (FootyGram), and sports journalism (Football Daily) so that I stay connected with teammates, fans, and the football world.
+
+**Acceptance Criteria:**
+- [x] Smartphone overlay UI (`PhoneOSView.uxml` and `PhoneOSController.cs`) with realistic chassis, status bar (carrier, 5G, time, battery), dynamic island, app screen viewport, and bottom dock navigation.
+- [x] Four primary mobile apps:
+  - 💬 **WhatsApp (`Messages`)**: Conversation threads with contacts, incoming message notifications, dialogue choices with branching replies, and immediate stat impacts.
+  - 📸 **FootyGram (`Social`)**: Social feed cards with user handle, photo preview, caption, verified badge, comment counts, and interactive like toggle with dynamic counter.
+  - 👥 **Relationship Hub (`Contacts`)**: People-centric list displaying key contacts with affinity and trust meters, shared history, and contextual action buttons.
+  - 📰 **Football Daily (`News`)**: Journalism cards with breaking transfer rumors, tactical match previews, player spotlights, and category badges.
+- [x] Pure C# Domain models (`PhoneMessage.cs`, `SocialPost.cs`) and Simulation system (`PhoneSystem.cs`) generating messages, social posts, news articles, and deterministic dialogue replies.
+- [x] Bidirectional interaction with `CareerHub` and `Home` scenes via dedicated quick-access phone buttons and phone table 3D hotspot.
+
+#### #P4-004 — Relationship Hub: People-Centric Bonds, Trust & Social Actions
+**Issue:** #150 | **Layer:** Unity/Simulation | **Status:** ✅ Complete
+
+> As a footballer, I want deep individual relationships with my Manager, Teammate, Partner, and Agent, where I can spend energy and money on social actions to increase affinity and trust, influencing my starting lineup status, morale, and commercial opportunities.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain model `SocialActionType` (`CallCatchUp`, `SendGift`, `DinnerHangOut`, `TalkTactics`) and Simulation system extensions in `RelationshipSystem.cs`.
+- [x] Deterministic execution logic in `RelationshipSystem.ExecuteSocialAction`:
+  - `CallCatchUp`: Low energy cost (-5), moderate affinity boost (+4).
+  - `SendGift`: Monetary cost (-£200), high affinity boost (+8.5).
+  - `DinnerHangOut`: High energy cost (-15), monetary cost (-£80), large affinity (+12) & morale (+8) boost.
+  - `TalkTactics`: Manager-specific action boosting Manager Trust (+6.5) at modest energy cost (-8).
+- [x] UI Toolkit integration in `PhoneOSController.cs` rendering interactive buttons ("Call", "Gift", "Dinner", "Tactics") on each contact card with live feedback toasts, energy/balance checks, and stat bar updates.
+- [x] 11 comprehensive automated tests in `SocialSystemTests.cs` validating all actions, cost constraints, balance checks, and stat updates (580/580 tests passing).
+
+---
+
 ## Phase 4 Issue Status Overview
 
 ```
 COMPLETED IN PHASE 4:
   Milestone 4.1:    P4-001 (#146), P4-002 (#147)  (3D Home Apartment & Lifestyle Progression)  ✅ Complete
+  Milestone 4.2:    P4-003 (#149), P4-004 (#150)  (Smartphone OS UI & Relationship Hub)        ✅ Complete
 ```
+
 
 
 

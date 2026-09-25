@@ -12,6 +12,7 @@ using FootballLife.Unity.Core.Camera;
 using FootballLife.Unity.Core.Environment;
 using FootballLife.Unity.Core.Gameplay;
 using FootballLife.Unity.Core.SceneManagement;
+using FootballLife.Unity.UI.Phone;
 
 namespace FootballLife.Unity.UI.Home
 {
@@ -26,6 +27,7 @@ namespace FootballLife.Unity.UI.Home
         private UIDocument? _uiDoc;
         private HomeInteractionController? _interactionCtrl;
         private HomeCameraRig? _cameraRig;
+        private PhoneOSController? _phoneController;
 
         // HUD Elements
         private Label? _labelPropName;
@@ -155,6 +157,17 @@ namespace FootballLife.Unity.UI.Home
             if (_btnHomeUpgrade != null) _btnHomeUpgrade.clicked += OnUpgradeClicked;
             if (_btnConfirmUpgrade != null) _btnConfirmUpgrade.clicked += OnConfirmUpgradeClicked;
             if (_btnCloseUpgrade != null) _btnCloseUpgrade.clicked += OnCloseUpgradeClicked;
+
+            if (_phoneController == null)
+            {
+                _phoneController = gameObject.GetComponent<PhoneOSController>() ?? gameObject.AddComponent<PhoneOSController>();
+            }
+            _phoneController.BindRoot(root);
+            _phoneController.OnPhoneClosed += () =>
+            {
+                RefreshVitalsUI();
+                _interactionCtrl?.SelectZone(HomeZoneType.Overview);
+            };
         }
 
         private void UnbindButtons()
@@ -229,7 +242,8 @@ namespace FootballLife.Unity.UI.Home
 
         private void OnPhoneClicked()
         {
-            _interactionCtrl?.TriggerPhone();
+            _interactionCtrl?.SelectZone(HomeZoneType.Phone);
+            _phoneController?.OpenPhone();
         }
 
         private void OnDoorClicked()
@@ -333,7 +347,7 @@ namespace FootballLife.Unity.UI.Home
 
         private void HandlePhoneRequested()
         {
-            ShowToast("📱 Smartphone OS", "Phone OS active: WhatsApp, Social Feed, and Agent communications ready for Milestone 4.2.");
+            _phoneController?.OpenPhone();
         }
 
         private void HandleDoorExit()

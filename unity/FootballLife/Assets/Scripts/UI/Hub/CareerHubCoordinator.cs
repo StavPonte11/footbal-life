@@ -1,6 +1,7 @@
 using FootballLife.Unity.Core.Bridge;
 using FootballLife.Unity.UI.Hub;
 using FootballLife.Unity.UI.OffSeason;
+using FootballLife.Unity.UI.Phone;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,6 +35,7 @@ namespace FootballLife.Unity.UI
         private SeasonSummaryController?   _seasonSummaryCtrl;
         private AttributeGrowthController? _attributeGrowthCtrl;
         private TransferWindowController?  _transferWindowCtrl;
+        private PhoneOSController?         _phoneOSCtrl;
 
         // ── Root panel elements ───────────────────────────────────────────────
         private VisualElement? _hubRoot;
@@ -116,6 +118,9 @@ namespace FootballLife.Unity.UI
             _hubRoot.style.flexGrow = 1;
             docRoot.Add(_hubRoot);
 
+            _phoneOSCtrl = gameObject.GetComponent<PhoneOSController>() ?? gameObject.AddComponent<PhoneOSController>();
+            _phoneOSCtrl.BindRoot(_hubRoot);
+
             _hubCtrl = new CareerHubController(
                 _hubRoot,
                 onOpenTraining:     ShowTraining,
@@ -124,7 +129,8 @@ namespace FootballLife.Unity.UI
                 onOpenMatch:        OnOpenMatch,
                 onLifeEventPending: ShowPendingLifeEvent,
                 onOpenOffSeason:    ShowSeasonSummary,
-                onOpenHome:         OnOpenHome);
+                onOpenHome:         OnOpenHome,
+                onOpenPhone:        () => _phoneOSCtrl?.OpenPhone());
 
             // ── Training overlay ──────────────────────────────────────────────
             if (_trainingAsset != null)

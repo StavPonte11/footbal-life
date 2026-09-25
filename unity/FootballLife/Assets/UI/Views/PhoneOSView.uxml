@@ -1,0 +1,104 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="phone-os-backdrop" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(5, 8, 15, 0.75); justify-content: center; align-items: center; display: none;">
+        
+        <!-- Smartphone Chassis -->
+        <ui:VisualElement name="phone-device-frame" style="width: 410px; height: 720px; background-color: #0F172A; border-radius: 40px; border-width: 4px; border-color: #334155; padding: 12px 14px; overflow: hidden; justify-content: space-between; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85);">
+            
+            <!-- Phone Top Header (Dynamic Island & Status Bar) -->
+            <ui:VisualElement name="phone-status-bar" style="flex-direction: row; justify-content: space-between; align-items: center; height: 32px; padding: 0 12px; margin-bottom: 4px;">
+                <ui:Label text="19:42" name="phone-clock" style="color: #F8FAFC; font-size: 13px; -unity-font-style: bold;" />
+                <!-- Dynamic Island / Speaker Pill -->
+                <ui:VisualElement name="phone-island" style="width: 90px; height: 16px; background-color: #020617; border-radius: 8px;" />
+                <ui:VisualElement style="flex-direction: row; align-items: center;">
+                    <ui:Label text="5G" style="color: #94A3B8; font-size: 11px; margin-right: 6px; -unity-font-style: bold;" />
+                    <ui:Label text="100% 🔋" style="color: #10B981; font-size: 12px; -unity-font-style: bold;" />
+                    <ui:Button name="btn-phone-close" text="✕" style="width: 22px; height: 22px; border-radius: 11px; background-color: #1E293B; color: #94A3B8; font-size: 11px; margin-left: 8px; border-width: 0; padding: 0;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Screen Area Content (Tab Containers) -->
+            <ui:VisualElement name="phone-screen-container" style="flex-grow: 1; border-radius: 20px; background-color: #090D16; overflow: hidden; position: relative;">
+                
+                <!-- 1. MESSAGES APP (WhatsApp) -->
+                <ui:VisualElement name="screen-app-messages" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; padding: 10px; display: flex;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <ui:Label text="WhatsApp" style="color: #10B981; font-size: 18px; -unity-font-style: bold;" />
+                        <ui:Label text="Online" style="color: #34D399; font-size: 11px; background-color: rgba(16, 185, 129, 0.15); padding: 2px 8px; border-radius: 10px;" />
+                    </ui:VisualElement>
+
+                    <!-- Conversation Thread List -->
+                    <ui:ScrollView name="scroll-messages-list" style="flex-grow: 1;">
+                        <ui:VisualElement name="container-messages-threads" style="flex-direction: column;" />
+                    </ui:ScrollView>
+
+                    <!-- Active Message View (Thread Details) -->
+                    <ui:VisualElement name="card-active-chat" style="background-color: #131C2E; border-radius: 12px; padding: 10px; margin-top: 8px; border-width: 1px; border-color: #1E293B;">
+                        <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <ui:Label name="chat-active-sender" text="Sender Name" style="color: #F8FAFC; font-size: 13px; -unity-font-style: bold;" />
+                            <ui:Label name="chat-active-role" text="Role" style="color: #38BDF8; font-size: 11px;" />
+                        </ui:VisualElement>
+                        <ui:Label name="chat-incoming-bubble" text="Incoming message text..." style="color: #CBD5E1; font-size: 12px; background-color: #1E293B; padding: 8px 10px; border-radius: 10px; margin-bottom: 8px; white-space: normal;" />
+                        
+                        <!-- Reply Choices -->
+                        <ui:Label text="Select Response:" style="color: #94A3B8; font-size: 10px; margin-bottom: 4px; -unity-font-style: bold;" />
+                        <ui:VisualElement name="container-reply-choices" style="flex-direction: column;" />
+                        <ui:Label name="label-reply-feedback" text="" style="color: #10B981; font-size: 11px; -unity-font-style: bold; margin-top: 4px; display: none;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- 2. SOCIAL APP (FootyGram) -->
+                <ui:VisualElement name="screen-app-social" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; padding: 10px; display: none;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <ui:Label text="FootyGram" style="color: #F43F5E; font-size: 18px; -unity-font-style: bold;" />
+                        <ui:Label text="Feed" style="color: #FDA4AF; font-size: 11px; background-color: rgba(244, 63, 94, 0.15); padding: 2px 8px; border-radius: 10px;" />
+                    </ui:VisualElement>
+
+                    <ui:ScrollView name="scroll-social-feed" style="flex-grow: 1;">
+                        <ui:VisualElement name="container-social-posts" style="flex-direction: column;" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+
+                <!-- 3. CONTACTS APP (Relationship Hub #P4-004) -->
+                <ui:VisualElement name="screen-app-contacts" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; padding: 10px; display: none;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <ui:Label text="Inner Circle" style="color: #38BDF8; font-size: 18px; -unity-font-style: bold;" />
+                        <ui:Label text="Relationships" style="color: #7DD3FC; font-size: 11px; background-color: rgba(56, 189, 248, 0.15); padding: 2px 8px; border-radius: 10px;" />
+                    </ui:VisualElement>
+
+                    <ui:ScrollView name="scroll-contacts-list" style="flex-grow: 1;">
+                        <ui:VisualElement name="container-contacts-cards" style="flex-direction: column;" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+
+                <!-- 4. NEWS APP (Football Daily) -->
+                <ui:VisualElement name="screen-app-news" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; padding: 10px; display: none;">
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <ui:Label text="Football Daily" style="color: #F59E0B; font-size: 18px; -unity-font-style: bold;" />
+                        <ui:Label text="Headlines" style="color: #FCD34D; font-size: 11px; background-color: rgba(245, 158, 11, 0.15); padding: 2px 8px; border-radius: 10px;" />
+                    </ui:VisualElement>
+
+                    <ui:ScrollView name="scroll-news-feed" style="flex-grow: 1;">
+                        <ui:VisualElement name="container-news-cards" style="flex-direction: column;" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+
+            <!-- Bottom App Navigation Dock -->
+            <ui:VisualElement name="phone-app-dock" style="flex-direction: row; justify-content: space-around; align-items: center; height: 58px; background-color: #131C2E; border-radius: 24px; margin-top: 8px; padding: 0 6px; border-width: 1px; border-color: #1E293B;">
+                
+                <ui:Button name="btn-dock-messages" text="💬" style="width: 44px; height: 44px; border-radius: 14px; background-color: #10B981; color: #FFFFFF; font-size: 20px; border-width: 0;" />
+                <ui:Button name="btn-dock-social" text="📸" style="width: 44px; height: 44px; border-radius: 14px; background-color: #1E293B; color: #FFFFFF; font-size: 20px; border-width: 0;" />
+                <ui:Button name="btn-dock-contacts" text="👥" style="width: 44px; height: 44px; border-radius: 14px; background-color: #1E293B; color: #FFFFFF; font-size: 20px; border-width: 0;" />
+                <ui:Button name="btn-dock-news" text="📰" style="width: 44px; height: 44px; border-radius: 14px; background-color: #1E293B; color: #FFFFFF; font-size: 20px; border-width: 0;" />
+            </ui:VisualElement>
+
+            <!-- Home Bar Indicator -->
+            <ui:VisualElement style="align-items: center; justify-content: center; height: 16px; margin-top: 4px;">
+                <ui:Button name="btn-phone-home-indicator" style="width: 120px; height: 4px; background-color: #64748B; border-radius: 2px; border-width: 0; padding: 0;" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>
