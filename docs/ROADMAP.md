@@ -303,13 +303,15 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P3-001 (#135) | 3D player character: humanoid rig, basic animations (run, walk, kick, tackle, celebrate) | Unity/Art | M | ✅ Complete |
 | #P3-003 (#136) | Simulated teammate and opponent pawns (situation-driven, active goalkeeper goal line tracking) | Unity | M | ✅ Complete |
 
-### Milestone 3.3 — Touch Controls & Interactive Gameplay Situations
+### Milestone 3.3 — Touch Controls & Interactive Gameplay Situations ✅ (Complete)
+*Branch: `feature/milestone-3.3-touch-controls-situations` | Issues #138–#141*
+
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P3-006 | Touch control system: tap-to-select situation, swipe-to-shoot | Unity/Input | M | ⏳ Planned |
-| #P3-007 | Match situation presenter: 3D situation setup from simulation events | Unity | M | ⏳ Planned |
-| #P3-008 | Shooting mini-interaction: aim + power system | Unity/Gameplay | M | ⏳ Planned |
-| #P3-009 | Passing mini-interaction: target select + timing | Unity/Gameplay | M | ⏳ Planned |
+| #P3-006 (#138) | Touch control system: tap-to-target pass, swipe-to-shoot aim/power/spin gestures | Unity/Input | M | ✅ Complete |
+| #P3-007 (#139) | Match situation presenter: 3D situation setup driven by simulation events (BoxFinish, 1v1, Cross, ThroughBall) | Unity | M | ✅ Complete |
+| #P3-008 (#140) | Shooting mini-interaction: 3D aim trajectory arc, power scaling, and Magnus curve spin | Unity/Gameplay | M | ✅ Complete |
+| #P3-009 (#141) | Passing mini-interaction: teammate target selection, delivery timing, and defender intercept evaluation | Unity/Gameplay | M | ✅ Complete |
 
 ### Milestone 3.4 — Match Presentation & In-Game HUD
 | Issue | User Story | Layer | Complexity | Status |

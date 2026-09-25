@@ -49,14 +49,17 @@ namespace FootballLife.Unity.Core.Gameplay
 
         private void Awake()
         {
-            _rb = GetComponent<Rigidbody>();
-            if (_rb == null) _rb = gameObject.AddComponent<Rigidbody>();
-            _collider = GetComponent<SphereCollider>();
-            if (_collider == null) _collider = gameObject.AddComponent<SphereCollider>();
-            _trail = GetComponent<TrailRenderer>();
+            EnsureComponents();
+        }
+
+        private void EnsureComponents()
+        {
+            if (_rb == null) _rb = GetComponent<Rigidbody>() ?? gameObject.AddComponent<Rigidbody>();
+            if (_collider == null) _collider = GetComponent<SphereCollider>() ?? gameObject.AddComponent<SphereCollider>();
+            if (_trail == null) _trail = GetComponent<TrailRenderer>();
 
             ConfigurePhysics();
-            _initialPosition = transform.position;
+            if (_initialPosition == Vector3.zero) _initialPosition = transform.position;
         }
 
         private void ConfigurePhysics()
@@ -134,6 +137,7 @@ namespace FootballLife.Unity.Core.Gameplay
         /// <param name="spinVelocity">Angular rotation in radians/sec (creates Magnus curve).</param>
         public void Kick(Vector3 impulseVelocity, Vector3 spinVelocity)
         {
+            if (_rb == null) EnsureComponents();
             _isKicked = true;
             _rb.linearVelocity = impulseVelocity;
             _rb.angularVelocity = spinVelocity;
@@ -152,6 +156,7 @@ namespace FootballLife.Unity.Core.Gameplay
         /// </summary>
         public void Stop()
         {
+            if (_rb == null) EnsureComponents();
             _isKicked = false;
             _rb.linearVelocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
