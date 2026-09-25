@@ -1942,14 +1942,73 @@ COMPLETED IN PHASE 4:
 
 ---
 
+---
+
+## MILESTONE 5.3 — Endorsements, Career Longevity & Legacy ✅ Complete
+
+### Story P5-007: Sponsorship System — Reputation-Gated Endorsement Deals & Commercial Perks ✅
+**Issue:** #167 | **Layer:** Domain, Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As a footballer gaining fame and reputation, I want to sign commercial endorsement deals and sponsorships (boot deals, brand ambassador roles, luxury endorsements) that provide recurring commercial income and unique perks, balanced by commitments and reputation prerequisites.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models for endorsements (`SponsorshipDeal.cs`, `SponsorshipTier`, `SponsorshipType`, `ActiveSponsorship`).
+- [x] Pure C# Simulation system `SponsorshipSystem.cs` providing:
+  - Reputation-gated offer catalog across 4 tiers (Local, Regional, National, Global) and 5 categories (Boots, Apparel, Beverage, Luxury, Tech).
+  - Slot limit enforcement (maximum 3 concurrent active sponsorships).
+  - Weekly commercial payout calculation and expiration tracking.
+  - Perk metrics: energy recovery bonus and weekly fame multipliers.
+  - Brand termination triggers when reputation crashes (-15 below requirement) or form collapses (< 15).
+- [x] Interactive UI Toolkit presentation (`SponsorshipView.uxml`, `SponsorshipViewController.cs`) with active deals overview, available offers, and contract signing buttons.
+- [x] Integrated into weekly advancement in `SimulationBridge.cs` crediting payouts and energy boosts.
+- [x] Automated unit test suite `SponsorshipSystemTests.cs` (7 tests) passing with 0 failures.
+
+---
+
+### Story P5-008: Retirement Arc — Late-Career Physical Decline, Contract Wind-Downs & Retirement Choice ✅
+**Issue:** #168 | **Layer:** Domain, Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As a veteran footballer entering my mid-to-late 30s, I want realistic late-career dynamics including physical attribute decline, shorter contract terms, transitioning squad roles, and the agency to decide when to hang up my boots on my own terms.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models for career retirement (`RetirementDecision.cs`, `RetirementReason`, `PostPlayingRole`).
+- [x] Pure C# Simulation system `RetirementSystem.cs` implementing:
+  - Retirement eligibility gating (age 32+ minimum).
+  - Age-scaled physical attribute decay: pace, acceleration, stamina, and agility degrade progressively with age, while mental and technical attributes remain resilient.
+  - Contract wind-down scaling restricting veteran contract lengths to 1-2 years.
+  - Voluntary retirement choices at season end with reason and post-playing role selection (Manager, Academy Coach, TV Pundit, Club Ambassador, Private Life).
+  - Formatted public farewell statements.
+- [x] State persistence in `CareerSaveData.cs` and `WorldState.PlayerRetirement`.
+- [x] Automated unit test suite `RetirementSystemTests.cs` (6 tests) passing with 0 failures.
+
+---
+
+### Story P5-009: Legacy System — Hall of Fame, Career Score Grade & Post-Retirement Summary ✅
+**Issue:** #169 | **Layer:** Domain, Simulation, Unity/UI | **Status:** ✅ Complete
+
+> As a retired player, I want a comprehensive retrospective evaluating my entire career, calculating a career legacy grade (from Journeyman to Legend to GOAT), inducting me into the Hall of Fame, and memorializing my trophies, records, and lifetime earnings.
+
+**Acceptance Criteria:**
+- [x] Pure C# Domain models for career legacy (`CareerLegacy.cs`, `LegacyGrade`, `HallOfFameEntry`, `CareerTrophyRecord`).
+- [x] Pure C# Simulation logic in `LegacySystem.cs` calculating:
+  - Comprehensive lifetime career score based on appearances, goals, assists, clean sheets, trophies, international caps/goals, peak rating, and lifetime wealth.
+  - Legacy Grade categorization (`Underachiever`, `Journeyman`, `CultHero`, `Icon`, `Legend`, `GOAT`).
+  - Hall of Fame eligibility checks and commemorative plaque generation.
+- [x] UI Toolkit Presentation screen (`LegacyView.uxml`, `LegacyViewController.cs`) featuring hero grade card, lifetime statistics grid, Hall of Fame plaque presentation, and retirement announcement options.
+- [x] Integrated into `CareerHubView.uxml`, `CareerHubController.cs`, and `CareerHubCoordinator.cs`.
+- [x] Automated unit test suite `LegacySystemTests.cs` (4 tests) passing with 0 failures.
+
+---
+
 ## Phase 5 Issue Status Overview
 
 ```
-ACTIVE IN PHASE 5 (Career World):
+PHASE 5 COMPLETE (Career World):
   Milestone 5.1:    P5-001 (#159), P5-002 (#160), P5-003 (#161) (World Sim, League Hierarchy & Transfers) ✅ Complete
-  Milestone 5.2:    P5-004, P5-005, P5-006 (International Football & Continental Tournaments) ✅ Complete
-  Milestone 5.3:    P5-007, P5-008, P5-009 (Endorsements, Career Longevity & Legacy) ⏳ Next Focus
+  Milestone 5.2:    P5-004 (#163), P5-005 (#164), P5-006 (#165) (International Football & Continental Tournaments) ✅ Complete
+  Milestone 5.3:    P5-007 (#167), P5-008 (#168), P5-009 (#169) (Endorsements, Career Longevity & Legacy) ✅ Complete
 ```
+
 
 
 

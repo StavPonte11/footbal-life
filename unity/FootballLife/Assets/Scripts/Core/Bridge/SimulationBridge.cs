@@ -263,6 +263,13 @@ namespace FootballLife.Unity.Core.Bridge
         public event Action<string>? OnStatusLog;
         public event Action<string>? OnInternationalCallUp;
         public event Action<string, string>? OnManagerChanged;
+        public event Action<string>? OnSponsorshipSigned;
+        public event Action<RetirementDecision>? OnPlayerRetired;
+        public event Action<HallOfFameEntry>? OnHallOfFameInducted;
+
+        private readonly SponsorshipSystem _sponsorshipSystem = new();
+        private readonly RetirementSystem _retirementSystem = new();
+        private readonly LegacySystem _legacySystem = new();
 
         private void Awake()
         {
@@ -397,13 +404,22 @@ namespace FootballLife.Unity.Core.Bridge
                 _currentDayOfWeek = 1;
                 _currentSave.CurrentWeek++;
 
-                // Weekly finances: Wage deposit minus living expenses
+                // Weekly finances: Wage deposit minus living expenses + Sponsorships
                 int wage = _currentSave.WeeklyWage;
                 int livingCost = _currentSave.LifestyleTier * 120;
+                int sponsorshipIncome = ProcessWeeklySponsorshipPayouts();
                 int netDeposit = wage - livingCost;
                 _currentSave.BankBalance += netDeposit;
+                _currentSave.LifetimeEarnings += Math.Max(0, wage);
 
-                status = $"Week {_currentSave.CurrentWeek} complete! Net income: £{netDeposit:N0}.";
+                // Energy bonus from active sponsorships
+                int energyBonus = _sponsorshipSystem.CalculateTotalWeeklyEnergyBonus(GetActiveSponsorships());
+                if (energyBonus > 0)
+                {
+                    _currentSave.Energy = Math.Min(100, _currentSave.Energy + energyBonus);
+                }
+
+                status = $"Week {_currentSave.CurrentWeek} complete! Net income: £{(netDeposit + sponsorshipIncome):N0}.";
                 OnWeekAdvanced?.Invoke(_currentSave.CurrentWeek);
 
                 // Check for random life event occurrence (approx 20% chance per week)
@@ -1108,7 +1124,161 @@ namespace FootballLife.Unity.Core.Bridge
                 return changeEvent;
             }
 
-            return null;
+        // ─── Milestone 5.3: Endorsements, Retirement & Legacy ─────────────────
+
+        public IReadOnlyList<SponsorshipDeal> GetAvailableSponsorshipOffers()
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+            var world = GetOrCreateWorld();
+            return _sponsorshipSystem.GetAvailableOffers(_currentSave!.OverallRating, world.ActiveSponsorships, _simRandom);
+        }
+
+        public IReadOnlyList<ActiveSponsorship> GetActiveSponsorships()
+        {
+            var world = GetOrCreateWorld();
+            return world.ActiveSponsorships;
+        }
+
+        public (bool Success, string Message) SignSponsorshipDeal(SponsorshipDeal deal)
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+            var world = GetOrCreateWorld();
+
+            var (activeDeal, signingBonus, error) = _sponsorshipSystem.AcceptDeal(
+                deal, _currentSave!.OverallRating, world.ActiveSponsorships);
+
+            if (error != null)
+            {
+                return (false, error);
+            }
+
+            _world = world.WithAddedSponsorship(activeDeal!);
+            _currentSave.BankBalance += signingBonus;
+            if (!_currentSave.ActiveSponsorshipIds.Contains(deal.Id))
+            {
+                _currentSave.ActiveSponsorshipIds.Add(deal.Id);
+            }
+
+            string msg = $"Signed commercial endorsement with {deal.BrandName}! Received signing bonus £{signingBonus:N0}. Weekly payout: £{deal.WeeklyPayout:N0}/wk.";
+            OnSponsorshipSigned?.Invoke(msg);
+            OnStatusLog?.Invoke(msg);
+            PublishDaySnapshot(msg);
+            AutoSave();
+
+            return (true, msg);
+        }
+
+        public int ProcessWeeklySponsorshipPayouts()
+        {
+            if (_currentSave == null) return 0;
+            var world = GetOrCreateWorld();
+
+            var (totalPayout, updated, expired) = _sponsorshipSystem.ProcessWeeklyPayouts(world.ActiveSponsorships);
+            _world = world.WithActiveSponsorships(updated);
+
+            if (totalPayout > 0)
+            {
+                _currentSave.BankBalance += totalPayout;
+                _currentSave.LifetimeEarnings += totalPayout;
+            }
+
+            foreach (var exp in expired)
+            {
+                OnStatusLog?.Invoke($"Commercial endorsement with {exp.BrandName} has completed.");
+            }
+
+            return totalPayout;
+        }
+
+        public bool IsEligibleForRetirement()
+        {
+            int age = 20 + (_currentSave?.CurrentSeason ?? 1);
+            return _retirementSystem.IsEligibleForRetirement(age);
+        }
+
+        public RetirementDecision? GetPlayerRetirementDecision()
+        {
+            var world = GetOrCreateWorld();
+            return world.PlayerRetirement;
+        }
+
+        public RetirementDecision RetirePlayer(RetirementReason reason, PostPlayingRole chosenRole)
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+            var world = GetOrCreateWorld();
+
+            int age = 20 + _currentSave!.CurrentSeason;
+            var pos = Enum.TryParse<Position>(_currentSave.PrimaryPosition, out var p) ? p : Position.ST;
+            var player = new Player(_currentSave.PlayerId, _currentSave.PlayerName, _currentSave.Nationality, new DateOnly(2005, 1, 1), Foot.Right, pos);
+
+            var decision = _retirementSystem.RetirePlayer(player, _currentSave.CurrentSeason, age, reason, chosenRole);
+            _currentSave.IsRetired = true;
+            _currentSave.RetirementAge = age;
+            _currentSave.RetirementSeason = _currentSave.CurrentSeason;
+            _currentSave.RetirementReason = reason.ToString();
+            _currentSave.PostPlayingRole = chosenRole.ToString();
+
+            // Evaluate Legacy upon retirement
+            var legacy = CalculateCurrentCareerLegacy();
+            _world = world.WithPlayerRetirement(decision).WithPlayerLegacy(legacy);
+
+            if (legacy.IsHallOfFameInductee)
+            {
+                var entry = _legacySystem.InductIntoHallOfFame(player, legacy, chosenRole, 2026 + _currentSave.CurrentSeason);
+                _world = _world.WithHallOfFameEntry(entry);
+                OnHallOfFameInducted?.Invoke(entry);
+            }
+
+            OnPlayerRetired?.Invoke(decision);
+            OnStatusLog?.Invoke(decision.Statement);
+            PublishDaySnapshot(decision.Statement);
+            AutoSave();
+
+            return decision;
+        }
+
+        public CareerLegacy CalculateCurrentCareerLegacy()
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+
+            int apps = _currentSave!.TotalAppearances;
+            int goals = _currentSave.TotalGoals;
+            int assists = _currentSave.TotalAssists;
+            int caps = _currentSave.InternationalCaps;
+            int intGoals = _currentSave.InternationalGoals;
+            int leagueTitles = _currentSave.TotalTrophies;
+            int contTitles = 0;
+            int cups = 0;
+            int intTrophies = 0;
+            int peakOvr = _currentSave.OverallRating;
+            long earnings = _currentSave.LifetimeEarnings > 0 ? _currentSave.LifetimeEarnings : _currentSave.BankBalance;
+
+            int score = _legacySystem.CalculateCareerScore(
+                apps, goals, assists, cleanSheets: 0, caps, intGoals,
+                leagueTitles, contTitles, cups, intTrophies, peakOvr, earnings);
+
+            var grade = _legacySystem.DetermineGrade(score);
+
+            var legacy = new CareerLegacy(
+                apps, goals, assists, cleanSheets: 0, caps, intGoals,
+                leagueTitles, contTitles, cups, intTrophies, earnings,
+                peakOvr, _currentSave.CurrentSeason, score, grade,
+                isHallOfFameInductee: false);
+
+            bool hof = _legacySystem.IsEligibleForHallOfFame(legacy);
+            legacy = legacy with { IsHallOfFameInductee = hof };
+
+            _currentSave.CareerScore = score;
+            _currentSave.LegacyGrade = grade.ToString();
+            _currentSave.IsHallOfFameInductee = hof;
+
+            return legacy;
+        }
+
+        public IReadOnlyList<HallOfFameEntry> GetHallOfFameEntries()
+        {
+            var world = GetOrCreateWorld();
+            return world.HallOfFame;
         }
 
         private void EnsureMockSaveForTesting()

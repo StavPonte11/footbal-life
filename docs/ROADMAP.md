@@ -375,12 +375,12 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P5-005 | Continental competitions: Champions Cup, continental qualification & fixtures | Domain/Simulation/UI | L | ✅ Complete |
 | #P5-006 | Manager change system: new manager hiring, style & trust reset | Simulation | M | ✅ Complete |
 
-### Milestone 5.3: Endorsements, Career Longevity & Legacy (Upcoming)
+### Milestone 5.3: Endorsements, Career Longevity & Legacy (Completed)
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P5-007 | Sponsorship system: reputation-gated endorsement deals & commercial perks | Simulation | M | ⏳ Planned |
-| #P5-008 | Retirement arc: late-career physical decline, contract winds down, retirement choice | Simulation | M | ⏳ Planned |
-| #P5-009 | Legacy system: hall of fame, career grade, post-retirement summary | Domain | M | ⏳ Planned |
+| #P5-007 (#167) | Sponsorship system: reputation-gated endorsement deals & commercial perks | Simulation/UI | M | ✅ Complete |
+| #P5-008 (#168) | Retirement arc: late-career physical decline, contract winds down, retirement choice | Simulation/UI | M | ✅ Complete |
+| #P5-009 (#169) | Legacy system: hall of fame, career grade, post-retirement summary | Domain/Simulation/UI | M | ✅ Complete |
 
 ---
 
@@ -411,13 +411,15 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 5 — Career World (Milestone 5.3: Endorsements, Career Longevity & Legacy)
+## Current Focus: Phase 6 — Polish, Balance & Release
 
 > **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 557 passing tests).
 > **PHASE 2 IS 100% COMPLETE & MERGED TO `main`** (Milestones 2.1–2.6: Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116, #118–#120, #122–#124 closed).
 > **PHASE 3 IS 100% COMPLETE & MERGED TO `main`** (Milestones 3.1–3.4: Issues #131–#133, #135–#136, #138–#141, #143–#144 closed).
 > **PHASE 4 IS 100% COMPLETE & MERGED TO `main`** (Milestones 4.1–4.4: Issues #146–#147, #149–#150, #152–#154, #156–#157 closed; 602 passing tests).
 > **PHASE 5 MILESTONE 5.1 IS 100% COMPLETE & MERGED TO `main`** (Milestone 5.1: Issues #159, #160, #161 closed; 612 passing tests).
-> **PHASE 5 MILESTONE 5.2 IS 100% COMPLETE** (Milestone 5.2: Issues #P5-004, #P5-005, #P5-006 closed; 630 passing tests).
-> **PHASE 5 CURRENT FOCUS:** Milestone 5.3 — Endorsements, Career Longevity & Legacy (`#P5-007`, `#P5-008`, `#P5-009`).
+> **PHASE 5 MILESTONE 5.2 IS 100% COMPLETE & MERGED TO `main`** (Milestone 5.2: Issues #163, #164, #165 closed; 630 passing tests).
+> **PHASE 5 MILESTONE 5.3 IS 100% COMPLETE** (Milestone 5.3: Issues #167, #168, #169 closed; 647 passing tests).
+> **PHASE 5 IS 100% COMPLETE!**
+> **CURRENT FOCUS:** Phase 6 — Polish, Balance & Release (`#P6-001` - `#P6-008`).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.

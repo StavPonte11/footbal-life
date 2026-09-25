@@ -2,11 +2,13 @@ using FootballLife.Unity.Core.Bridge;
 using FootballLife.Unity.UI.Continental;
 using FootballLife.Unity.UI.Finances;
 using FootballLife.Unity.UI.Hub;
+using FootballLife.Unity.UI.Legacy;
 using FootballLife.Unity.UI.Media;
 using FootballLife.Unity.UI.OffSeason;
 using FootballLife.Unity.UI.Phone;
 using FootballLife.Unity.UI.Shop;
 using FootballLife.Unity.UI.Social;
+using FootballLife.Unity.UI.Sponsorship;
 using FootballLife.Unity.UI.Transfers;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -15,7 +17,7 @@ namespace FootballLife.Unity.UI
 {
     /// <summary>
     /// MonoBehaviour mounted on the CareerHub scene's UIDocument.
-    /// Orchestrates: CareerHubView (main screen) ↔ TrainingView ↔ RestView ↔ LifeEventView ↔ CareerView ↔ ProfileView ↔ OffSeason views ↔ FinancesView ↔ LifestyleShopView ↔ SocialActivitiesView ↔ PressConferenceView.
+    /// Orchestrates: CareerHubView (main screen) ↔ TrainingView ↔ RestView ↔ LifeEventView ↔ CareerView ↔ ProfileView ↔ OffSeason views ↔ FinancesView ↔ LifestyleShopView ↔ SocialActivitiesView ↔ PressConferenceView ↔ ContinentalView ↔ SponsorshipView ↔ LegacyView.
     /// </summary>
     [RequireComponent(typeof(UIDocument))]
     public class CareerHubCoordinator : MonoBehaviour
@@ -48,6 +50,8 @@ namespace FootballLife.Unity.UI
         private PressConferenceController?  _pressCtrl;
         private TransferMarketController?   _transferMarketCtrl;
         private ContinentalViewController?  _continentalCtrl;
+        private SponsorshipViewController?  _sponsorshipCtrl;
+        private LegacyViewController?       _legacyCtrl;
 
         // ── Root panel elements ───────────────────────────────────────────────
         private VisualElement? _hubRoot;
@@ -65,6 +69,8 @@ namespace FootballLife.Unity.UI
         private VisualElement? _pressOverlay;
         private VisualElement? _transferMarketOverlay;
         private VisualElement? _continentalOverlay;
+        private VisualElement? _sponsorshipOverlay;
+        private VisualElement? _legacyOverlay;
 
         // ── Pending life event ────────────────────────────────────────────────
         private LifeEventSnapshot? _pendingLifeEvent;
@@ -120,6 +126,8 @@ namespace FootballLife.Unity.UI
                 SimulationBridge.Instance.OnLifeEventOccurred += OnLifeEventBuffered;
                 SimulationBridge.Instance.OnManagerChanged += OnManagerChanged;
                 SimulationBridge.Instance.OnInternationalCallUp += OnInternationalCallUp;
+                SimulationBridge.Instance.OnSponsorshipSigned += OnSponsorshipSigned;
+                SimulationBridge.Instance.OnPlayerRetired += OnPlayerRetired;
             }
         }
 
@@ -131,6 +139,8 @@ namespace FootballLife.Unity.UI
                 SimulationBridge.Instance.OnLifeEventOccurred -= OnLifeEventBuffered;
                 SimulationBridge.Instance.OnManagerChanged -= OnManagerChanged;
                 SimulationBridge.Instance.OnInternationalCallUp -= OnInternationalCallUp;
+                SimulationBridge.Instance.OnSponsorshipSigned -= OnSponsorshipSigned;
+                SimulationBridge.Instance.OnPlayerRetired -= OnPlayerRetired;
             }
         }
 
@@ -163,7 +173,9 @@ namespace FootballLife.Unity.UI
                 onOpenSocial:       ShowSocial,
                 onOpenPress:        ShowPress,
                 onOpenTransferMarket: ShowTransferMarket,
-                onOpenContinental:  ShowContinental);
+                onOpenContinental:  ShowContinental,
+                onOpenSponsorship:  ShowSponsorship,
+                onOpenLegacy:       ShowLegacy);
 
             // ── Training overlay ──────────────────────────────────────────────
             if (_trainingAsset != null)
@@ -388,6 +400,32 @@ namespace FootballLife.Unity.UI
                 _continentalOverlay.style.bottom = 0;
                 _continentalOverlay.style.display = DisplayStyle.None;
                 _continentalCtrl = new ContinentalViewController(_continentalOverlay, onBack: ShowHub);
+            }
+
+            // ── Sponsorship overlay (#P5-007) ──────────────────────────────────
+            _sponsorshipOverlay = docRoot.Q<VisualElement>("sponsorship-instance");
+            if (_sponsorshipOverlay != null)
+            {
+                _sponsorshipOverlay.style.position = Position.Absolute;
+                _sponsorshipOverlay.style.top = 0;
+                _sponsorshipOverlay.style.left = 0;
+                _sponsorshipOverlay.style.right = 0;
+                _sponsorshipOverlay.style.bottom = 0;
+                _sponsorshipOverlay.style.display = DisplayStyle.None;
+                _sponsorshipCtrl = new SponsorshipViewController(_sponsorshipOverlay, onBack: ShowHub);
+            }
+
+            // ── Legacy & Hall of Fame overlay (#P5-009) ────────────────────────
+            _legacyOverlay = docRoot.Q<VisualElement>("legacy-instance");
+            if (_legacyOverlay != null)
+            {
+                _legacyOverlay.style.position = Position.Absolute;
+                _legacyOverlay.style.top = 0;
+                _legacyOverlay.style.left = 0;
+                _legacyOverlay.style.right = 0;
+                _legacyOverlay.style.bottom = 0;
+                _legacyOverlay.style.display = DisplayStyle.None;
+                _legacyCtrl = new LegacyViewController(_legacyOverlay, onBack: ShowHub);
             }
         }
 
@@ -624,6 +662,36 @@ namespace FootballLife.Unity.UI
             }
         }
 
+        private void ShowSponsorship()
+        {
+            HideAllOverlays();
+            if (_sponsorshipOverlay != null && _sponsorshipCtrl != null)
+            {
+                _sponsorshipCtrl.Refresh();
+                _sponsorshipOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void ShowLegacy()
+        {
+            HideAllOverlays();
+            if (_legacyOverlay != null && _legacyCtrl != null)
+            {
+                _legacyCtrl.Refresh();
+                _legacyOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void OnSponsorshipSigned(string message)
+        {
+            _hubCtrl?.RefreshIdentity();
+        }
+
+        private void OnPlayerRetired(FootballLife.Domain.RetirementDecision decision)
+        {
+            _hubCtrl?.RefreshIdentity();
+        }
+
         private void OnManagerChanged(string clubName, string newManagerName)
         {
             _hubCtrl?.RefreshIdentity();
@@ -676,6 +744,8 @@ namespace FootballLife.Unity.UI
             if (_pressOverlay != null) _pressOverlay.style.display = DisplayStyle.None;
             if (_transferMarketOverlay != null) _transferMarketOverlay.style.display = DisplayStyle.None;
             if (_continentalOverlay != null) _continentalOverlay.style.display = DisplayStyle.None;
+            if (_sponsorshipOverlay != null) _sponsorshipOverlay.style.display = DisplayStyle.None;
+            if (_legacyOverlay != null) _legacyOverlay.style.display = DisplayStyle.None;
         }
     }
 }
