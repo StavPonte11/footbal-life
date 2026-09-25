@@ -1,4 +1,5 @@
 using FootballLife.Unity.Core.Bridge;
+using FootballLife.Unity.UI.Continental;
 using FootballLife.Unity.UI.Finances;
 using FootballLife.Unity.UI.Hub;
 using FootballLife.Unity.UI.Media;
@@ -46,6 +47,7 @@ namespace FootballLife.Unity.UI
         private SocialActivitiesController? _socialCtrl;
         private PressConferenceController?  _pressCtrl;
         private TransferMarketController?   _transferMarketCtrl;
+        private ContinentalViewController?  _continentalCtrl;
 
         // ── Root panel elements ───────────────────────────────────────────────
         private VisualElement? _hubRoot;
@@ -62,6 +64,7 @@ namespace FootballLife.Unity.UI
         private VisualElement? _socialOverlay;
         private VisualElement? _pressOverlay;
         private VisualElement? _transferMarketOverlay;
+        private VisualElement? _continentalOverlay;
 
         // ── Pending life event ────────────────────────────────────────────────
         private LifeEventSnapshot? _pendingLifeEvent;
@@ -112,14 +115,23 @@ namespace FootballLife.Unity.UI
             BindBridge();
 
             // Subscribe to life event separately so we can buffer it
-            SimulationBridge.Instance.OnLifeEventOccurred += OnLifeEventBuffered;
+            if (SimulationBridge.Instance != null)
+            {
+                SimulationBridge.Instance.OnLifeEventOccurred += OnLifeEventBuffered;
+                SimulationBridge.Instance.OnManagerChanged += OnManagerChanged;
+                SimulationBridge.Instance.OnInternationalCallUp += OnInternationalCallUp;
+            }
         }
 
         private void OnDisable()
         {
             _hubCtrl?.Unbind();
             if (SimulationBridge.Instance != null)
+            {
                 SimulationBridge.Instance.OnLifeEventOccurred -= OnLifeEventBuffered;
+                SimulationBridge.Instance.OnManagerChanged -= OnManagerChanged;
+                SimulationBridge.Instance.OnInternationalCallUp -= OnInternationalCallUp;
+            }
         }
 
         // ── Build ─────────────────────────────────────────────────────────────
@@ -150,7 +162,8 @@ namespace FootballLife.Unity.UI
                 onOpenShop:         ShowShop,
                 onOpenSocial:       ShowSocial,
                 onOpenPress:        ShowPress,
-                onOpenTransferMarket: ShowTransferMarket);
+                onOpenTransferMarket: ShowTransferMarket,
+                onOpenContinental:  ShowContinental);
 
             // ── Training overlay ──────────────────────────────────────────────
             if (_trainingAsset != null)
@@ -362,6 +375,19 @@ namespace FootballLife.Unity.UI
                     _transferMarketOverlay,
                     onBack: ShowHub,
                     onTransferCompleted: OnTransferCompleted);
+            }
+
+            // ── Continental Tournament overlay (#P5-005) ──────────────────────
+            _continentalOverlay = docRoot.Q<VisualElement>("continental-instance");
+            if (_continentalOverlay != null)
+            {
+                _continentalOverlay.style.position = Position.Absolute;
+                _continentalOverlay.style.top = 0;
+                _continentalOverlay.style.left = 0;
+                _continentalOverlay.style.right = 0;
+                _continentalOverlay.style.bottom = 0;
+                _continentalOverlay.style.display = DisplayStyle.None;
+                _continentalCtrl = new ContinentalViewController(_continentalOverlay, onBack: ShowHub);
             }
         }
 
@@ -588,6 +614,26 @@ namespace FootballLife.Unity.UI
             }
         }
 
+        private void ShowContinental()
+        {
+            HideAllOverlays();
+            if (_continentalOverlay != null && _continentalCtrl != null)
+            {
+                _continentalCtrl.Refresh();
+                _continentalOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void OnManagerChanged(string clubName, string newManagerName)
+        {
+            _hubCtrl?.RefreshIdentity();
+        }
+
+        private void OnInternationalCallUp(string message)
+        {
+            _hubCtrl?.RefreshIdentity();
+        }
+
         private void OnTransferCompleted()
         {
             ShowHub();
@@ -629,6 +675,7 @@ namespace FootballLife.Unity.UI
             if (_socialOverlay != null) _socialOverlay.style.display = DisplayStyle.None;
             if (_pressOverlay != null) _pressOverlay.style.display = DisplayStyle.None;
             if (_transferMarketOverlay != null) _transferMarketOverlay.style.display = DisplayStyle.None;
+            if (_continentalOverlay != null) _continentalOverlay.style.display = DisplayStyle.None;
         }
     }
 }

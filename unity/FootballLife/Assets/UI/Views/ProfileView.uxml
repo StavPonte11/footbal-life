@@ -43,6 +43,29 @@
                 </ui:VisualElement>
             </ui:VisualElement>
 
+            <!-- ── INTERNATIONAL CAREER CARD (#P5-004) ──────────── -->
+            <ui:VisualElement class="card" style="margin-bottom: 12px; border-color: rgba(234, 179, 8, 0.4);">
+                <ui:VisualElement class="card-header">
+                    <ui:Label text="🌍 International Football" class="text-title" style="font-size: 14px;" />
+                    <ui:Label name="badge-intl-team" text="🦁 England" class="badge badge-amber" style="font-size: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row; justify-content: space-around; margin-top: 8px; margin-bottom: 10px;">
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label text="CAPS" class="text-caption" style="font-size: 10px; color: var(--fl-color-text-muted);" />
+                        <ui:Label name="val-intl-caps" text="0" style="font-size: 20px; -unity-font-style: bold; color: #EAB308;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label text="GOALS" class="text-caption" style="font-size: 10px; color: var(--fl-color-text-muted);" />
+                        <ui:Label name="val-intl-goals" text="0" style="font-size: 20px; -unity-font-style: bold; color: #22C55E;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="align-items: center;">
+                        <ui:Label text="STATUS" class="text-caption" style="font-size: 10px; color: var(--fl-color-text-muted);" />
+                        <ui:Label name="val-intl-status" text="Eligible" style="font-size: 14px; -unity-font-style: bold; color: #38BDF8; margin-top: 3px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Button name="btn-intl-callup" text="⭐ Check International Call-Up" class="btn btn-secondary" style="font-size: 12px; padding-top: 6px; padding-bottom: 6px;" />
+            </ui:VisualElement>
+
             <!-- ── CURRENT CONDITION CARD (TEMPORARY STATE) ──── -->
             <ui:VisualElement class="card" style="margin-bottom: 14px; border-color: rgba(56, 189, 248, 0.4);">
                 <ui:VisualElement class="card-header">

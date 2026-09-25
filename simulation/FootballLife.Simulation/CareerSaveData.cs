@@ -77,6 +77,12 @@ namespace FootballLife.Simulation.Persistence
         public int TotalAssists { get; set; }
         public double AverageRating { get; set; } = 6.5;
 
+        // International Football (#P5-004)
+        public int InternationalCaps { get; set; }
+        public int InternationalGoals { get; set; }
+        public int InternationalAssists { get; set; }
+        public bool IsRetiredFromInternational { get; set; }
+
         // Relationships
         public List<RelationshipSaveEntry> Relationships { get; set; } = new List<RelationshipSaveEntry>();
 

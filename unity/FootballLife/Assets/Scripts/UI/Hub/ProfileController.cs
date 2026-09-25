@@ -22,6 +22,13 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Label _labelPlayerMeta;
         private readonly Label _labelPositionBadge;
 
+        // International Football (#P5-004)
+        private readonly Label? _badgeIntlTeam;
+        private readonly Label? _valIntlCaps;
+        private readonly Label? _valIntlGoals;
+        private readonly Label? _valIntlStatus;
+        private readonly Button? _btnIntlCallUp;
+
         // Dynamic Condition
         private readonly Label _valConditionEnergy;
         private readonly VisualElement _fillConditionEnergy;
@@ -90,6 +97,18 @@ namespace FootballLife.Unity.UI.Hub
             _labelPlayerName = root.Q<Label>("label-player-name");
             _labelPlayerMeta = root.Q<Label>("label-player-meta");
             _labelPositionBadge = root.Q<Label>("label-position-badge");
+
+            // International
+            _badgeIntlTeam = root.Q<Label>("badge-intl-team");
+            _valIntlCaps = root.Q<Label>("val-intl-caps");
+            _valIntlGoals = root.Q<Label>("val-intl-goals");
+            _valIntlStatus = root.Q<Label>("val-intl-status");
+            _btnIntlCallUp = root.Q<Button>("btn-intl-callup");
+
+            if (_btnIntlCallUp != null)
+            {
+                _btnIntlCallUp.clicked += OnCheckInternationalCallUp;
+            }
 
             // Dynamic Condition
             _valConditionEnergy = root.Q<Label>("val-condition-energy");
@@ -200,6 +219,38 @@ namespace FootballLife.Unity.UI.Hub
             BindStatMeter(_valComposure, _fillComposure, save.Composure);
             BindStatMeter(_valPositioning, _fillPositioning, save.Positioning);
             BindStatMeter(_valDecisionMaking, _fillDecisionMaking, save.DecisionMaking);
+
+            // International Football (#P5-004)
+            if (_badgeIntlTeam != null)
+                _badgeIntlTeam.text = $"🌍 {save.Nationality}";
+
+            if (_valIntlCaps != null)
+                _valIntlCaps.text = save.InternationalCaps.ToString();
+
+            if (_valIntlGoals != null)
+                _valIntlGoals.text = save.InternationalGoals.ToString();
+
+            if (_valIntlStatus != null)
+            {
+                if (save.IsRetiredFromInternational)
+                    _valIntlStatus.text = "Retired";
+                else if (save.InternationalCaps > 0)
+                    _valIntlStatus.text = "Capped";
+                else
+                    _valIntlStatus.text = "Eligible";
+            }
+        }
+
+        private void OnCheckInternationalCallUp()
+        {
+            if (SimulationBridge.Instance != null)
+            {
+                SimulationBridge.Instance.ProcessInternationalWindow();
+                if (SimulationBridge.Instance.CurrentSave != null)
+                {
+                    Bind(SimulationBridge.Instance.CurrentSave);
+                }
+            }
         }
 
         private static void BindStatMeter(Label? label, VisualElement? fill, int value, string suffix = "")

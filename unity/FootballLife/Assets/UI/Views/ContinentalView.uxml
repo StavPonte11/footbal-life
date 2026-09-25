@@ -1,0 +1,53 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- APP BAR -->
+        <ui:VisualElement class="app-bar" style="padding-left: 16px; padding-right: 16px;">
+            <ui:Button name="btn-back" text="← Back" class="btn btn-ghost" style="font-size: 13px;" />
+            <ui:Label text="🏆 Champions Cup" class="text-title" style="font-size: 16px; -unity-font-style: bold;" />
+            <ui:Label name="label-prize-badge" text="£50M Prize Pool" class="badge badge-amber" style="font-size: 11px;" />
+        </ui:VisualElement>
+
+        <!-- TABS -->
+        <ui:VisualElement class="tab-bar">
+            <ui:Button name="tab-groups-ad" text="Groups A-D" class="tab-button tab-button-active" />
+            <ui:Button name="tab-groups-eh" text="Groups E-H" class="tab-button" />
+            <ui:Button name="tab-knockout" text="Knockout Tree" class="tab-button" />
+        </ui:VisualElement>
+
+        <!-- MAIN SCROLL CONTENT -->
+        <ui:ScrollView style="flex-grow: 1; padding-left: 16px; padding-right: 16px; padding-top: 14px; padding-bottom: 24px;">
+
+            <!-- TOURNAMENT SUMMARY CARD -->
+            <ui:VisualElement class="card-elevated" style="margin-bottom: 14px; border-color: rgba(245, 158, 11, 0.4);">
+                <ui:VisualElement class="card-header">
+                    <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px;">
+                        <ui:Label text="🏆" style="font-size: 18px;" />
+                        <ui:Label name="label-tournament-title" text="Continental Champions Cup" class="text-title" style="font-size: 15px; -unity-font-style: bold;" />
+                    </ui:VisualElement>
+                    <ui:Label name="label-tournament-status" text="Group Stage" class="badge badge-green" style="font-size: 11px;" />
+                </ui:VisualElement>
+                <ui:Label name="label-winner-display" text="Winner receives £20,000,000 and continental glory." class="text-caption" style="font-size: 12px; margin-top: 4px;" />
+            </ui:VisualElement>
+
+            <!-- GROUPS CONTAINER -->
+            <ui:VisualElement name="container-groups" style="flex-direction: column; gap: 12px;">
+                <!-- Dynamically populated or default sample groups -->
+            </ui:VisualElement>
+
+            <!-- KNOCKOUT CONTAINER -->
+            <ui:VisualElement name="container-knockout" style="display: none; flex-direction: column; gap: 12px;">
+                <!-- Dynamically populated knockout fixtures -->
+            </ui:VisualElement>
+
+            <!-- ACTION BUTTON -->
+            <ui:Button name="btn-simulate-round" text="⚡ Simulate Continental Fixtures" class="btn btn-primary" style="margin-top: 16px; padding-top: 10px; padding-bottom: 10px; font-size: 13px;" />
+
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+</ui:UXML>
