@@ -14,6 +14,7 @@ using FootballLife.Unity.UI.Transfers;
 using FootballLife.Unity.UI.Tutorial;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Position = FootballLife.Domain.Position;
 
 namespace FootballLife.Unity.UI
 {
@@ -817,7 +818,7 @@ namespace FootballLife.Unity.UI
                 case OnboardingStep.FirstMatchDebut:
                     bridge.AdvanceTutorialStep(step);
                     _tutorialCtrl?.Hide();
-                    _hubCtrl?.OnMatchOpportunityRequested();
+                    OnOpenMatch();
                     break;
 
                 case OnboardingStep.HomeApartment:
@@ -829,7 +830,7 @@ namespace FootballLife.Unity.UI
                 case OnboardingStep.SmartphoneIntro:
                     bridge.AdvanceTutorialStep(step);
                     _tutorialCtrl?.Hide();
-                    TogglePhone();
+                    _phoneOSCtrl?.OpenPhone();
                     break;
 
                 case OnboardingStep.Completed:

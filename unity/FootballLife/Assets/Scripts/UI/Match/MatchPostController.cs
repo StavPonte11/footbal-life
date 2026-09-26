@@ -31,7 +31,7 @@ namespace FootballLife.Unity.UI.Match
         private readonly Label _valFormDelta;
         private readonly Label _valEnergyCost;
 
-        private readonly Button _btnReturnHub;
+        private readonly Button? _btnReturnHub;
         private readonly Action _onReturnToHub;
 
         public MatchPostController(

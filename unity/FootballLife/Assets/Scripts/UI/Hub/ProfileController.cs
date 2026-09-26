@@ -12,9 +12,9 @@ namespace FootballLife.Unity.UI.Hub
     /// </summary>
     public class ProfileController
     {
-        private readonly Button _btnBack;
-        private readonly Button _tabCareer;
-        private readonly Button _tabProfile;
+        private readonly Button? _btnBack;
+        private readonly Button? _tabCareer;
+        private readonly Button? _tabProfile;
 
         private readonly Label _labelOvrBadge;
         private readonly Label _labelAvatarInitial;

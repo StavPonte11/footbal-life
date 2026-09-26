@@ -1,4 +1,5 @@
 using System;
+using FootballLife.Domain;
 using FootballLife.Unity.Core.Bridge;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -70,6 +71,7 @@ namespace FootballLife.Unity.UI.Hub
         private readonly Action? _onOpenContinental;
         private readonly Action? _onOpenSponsorship;
         private readonly Action? _onOpenLegacy;
+        private readonly Action? _onOpenTransferMarket;
         private readonly Action _onLifeEventPending;
 
         private SimulationBridge? _bridge;

@@ -45,16 +45,16 @@ namespace FootballLife.Unity.UI.Match
         private readonly Label _labelSituationPressure;
         private readonly Label _labelSituationAdvantage;
 
-        private readonly Button _btnChoice1;
-        private readonly Button _btnChoice2;
-        private readonly Button _btnChoice3;
+        private readonly Button? _btnChoice1;
+        private readonly Button? _btnChoice2;
+        private readonly Button? _btnChoice3;
 
         private readonly VisualElement _cardResolution;
         private readonly Label _labelResolutionOutcome;
         private readonly Label _labelResolutionNarrative;
         private readonly Label _labelResolutionRatingDelta;
         private readonly Label _labelResolutionConfidenceDelta;
-        private readonly Button _btnNextMoment;
+        private readonly Button? _btnNextMoment;
 
         private readonly Label _valLiveRating;
         private readonly Label _valLiveGoals;

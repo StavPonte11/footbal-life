@@ -27,9 +27,9 @@ namespace FootballLife.Unity.UI.Match
         private readonly Label _labelTacticalObjective;
         private readonly Label _labelTacticalBriefing;
 
-        private readonly Button _btnKickoff;
-        private readonly Button _btnPreviewBack;
-        private readonly Button _btnPreviewCancel;
+        private readonly Button? _btnKickoff;
+        private readonly Button? _btnPreviewBack;
+        private readonly Button? _btnPreviewCancel;
 
         private readonly Action _onKickoff;
         private readonly Action _onCancel;
