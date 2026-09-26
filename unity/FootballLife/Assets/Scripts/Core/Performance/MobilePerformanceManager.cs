@@ -16,13 +16,17 @@ namespace FootballLife.Unity.Core.Performance
 
         [Header("Settings")]
         [SerializeField] private QualityTier _currentTier = QualityTier.High;
+        [SerializeField] private DeviceTier _deviceTier = DeviceTier.High;
         [SerializeField] private bool _batterySaverOverride = false;
 
+        private DevicePerformanceProfile _profile = DevicePerformanceProfile.GetProfile(DeviceTier.High);
         private bool _isIn3DGameplay = false;
         private float _batteryCheckTimer = 0f;
         private const float BatteryCheckIntervalSeconds = 30f;
 
         public QualityTier CurrentTier => _currentTier;
+        public DeviceTier DeviceTier => _deviceTier;
+        public DevicePerformanceProfile Profile => _profile;
         public bool IsIn3DGameplay => _isIn3DGameplay;
         public bool IsBatterySaverActive => _batterySaverOverride;
 
@@ -57,12 +61,27 @@ namespace FootballLife.Unity.Core.Performance
         }
 
         /// <summary>
-        /// Configures initial screen sleep and physics timestep settings.
+        /// Configures initial screen sleep, device tier classification, and physics timestep settings (#P7-701).
         /// </summary>
         private void InitializePerformanceSettings()
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             QualitySettings.vSyncCount = 0; // Disable VSync so targetFrameRate takes precedence
+
+            // Classify mobile hardware into Low, Mid, or High tier
+            _deviceTier = DeviceTierClassifier.Classify(
+                SystemInfo.systemMemorySize,
+                SystemInfo.processorCount,
+                SystemInfo.graphicsMemorySize,
+                SystemInfo.supportsComputeShaders
+            );
+
+            _profile = DevicePerformanceProfile.GetProfile(_deviceTier);
+            _currentTier = _profile.QualityTier;
+
+            // Apply resolution/render scaling factor if supported
+            QualitySettings.resolutionScalingFixedDPIFactor = _profile.RenderScale;
+
             ApplyTargetFrameRate();
         }
 
@@ -94,7 +113,7 @@ namespace FootballLife.Unity.Core.Performance
         }
 
         /// <summary>
-        /// Calculates and applies the target frame rate based on domain performance budget rules.
+        /// Calculates and applies the target frame rate based on domain performance budget rules and device profile.
         /// </summary>
         public void ApplyTargetFrameRate()
         {
@@ -102,7 +121,13 @@ namespace FootballLife.Unity.Core.Performance
             bool isLowBattery = batteryLevel > 0f && batteryLevel <= PerformanceBudget.LowBatteryThreshold;
             bool batterySaver = _batterySaverOverride || isLowBattery || _currentTier == QualityTier.BatterySaver;
 
-            int targetFps = PerformanceBudget.GetRecommendedFrameRate(batteryLevel, batterySaver, _isIn3DGameplay);
+            if (batterySaver)
+            {
+                Application.targetFrameRate = PerformanceBudget.TargetFrameRateBatterySaver;
+                return;
+            }
+
+            int targetFps = _isIn3DGameplay ? _profile.TargetFpsGameplay : _profile.TargetFpsUI;
             Application.targetFrameRate = targetFps;
         }
 

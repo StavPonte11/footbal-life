@@ -18,7 +18,8 @@ namespace FootballLife.Domain
         TrainingCompleted = 7,
         EconomyTransaction = 8,
         CloudSyncCompleted = 9,
-        MonetizationPurchased = 10
+        MonetizationPurchased = 10,
+        CrashReported = 11
     }
 
     /// <summary>
@@ -51,6 +52,7 @@ namespace FootballLife.Domain
                 TelemetryEventType.EconomyTransaction => "economy_transaction",
                 TelemetryEventType.CloudSyncCompleted => "cloud_sync_completed",
                 TelemetryEventType.MonetizationPurchased => "monetization_purchased",
+                TelemetryEventType.CrashReported => "crash_reported",
                 _ => type.ToString().ToLowerInvariant()
             };
 

@@ -286,6 +286,7 @@ namespace FootballLife.Unity.Core.Bridge
         private readonly CloudSaveSyncService _cloudSaveSyncService = new();
         private readonly ICloudSaveProvider _cloudSaveProvider = new EmulatedCloudSaveProvider();
         private readonly MonetizationService _monetizationService = new();
+        private readonly CrashDiagnosticService _crashDiagnosticService;
 
         private OnboardingState _onboardingState = OnboardingState.Initial;
 
@@ -304,11 +305,68 @@ namespace FootballLife.Unity.Core.Bridge
             _localizationService.OnLanguageChanged += lang => OnLanguageChanged?.Invoke(lang);
             TryLoadLocalizationCatalogs();
 
+            // Initialize crash diagnostics (#P7-702)
+            string crashDir = System.IO.Path.Combine(Application.persistentDataPath, "crash_reports");
+            _crashDiagnosticService = new CrashDiagnosticService(maxBreadcrumbs: 30, crashDirectory: crashDir);
+            Application.logMessageReceivedThreaded += HandleUnityLogCallback;
+
+            // Flush any offline crash reports from previous session
+            int flushed = _crashDiagnosticService.FlushPendingCrashReports(report =>
+            {
+                _telemetryService.Track(TelemetryEventType.CrashReported, new Dictionary<string, object>
+                {
+                    ["crash_id"] = report.CrashId,
+                    ["exception_type"] = report.ExceptionType,
+                    ["is_fatal"] = report.IsFatal,
+                    ["context"] = report.Context ?? "Unknown"
+                });
+            });
+            if (flushed > 0)
+            {
+                Debug.Log($"[SimulationBridge] Flushed {flushed} pending crash report(s) from previous session.");
+            }
+
             _telemetryService.Track(TelemetryEventType.SessionStart, new Dictionary<string, object>
             {
                 ["platform"] = Application.platform.ToString(),
                 ["unity_version"] = Application.unityVersion
             });
+        }
+
+        private void OnDestroy()
+        {
+            Application.logMessageReceivedThreaded -= HandleUnityLogCallback;
+        }
+
+        /// <summary>
+        /// Unity log callback routed to CrashDiagnosticService for unhandled exceptions
+        /// and error-level log messages (#P7-702).
+        /// </summary>
+        private void HandleUnityLogCallback(string logString, string stackTrace, LogType type)
+        {
+            if (type == LogType.Exception)
+            {
+                var report = _crashDiagnosticService.CaptureException(
+                    new Exception(logString),
+                    context: "UnityLogCallback",
+                    isFatal: true,
+                    deviceMemoryMb: SystemInfo.systemMemorySize,
+                    batteryLevel: SystemInfo.batteryLevel);
+
+                _telemetryService.Track(TelemetryEventType.CrashReported, new Dictionary<string, object>
+                {
+                    ["crash_id"] = report.CrashId,
+                    ["exception_type"] = report.ExceptionType,
+                    ["is_fatal"] = true,
+                    ["context"] = "UnityLogCallback"
+                });
+            }
+            else if (type == LogType.Error)
+            {
+                _crashDiagnosticService.AddBreadcrumb(
+                    DiagnosticBreadcrumbCategory.System,
+                    $"Unity Error: {logString}");
+            }
         }
 
         /// <summary>
@@ -404,6 +462,9 @@ namespace FootballLife.Unity.Core.Bridge
         {
             if (_currentSave != null)
             {
+                _crashDiagnosticService.AddBreadcrumb(
+                    DiagnosticBreadcrumbCategory.Persistence,
+                    $"AutoSave S{_currentSave.CurrentSeason}W{_currentSave.CurrentWeek}");
                 SaveManager.SaveCareer(SaveLoadManager.AutoSaveSlot, _currentSave);
             }
         }
@@ -415,6 +476,10 @@ namespace FootballLife.Unity.Core.Bridge
         public void AdvanceDay()
         {
             if (_currentSave == null) return;
+
+            _crashDiagnosticService.AddBreadcrumb(
+                DiagnosticBreadcrumbCategory.Simulation,
+                $"AdvanceDay S{_currentSave.CurrentSeason}W{_currentSave.CurrentWeek}D{_currentDayOfWeek}");
 
             _currentDayOfWeek++;
             string status = $"Advanced to Day {_currentDayOfWeek}";
@@ -664,6 +729,10 @@ namespace FootballLife.Unity.Core.Bridge
             string outcomeStr = homeScore > awayScore ? "Won" : (homeScore == awayScore ? "Drew" : "Lost");
             string logMsg = $"Match complete! {outcomeStr} ({homeScore}-{awayScore}). Rating: {matchRating:F2}. Goals: {playerGoals}.";
             OnStatusLog?.Invoke(logMsg);
+
+            _crashDiagnosticService.AddBreadcrumb(
+                DiagnosticBreadcrumbCategory.Match,
+                $"MatchEnd {outcomeStr} {homeScore}-{awayScore} Rating:{matchRating:F2}");
 
             AutoSave();
             PublishDaySnapshot(logMsg);

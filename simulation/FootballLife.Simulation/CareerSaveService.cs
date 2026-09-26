@@ -11,8 +11,19 @@ namespace FootballLife.Simulation.Persistence
     public static class CareerSaveService
     {
         /// <summary>
+        /// Computes SHA256 checksum string for save integrity verification (#P7-703).
+        /// </summary>
+        public static string ComputeSha256(string content)
+        {
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(content);
+            byte[] hash = sha256.ComputeHash(bytes);
+            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+        }
+
+        /// <summary>
         /// Saves career data atomically to disk by writing to a temporary file, flushing, and replacing destination.
-        /// Preserves the prior version as a .bak file if it exists.
+        /// Preserves the prior version as a .bak file if it exists, and writes companion .sha256 checksum file (#P7-703).
         /// </summary>
         public static bool SaveToFile(string targetPath, CareerSaveData data, Action<string>? logger = null)
         {
@@ -30,11 +41,14 @@ namespace FootballLife.Simulation.Persistence
 
             string tempPath = targetPath + ".tmp";
             string backupPath = targetPath + ".bak";
+            string checksumPath = targetPath + ".sha256";
+            string backupChecksumPath = backupPath + ".sha256";
 
             try
             {
                 data.LastSavedAt = DateTime.UtcNow.ToString("o");
                 string json = data.ToJson();
+                string checksum = ComputeSha256(json);
 
                 // 1. Write and flush to temp file
                 using (var stream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -45,12 +59,16 @@ namespace FootballLife.Simulation.Persistence
                     stream.Flush(true);
                 }
 
-                // 2. Backup existing file if present
+                // 2. Backup existing file & checksum if present
                 if (File.Exists(targetPath))
                 {
                     try
                     {
                         File.Copy(targetPath, backupPath, overwrite: true);
+                        if (File.Exists(checksumPath))
+                        {
+                            File.Copy(checksumPath, backupChecksumPath, overwrite: true);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -64,6 +82,13 @@ namespace FootballLife.Simulation.Persistence
                     File.Delete(targetPath);
                 }
                 File.Move(tempPath, targetPath);
+
+                // 4. Update checksum companion file
+                try
+                {
+                    File.WriteAllText(checksumPath, checksum);
+                }
+                catch { }
 
                 return true;
             }
@@ -79,7 +104,8 @@ namespace FootballLife.Simulation.Persistence
         }
 
         /// <summary>
-        /// Loads career data from file, falling back to .bak file if primary is missing or corrupted.
+        /// Loads career data from file with checksum verification, falling back to .bak file
+        /// and auto-healing the primary save if corrupted (#P7-703).
         /// </summary>
         public static CareerSaveData? LoadFromFile(string targetPath, Action<string>? logger = null)
         {
@@ -87,14 +113,29 @@ namespace FootballLife.Simulation.Persistence
                 throw new ArgumentException("Target path cannot be empty.", nameof(targetPath));
 
             string backupPath = targetPath + ".bak";
+            string checksumPath = targetPath + ".sha256";
+            string backupChecksumPath = backupPath + ".sha256";
 
-            // Attempt primary load
+            // Attempt primary load with checksum verification
             if (File.Exists(targetPath))
             {
                 try
                 {
                     string json = File.ReadAllText(targetPath);
-                    return CareerSaveData.FromJson(json);
+
+                    if (File.Exists(checksumPath))
+                    {
+                        string expected = File.ReadAllText(checksumPath).Trim();
+                        string actual = ComputeSha256(json);
+                        if (!string.Equals(expected, actual, StringComparison.OrdinalIgnoreCase))
+                        {
+                            throw new InvalidDataException($"Checksum mismatch in primary save: expected {expected}, got {actual}");
+                        }
+                    }
+
+                    var save = CareerSaveData.FromJson(json);
+                    if (save != null) return save;
+                    throw new JsonException("Deserialized save was null.");
                 }
                 catch (Exception ex)
                 {
@@ -102,15 +143,41 @@ namespace FootballLife.Simulation.Persistence
                 }
             }
 
-            // Attempt backup load
+            // Attempt backup load and auto-heal
             if (File.Exists(backupPath))
             {
                 try
                 {
                     string json = File.ReadAllText(backupPath);
+
+                    if (File.Exists(backupChecksumPath))
+                    {
+                        string expected = File.ReadAllText(backupChecksumPath).Trim();
+                        string actual = ComputeSha256(json);
+                        if (!string.Equals(expected, actual, StringComparison.OrdinalIgnoreCase))
+                        {
+                            throw new InvalidDataException($"Checksum mismatch in backup save: expected {expected}, got {actual}");
+                        }
+                    }
+
                     var restored = CareerSaveData.FromJson(json);
-                    logger?.Invoke("Restored save successfully from backup.");
-                    return restored;
+                    if (restored != null)
+                    {
+                        logger?.Invoke("Restored save successfully from backup. Auto-healing primary save file.");
+
+                        // Auto-healing: copy healthy backup to primary path so subsequent loads succeed cleanly (#P7-703)
+                        try
+                        {
+                            File.Copy(backupPath, targetPath, overwrite: true);
+                            if (File.Exists(backupChecksumPath))
+                            {
+                                File.Copy(backupChecksumPath, checksumPath, overwrite: true);
+                            }
+                        }
+                        catch { }
+
+                        return restored;
+                    }
                 }
                 catch (Exception ex)
                 {
