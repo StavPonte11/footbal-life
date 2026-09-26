@@ -288,6 +288,8 @@ namespace FootballLife.Unity.Core.Bridge
         private readonly MonetizationService _monetizationService = new();
         private readonly CrashDiagnosticService _crashDiagnosticService;
         private readonly PrivacyConsentService _privacyConsentService = PrivacyConsentService.Instance;
+        private readonly BetaEnrollmentService _betaEnrollmentService = BetaEnrollmentService.Instance;
+        private readonly BetaFeedbackService _betaFeedbackService;
 
         private OnboardingState _onboardingState = OnboardingState.Initial;
 
@@ -310,6 +312,10 @@ namespace FootballLife.Unity.Core.Bridge
             string crashDir = System.IO.Path.Combine(Application.persistentDataPath, "crash_reports");
             _crashDiagnosticService = new CrashDiagnosticService(maxBreadcrumbs: 30, crashDirectory: crashDir);
             Application.logMessageReceivedThreaded += HandleUnityLogCallback;
+
+            // Initialize beta feedback pipeline (#P7-902)
+            string feedbackDir = System.IO.Path.Combine(Application.persistentDataPath, "beta_feedback");
+            _betaFeedbackService = new BetaFeedbackService(feedbackDir);
 
             // Flush any offline crash reports from previous session
             int flushed = _crashDiagnosticService.FlushPendingCrashReports(report =>
@@ -1613,6 +1619,39 @@ namespace FootballLife.Unity.Core.Bridge
         public StoreComplianceReport AuditStoreCompliance()
         {
             return _monetizationService.AuditCompliance();
+        }
+
+        // Closed Beta Program (#P7-901, #P7-902, #P7-903, #P7-904)
+        public BetaEnrollmentService BetaEnrollment => _betaEnrollmentService;
+        public BetaFeedbackService BetaFeedback => _betaFeedbackService;
+
+        public BetaEnrollmentResult RedeemBetaInvitation(string code)
+        {
+            return _betaEnrollmentService.RedeemCode(code, SystemInfo.deviceUniqueIdentifier);
+        }
+
+        public BetaFeedbackReport SubmitBetaFeedback(FeedbackCategory category, int satisfactionRating, string comment, string? contactEmail = null)
+        {
+            var deviceContext = new FeedbackDeviceContext(
+                Platform: Application.platform.ToString(),
+                OperatingSystem: SystemInfo.operatingSystem,
+                SystemMemoryMb: SystemInfo.systemMemorySize,
+                BatteryLevel: SystemInfo.batteryLevel,
+                Tier: MobilePerformanceManager.Instance != null ? MobilePerformanceManager.Instance.CurrentTier : DeviceTier.Medium
+            );
+
+            string? snapshotSummary = _currentSave != null
+                ? $"Player: {_currentSave.PlayerName}, Club: {_currentSave.ClubName}, Season: {_currentSave.CurrentSeason}, Week: {_currentSave.CurrentWeek}"
+                : null;
+
+            return _betaFeedbackService.SubmitFeedback(
+                category: category,
+                satisfactionRating: satisfactionRating,
+                comment: comment,
+                contactEmail: contactEmail,
+                deviceContext: deviceContext,
+                saveSnapshotSummary: snapshotSummary
+            );
         }
 
         private void EnsureMockSaveForTesting()

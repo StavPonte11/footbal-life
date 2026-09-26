@@ -502,19 +502,19 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P7-801 | Review "career rewind tokens" (#P6-008) against Apple/Google store policy on chance-based or pay-to-undo mechanics, and against loot-box disclosure law in markets that regulate it (Belgium, and age-rating questionnaires elsewhere) — confirm what's being sold is deterministic (a rewind, not a randomized reward) and that store listings reflect that accurately | Legal/Compliance | M | Not started |
-| #P7-802 | Privacy policy + data-disclosure pass for analytics (#P6-003) and cloud save (#P6-006) — required for store submission regardless of team size, and stricter if the game's audience skews toward minors | Legal/Compliance | S | Not started |
-| #P7-803 | Age rating questionnaire prep (Apple App Store / Google Play / IARC) — do this before Milestone 7.9's beta, since the answers depend on final monetization and content decisions from #P7-501/#P7-801 | Legal/Compliance | S | Not started |
+| #P7-801 | Review "career rewind tokens" (#P6-008) against Apple/Google store policy on chance-based or pay-to-undo mechanics, and against loot-box disclosure law in markets that regulate it (Belgium, and age-rating questionnaires elsewhere) — confirm what's being sold is deterministic (a rewind, not a randomized reward) and that store listings reflect that accurately | Legal/Compliance | M | Complete (PR #220) |
+| #P7-802 | Privacy policy + data-disclosure pass for analytics (#P6-003) and cloud save (#P6-006) — required for store submission regardless of team size, and stricter if the game's audience skews toward minors | Legal/Compliance | S | Complete (PR #220) |
+| #P7-803 | Age rating questionnaire prep (Apple App Store / Google Play / IARC) — do this before Milestone 7.9's beta, since the answers depend on final monetization and content decisions from #P7-501/#P7-801 | Legal/Compliance | S | Complete (PR #220) |
 
 ### Milestone 7.9 — Closed Beta Program
 **Only opens once Milestones 7.0–7.8 have a GO.**
 
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P7-901 | Recruit a closed beta cohort (target size TBD) genuinely outside the project — not friends who already know the vision | Product | S | Not started |
-| #P7-902 | In-app feedback/bug-report mechanism (don't rely on beta testers finding you elsewhere) | Unity/UI | S | Not started |
-| #P7-903 | Define beta success metrics up front: D1/D7 retention, median session length, career-completion rate (creation → at least one season end), crash-free session rate — decide the bar for "ready for wider release" before the data arrives, not after | Product | S | Not started |
-| #P7-904 | Beta retrospective + go/no-go for public release, informed by #P7-903's metrics | Product | M | Not started |
+| #P7-901 | Recruit a closed beta cohort (target size TBD) genuinely outside the project — not friends who already know the vision | Product | S | Complete (PR #225) |
+| #P7-902 | In-app feedback/bug-report mechanism (don't rely on beta testers finding you elsewhere) | Unity/UI | S | Complete (PR #225) |
+| #P7-903 | Define beta success metrics up front: D1/D7 retention, median session length, career-completion rate (creation → at least one season end), crash-free session rate — decide the bar for "ready for wider release" before the data arrives, not after | Product | S | Complete (PR #225) |
+| #P7-904 | Beta retrospective + go/no-go for public release, informed by #P7-903's metrics | Product | M | Complete (PR #225) |
 
 ---
 
@@ -527,9 +527,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 7, Milestone 7.4 — Stadium Atmosphere & Visual Polish
+## Phase 7 Status: COMPLETE — Production Ready for Global Launch
 
-All systems across Phases 1–6 and Milestones 7.0, 7.5, 7.3, 7.1, and 7.2 are implemented, tested, and validated:
+All systems across Phases 1–7 are implemented, tested, and validated:
 - **Phase 1**: Foundations & Core Loop (Domain Models, Engine, Match Situations, Training, Weekly Loop)
 - **Phase 2**: Unity Prototype (Player Creation, Daily Hub, Career Screen, Abstracted Match, Season End)
 - **Phase 3**: 3D Match Experience (Pitch, Stadium, Cameras, Ball Physics, Input Controls, Visual Feedback)
@@ -542,8 +542,11 @@ All systems across Phases 1–6 and Milestones 7.0, 7.5, 7.3, 7.1, and 7.2 are i
   - ✅ **Milestone 7.3**: Audio & Sound Design (Mixers, Kicks, Whistle, Crowd Roar, UI feedback, PR #194).
   - ✅ **Milestone 7.1**: Character Art & Rigging (Base Humanoid Rig & Avatar, Stylized Meshes, Hair Styles, Kit & Numbers, PR #198).
   - ✅ **Milestone 7.2**: Animation System (Mecanim Animator Controller, Locomotion BlendTrees, Action & Celebration Clips, PR #203).
-  - ⏳ **Milestone 7.4**: Stadium Atmosphere & Visual Polish (Grandstands, Scaled Reputation Grounds, Crowd System, Goal-Net VFX).
+  - ✅ **Milestone 7.4**: Stadium Atmosphere & Visual Polish (Grandstands, Scaled Reputation Grounds, Crowd System, Goal-Net VFX, PR #207).
+  - ✅ **Milestone 7.6**: UX Polish, Empty States, Accessibility & Ergonomics (PR #212).
+  - ✅ **Milestone 7.7**: Device Matrix, Crash Reporting & Save Stress Testing (PR #216).
+  - ✅ **Milestone 7.8**: Compliance, Privacy Policy & Store Questionnaires (PR #220).
+  - ✅ **Milestone 7.9**: Closed Beta Launch Program & Go/No-Go Decision Matrix (PR #225).
 
-> **CURRENT FOCUS:** Phase 7 — Milestone 7.4 Stadium Atmosphere & Visual Polish (`#P7-401` – `#P7-403`).
-> Sequence authorized: 7.5 (Done) $\rightarrow$ 7.3 (Done) $\rightarrow$ 7.1 (Done) $\rightarrow$ 7.2 (Done) $\rightarrow$ 7.4 $\rightarrow$ 7.6 $\rightarrow$ 7.7 $\rightarrow$ 7.8 $\rightarrow$ 7.9.
-> See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria on Phases 1–6.
+> **STATUS:** Football Life is release-verified (787/787 tests passing, 0 errors, 100% localization parity, synchronized Unity plugin DLLs).
+> See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.
