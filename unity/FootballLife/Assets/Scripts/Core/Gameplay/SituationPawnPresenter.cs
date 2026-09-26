@@ -53,13 +53,17 @@ namespace FootballLife.Unity.Core.Gameplay
             // 1. User Player (Striker)
             var userPos = new Vector3(0f, 0f, 13.5f);
             var userRot = Quaternion.Euler(0f, 0f, 0f); // Facing opponent goal
+            var userProfile = PlayerVisualProfile.CreateDeterministic("Marcus Vance", 9, Position.ST);
             var userGo = HumanoidPawnBuilder.CreatePawn(
                 pawnsRoot.transform,
                 userPos,
                 userRot,
                 "Pawn_User_Striker",
                 PawnKitScheme.HomeOutfield,
-                hasSelectionRing: true
+                hasSelectionRing: true,
+                visualProfile: userProfile,
+                squadNumber: 9,
+                isGoalkeeper: false
             );
             var userPawn = userGo.GetComponent<MatchPawn>();
             userPawn.Initialize("Marcus Vance", 9, PawnRole.UserStriker, PawnTeam.Home);
@@ -69,13 +73,17 @@ namespace FootballLife.Unity.Core.Gameplay
             // 2. Supporting Teammate (Right Winger / Midfielder making run)
             var tmPos = new Vector3(11.5f, 0f, 18.5f);
             var tmRot = Quaternion.Euler(0f, -20f, 0f);
+            var tmProfile = PlayerVisualProfile.CreateDeterministic("Liam Sterling", 11, Position.RW);
             var tmGo = HumanoidPawnBuilder.CreatePawn(
                 pawnsRoot.transform,
                 tmPos,
                 tmRot,
                 "Pawn_Teammate_Support",
                 PawnKitScheme.HomeOutfield,
-                hasSelectionRing: false
+                hasSelectionRing: false,
+                visualProfile: tmProfile,
+                squadNumber: 11,
+                isGoalkeeper: false
             );
             var tmPawn = tmGo.GetComponent<MatchPawn>();
             tmPawn.Initialize("Liam Sterling", 11, PawnRole.Teammate, PawnTeam.Home);
@@ -86,13 +94,17 @@ namespace FootballLife.Unity.Core.Gameplay
             // 3. Opponent Center Back 1 (Left CB jockeying)
             var cb1Pos = new Vector3(-3.5f, 0f, 22.5f);
             var cb1Rot = Quaternion.Euler(0f, 180f, 0f);
+            var cb1Profile = PlayerVisualProfile.CreateDeterministic("Diego Silva", 4, Position.CB);
             var cb1Go = HumanoidPawnBuilder.CreatePawn(
                 pawnsRoot.transform,
                 cb1Pos,
                 cb1Rot,
                 "Pawn_Opponent_CB1",
                 PawnKitScheme.AwayOutfield,
-                hasSelectionRing: false
+                hasSelectionRing: false,
+                visualProfile: cb1Profile,
+                squadNumber: 4,
+                isGoalkeeper: false
             );
             var cb1Pawn = cb1Go.GetComponent<MatchPawn>();
             cb1Pawn.Initialize("Diego Silva", 4, PawnRole.Defender, PawnTeam.Away);
@@ -103,13 +115,17 @@ namespace FootballLife.Unity.Core.Gameplay
             // 4. Opponent Center Back 2 (Right CB covering)
             var cb2Pos = new Vector3(4.0f, 0f, 23.5f);
             var cb2Rot = Quaternion.Euler(0f, 180f, 0f);
+            var cb2Profile = PlayerVisualProfile.CreateDeterministic("Klaus Weber", 5, Position.CB);
             var cb2Go = HumanoidPawnBuilder.CreatePawn(
                 pawnsRoot.transform,
                 cb2Pos,
                 cb2Rot,
                 "Pawn_Opponent_CB2",
                 PawnKitScheme.AwayOutfield,
-                hasSelectionRing: false
+                hasSelectionRing: false,
+                visualProfile: cb2Profile,
+                squadNumber: 5,
+                isGoalkeeper: false
             );
             var cb2Pawn = cb2Go.GetComponent<MatchPawn>();
             cb2Pawn.Initialize("Klaus Weber", 5, PawnRole.Defender, PawnTeam.Away);
@@ -120,13 +136,17 @@ namespace FootballLife.Unity.Core.Gameplay
             // 5. Opponent Goalkeeper (Positioned on goal line at Z = 34.8m)
             var gkPos = new Vector3(0f, 0f, 34.8f);
             var gkRot = Quaternion.Euler(0f, 180f, 0f);
+            var gkProfile = PlayerVisualProfile.CreateDeterministic("Oliver Kahn", 1, Position.GK);
             var gkGo = HumanoidPawnBuilder.CreatePawn(
                 pawnsRoot.transform,
                 gkPos,
                 gkRot,
                 "Pawn_Opponent_GK",
                 PawnKitScheme.Goalkeeper,
-                hasSelectionRing: false
+                hasSelectionRing: false,
+                visualProfile: gkProfile,
+                squadNumber: 1,
+                isGoalkeeper: true
             );
             var gkPawn = gkGo.GetComponent<MatchPawn>();
             gkPawn.Initialize("Oliver Kahn", 1, PawnRole.Goalkeeper, PawnTeam.Away);
