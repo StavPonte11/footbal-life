@@ -452,15 +452,15 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P7-204 | Retire the procedural rotation code paths once clip-driven equivalents are verified — don't run both indefinitely | Unity/Animation | S | Not started |
 
 ### Milestone 7.3 — Audio & Sound Design
-*Source: `AudioMixer` setup is currently empty; the game is silent.*
+*Merged (PR #194, Issues #189–#193)*
 
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P7-301 | AudioMixer routing: SFX / Ambience / UI / Music buses with independent volume control exposed in Settings | Unity/Audio | M | Not started |
-| #P7-302 | Match SFX: kick impact (power-scaled), post/crossbar clang, net ripple, referee whistle, wired into `ShootingInteraction.cs` / `GoalTrigger.cs` | Unity/Audio | M | Not started |
-| #P7-303 | Crowd ambience: idle murmur loop, reactive goal roar, near-miss gasp | Unity/Audio | M | Not started |
-| #P7-304 | UI SFX: button clicks, slide transitions, wage-day coin chime | Unity/Audio | S | Not started |
-| #P7-305 | Menu/background music track(s), licensed or commissioned — confirm rights before shipping, not after | Unity/Audio | M | Not started |
+| #P7-301 (#189) | AudioMixer & AudioSettings routing: SFX / Ambience / UI / Music buses with logarithmic dB conversions, mute toggles, and volume persistence | Unity/Audio | M | ✅ Merged (#194) |
+| #P7-302 (#190) | Match SFX: kick impact (power-scaled), post/crossbar metallic clang, net ripple swoosh, referee whistle (start/goal/fulltime) | Unity/Audio | M | ✅ Merged (#194) |
+| #P7-303 (#191) | Crowd ambience: idle stadium murmur loop, reactive goal celebration roar, woodwork/near-miss/save gasp | Unity/Audio | M | ✅ Merged (#194) |
+| #P7-304 (#192) | UI SFX: button clicks, screen tab switches, wage-day coin chime, life event alert bell | Unity/Audio | S | ✅ Merged (#194) |
+| #P7-305 (#193) | Menu/background music track management with procedural synthesis and automatic ducking during match highlights | Unity/Audio | M | ✅ Merged (#194) |
 
 ### Milestone 7.4 — Stadium Atmosphere & Visual Polish
 *Source: current stadium is pitch + floodlights + ad boards; no stands, no crowd.*
@@ -503,7 +503,7 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
 | #P7-801 | Review "career rewind tokens" (#P6-008) against Apple/Google store policy on chance-based or pay-to-undo mechanics, and against loot-box disclosure law in markets that regulate it (Belgium, and age-rating questionnaires elsewhere) — confirm what's being sold is deterministic (a rewind, not a randomized reward) and that store listings reflect that accurately | Legal/Compliance | M | Not started |
-| #P7-802 | Privacy policy + data-disclosure pass for analytics (#P6-003) and cloud save (#P6-006) — required for store submission regardless of team size, and stricter if the game's audience skews toward minors | Legal/Compliance | M | Not started |
+| #P7-802 | Privacy policy + data-disclosure pass for analytics (#P6-003) and cloud save (#P6-006) — required for store submission regardless of team size, and stricter if the game's audience skews toward minors | Legal/Compliance | S | Not started |
 | #P7-803 | Age rating questionnaire prep (Apple App Store / Google Play / IARC) — do this before Milestone 7.9's beta, since the answers depend on final monetization and content decisions from #P7-501/#P7-801 | Legal/Compliance | S | Not started |
 
 ### Milestone 7.9 — Closed Beta Program
@@ -527,9 +527,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 7, Milestone 7.3 — Audio & Sound Design
+## Current Focus: Phase 7, Milestone 7.1 — Character Art & Rigging
 
-All systems across Phases 1–6 and Milestone 7.0/7.5 are implemented, tested, and validated:
+All systems across Phases 1–6 and Milestones 7.0, 7.5, and 7.3 are implemented, tested, and validated:
 - **Phase 1**: Foundations & Core Loop (Domain Models, Engine, Match Situations, Training, Weekly Loop)
 - **Phase 2**: Unity Prototype (Player Creation, Daily Hub, Career Screen, Abstracted Match, Season End)
 - **Phase 3**: 3D Match Experience (Pitch, Stadium, Cameras, Ball Physics, Input Controls, Visual Feedback)
@@ -539,8 +539,9 @@ All systems across Phases 1–6 and Milestone 7.0/7.5 are implemented, tested, a
 - **Phase 7 Progress**:
   - ✅ **Milestone 7.0**: Gate Review & Playtest debrief (`docs/gate-7.0-review.md`, PR #186).
   - ✅ **Milestone 7.5 (#P7-501)**: Safe Fictional Renaming Pass & IP Resolution (11 leagues, 66 clubs, PR #188).
-  - ⏳ **Milestone 7.3**: Audio & Sound Design (Mixers, Kicks, Whistle, Crowd Roar, UI feedback).
+  - ✅ **Milestone 7.3**: Audio & Sound Design (Mixers, Kicks, Whistle, Crowd Roar, UI feedback, PR #194).
+  - ⏳ **Milestone 7.1**: Character Art & Rigging (Base Humanoid FBX & Avatar, Kit variations, Goalkeeper model).
 
-> **CURRENT FOCUS:** Phase 7 — Milestone 7.3 Audio & Sound Design (`#P7-301` – `#P7-305`).
-> Sequence authorized: 7.5 (Done) $\rightarrow$ 7.3 $\rightarrow$ 7.1 $\rightarrow$ 7.2 $\rightarrow$ 7.4 $\rightarrow$ 7.6 $\rightarrow$ 7.7 $\rightarrow$ 7.8 $\rightarrow$ 7.9.
+> **CURRENT FOCUS:** Phase 7 — Milestone 7.1 Character Art & Rigging (`#P7-101` – `#P7-103`).
+> Sequence authorized: 7.5 (Done) $\rightarrow$ 7.3 (Done) $\rightarrow$ 7.1 $\rightarrow$ 7.2 $\rightarrow$ 7.4 $\rightarrow$ 7.6 $\rightarrow$ 7.7 $\rightarrow$ 7.8 $\rightarrow$ 7.9.
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria on Phases 1–6.
