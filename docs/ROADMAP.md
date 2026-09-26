@@ -472,12 +472,13 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P7-403 | Match VFX pass: goal-net ripple, turf dust on tackles/slides, ball trail refinement beyond the current simple renderer | Unity/VFX | M | Not started |
 
 ### Milestone 7.5 — Content, Iconography & IP Resolution
+*#P7-501 merged (PR #188, Issue #187)*
 
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P7-501 | **Resolve real vs. fictional club/league naming** (see escalated note under Milestone 6.1 above) — decision + execution plan, before any other content-facing work in this milestone proceeds | Content/Legal | L | Not started |
+| #P7-501 (#187) | **Resolve real vs. fictional club/league naming** (Safe Fictional Renaming Pass: 11 leagues & 66 clubs + stadiums converted in data & code) | Content/Legal | L | ✅ Merged (#188) |
 | #P7-502 | Custom vector icon set for lifestyle shop items, replacing emoji placeholders (🚗👟⚽) in `tokens.uss`/UXML | UI/Art | M | Not started |
-| #P7-503 | Club crest & league emblem illustrations for all clubs/leagues (blocked on #P7-501 — don't illustrate real crests you may need to rename) | UI/Art | L | Not started |
+| #P7-503 | Club crest & league emblem illustrations for all clubs/leagues (unblocked by #P7-501) | UI/Art | L | Not started |
 | #P7-504 | Player card portrait system, newspaper front-page illustration templates for media/press-conference screens | UI/Art | M | Not started |
 
 ### Milestone 7.6 — UX Flow, Onboarding & Accessibility Audit
@@ -526,17 +527,20 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 7, Milestone 7.0 — Validation Gate
+## Current Focus: Phase 7, Milestone 7.3 — Audio & Sound Design
 
-All systems across Phases 1–6 are implemented, tested, and internally validated:
+All systems across Phases 1–6 and Milestone 7.0/7.5 are implemented, tested, and validated:
 - **Phase 1**: Foundations & Core Loop (Domain Models, Engine, Match Situations, Training, Weekly Loop)
 - **Phase 2**: Unity Prototype (Player Creation, Daily Hub, Career Screen, Abstracted Match, Season End)
 - **Phase 3**: 3D Match Experience (Pitch, Stadium, Cameras, Ball Physics, Input Controls, Visual Feedback)
 - **Phase 4**: UI/UX & Life Layer (Home, Phone/Social, Life Events, Finances, Lifestyle Shop)
 - **Phase 5**: Career World (World Simulation, Transfers, International Football, Legacy)
 - **Phase 6**: Polish, Balance & Release (10,000-Career Balance, Content Expansion, Onboarding, Localization, Telemetry, Cloud Save, Monetization, Mobile Performance)
+- **Phase 7 Progress**:
+  - ✅ **Milestone 7.0**: Gate Review & Playtest debrief (`docs/gate-7.0-review.md`, PR #186).
+  - ✅ **Milestone 7.5 (#P7-501)**: Safe Fictional Renaming Pass & IP Resolution (11 leagues, 66 clubs, PR #188).
+  - ⏳ **Milestone 7.3**: Audio & Sound Design (Mixers, Kicks, Whistle, Crowd Roar, UI feedback).
 
-> **What "100% complete" means here:** every listed system exists, is wired end-to-end, and passes its own tests (647+ and counting). That is a real and substantial achievement. It is not the same claim as "a first-time player finds this fun, clear, and worth returning to" — that claim has been human-checked exactly twice in the whole project (Gate 1.6.5, console-only; Gate 2.7, Unity prototype). Phase 7 exists to check it again, now, against the full build, before Milestone 7.9 hands it to anyone who isn't already invested in the outcome.
-
-> **CURRENT FOCUS:** Phase 7 — Pre-Launch Polish & Real-User Readiness, starting with Milestone 7.0 (`#P7-000a` – `#P7-000c`). Do not start Milestones 7.1–7.8 speculatively — let Gate 7.0's findings prioritize the backlog; the items listed under each are a starting hypothesis, not a committed order.
+> **CURRENT FOCUS:** Phase 7 — Milestone 7.3 Audio & Sound Design (`#P7-301` – `#P7-305`).
+> Sequence authorized: 7.5 (Done) $\rightarrow$ 7.3 $\rightarrow$ 7.1 $\rightarrow$ 7.2 $\rightarrow$ 7.4 $\rightarrow$ 7.6 $\rightarrow$ 7.7 $\rightarrow$ 7.8 $\rightarrow$ 7.9.
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria on Phases 1–6.
