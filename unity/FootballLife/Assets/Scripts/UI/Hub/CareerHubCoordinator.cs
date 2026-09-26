@@ -14,7 +14,7 @@ using FootballLife.Unity.UI.Transfers;
 using FootballLife.Unity.UI.Tutorial;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Position = FootballLife.Domain.Position;
+using Position = UnityEngine.UIElements.Position;
 
 namespace FootballLife.Unity.UI
 {
