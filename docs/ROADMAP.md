@@ -463,13 +463,13 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P7-305 (#193) | Menu/background music track management with procedural synthesis and automatic ducking during match highlights | Unity/Audio | M | ✅ Merged (#194) |
 
 ### Milestone 7.4 — Stadium Atmosphere & Visual Polish
-*Source: current stadium is pitch + floodlights + ad boards; no stands, no crowd.*
+*Merged (PR #207, Issues #204–#206)*
 
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P7-401 | Stadium grandstands: tiered seating geometry, dugouts, roof, scaled by club reputation tier (a lower-league ground shouldn't look identical to a title contender's) | Unity/Art | L | Not started |
-| #P7-402 | Crowd system: GPU-instanced or billboard spectators, reacting to goals/near-misses — profile against the <200MB RAM / 60fps targets before committing to a technique | Unity/Art/Perf | L | Not started |
-| #P7-403 | Match VFX pass: goal-net ripple, turf dust on tackles/slides, ball trail refinement beyond the current simple renderer | Unity/VFX | M | Not started |
+| #P7-401 (#204) | Stadium grandstands: tiered seating geometry, dugouts, roof, scaled by club reputation tier (Grassroots terrace vs Mid-tier covered ground vs Elite arena) | Unity/Art | L | ✅ Merged (#207) |
+| #P7-402 (#205) | Crowd system: batched spectator seating geometry, reacting to goals (roar wave) and near-misses (gasp recoil) within <200MB RAM / 60fps mobile budget | Unity/Art/Perf | L | ✅ Merged (#207) |
+| #P7-403 (#206) | Match VFX pass: goal-net physics ripple, turf dust particle pool on kicks/slides, velocity-scaled aerodynamic ball trail refinement | Unity/VFX | M | ✅ Merged (#207) |
 
 ### Milestone 7.5 — Content, Iconography & IP Resolution
 *#P7-501 merged (PR #188, Issue #187)*
