@@ -395,6 +395,8 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P6-001 (#171) | 10,000-career simulation balance pass | Simulation/Balance | L | ✅ Complete |
 | #P6-004 (#172) | Content expansion: 100+ life events, 50+ clubs, 10+ leagues | Content/Data | L | ✅ Complete |
 
+> 🔴 **Escalated — real club/league naming (originally flagged at Milestone 1.2, #P1-016):** this was flagged as an open decision when the sample data was 5 leagues / handful of clubs. It appears to have been left unresolved and carried forward through content expansion — 50+ clubs and 10+ leagues are now built on real, licensed names (Premier League, La Liga, etc.) per `leagues.json`. This is no longer a "decide before scaling" item; it's now a blocking legal question before any external user — beta or public — can touch a build, since distributing real club/league identity without a license is the exposure, not just shipping it. Resolve this explicitly in Phase 7 (Milestone 7.5 below) before Milestone 7.8's beta program: either commit to fictional-but-recognizable renaming across all 50+ clubs/10+ leagues (a content-and-art-asset-touching change, not a quick find-replace, since crests/kits reference real identities too) or pursue licensing. Don't let beta testers be the ones who discover this wasn't decided.
+
 ### Milestone 6.2: Onboarding Flow & Localization
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
@@ -417,7 +419,103 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Complexity Key
+## Phase 7 — Pre-Launch Polish & Real-User Readiness
+**Goal:** Close the gap between "the systems are complete" and "a stranger can pick this up, understand it, and want to keep playing" — before any beta or public test.
+**Why this phase exists:** Phases 1–6 validated that the game *works* (deterministic simulation, 647+ tests, 60fps/<200MB targets, all systems wired). None of that establishes that it's *fun to a stranger* or *safe to hand to one*. The only two human-judgment checkpoints in the whole roadmap so far are Gate 1.6.5 (simulation feel, console-only) and Gate 2.7 (Unity prototype, automated + audit). Everything from Phase 3 onward — the entire 3D match experience, the full life sim, world sim, monetization, onboarding, localization — shipped without a further human playtest gate. Phase 7 exists to close that gap before Milestone 7.8 puts the build in front of people who didn't build it.
+
+### Milestone 7.0 — 🛑 Validation Gate: End-to-End Human Playtest ✅ (Complete)
+*Branch: `feature/milestone-7.0-validation-gate` | Issues #183, #184, #185 | Review: [docs/gate-7.0-review.md](file:///Users/stavponte/Desktop/stav/projects/footbal-life/docs/gate-7.0-review.md)*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-000a (#183) | 3–5 people outside the build's author(s) play a full career session (creation → several seasons → at least one transfer, one life event, one retirement path if time allows), current build, no guidance given | Quality | M | ✅ Complete |
+| #P7-000b (#184) | Structured debrief: where did they get confused, bored, stuck, or quit? What did they *think* a screen/button did vs. what it did? | Quality | S | ✅ Complete |
+| #P7-000c (#185) | Gate review doc (`docs/gate-7.0-review.md`) — same format as prior gates — GO/NO-GO plus a ranked friction list that becomes the real Phase 7 backlog | Docs/Quality | S | ✅ Complete |
+
+### Milestone 7.1 — Character Art & Rigging
+*Source: current pawns are procedurally assembled primitives (box/cylinder mannequins) built for zero-dependency prototyping — see `HumanoidPawnBuilder.cs`.*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-101 | Source or commission 1 base Humanoid FBX mesh (outfield + goalkeeper variant), Unity Humanoid Avatar rig, retargetable across all 22 on-pitch pawns | Unity/Art | L | Not started |
+| #P7-102 | Face/hair/skin-tone variation system for player identity distinctiveness (replaces primitive head block) | Unity/Art | M | Not started |
+| #P7-103 | Kit system compatibility pass: verify procedural club-color material application still works on the new rig/mesh | Unity/Art | S | Not started |
+
+### Milestone 7.2 — Animation System
+*Source: kicks/dives currently rotate bones via code (`transform.localRotation = Quaternion.Euler(...)`) in `PlayerPawnController.cs` / `GoalkeeperController.cs`.*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-201 | Mecanim Animator Controller + Locomotion BlendTree (Idle ↔ Jog ↔ Sprint by velocity), replacing procedural sway | Unity/Animation | M | Not started |
+| #P7-202 | Action clip set: power shot, finesse curl, header, sliding tackle, diving save (mocap or curated asset-store library, not code rotation) | Unity/Animation | L | Not started |
+| #P7-203 | Celebration clip set: knee slide, fist pump, crowd wave | Unity/Animation | S | Not started |
+| #P7-204 | Retire the procedural rotation code paths once clip-driven equivalents are verified — don't run both indefinitely | Unity/Animation | S | Not started |
+
+### Milestone 7.3 — Audio & Sound Design
+*Source: `AudioMixer` setup is currently empty; the game is silent.*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-301 | AudioMixer routing: SFX / Ambience / UI / Music buses with independent volume control exposed in Settings | Unity/Audio | M | Not started |
+| #P7-302 | Match SFX: kick impact (power-scaled), post/crossbar clang, net ripple, referee whistle, wired into `ShootingInteraction.cs` / `GoalTrigger.cs` | Unity/Audio | M | Not started |
+| #P7-303 | Crowd ambience: idle murmur loop, reactive goal roar, near-miss gasp | Unity/Audio | M | Not started |
+| #P7-304 | UI SFX: button clicks, slide transitions, wage-day coin chime | Unity/Audio | S | Not started |
+| #P7-305 | Menu/background music track(s), licensed or commissioned — confirm rights before shipping, not after | Unity/Audio | M | Not started |
+
+### Milestone 7.4 — Stadium Atmosphere & Visual Polish
+*Source: current stadium is pitch + floodlights + ad boards; no stands, no crowd.*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-401 | Stadium grandstands: tiered seating geometry, dugouts, roof, scaled by club reputation tier (a lower-league ground shouldn't look identical to a title contender's) | Unity/Art | L | Not started |
+| #P7-402 | Crowd system: GPU-instanced or billboard spectators, reacting to goals/near-misses — profile against the <200MB RAM / 60fps targets before committing to a technique | Unity/Art/Perf | L | Not started |
+| #P7-403 | Match VFX pass: goal-net ripple, turf dust on tackles/slides, ball trail refinement beyond the current simple renderer | Unity/VFX | M | Not started |
+
+### Milestone 7.5 — Content, Iconography & IP Resolution
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-501 | **Resolve real vs. fictional club/league naming** (see escalated note under Milestone 6.1 above) — decision + execution plan, before any other content-facing work in this milestone proceeds | Content/Legal | L | Not started |
+| #P7-502 | Custom vector icon set for lifestyle shop items, replacing emoji placeholders (🚗👟⚽) in `tokens.uss`/UXML | UI/Art | M | Not started |
+| #P7-503 | Club crest & league emblem illustrations for all clubs/leagues (blocked on #P7-501 — don't illustrate real crests you may need to rename) | UI/Art | L | Not started |
+| #P7-504 | Player card portrait system, newspaper front-page illustration templates for media/press-conference screens | UI/Art | M | Not started |
+
+### Milestone 7.6 — UX Flow, Onboarding & Accessibility Audit
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-601 | Re-test the onboarding tutorial (#P6-007) specifically against Gate 7.0 findings — a tutorial validated only by its own authors is a common source of first-session drop-off | UX | M | Not started |
+| #P7-602 | Empty-state, loading-state, and error-state pass across every screen (e.g. no transfer offers yet, save failed, network unavailable for cloud save) — currently undocumented anywhere in the roadmap | UI/UX | M | Not started |
+| #P7-603 | Accessibility pass: text scaling, color-blind-safe check on the emerald/gold token palette (green/gold confusion is a common deuteranopia failure mode), touch-target sizing audit on real devices, not just the 390×844 reference frame | UI/UX | M | Not started |
+| #P7-604 | One-handed / thumb-reachability review of primary actions on larger modern phone sizes (reference frame is 390×844; verify on 6.7"+ devices) | UI/UX | S | Not started |
+
+### Milestone 7.7 — Device Matrix, Crash Reporting & Live Monitoring
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-701 | Real-device performance validation: the 60fps/<200MB RAM targets from #P6-002 were profiler-asserted — verify on 2–3 actual low/mid-tier Android devices, not simulator/high-end-only | Unity/Perf | M | Not started |
+| #P7-702 | Crash & exception reporting integration (Crashlytics/Sentry or equivalent) — without this, bugs found by beta testers in Milestone 7.8 vanish without a trace | Unity/Telemetry | S | Not started |
+| #P7-703 | Save-corruption and cloud-save-conflict manual test pass — #P6-006 claims "conflict resolution" but this is exactly the kind of edge case that only surfaces under real, messy usage (killed mid-write, two devices, offline-then-sync) | Unity/QA | M | Not started |
+
+### Milestone 7.8 — Compliance & Monetization Review
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-801 | Review "career rewind tokens" (#P6-008) against Apple/Google store policy on chance-based or pay-to-undo mechanics, and against loot-box disclosure law in markets that regulate it (Belgium, and age-rating questionnaires elsewhere) — confirm what's being sold is deterministic (a rewind, not a randomized reward) and that store listings reflect that accurately | Legal/Compliance | M | Not started |
+| #P7-802 | Privacy policy + data-disclosure pass for analytics (#P6-003) and cloud save (#P6-006) — required for store submission regardless of team size, and stricter if the game's audience skews toward minors | Legal/Compliance | M | Not started |
+| #P7-803 | Age rating questionnaire prep (Apple App Store / Google Play / IARC) — do this before Milestone 7.9's beta, since the answers depend on final monetization and content decisions from #P7-501/#P7-801 | Legal/Compliance | S | Not started |
+
+### Milestone 7.9 — Closed Beta Program
+**Only opens once Milestones 7.0–7.8 have a GO.**
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P7-901 | Recruit a closed beta cohort (target size TBD) genuinely outside the project — not friends who already know the vision | Product | S | Not started |
+| #P7-902 | In-app feedback/bug-report mechanism (don't rely on beta testers finding you elsewhere) | Unity/UI | S | Not started |
+| #P7-903 | Define beta success metrics up front: D1/D7 retention, median session length, career-completion rate (creation → at least one season end), crash-free session rate — decide the bar for "ready for wider release" before the data arrives, not after | Product | S | Not started |
+| #P7-904 | Beta retrospective + go/no-go for public release, informed by #P7-903's metrics | Product | M | Not started |
+
+---
 
 | Code | Meaning | Estimated Days |
 |---|---|---|
@@ -428,22 +526,17 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Release Candidate Complete (Phases 1–6 Finished)
-All phases of the Football Life master roadmap are successfully implemented, tested, and validated!
-- **Phase 1**: Foundations & Core Loop (Domain Models, Engine, Match Situations, Training, Weekly Loop)
-- **Phase 2**: Deep Simulation (Fatigue, Injuries, Managers, Contracts, Transfers, Competitions, World Simulation)
-- **Phase 3**: 3D Match Experience (Pitch, Stadium, Cameras, Ball Physics, Input Controls, Visual Feedback)
-- **Phase 4**: UI/UX & Mobile Experience (Design Tokens, Hub, Navigation, Match HUD, Post-Match, Smartphone)
-- **Phase 5**: Life & Career Arc (Finances, Lifestyle, Social, Dilemmas, Sponsorship, Retirement, Legacy)
-- **Phase 6**: Polish, Balance & Release (10,000-Career Balance, Content Expansion, Onboarding, Localization, Telemetry, Cloud Save, Monetization, Mobile Performance & Release Validation)
+## Current Focus: Phase 7, Milestone 7.0 — Validation Gate
 
-> **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 557 passing tests).
-> **PHASE 2 IS 100% COMPLETE & MERGED TO `main`** (Milestones 2.1–2.6: Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116, #118–#120, #122–#124 closed).
-> **PHASE 3 IS 100% COMPLETE & MERGED TO `main`** (Milestones 3.1–3.4: Issues #131–#133, #135–#136, #138–#141, #143–#144 closed).
-> **PHASE 4 IS 100% COMPLETE & MERGED TO `main`** (Milestones 4.1–4.4: Issues #146–#147, #149–#150, #152–#154, #156–#157 closed; 602 passing tests).
-> **PHASE 5 MILESTONE 5.1 IS 100% COMPLETE & MERGED TO `main`** (Milestone 5.1: Issues #159, #160, #161 closed; 612 passing tests).
-> **PHASE 5 MILESTONE 5.2 IS 100% COMPLETE & MERGED TO `main`** (Milestone 5.2: Issues #163, #164, #165 closed; 630 passing tests).
-> **PHASE 5 MILESTONE 5.3 IS 100% COMPLETE** (Milestone 5.3: Issues #167, #168, #169 closed; 647 passing tests).
-> **PHASE 5 IS 100% COMPLETE!**
-> **CURRENT FOCUS:** Phase 6 — Polish, Balance & Release (`#P6-001` - `#P6-008`).
-> See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.
+All systems across Phases 1–6 are implemented, tested, and internally validated:
+- **Phase 1**: Foundations & Core Loop (Domain Models, Engine, Match Situations, Training, Weekly Loop)
+- **Phase 2**: Unity Prototype (Player Creation, Daily Hub, Career Screen, Abstracted Match, Season End)
+- **Phase 3**: 3D Match Experience (Pitch, Stadium, Cameras, Ball Physics, Input Controls, Visual Feedback)
+- **Phase 4**: UI/UX & Life Layer (Home, Phone/Social, Life Events, Finances, Lifestyle Shop)
+- **Phase 5**: Career World (World Simulation, Transfers, International Football, Legacy)
+- **Phase 6**: Polish, Balance & Release (10,000-Career Balance, Content Expansion, Onboarding, Localization, Telemetry, Cloud Save, Monetization, Mobile Performance)
+
+> **What "100% complete" means here:** every listed system exists, is wired end-to-end, and passes its own tests (647+ and counting). That is a real and substantial achievement. It is not the same claim as "a first-time player finds this fun, clear, and worth returning to" — that claim has been human-checked exactly twice in the whole project (Gate 1.6.5, console-only; Gate 2.7, Unity prototype). Phase 7 exists to check it again, now, against the full build, before Milestone 7.9 hands it to anyone who isn't already invested in the outcome.
+
+> **CURRENT FOCUS:** Phase 7 — Pre-Launch Polish & Real-User Readiness, starting with Milestone 7.0 (`#P7-000a` – `#P7-000c`). Do not start Milestones 7.1–7.8 speculatively — let Gate 7.0's findings prioritize the backlog; the items listed under each are a starting hypothesis, not a committed order.
+> See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria on Phases 1–6.
