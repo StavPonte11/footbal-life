@@ -109,6 +109,14 @@ namespace FootballLife.Simulation
         }
 
         /// <summary>
+        /// Audits the entire monetization catalog for store policy and anti-gambling compliance (#P7-801).
+        /// </summary>
+        public StoreComplianceReport AuditCompliance()
+        {
+            return StoreComplianceValidator.AuditCatalog(GetCatalog());
+        }
+
+        /// <summary>
         /// Retrieves a product by its unique product identifier.
         /// </summary>
         public MonetizationProduct? GetProduct(string productId)

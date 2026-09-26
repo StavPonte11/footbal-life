@@ -287,6 +287,7 @@ namespace FootballLife.Unity.Core.Bridge
         private readonly ICloudSaveProvider _cloudSaveProvider = new EmulatedCloudSaveProvider();
         private readonly MonetizationService _monetizationService = new();
         private readonly CrashDiagnosticService _crashDiagnosticService;
+        private readonly PrivacyConsentService _privacyConsentService = PrivacyConsentService.Instance;
 
         private OnboardingState _onboardingState = OnboardingState.Initial;
 
@@ -1567,6 +1568,51 @@ namespace FootballLife.Unity.Core.Bridge
             {
                 Debug.LogWarning($"[SimulationBridge] Could not load external localization catalogs: {ex.Message}");
             }
+        }
+
+        // Privacy & Store Compliance (#P7-801, #P7-802, #P7-803)
+        public PrivacyConsentService PrivacyConsent => _privacyConsentService;
+        public PrivacyConsentState ConsentState => _currentSave?.ConsentState ?? new PrivacyConsentState();
+
+        public bool GrantPrivacyConsent(PrivacyConsentCategory category)
+        {
+            var state = _currentSave?.ConsentState ?? new PrivacyConsentState();
+            bool result = _privacyConsentService.GrantConsent(state, category);
+            if (_currentSave != null) _currentSave.ConsentState = state;
+            return result;
+        }
+
+        public void RevokePrivacyConsent(PrivacyConsentCategory category)
+        {
+            var state = _currentSave?.ConsentState ?? new PrivacyConsentState();
+            _privacyConsentService.RevokeConsent(state, category);
+            if (_currentSave != null) _currentSave.ConsentState = state;
+        }
+
+        public void SetPlayerAge(int ageYears)
+        {
+            var state = _currentSave?.ConsentState ?? new PrivacyConsentState();
+            _privacyConsentService.SetPlayerAge(state, ageYears);
+            if (_currentSave != null) _currentSave.ConsentState = state;
+        }
+
+        public string ExportPlayerData()
+        {
+            EnsureMockSaveForTesting();
+            return _privacyConsentService.ExportPlayerData(_currentSave!, ConsentState);
+        }
+
+        public void ErasePlayerData()
+        {
+            if (_currentSave != null)
+            {
+                _privacyConsentService.ExecuteDataErasure(_currentSave, _currentSave.ConsentState);
+            }
+        }
+
+        public StoreComplianceReport AuditStoreCompliance()
+        {
+            return _monetizationService.AuditCompliance();
         }
 
         private void EnsureMockSaveForTesting()
