@@ -2081,6 +2081,46 @@ PHASE 5 COMPLETE (Career World):
 - [x] UI Toolkit language switcher button (`btn-quick-language`) in `CareerHubView` cycling between languages and updating all active labels dynamically.
 - [x] Unit tests in `LocalizationServiceTests.cs` verifying catalog loading, language switching, token replacement, and 100% cross-language key parity (5 tests passing, 0 failures).
 
+---
+
+### Story P6-003: Analytics & Telemetry Pipeline — Session Events, Match Telemetry & Funnel Tracking ✅
+**Issue:** #177 | **Layer:** Domain, Simulation, Telemetry, Tests | **Status:** ✅ Complete
+
+> As a developer and live-ops designer, I want a structured event taxonomy, session tracking, and GDPR-compliant telemetry pipeline so that player funnels, match outcomes, economy transactions, and performance metrics can be tracked accurately.
+
+**Acceptance Criteria:**
+- [x] Pure C# `TelemetryEventType` taxonomy (`session_start`, `session_end`, `tutorial_step`, `match_started`, `match_ended`, `goal_scored`, `training_completed`, `economy_transaction`, `cloud_sync_completed`, `monetization_purchased`).
+- [x] `TelemetryService` managing event queuing, buffer flush thresholds (20 events), batch dispatch events, and GDPR privacy opt-out suppression (`IsOptedOut`).
+- [x] Persistence of player privacy preferences in `CareerSaveData.TelemetryOptOut`.
+- [x] Unit tests in `TelemetryServiceTests.cs` validating event queuing, batch flushing, and opt-out suppression (3 tests passing, 0 failures).
+
+---
+
+### Story P6-006: Cloud Save Architecture — Multi-Slot Sync & Conflict Resolution ✅
+**Issue:** #178 | **Layer:** Domain, Simulation, Unity, Tests | **Status:** ✅ Complete
+
+> As a player, I want my career saves synchronized across devices with automatic conflict resolution so that my progression is never lost and I can seamlessly continue playing on any device.
+
+**Acceptance Criteria:**
+- [x] Pure C# `ICloudSaveProvider` abstraction and `CloudSaveMetadata` header with cryptographic SHA256 data hash for fast comparison.
+- [x] `CloudSaveSyncService` managing hash checks, conflict detection, and deterministic resolution strategies (`KeepNewest`, `KeepLocal`, `KeepCloud`).
+- [x] `EmulatedCloudSaveProvider` for deterministic headless validation and offline mode handling.
+- [x] Unit tests in `CloudSaveSyncTests.cs` covering first-time upload, identical save verification, newest-timestamp conflict resolution, and offline resilience (4 tests passing, 0 failures).
+
+---
+
+### Story P6-008: Monetization Hooks — Cosmetics Store, Career Rewind Tokens & IAP Bridge ✅
+**Issue:** #179 | **Layer:** Domain, Simulation, Unity, Tests | **Status:** ✅ Complete
+
+> As a player, I want cosmetic lifestyle upgrades (golden boots, retro kit trims, skyline penthouses) and gameplay convenience items (Career Rewind Tokens) to customize my player and recover from critical match errors.
+
+**Acceptance Criteria:**
+- [x] Curated `MonetizationCatalog` of 8 products across cosmetics, tokens, and replay passes.
+- [x] `MonetizationService` handling purchase validation, duplicate cosmetic ownership protection, token inventory crediting, and rewind consumption.
+- [x] Full persistence in `CareerSaveData` (`CareerRewindTokens`, `OwnedCosmeticIds`).
+- [x] Unit tests in `MonetizationServiceTests.cs` validating catalog retrieval, purchase validation, and token consumption (3 tests passing, 0 failures).
+
+
 
 
 

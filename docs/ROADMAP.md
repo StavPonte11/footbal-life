@@ -404,9 +404,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 ### Milestone 6.3: Analytics, Cloud Save & Monetization Hooks
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P6-003 | Analytics: session events, match telemetry, funnel tracking (UGS/PostHog) | Telemetry | M | 📋 Planned |
-| #P6-006 | Cloud save via Unity Gaming Services | Unity | M | 📋 Planned |
-| #P6-008 | Monetization hooks: cosmetic items, career replay | Unity | M | 📋 Planned |
+| #P6-003 (#177) | Analytics: session events, match telemetry, funnel tracking (UGS/PostHog) | Domain/Sim/Telemetry | M | ✅ Complete |
+| #P6-006 (#178) | Cloud save via multi-slot sync & conflict resolution | Domain/Sim/Unity | M | ✅ Complete |
+| #P6-008 (#179) | Monetization hooks: cosmetic items, career rewind tokens & catalog | Domain/Sim/Unity | M | ✅ Complete |
 
 ### Milestone 6.4: Mobile Performance & Release Validation
 | Issue | User Story | Layer | Complexity | Status |

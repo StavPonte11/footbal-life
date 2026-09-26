@@ -271,11 +271,21 @@ namespace FootballLife.Unity.Core.Bridge
         public event Action<GameLanguage>? OnLanguageChanged;
         public event Action<OnboardingState>? OnTutorialStateChanged;
 
+        // Telemetry, Cloud Save & Monetization events (#P6-003, #P6-006, #P6-008)
+        public event Action<TelemetryEvent>? OnTelemetryEventTracked;
+        public event Action<CloudSyncResult>? OnCloudSyncCompleted;
+        public event Action<PurchaseResult>? OnMonetizationPurchased;
+
         private readonly SponsorshipSystem _sponsorshipSystem = new();
         private readonly RetirementSystem _retirementSystem = new();
         private readonly LegacySystem _legacySystem = new();
         private readonly LocalizationService _localizationService = LocalizationService.Instance;
         private readonly OnboardingSystem _onboardingSystem = new();
+        private readonly TelemetryService _telemetryService = TelemetryService.Instance;
+        private readonly CloudSaveSyncService _cloudSaveSyncService = new();
+        private readonly ICloudSaveProvider _cloudSaveProvider = new EmulatedCloudSaveProvider();
+        private readonly MonetizationService _monetizationService = new();
+
         private OnboardingState _onboardingState = OnboardingState.Initial;
 
         private void Awake()
@@ -292,6 +302,12 @@ namespace FootballLife.Unity.Core.Bridge
 
             _localizationService.OnLanguageChanged += lang => OnLanguageChanged?.Invoke(lang);
             TryLoadLocalizationCatalogs();
+
+            _telemetryService.Track(TelemetryEventType.SessionStart, new Dictionary<string, object>
+            {
+                ["platform"] = Application.platform.ToString(),
+                ["unity_version"] = Application.unityVersion
+            });
         }
 
         /// <summary>
@@ -1368,6 +1384,75 @@ namespace FootballLife.Unity.Core.Bridge
         public bool IsFeatureUnlocked(string featureKey)
         {
             return _onboardingSystem.IsFeatureUnlocked(_onboardingState, featureKey);
+        }
+
+        // ── Telemetry, Cloud Save & Monetization API (#P6-003, #P6-006, #P6-008) ──
+        public TelemetryService Telemetry => _telemetryService;
+        public CloudSaveSyncService CloudSync => _cloudSaveSyncService;
+        public ICloudSaveProvider CloudProvider => _cloudSaveProvider;
+        public MonetizationService Monetization => _monetizationService;
+
+        public void TrackTelemetry(TelemetryEventType type, Dictionary<string, object>? parameters = null)
+        {
+            _telemetryService.Track(type, parameters);
+            OnTelemetryEventTracked?.Invoke(TelemetryEvent.Create(type, _telemetryService.SessionId, parameters));
+        }
+
+        public async System.Threading.Tasks.Task<CloudSyncResult> SyncCloudSaveAsync(int slotIndex = 0, ConflictResolutionStrategy strategy = ConflictResolutionStrategy.KeepNewest)
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+            string slotKey = $"slot_{slotIndex}";
+            string localJson = _currentSave!.ToJson();
+            var result = await _cloudSaveSyncService.SyncSlotAsync(slotKey, localJson, _currentSave, _cloudSaveProvider, strategy);
+            if (result.Status == CloudSyncStatus.ConflictResolved && result.ResolvedJson != null && result.ResolvedJson != localJson)
+            {
+                _currentSave = CareerSaveData.FromJson(result.ResolvedJson);
+                SaveManager.SaveCareer(slotIndex, _currentSave);
+                PublishDaySnapshot($"Cloud save synced (Conflict resolved: {result.Message})");
+            }
+            TrackTelemetry(TelemetryEventType.CloudSyncCompleted, new Dictionary<string, object>
+            {
+                ["slot"] = slotKey,
+                ["status"] = result.Status.ToString()
+            });
+            OnCloudSyncCompleted?.Invoke(result);
+            return result;
+        }
+
+        public PurchaseResult PurchaseProduct(string productId, string transactionId = "")
+        {
+            if (_currentSave == null) EnsureMockSaveForTesting();
+            var result = _monetizationService.PurchaseProduct(productId, _currentSave!, transactionId);
+            if (result.Status == PurchaseStatus.Success)
+            {
+                AutoSave();
+                TrackTelemetry(TelemetryEventType.MonetizationPurchased, new Dictionary<string, object>
+                {
+                    ["product_id"] = productId,
+                    ["price_usd"] = result.Product?.PriceUsd ?? 0m
+                });
+                PublishDaySnapshot($"Unlocked {result.Product?.Title}!");
+            }
+            OnMonetizationPurchased?.Invoke(result);
+            return result;
+        }
+
+        public bool UseRewindToken()
+        {
+            if (_currentSave == null) return false;
+            bool success = _monetizationService.ConsumeRewindToken(_currentSave);
+            if (success)
+            {
+                AutoSave();
+                PublishDaySnapshot($"Used Career Rewind Token ({_currentSave.CareerRewindTokens} remaining)");
+                TrackTelemetry(TelemetryEventType.EconomyTransaction, new Dictionary<string, object>
+                {
+                    ["item"] = "career_rewind_token",
+                    ["action"] = "consume",
+                    ["remaining"] = _currentSave.CareerRewindTokens
+                });
+            }
+            return success;
         }
 
         private void TryLoadLocalizationCatalogs()
