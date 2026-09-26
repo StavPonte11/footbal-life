@@ -16,6 +16,7 @@ namespace FootballLife.Unity.Core.Gameplay
         public event Action? OnBallKicked;
         public event Action? OnBallStopped;
         public event Action<Collision>? OnBallCollided;
+        public static event Action<Vector3>? OnWoodworkHit;
 
         // ── Physics Tuning ────────────────────────────────────────────────────
         [Header("Ball Specification (FIFA Regulation)")]
@@ -108,6 +109,13 @@ namespace FootballLife.Unity.Core.Gameplay
                 _rb.AddForce(dragForce, ForceMode.Force);
             }
 
+            // Dynamic velocity-scaled ball trail width (#P7-403)
+            if (_trail != null && _trail.emitting)
+            {
+                float speed = Mathf.Sqrt(speedSqr);
+                _trail.startWidth = FootballLife.Domain.StadiumAtmosphereUtility.ComputeBallTrailWidth(speed);
+            }
+
             // Detect rest/stopped condition
             if (speedSqr < 0.05f && transform.position.y <= (_ballRadius + 0.05f))
             {
@@ -127,11 +135,17 @@ namespace FootballLife.Unity.Core.Gameplay
         private void OnCollisionEnter(Collision collision)
         {
             string colName = collision.gameObject.name;
+            Vector3 hitPoint = (collision.contactCount > 0) ? collision.GetContact(0).point : transform.position;
+
             if (colName.Contains("Post") || colName.Contains("Crossbar"))
             {
-                Vector3 hitPoint = (collision.contactCount > 0) ? collision.GetContact(0).point : transform.position;
                 Audio.AudioManager.Instance?.PlayWoodwork(hitPoint);
                 Audio.AudioManager.Instance?.TriggerCrowdGasp();
+                OnWoodworkHit?.Invoke(hitPoint);
+            }
+            else if (colName.Contains("Turf") || colName.Contains("Ground"))
+            {
+                TurfVfxPool.Instance?.SpawnBallBounceDust(hitPoint, collision.relativeVelocity.magnitude);
             }
 
             OnBallCollided?.Invoke(collision);
@@ -216,16 +230,23 @@ namespace FootballLife.Unity.Core.Gameplay
             // Physics component
             var ctrl = ballGo.AddComponent<BallController>();
 
-            // Trail Renderer for trajectory feedback
+            // Trail Renderer for trajectory feedback (#P7-403)
             var trail = ballGo.AddComponent<TrailRenderer>();
-            trail.time = 0.5f;
-            trail.startWidth = 0.12f;
-            trail.endWidth = 0.01f;
-            var unlit = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color");
+            trail.time = 0.55f;
+            trail.startWidth = 0.16f;
+            trail.endWidth = 0.015f;
+            var unlit = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Mobile/Particles/Additive") ?? Shader.Find("Unlit/Color");
             var trailMat = new Material(unlit)
             {
-                color = new Color(1f, 0.85f, 0.2f, 0.7f)
+                name = "Mat_Ball_Trail",
+                color = new Color(1f, 0.88f, 0.35f, 0.85f)
             };
+            var grad = new Gradient();
+            grad.SetKeys(
+                new[] { new GradientColorKey(new Color(1f, 0.95f, 0.6f), 0f), new GradientColorKey(new Color(1f, 0.72f, 0.15f), 0.6f), new GradientColorKey(new Color(0.9f, 0.45f, 0.1f), 1f) },
+                new[] { new GradientAlphaKey(0.85f, 0f), new GradientAlphaKey(0.45f, 0.7f), new GradientAlphaKey(0f, 1f) }
+            );
+            trail.colorGradient = grad;
             trail.sharedMaterial = trailMat;
             trail.emitting = false;
 

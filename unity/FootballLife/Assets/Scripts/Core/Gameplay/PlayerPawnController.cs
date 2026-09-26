@@ -212,6 +212,7 @@ namespace FootballLife.Unity.Core.Gameplay
                     {
                         _targetBall.Kick(_kickImpulse, _kickSpin);
                     }
+                    TurfVfxPool.Instance?.SpawnKickDust(transform.position, _kickImpulse, Mathf.Clamp01(_kickImpulse.magnitude / 30f));
                     OnKickImpact?.Invoke();
                 }
 
@@ -286,6 +287,7 @@ namespace FootballLife.Unity.Core.Gameplay
                         break;
                     case PawnAnimState.Tackle:
                         _animPlayer.PlayAction(ActionClipType.SlidingTackle, 0.45f);
+                        TurfVfxPool.Instance?.SpawnSlideDust(transform.position, transform.forward, 0.8f);
                         break;
                     case PawnAnimState.Celebrate:
                         _animPlayer.PlayCelebration(CelebrationClipType.KneeSlide);
