@@ -101,6 +101,11 @@ namespace FootballLife.Unity.UI.Creation
                     bridge.CurrentSave.SquadRole = offer.SquadRole;
                     bridge.CurrentSave.ManagerTrust = offer.InitialManagerTrust;
                     bridge.AutoSave();
+
+                    // Advance rookie tutorial into hub onboarding
+                    bridge.AdvanceTutorialStep(OnboardingStep.Welcome);
+                    bridge.AdvanceTutorialStep(OnboardingStep.CharacterCreation);
+                    bridge.AdvanceTutorialStep(OnboardingStep.ClubSigning);
                 }
             }
 

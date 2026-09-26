@@ -398,8 +398,8 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 ### Milestone 6.2: Onboarding Flow & Localization
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P6-007 | Onboarding flow: first-session tutorial & character creation | Unity/UI | M | 📋 Planned |
-| #P6-005 | Localization: EN primary, 5 additional languages | Unity | M | 📋 Planned |
+| #P6-007 (#174) | Onboarding flow: first-session tutorial & character creation | Domain/Sim/UI | M | ✅ Complete |
+| #P6-005 (#175) | Localization: EN primary, 4 additional languages (ES, DE, FR, IT) | Domain/Sim/UI | M | ✅ Complete |
 
 ### Milestone 6.3: Analytics, Cloud Save & Monetization Hooks
 | Issue | User Story | Layer | Complexity | Status |

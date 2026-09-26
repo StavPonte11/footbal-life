@@ -28,6 +28,7 @@
                 <ui:Button name="btn-quick-market" text="🤝" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Button name="btn-quick-sponsorship" text="✨" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
                 <ui:Button name="btn-quick-legacy" text="👑" class="btn btn-secondary" style="height: 32px; font-size: 13px; padding: 4px 8px;" />
+                <ui:Button name="btn-quick-language" text="🇬🇧 EN" class="btn btn-secondary" style="height: 32px; font-size: 11px; padding: 4px 6px;" />
                 <ui:Label name="label-ovr" text="60 OVR" class="badge badge-green" style="font-size: 12px;" />
                 <ui:VisualElement style="align-items: flex-end;">
                     <ui:Label name="label-date" text="Season 1 · Week 1" class="text-accent" style="font-size: 12px;" />

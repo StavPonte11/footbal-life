@@ -1,3 +1,4 @@
+using FootballLife.Domain;
 using FootballLife.Unity.Core.Bridge;
 using FootballLife.Unity.UI.Continental;
 using FootballLife.Unity.UI.Finances;
@@ -10,6 +11,7 @@ using FootballLife.Unity.UI.Shop;
 using FootballLife.Unity.UI.Social;
 using FootballLife.Unity.UI.Sponsorship;
 using FootballLife.Unity.UI.Transfers;
+using FootballLife.Unity.UI.Tutorial;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -32,12 +34,14 @@ namespace FootballLife.Unity.UI
         [SerializeField] private VisualTreeAsset? _seasonSummaryAsset;
         [SerializeField] private VisualTreeAsset? _attributeGrowthAsset;
         [SerializeField] private VisualTreeAsset? _transferWindowAsset;
+        [SerializeField] private VisualTreeAsset? _tutorialAsset;
 
         // ── Controllers ───────────────────────────────────────────────────────
         private CareerHubController?       _hubCtrl;
         private TrainingController?        _trainingCtrl;
         private RestController?            _restCtrl;
         private LifeEventController?       _lifeEventCtrl;
+        private TutorialOverlayController? _tutorialCtrl;
         private CareerController?          _careerCtrl;
         private ProfileController?         _profileCtrl;
         private SeasonSummaryController?   _seasonSummaryCtrl;
@@ -71,6 +75,7 @@ namespace FootballLife.Unity.UI
         private VisualElement? _continentalOverlay;
         private VisualElement? _sponsorshipOverlay;
         private VisualElement? _legacyOverlay;
+        private VisualElement? _tutorialOverlay;
 
         // ── Pending life event ────────────────────────────────────────────────
         private LifeEventSnapshot? _pendingLifeEvent;
@@ -128,7 +133,10 @@ namespace FootballLife.Unity.UI
                 SimulationBridge.Instance.OnInternationalCallUp += OnInternationalCallUp;
                 SimulationBridge.Instance.OnSponsorshipSigned += OnSponsorshipSigned;
                 SimulationBridge.Instance.OnPlayerRetired += OnPlayerRetired;
+                SimulationBridge.Instance.OnTutorialStateChanged += OnTutorialStateChanged;
             }
+
+            CheckAndShowTutorial();
         }
 
         private void OnDisable()
@@ -141,6 +149,7 @@ namespace FootballLife.Unity.UI
                 SimulationBridge.Instance.OnInternationalCallUp -= OnInternationalCallUp;
                 SimulationBridge.Instance.OnSponsorshipSigned -= OnSponsorshipSigned;
                 SimulationBridge.Instance.OnPlayerRetired -= OnPlayerRetired;
+                SimulationBridge.Instance.OnTutorialStateChanged -= OnTutorialStateChanged;
             }
         }
 
@@ -426,6 +435,24 @@ namespace FootballLife.Unity.UI
                 _legacyOverlay.style.bottom = 0;
                 _legacyOverlay.style.display = DisplayStyle.None;
                 _legacyCtrl = new LegacyViewController(_legacyOverlay, onBack: ShowHub);
+            }
+
+            // ── Tutorial overlay (#P6-007) ────────────────────────────────────
+            if (_tutorialAsset != null)
+            {
+                _tutorialOverlay = _tutorialAsset.Instantiate();
+                _tutorialOverlay.style.position = Position.Absolute;
+                _tutorialOverlay.style.top = 0;
+                _tutorialOverlay.style.left = 0;
+                _tutorialOverlay.style.right = 0;
+                _tutorialOverlay.style.bottom = 0;
+                _tutorialOverlay.style.display = DisplayStyle.None;
+                docRoot.Add(_tutorialOverlay);
+
+                _tutorialCtrl = gameObject.AddComponent<TutorialOverlayController>();
+                _tutorialCtrl.BindVisualElements(_tutorialOverlay);
+                _tutorialCtrl.OnActionClicked += HandleTutorialAction;
+                _tutorialCtrl.OnSkipClicked += HandleTutorialSkip;
             }
         }
 
@@ -746,6 +773,82 @@ namespace FootballLife.Unity.UI
             if (_continentalOverlay != null) _continentalOverlay.style.display = DisplayStyle.None;
             if (_sponsorshipOverlay != null) _sponsorshipOverlay.style.display = DisplayStyle.None;
             if (_legacyOverlay != null) _legacyOverlay.style.display = DisplayStyle.None;
+            if (_tutorialOverlay != null) _tutorialOverlay.style.display = DisplayStyle.None;
+        }
+
+        // ── Tutorial Orchestration (#P6-007) ──────────────────────────────────
+        public void CheckAndShowTutorial()
+        {
+            var bridge = SimulationBridge.Instance;
+            if (bridge == null || _tutorialCtrl == null) return;
+
+            var state = bridge.OnboardingState;
+            if (state.IsCompleted || state.IsSkipped)
+            {
+                _tutorialCtrl.Hide();
+                return;
+            }
+
+            var def = bridge.Onboarding.GetStepDefinition(state.CurrentStep);
+            int stepIndex = bridge.Onboarding.GetStepDisplayIndex(state.CurrentStep);
+            _tutorialCtrl.ShowStep(state.CurrentStep, def, stepIndex, bridge.Onboarding.TotalStepsCount);
+        }
+
+        private void HandleTutorialAction(OnboardingStep step)
+        {
+            var bridge = SimulationBridge.Instance;
+            if (bridge == null) return;
+
+            switch (step)
+            {
+                case OnboardingStep.Welcome:
+                case OnboardingStep.CharacterCreation:
+                case OnboardingStep.ClubSigning:
+                    bridge.AdvanceTutorialStep(step);
+                    CheckAndShowTutorial();
+                    break;
+
+                case OnboardingStep.FirstTraining:
+                    bridge.AdvanceTutorialStep(step);
+                    _tutorialCtrl?.Hide();
+                    ShowTraining();
+                    break;
+
+                case OnboardingStep.FirstMatchDebut:
+                    bridge.AdvanceTutorialStep(step);
+                    _tutorialCtrl?.Hide();
+                    _hubCtrl?.OnMatchOpportunityRequested();
+                    break;
+
+                case OnboardingStep.HomeApartment:
+                    bridge.AdvanceTutorialStep(step);
+                    _tutorialCtrl?.Hide();
+                    ShowRest();
+                    break;
+
+                case OnboardingStep.SmartphoneIntro:
+                    bridge.AdvanceTutorialStep(step);
+                    _tutorialCtrl?.Hide();
+                    TogglePhone();
+                    break;
+
+                case OnboardingStep.Completed:
+                    bridge.AdvanceTutorialStep(step);
+                    _tutorialCtrl?.Hide();
+                    break;
+            }
+        }
+
+        private void HandleTutorialSkip()
+        {
+            var bridge = SimulationBridge.Instance;
+            bridge?.SkipTutorial();
+            _tutorialCtrl?.Hide();
+        }
+
+        private void OnTutorialStateChanged(OnboardingState state)
+        {
+            CheckAndShowTutorial();
         }
     }
 }

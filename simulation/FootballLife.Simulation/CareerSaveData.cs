@@ -100,6 +100,15 @@ namespace FootballLife.Simulation.Persistence
         public int TotalTrophies { get; set; }
         public long LifetimeEarnings { get; set; }
 
+        // Localization & Preferences (#P6-005)
+        public string PreferredLanguage { get; set; } = "en";
+
+        // First-Time User Experience (FTUE) & Onboarding (#P6-007)
+        public bool IsTutorialCompleted { get; set; }
+        public bool IsTutorialSkipped { get; set; }
+        public string CurrentTutorialStep { get; set; } = "Welcome";
+        public List<string> CompletedTutorialSteps { get; set; } = new List<string>();
+
         // Relationships
         public List<RelationshipSaveEntry> Relationships { get; set; } = new List<RelationshipSaveEntry>();
 

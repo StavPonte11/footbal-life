@@ -2052,6 +2052,36 @@ PHASE 5 COMPLETE (Career World):
 - [x] Verify all content adheres to schemas in `content/data/schema/` with zero missing references or invalid fields.
 - [x] Content validation unit tests verifying 100+ events, 50+ clubs, and 10+ leagues load cleanly through `WorldDataLoader` and `LifeEventDataLoader` (`ContentExpansionTests.cs`).
 
+---
+
+### Story P6-007: Onboarding Flow — First-Session Tutorial & Character Creation ✅
+**Issue:** #174 | **Layer:** Domain, Simulation, UI, Tests | **Status:** ✅ Complete
+
+> As a new player, I want an engaging, step-by-step onboarding tutorial that guides me through creating my player, signing my first contract, completing my first training, playing my debut, and exploring my home and smartphone so that I understand all core systems without feeling overwhelmed.
+
+**Acceptance Criteria:**
+- [x] Pure C# `OnboardingStep` enum and `OnboardingState` immutable record tracking discrete tutorial steps (`Welcome` → `CharacterCreation` → `ClubSigning` → `FirstTraining` → `FirstMatchDebut` → `HomeApartment` → `SmartphoneIntro` → `Completed`).
+- [x] `OnboardingSystem` managing step progression, starter rewards (XP, Energy, Form, Manager Trust, Cash), feature gating, and fast-forward skip logic.
+- [x] Full persistence in `CareerSaveData` (`IsTutorialCompleted`, `IsTutorialSkipped`, `CurrentTutorialStep`, `CompletedTutorialSteps`).
+- [x] UI Toolkit `TutorialOverlayView.uxml` and `TutorialOverlayController.cs` providing animated spotlights, instructional banners, reward callouts, action triggers, and skip options.
+- [x] Integrated into `PlayerCreationCoordinator` and `CareerHubCoordinator`.
+- [x] Unit tests in `OnboardingSystemTests.cs` (5 tests passing, 0 failures).
+
+---
+
+### Story P6-005: Localization Infrastructure — Multi-Language Support (EN, ES, DE, FR, IT) ✅
+**Issue:** #175 | **Layer:** Domain, Simulation, Content, UI, Tests | **Status:** ✅ Complete
+
+> As an international player, I want to play Football Life in my native language (English, Spanish, German, French, or Italian) so that all menus, attributes, tutorial tips, and career actions are clearly understood.
+
+**Acceptance Criteria:**
+- [x] Pure C# `GameLanguage` enum and `LanguageInfo` descriptors for English (`en`), Spanish (`es`), German (`de`), French (`fr`), and Italian (`it`).
+- [x] High-performance, headless-safe `LocalizationService` supporting catalog loading, positional formatting (`{0}`), named token substitution (`{playerName}`), and automatic fallback to English.
+- [x] 5 JSON translation catalogs in `content/data/localization/` and `StreamingAssets/localization/` with 100% key parity across all 86 core game strings.
+- [x] UI Toolkit language switcher button (`btn-quick-language`) in `CareerHubView` cycling between languages and updating all active labels dynamically.
+- [x] Unit tests in `LocalizationServiceTests.cs` verifying catalog loading, language switching, token replacement, and 100% cross-language key parity (5 tests passing, 0 failures).
+
+
 
 
 

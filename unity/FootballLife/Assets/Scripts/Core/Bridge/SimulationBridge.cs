@@ -267,9 +267,16 @@ namespace FootballLife.Unity.Core.Bridge
         public event Action<RetirementDecision>? OnPlayerRetired;
         public event Action<HallOfFameEntry>? OnHallOfFameInducted;
 
+        // Localization & Onboarding events (#P6-005, #P6-007)
+        public event Action<GameLanguage>? OnLanguageChanged;
+        public event Action<OnboardingState>? OnTutorialStateChanged;
+
         private readonly SponsorshipSystem _sponsorshipSystem = new();
         private readonly RetirementSystem _retirementSystem = new();
         private readonly LegacySystem _legacySystem = new();
+        private readonly LocalizationService _localizationService = LocalizationService.Instance;
+        private readonly OnboardingSystem _onboardingSystem = new();
+        private OnboardingState _onboardingState = OnboardingState.Initial;
 
         private void Awake()
         {
@@ -282,6 +289,9 @@ namespace FootballLife.Unity.Core.Bridge
             Instance = this;
             DontDestroyOnLoad(gameObject);
             _saveLoadManager = new SaveLoadManager();
+
+            _localizationService.OnLanguageChanged += lang => OnLanguageChanged?.Invoke(lang);
+            TryLoadLocalizationCatalogs();
         }
 
         /// <summary>
@@ -327,6 +337,10 @@ namespace FootballLife.Unity.Core.Bridge
             _currentSave.Dribbling = 60;
             _currentSave.Vision = 55;
 
+            // Initialize rookie onboarding state (#P6-007)
+            _onboardingState = OnboardingState.Initial;
+            _onboardingSystem.SyncToSaveData(_onboardingState, _currentSave);
+
             AutoSave();
             PublishDaySnapshot($"Career began at {_currentSave.ClubName}!");
         }
@@ -346,6 +360,12 @@ namespace FootballLife.Unity.Core.Bridge
             _currentSave = loaded;
             _simRandom = new SimulationRandom(loaded.MasterSeed + loaded.CurrentWeek);
             _currentDayOfWeek = 1;
+
+            _onboardingState = _onboardingSystem.LoadFromSaveData(_currentSave);
+            if (!string.IsNullOrEmpty(_currentSave.PreferredLanguage))
+            {
+                _localizationService.SetLanguageByCode(_currentSave.PreferredLanguage);
+            }
 
             PublishDaySnapshot($"Loaded career: {_currentSave.PlayerName} ({_currentSave.ClubName})");
             return true;
@@ -1279,6 +1299,98 @@ namespace FootballLife.Unity.Core.Bridge
         {
             var world = GetOrCreateWorld();
             return world.HallOfFame;
+        }
+
+        // ── Localization & Onboarding API (#P6-005, #P6-007) ───────────────────
+        public LocalizationService Localization => _localizationService;
+        public OnboardingSystem Onboarding => _onboardingSystem;
+        public OnboardingState OnboardingState => _onboardingState;
+
+        /// <summary>
+        /// Translates a key using active language with optional format arguments.
+        /// </summary>
+        public string T(string key, params object[] args) => _localizationService.GetText(key, args);
+
+        /// <summary>
+        /// Sets active game language and saves preference into active profile.
+        /// </summary>
+        public void SetLanguage(GameLanguage lang)
+        {
+            _localizationService.CurrentLanguage = lang;
+            if (_currentSave != null)
+            {
+                _currentSave.PreferredLanguage = LanguageInfo.FromLanguage(lang).Code;
+                AutoSave();
+            }
+        }
+
+        /// <summary>
+        /// Advances the onboarding tutorial by marking the given step completed.
+        /// </summary>
+        public void AdvanceTutorialStep(OnboardingStep step)
+        {
+            _onboardingState = _onboardingSystem.AdvanceStep(_onboardingState, step);
+            if (_currentSave != null)
+            {
+                _onboardingSystem.SyncToSaveData(_onboardingState, _currentSave);
+                var def = _onboardingSystem.GetStepDefinition(step);
+                int energy = _currentSave.Energy;
+                int form = _currentSave.Form;
+                int trust = _currentSave.ManagerTrust;
+                int balance = _currentSave.BankBalance;
+                _onboardingSystem.ApplyReward(def.Reward, ref energy, ref form, ref trust, ref balance);
+                _currentSave.Energy = energy;
+                _currentSave.Form = form;
+                _currentSave.ManagerTrust = trust;
+                _currentSave.BankBalance = balance;
+                AutoSave();
+            }
+            OnTutorialStateChanged?.Invoke(_onboardingState);
+        }
+
+        /// <summary>
+        /// Skips the rookie tutorial flow and unlocks all game features immediately.
+        /// </summary>
+        public void SkipTutorial()
+        {
+            _onboardingState = _onboardingSystem.SkipTutorial(_onboardingState);
+            if (_currentSave != null)
+            {
+                _onboardingSystem.SyncToSaveData(_onboardingState, _currentSave);
+                AutoSave();
+            }
+            OnTutorialStateChanged?.Invoke(_onboardingState);
+        }
+
+        /// <summary>
+        /// Checks whether a feature is unlocked under the current onboarding state.
+        /// </summary>
+        public bool IsFeatureUnlocked(string featureKey)
+        {
+            return _onboardingSystem.IsFeatureUnlocked(_onboardingState, featureKey);
+        }
+
+        private void TryLoadLocalizationCatalogs()
+        {
+            try
+            {
+                string streamingDir = System.IO.Path.Combine(Application.streamingAssetsPath, "localization");
+                if (System.IO.Directory.Exists(streamingDir))
+                {
+                    _localizationService.LoadFromDirectory(streamingDir);
+                    return;
+                }
+
+                string contentDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, "../../content/data/localization"));
+                if (System.IO.Directory.Exists(contentDir))
+                {
+                    _localizationService.LoadFromDirectory(contentDir);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"[SimulationBridge] Could not load external localization catalogs: {ex.Message}");
+            }
         }
 
         private void EnsureMockSaveForTesting()
