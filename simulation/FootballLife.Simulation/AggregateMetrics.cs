@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using FootballLife.Domain;
 
 namespace FootballLife.Simulation
 {
@@ -72,6 +73,11 @@ namespace FootballLife.Simulation
         public MetricDistribution FinalBalance { get; }
         public MetricDistribution Transfers { get; }
         public double BankruptcyRate { get; }
+        public MetricDistribution CareerScore { get; }
+        public MetricDistribution TotalTrophies { get; }
+        public MetricDistribution CommercialEarnings { get; }
+        public double HallOfFameRate { get; }
+        public IReadOnlyDictionary<LegacyGrade, int> LegacyGradeDistribution { get; }
 
         public AggregateReport(IReadOnlyList<CareerStatistics> careers)
         {
@@ -91,6 +97,11 @@ namespace FootballLife.Simulation
                 FinalBalance = MetricDistribution.Create(Array.Empty<double>());
                 Transfers = MetricDistribution.Create(Array.Empty<double>());
                 BankruptcyRate = 0;
+                CareerScore = MetricDistribution.Create(Array.Empty<double>());
+                TotalTrophies = MetricDistribution.Create(Array.Empty<double>());
+                CommercialEarnings = MetricDistribution.Create(Array.Empty<double>());
+                HallOfFameRate = 0;
+                LegacyGradeDistribution = new Dictionary<LegacyGrade, int>();
                 return;
             }
 
@@ -105,6 +116,17 @@ namespace FootballLife.Simulation
             FinalBalance = MetricDistribution.Create(careers.Select(c => (double)c.FinalBalance).ToList());
             Transfers = MetricDistribution.Create(careers.Select(c => (double)c.TransferCount).ToList());
             BankruptcyRate = careers.Count(c => c.BankruptcyOccurred) / (double)TotalCareers * 100.0;
+            CareerScore = MetricDistribution.Create(careers.Select(c => (double)c.CareerScore).ToList());
+            TotalTrophies = MetricDistribution.Create(careers.Select(c => (double)c.TotalTrophies).ToList());
+            CommercialEarnings = MetricDistribution.Create(careers.Select(c => (double)c.CommercialEarnings).ToList());
+            HallOfFameRate = careers.Count(c => c.IsHallOfFame) / (double)TotalCareers * 100.0;
+
+            var gradeDist = new Dictionary<LegacyGrade, int>();
+            foreach (LegacyGrade grade in Enum.GetValues(typeof(LegacyGrade)))
+            {
+                gradeDist[grade] = careers.Count(c => c.LegacyGrade == grade);
+            }
+            LegacyGradeDistribution = gradeDist;
         }
 
         public string GenerateAsciiHistogram(IReadOnlyList<double> values, double min, double max, int bucketCount, string title, int barWidth = 30)
@@ -157,11 +179,46 @@ namespace FootballLife.Simulation
             AppendRow(sb, "Career Assists", TotalAssists, "F0");
             AppendRow(sb, "Average Rating", AverageRating, "F2");
             AppendRow(sb, "Career Transfers", Transfers, "F1");
+            AppendRow(sb, "Commercial (£)", CommercialEarnings, "N0");
             AppendRow(sb, "Total Earnings (£)", TotalEarnings, "N0");
             AppendRow(sb, "Final Balance (£)", FinalBalance, "N0");
+            AppendRow(sb, "Career Score", CareerScore, "F0");
+            AppendRow(sb, "Total Trophies", TotalTrophies, "F1");
             sb.AppendLine("-------------------------------------------------------------------------------------------------------");
-            sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Bankruptcy Rate: {0:F1}%", BankruptcyRate));
+            sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Bankruptcy Rate: {0:F1}% | Hall of Fame Induction Rate: {1:F1}%", BankruptcyRate, HallOfFameRate));
             sb.AppendLine("=======================================================================================================");
+            return sb.ToString();
+        }
+
+        public string GenerateLegacyGradeHistogram(int barWidth = 30)
+        {
+            if (TotalCareers == 0) return string.Empty;
+
+            var sb = new StringBuilder();
+            sb.AppendLine($"--- Legacy Grade Distribution ({TotalCareers:N0} careers) ---");
+
+            var grades = new[]
+            {
+                LegacyGrade.GOAT,
+                LegacyGrade.Legend,
+                LegacyGrade.Icon,
+                LegacyGrade.CultHero,
+                LegacyGrade.Journeyman,
+                LegacyGrade.Underachiever
+            };
+
+            int maxCount = LegacyGradeDistribution.Values.DefaultIfEmpty(1).Max();
+            if (maxCount == 0) maxCount = 1;
+
+            foreach (var grade in grades)
+            {
+                int count = LegacyGradeDistribution.TryGetValue(grade, out int c) ? c : 0;
+                int barLen = (int)Math.Round((double)count / maxCount * barWidth);
+                string bar = new string('#', barLen);
+                double pct = (double)count / TotalCareers * 100.0;
+                sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "{0,-14}: {1,-30} {2,6:N0} ({3,5:F1}%)", grade, bar, count, pct));
+            }
+
             return sb.ToString();
         }
 

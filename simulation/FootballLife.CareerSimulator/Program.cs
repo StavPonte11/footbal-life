@@ -412,6 +412,8 @@ namespace FootballLife.CareerSimulator
                 var retirementAgeValues = report.Careers.Select(c => (double)c.RetirementAge).ToList();
                 Console.WriteLine(report.Metrics.GenerateAsciiHistogram(retirementAgeValues, 25, 40, 6, "Retirement Age"));
 
+                Console.WriteLine(report.Metrics.GenerateLegacyGradeHistogram());
+
                 Console.WriteLine(string.Format(
                     System.Globalization.CultureInfo.InvariantCulture,
                     "Simulation Performance: {0:N0} careers in {1:F2}s ({2:N0} careers/sec)",

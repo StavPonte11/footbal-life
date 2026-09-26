@@ -19,9 +19,17 @@
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/arsenal",
-        "homeKit": { "primaryHex": "#EF0107", "secondaryHex": "#FFFFFF", "trimHex": "#023474" },
-        "awayKit": { "primaryHex": "#000000", "secondaryHex": "#9CFF00", "trimHex": "#FFFFFF" }
+        "logoAssetKey": "badges/ars",
+        "homeKit": {
+          "primaryHex": "#EF0107",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#023474"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#EF0107",
+          "trimHex": "#023474"
+        }
       },
       "fanbase": {
         "supporterCount": 3500000,
@@ -58,9 +66,17 @@
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/man_city",
-        "homeKit": { "primaryHex": "#6CABDD", "secondaryHex": "#FFFFFF", "trimHex": "#1C2C5B" },
-        "awayKit": { "primaryHex": "#1C2C5B", "secondaryHex": "#BA9653", "trimHex": "#6CABDD" }
+        "logoAssetKey": "badges/mci",
+        "homeKit": {
+          "primaryHex": "#6CABDD",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#1C2C5B"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#6CABDD",
+          "trimHex": "#1C2C5B"
+        }
       },
       "fanbase": {
         "supporterCount": 4200000,
@@ -77,6 +93,1040 @@
         "leagueTitles": 10,
         "domesticCups": 7,
         "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000008",
+      "name": "Liverpool",
+      "shortName": "LIV",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 91,
+      "facilityRating": 5,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 4200000,
+        "transferBudget": 110000000
+      },
+      "stadium": {
+        "name": "Anfield",
+        "capacity": 61276,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/liv",
+        "homeKit": {
+          "primaryHex": "#C8102E",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#00B2A9"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#C8102E",
+          "trimHex": "#00B2A9"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 4500000,
+        "loyaltyRating": 95,
+        "expectationRating": 92
+      },
+      "board": {
+        "ownerName": "Fenway Sports Group",
+        "patience": "Patient",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1892,
+        "leagueTitles": 19,
+        "domesticCups": 8,
+        "continentalTrophies": 6
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000009",
+      "name": "Chelsea",
+      "shortName": "CHE",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 85,
+      "facilityRating": 5,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 3800000,
+        "transferBudget": 95000000
+      },
+      "stadium": {
+        "name": "Stamford Bridge",
+        "capacity": 40341,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/che",
+        "homeKit": {
+          "primaryHex": "#034694",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#DBA111"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#034694",
+          "trimHex": "#DBA111"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 3100000,
+        "loyaltyRating": 78,
+        "expectationRating": 85
+      },
+      "board": {
+        "ownerName": "BlueCo",
+        "patience": "Impatient",
+        "financialAmbition": 5
+      },
+      "history": {
+        "foundedYear": 1905,
+        "leagueTitles": 6,
+        "domesticCups": 8,
+        "continentalTrophies": 2
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000010",
+      "name": "Manchester United",
+      "shortName": "MUN",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 86,
+      "facilityRating": 5,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 4400000,
+        "transferBudget": 120000000
+      },
+      "stadium": {
+        "name": "Old Trafford",
+        "capacity": 74310,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/mun",
+        "homeKit": {
+          "primaryHex": "#DA291C",
+          "secondaryHex": "#FBE122",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FBE122",
+          "secondaryHex": "#DA291C",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 5000000,
+        "loyaltyRating": 90,
+        "expectationRating": 89
+      },
+      "board": {
+        "ownerName": "INEOS & Glazers",
+        "patience": "Balanced",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1878,
+        "leagueTitles": 20,
+        "domesticCups": 13,
+        "continentalTrophies": 3
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000011",
+      "name": "Tottenham Hotspur",
+      "shortName": "TOT",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 83,
+      "facilityRating": 5,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 3100000,
+        "transferBudget": 70000000
+      },
+      "stadium": {
+        "name": "Tottenham Hotspur Stadium",
+        "capacity": 62850,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/tot",
+        "homeKit": {
+          "primaryHex": "#132257",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#132257"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#132257",
+          "trimHex": "#132257"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2600000,
+        "loyaltyRating": 82,
+        "expectationRating": 82
+      },
+      "board": {
+        "ownerName": "ENIC Group",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1882,
+        "leagueTitles": 2,
+        "domesticCups": 8,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000012",
+      "name": "Newcastle United",
+      "shortName": "NEW",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 81,
+      "facilityRating": 4,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 2600000,
+        "transferBudget": 65000000
+      },
+      "stadium": {
+        "name": "St James' Park",
+        "capacity": 52305,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/new",
+        "homeKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#41B6E6"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#000000",
+          "trimHex": "#41B6E6"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2100000,
+        "loyaltyRating": 92,
+        "expectationRating": 80
+      },
+      "board": {
+        "ownerName": "PIF",
+        "patience": "Patient",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1892,
+        "leagueTitles": 4,
+        "domesticCups": 6,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000013",
+      "name": "Aston Villa",
+      "shortName": "AVL",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 82,
+      "facilityRating": 4,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 2700000,
+        "transferBudget": 55000000
+      },
+      "stadium": {
+        "name": "Villa Park",
+        "capacity": 42682,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/avl",
+        "homeKit": {
+          "primaryHex": "#670E36",
+          "secondaryHex": "#95BFE5",
+          "trimHex": "#FEE12B"
+        },
+        "awayKit": {
+          "primaryHex": "#95BFE5",
+          "secondaryHex": "#670E36",
+          "trimHex": "#FEE12B"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1800000,
+        "loyaltyRating": 86,
+        "expectationRating": 81
+      },
+      "board": {
+        "ownerName": "V Sports",
+        "patience": "Balanced",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1874,
+        "leagueTitles": 7,
+        "domesticCups": 7,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000014",
+      "name": "Brighton & Hove Albion",
+      "shortName": "BHA",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 78,
+      "facilityRating": 4,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 1800000,
+        "transferBudget": 45000000
+      },
+      "stadium": {
+        "name": "Amex Stadium",
+        "capacity": 31800,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/bha",
+        "homeKit": {
+          "primaryHex": "#0057B8",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#FFCD00"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#0057B8",
+          "trimHex": "#FFCD00"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1200000,
+        "loyaltyRating": 84,
+        "expectationRating": 75
+      },
+      "board": {
+        "ownerName": "Tony Bloom",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1901,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000015",
+      "name": "West Ham United",
+      "shortName": "WHU",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 77,
+      "facilityRating": 4,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 2100000,
+        "transferBudget": 40000000
+      },
+      "stadium": {
+        "name": "London Stadium",
+        "capacity": 62500,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/whu",
+        "homeKit": {
+          "primaryHex": "#7A263A",
+          "secondaryHex": "#1BB1E7",
+          "trimHex": "#F3D446"
+        },
+        "awayKit": {
+          "primaryHex": "#1BB1E7",
+          "secondaryHex": "#7A263A",
+          "trimHex": "#F3D446"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1600000,
+        "loyaltyRating": 88,
+        "expectationRating": 76
+      },
+      "board": {
+        "ownerName": "David Sullivan",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1895,
+        "leagueTitles": 0,
+        "domesticCups": 3,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000016",
+      "name": "Everton",
+      "shortName": "EVE",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 74,
+      "facilityRating": 3,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 1900000,
+        "transferBudget": 30000000
+      },
+      "stadium": {
+        "name": "Goodison Park",
+        "capacity": 39572,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/eve",
+        "homeKit": {
+          "primaryHex": "#003399",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#F3D446"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#003399",
+          "trimHex": "#F3D446"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1500000,
+        "loyaltyRating": 94,
+        "expectationRating": 72
+      },
+      "board": {
+        "ownerName": "The Friedkin Group",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1878,
+        "leagueTitles": 9,
+        "domesticCups": 5,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000017",
+      "name": "Wolverhampton Wanderers",
+      "shortName": "WOL",
+      "leagueId": "e1000000-0000-0000-0000-000000000001",
+      "reputationRating": 73,
+      "facilityRating": 3,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 1600000,
+        "transferBudget": 28000000
+      },
+      "stadium": {
+        "name": "Molineux",
+        "capacity": 32050,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/wol",
+        "homeKit": {
+          "primaryHex": "#FDB913",
+          "secondaryHex": "#231F20",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#231F20",
+          "secondaryHex": "#FDB913",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1100000,
+        "loyaltyRating": 85,
+        "expectationRating": 71
+      },
+      "board": {
+        "ownerName": "Fosun International",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1877,
+        "leagueTitles": 3,
+        "domesticCups": 4,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000018",
+      "name": "Leeds United",
+      "shortName": "LEE",
+      "leagueId": "e1000000-0000-0000-0000-000000000011",
+      "reputationRating": 72,
+      "facilityRating": 4,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 1400000,
+        "transferBudget": 22000000
+      },
+      "stadium": {
+        "name": "Elland Road",
+        "capacity": 37890,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/lee",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#0000FF",
+          "trimHex": "#FFFF00"
+        },
+        "awayKit": {
+          "primaryHex": "#0000FF",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#FFFF00"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1400000,
+        "loyaltyRating": 93,
+        "expectationRating": 76
+      },
+      "board": {
+        "ownerName": "49ers Enterprises",
+        "patience": "Balanced",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1919,
+        "leagueTitles": 3,
+        "domesticCups": 1,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000019",
+      "name": "Leicester City",
+      "shortName": "LEI",
+      "leagueId": "e1000000-0000-0000-0000-000000000011",
+      "reputationRating": 71,
+      "facilityRating": 4,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 1350000,
+        "transferBudget": 20000000
+      },
+      "stadium": {
+        "name": "King Power Stadium",
+        "capacity": 32261,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/lei",
+        "homeKit": {
+          "primaryHex": "#003090",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#FDBE11"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#003090",
+          "trimHex": "#FDBE11"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1250000,
+        "loyaltyRating": 89,
+        "expectationRating": 75
+      },
+      "board": {
+        "ownerName": "King Power",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1884,
+        "leagueTitles": 1,
+        "domesticCups": 1,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000020",
+      "name": "Southampton",
+      "shortName": "SOU",
+      "leagueId": "e1000000-0000-0000-0000-000000000011",
+      "reputationRating": 69,
+      "facilityRating": 4,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 1100000,
+        "transferBudget": 16000000
+      },
+      "stadium": {
+        "name": "St Mary's Stadium",
+        "capacity": 32384,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/sou",
+        "homeKit": {
+          "primaryHex": "#D71920",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#130C0E"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#D71920",
+          "trimHex": "#130C0E"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 950000,
+        "loyaltyRating": 86,
+        "expectationRating": 72
+      },
+      "board": {
+        "ownerName": "Sport Republic",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1885,
+        "leagueTitles": 0,
+        "domesticCups": 1,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000021",
+      "name": "Sunderland",
+      "shortName": "SUN",
+      "leagueId": "e1000000-0000-0000-0000-000000000011",
+      "reputationRating": 67,
+      "facilityRating": 3,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 850000,
+        "transferBudget": 12000000
+      },
+      "stadium": {
+        "name": "Stadium of Light",
+        "capacity": 49000,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/sun",
+        "homeKit": {
+          "primaryHex": "#EB172B",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#EB172B",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1100000,
+        "loyaltyRating": 96,
+        "expectationRating": 73
+      },
+      "board": {
+        "ownerName": "Kyril Louis-Dreyfus",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1879,
+        "leagueTitles": 6,
+        "domesticCups": 2,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000022",
+      "name": "Norwich City",
+      "shortName": "NOR",
+      "leagueId": "e1000000-0000-0000-0000-000000000011",
+      "reputationRating": 66,
+      "facilityRating": 3,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 800000,
+        "transferBudget": 10000000
+      },
+      "stadium": {
+        "name": "Carrow Road",
+        "capacity": 27244,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/nor",
+        "homeKit": {
+          "primaryHex": "#FFF200",
+          "secondaryHex": "#00A651",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#00A651",
+          "secondaryHex": "#FFF200",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 800000,
+        "loyaltyRating": 88,
+        "expectationRating": 69
+      },
+      "board": {
+        "ownerName": "Delia Smith & Joint",
+        "patience": "Balanced",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1902,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000023",
+      "name": "Middlesbrough",
+      "shortName": "MID",
+      "leagueId": "e1000000-0000-0000-0000-000000000011",
+      "reputationRating": 65,
+      "facilityRating": 3,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 750000,
+        "transferBudget": 9000000
+      },
+      "stadium": {
+        "name": "Riverside Stadium",
+        "capacity": 34742,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/mid",
+        "homeKit": {
+          "primaryHex": "#E00000",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#002060"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#E00000",
+          "trimHex": "#002060"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 750000,
+        "loyaltyRating": 87,
+        "expectationRating": 68
+      },
+      "board": {
+        "ownerName": "Steve Gibson",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1876,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000024",
+      "name": "West Bromwich Albion",
+      "shortName": "WBA",
+      "leagueId": "e1000000-0000-0000-0000-000000000011",
+      "reputationRating": 65,
+      "facilityRating": 3,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 720000,
+        "transferBudget": 8500000
+      },
+      "stadium": {
+        "name": "The Hawthorns",
+        "capacity": 26850,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/wba",
+        "homeKit": {
+          "primaryHex": "#091442",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#00A3E0"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#091442",
+          "trimHex": "#00A3E0"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 720000,
+        "loyaltyRating": 85,
+        "expectationRating": 68
+      },
+      "board": {
+        "ownerName": "Shilen Patel",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1878,
+        "leagueTitles": 1,
+        "domesticCups": 5,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000025",
+      "name": "Watford",
+      "shortName": "WAT",
+      "leagueId": "e1000000-0000-0000-0000-000000000011",
+      "reputationRating": 64,
+      "facilityRating": 3,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 680000,
+        "transferBudget": 8000000
+      },
+      "stadium": {
+        "name": "Vicarage Road",
+        "capacity": 22200,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/wat",
+        "homeKit": {
+          "primaryHex": "#FBEE23",
+          "secondaryHex": "#ED2127",
+          "trimHex": "#111111"
+        },
+        "awayKit": {
+          "primaryHex": "#ED2127",
+          "secondaryHex": "#FBEE23",
+          "trimHex": "#111111"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 620000,
+        "loyaltyRating": 82,
+        "expectationRating": 67
+      },
+      "board": {
+        "ownerName": "Gino Pozzo",
+        "patience": "Impatient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1881,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000026",
+      "name": "Bolton Wanderers",
+      "shortName": "BOL",
+      "leagueId": "e1000000-0000-0000-0000-000000000012",
+      "reputationRating": 58,
+      "facilityRating": 3,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 320000,
+        "transferBudget": 3000000
+      },
+      "stadium": {
+        "name": "Toughsheet Community Stadium",
+        "capacity": 28723,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/bol",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#1E2B37",
+          "trimHex": "#EE1C25"
+        },
+        "awayKit": {
+          "primaryHex": "#1E2B37",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#EE1C25"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 550000,
+        "loyaltyRating": 88,
+        "expectationRating": 62
+      },
+      "board": {
+        "ownerName": "Football Ventures",
+        "patience": "Patient",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1874,
+        "leagueTitles": 0,
+        "domesticCups": 4,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000027",
+      "name": "Portsmouth",
+      "shortName": "POR",
+      "leagueId": "e1000000-0000-0000-0000-000000000012",
+      "reputationRating": 57,
+      "facilityRating": 2,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 310000,
+        "transferBudget": 2800000
+      },
+      "stadium": {
+        "name": "Fratton Park",
+        "capacity": 20688,
+        "pitchQuality": 2
+      },
+      "visuals": {
+        "logoAssetKey": "badges/por",
+        "homeKit": {
+          "primaryHex": "#001489",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#C8102E"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#001489",
+          "trimHex": "#C8102E"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 600000,
+        "loyaltyRating": 95,
+        "expectationRating": 63
+      },
+      "board": {
+        "ownerName": "Tornante Company",
+        "patience": "Patient",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1898,
+        "leagueTitles": 2,
+        "domesticCups": 2,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000028",
+      "name": "Derby County",
+      "shortName": "DER",
+      "leagueId": "e1000000-0000-0000-0000-000000000012",
+      "reputationRating": 59,
+      "facilityRating": 3,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 350000,
+        "transferBudget": 3500000
+      },
+      "stadium": {
+        "name": "Pride Park",
+        "capacity": 33597,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/der",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#000000",
+          "trimHex": "#1C242B"
+        },
+        "awayKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#1C242B"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 650000,
+        "loyaltyRating": 92,
+        "expectationRating": 64
+      },
+      "board": {
+        "ownerName": "David Clowes",
+        "patience": "Balanced",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1884,
+        "leagueTitles": 2,
+        "domesticCups": 1,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000029",
+      "name": "Reading",
+      "shortName": "REA",
+      "leagueId": "e1000000-0000-0000-0000-000000000012",
+      "reputationRating": 54,
+      "facilityRating": 2,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 260000,
+        "transferBudget": 2000000
+      },
+      "stadium": {
+        "name": "Select Car Leasing Stadium",
+        "capacity": 24161,
+        "pitchQuality": 2
+      },
+      "visuals": {
+        "logoAssetKey": "badges/rea",
+        "homeKit": {
+          "primaryHex": "#004494",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#E30613"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#004494",
+          "trimHex": "#E30613"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 450000,
+        "loyaltyRating": 84,
+        "expectationRating": 58
+      },
+      "board": {
+        "ownerName": "Redwood Group",
+        "patience": "Balanced",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1871,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
       }
     },
     {
@@ -97,12 +1147,20 @@
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/real_madrid",
-        "homeKit": { "primaryHex": "#FFFFFF", "secondaryHex": "#00529F", "trimHex": "#EE9800" },
-        "awayKit": { "primaryHex": "#1E1E24", "secondaryHex": "#FE5F55", "trimHex": "#FFFFFF" }
+        "logoAssetKey": "badges/rma",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#410099",
+          "trimHex": "#FEBE10"
+        },
+        "awayKit": {
+          "primaryHex": "#410099",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#FEBE10"
+        }
       },
       "fanbase": {
-        "supporterCount": 8000000,
+        "supporterCount": 6000000,
         "loyaltyRating": 90,
         "expectationRating": 98
       },
@@ -121,29 +1179,37 @@
     {
       "id": "c1000000-0000-0000-0000-000000000004",
       "name": "Barcelona",
-      "shortName": "BAR",
+      "shortName": "FCB",
       "leagueId": "e1000000-0000-0000-0000-000000000002",
       "reputationRating": 93,
       "facilityRating": 5,
       "tacticalStyle": "Possession",
       "finances": {
-        "weeklyWageBudget": 4100000,
-        "transferBudget": 45000000
+        "weeklyWageBudget": 4600000,
+        "transferBudget": 75000000
       },
       "stadium": {
-        "name": "Spotify Camp Nou",
+        "name": "Camp Nou",
         "capacity": 99354,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/barcelona",
-        "homeKit": { "primaryHex": "#A50044", "secondaryHex": "#004D98", "trimHex": "#EDBB00" },
-        "awayKit": { "primaryHex": "#FFFFFF", "secondaryHex": "#A50044", "trimHex": "#004D98" }
+        "logoAssetKey": "badges/fcb",
+        "homeKit": {
+          "primaryHex": "#004D98",
+          "secondaryHex": "#A50044",
+          "trimHex": "#EDBB00"
+        },
+        "awayKit": {
+          "primaryHex": "#A50044",
+          "secondaryHex": "#004D98",
+          "trimHex": "#EDBB00"
+        }
       },
       "fanbase": {
-        "supporterCount": 7500000,
-        "loyaltyRating": 88,
-        "expectationRating": 92
+        "supporterCount": 5500000,
+        "loyaltyRating": 94,
+        "expectationRating": 94
       },
       "board": {
         "ownerName": "Joan Laporta",
@@ -158,16 +1224,486 @@
       }
     },
     {
+      "id": "c1000000-0000-0000-0000-000000000030",
+      "name": "Atletico Madrid",
+      "shortName": "ATM",
+      "leagueId": "e1000000-0000-0000-0000-000000000002",
+      "reputationRating": 89,
+      "facilityRating": 5,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 3600000,
+        "transferBudget": 80000000
+      },
+      "stadium": {
+        "name": "Metropolitano",
+        "capacity": 70460,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/atm",
+        "homeKit": {
+          "primaryHex": "#CB3524",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#272E61"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#CB3524",
+          "trimHex": "#272E61"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 3200000,
+        "loyaltyRating": 95,
+        "expectationRating": 88
+      },
+      "board": {
+        "ownerName": "Enrique Cerezo",
+        "patience": "Patient",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1903,
+        "leagueTitles": 11,
+        "domesticCups": 10,
+        "continentalTrophies": 3
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000031",
+      "name": "Athletic Bilbao",
+      "shortName": "ATH",
+      "leagueId": "e1000000-0000-0000-0000-000000000002",
+      "reputationRating": 82,
+      "facilityRating": 4,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 2300000,
+        "transferBudget": 45000000
+      },
+      "stadium": {
+        "name": "San Mames",
+        "capacity": 53289,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/ath",
+        "homeKit": {
+          "primaryHex": "#EE2524",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#EE2524",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2100000,
+        "loyaltyRating": 98,
+        "expectationRating": 83
+      },
+      "board": {
+        "ownerName": "Jon Uriarte",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1898,
+        "leagueTitles": 8,
+        "domesticCups": 24,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000032",
+      "name": "Real Sociedad",
+      "shortName": "RSO",
+      "leagueId": "e1000000-0000-0000-0000-000000000002",
+      "reputationRating": 81,
+      "facilityRating": 4,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 2100000,
+        "transferBudget": 40000000
+      },
+      "stadium": {
+        "name": "Reale Arena",
+        "capacity": 39313,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/rso",
+        "homeKit": {
+          "primaryHex": "#0055A5",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#0055A5",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1700000,
+        "loyaltyRating": 91,
+        "expectationRating": 80
+      },
+      "board": {
+        "ownerName": "Jokin Aperribay",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1909,
+        "leagueTitles": 2,
+        "domesticCups": 3,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000033",
+      "name": "Real Betis",
+      "shortName": "BET",
+      "leagueId": "e1000000-0000-0000-0000-000000000002",
+      "reputationRating": 80,
+      "facilityRating": 4,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 2000000,
+        "transferBudget": 38000000
+      },
+      "stadium": {
+        "name": "Benito Villamarin",
+        "capacity": 60721,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/bet",
+        "homeKit": {
+          "primaryHex": "#0BB364",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#0BB364",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2400000,
+        "loyaltyRating": 96,
+        "expectationRating": 79
+      },
+      "board": {
+        "ownerName": "Angel Haro",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1907,
+        "leagueTitles": 1,
+        "domesticCups": 3,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000034",
+      "name": "Villarreal",
+      "shortName": "VIL",
+      "leagueId": "e1000000-0000-0000-0000-000000000002",
+      "reputationRating": 79,
+      "facilityRating": 4,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 1900000,
+        "transferBudget": 35000000
+      },
+      "stadium": {
+        "name": "Estadio de la Ceramica",
+        "capacity": 23500,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/vil",
+        "homeKit": {
+          "primaryHex": "#FFF000",
+          "secondaryHex": "#0055A5",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#0055A5",
+          "secondaryHex": "#FFF000",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 950000,
+        "loyaltyRating": 89,
+        "expectationRating": 78
+      },
+      "board": {
+        "ownerName": "Fernando Roig",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1923,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000035",
+      "name": "Sevilla",
+      "shortName": "SEV",
+      "leagueId": "e1000000-0000-0000-0000-000000000002",
+      "reputationRating": 78,
+      "facilityRating": 4,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 1950000,
+        "transferBudget": 34000000
+      },
+      "stadium": {
+        "name": "Ramon Sanchez-Pizjuan",
+        "capacity": 43883,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/sev",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#D40026",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#D40026",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2200000,
+        "loyaltyRating": 92,
+        "expectationRating": 82
+      },
+      "board": {
+        "ownerName": "Jose Maria del Nido",
+        "patience": "Impatient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1890,
+        "leagueTitles": 1,
+        "domesticCups": 5,
+        "continentalTrophies": 7
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000036",
+      "name": "Espanyol",
+      "shortName": "ESP",
+      "leagueId": "e1000000-0000-0000-0000-000000000021",
+      "reputationRating": 71,
+      "facilityRating": 4,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 950000,
+        "transferBudget": 14000000
+      },
+      "stadium": {
+        "name": "Stage Front Stadium",
+        "capacity": 40000,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/esp",
+        "homeKit": {
+          "primaryHex": "#007FC8",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#ED1C24"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#007FC8",
+          "trimHex": "#ED1C24"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1000000,
+        "loyaltyRating": 87,
+        "expectationRating": 72
+      },
+      "board": {
+        "ownerName": "Rastar Group",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1900,
+        "leagueTitles": 0,
+        "domesticCups": 4,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000037",
+      "name": "Real Zaragoza",
+      "shortName": "ZAR",
+      "leagueId": "e1000000-0000-0000-0000-000000000021",
+      "reputationRating": 66,
+      "facilityRating": 3,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 650000,
+        "transferBudget": 8000000
+      },
+      "stadium": {
+        "name": "La Romareda",
+        "capacity": 33608,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/zar",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#003399",
+          "trimHex": "#FFCC00"
+        },
+        "awayKit": {
+          "primaryHex": "#003399",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#FFCC00"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 850000,
+        "loyaltyRating": 91,
+        "expectationRating": 68
+      },
+      "board": {
+        "ownerName": "Jorge Mas",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1932,
+        "leagueTitles": 0,
+        "domesticCups": 6,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000038",
+      "name": "Sporting Gij\u00f3n",
+      "shortName": "GIJ",
+      "leagueId": "e1000000-0000-0000-0000-000000000021",
+      "reputationRating": 64,
+      "facilityRating": 3,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 580000,
+        "transferBudget": 6500000
+      },
+      "stadium": {
+        "name": "El Molinon",
+        "capacity": 30000,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/gij",
+        "homeKit": {
+          "primaryHex": "#E20613",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#003399"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#E20613",
+          "trimHex": "#003399"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 750000,
+        "loyaltyRating": 93,
+        "expectationRating": 67
+      },
+      "board": {
+        "ownerName": "Grupo Orlegi",
+        "patience": "Patient",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1905,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000039",
+      "name": "Levante",
+      "shortName": "LEV",
+      "leagueId": "e1000000-0000-0000-0000-000000000021",
+      "reputationRating": 65,
+      "facilityRating": 3,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 620000,
+        "transferBudget": 7500000
+      },
+      "stadium": {
+        "name": "Ciutat de Valencia",
+        "capacity": 26354,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/lev",
+        "homeKit": {
+          "primaryHex": "#003366",
+          "secondaryHex": "#990000",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#990000",
+          "secondaryHex": "#003366",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 680000,
+        "loyaltyRating": 85,
+        "expectationRating": 66
+      },
+      "board": {
+        "ownerName": "Danvila & Board",
+        "patience": "Balanced",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1909,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
+      }
+    },
+    {
       "id": "c1000000-0000-0000-0000-000000000005",
       "name": "Bayern Munich",
       "shortName": "BAY",
       "leagueId": "e1000000-0000-0000-0000-000000000003",
-      "reputationRating": 93,
+      "reputationRating": 95,
       "facilityRating": 5,
-      "tacticalStyle": "HighPress",
+      "tacticalStyle": "Possession",
       "finances": {
-        "weeklyWageBudget": 4500000,
-        "transferBudget": 90000000
+        "weeklyWageBudget": 5000000,
+        "transferBudget": 130000000
       },
       "stadium": {
         "name": "Allianz Arena",
@@ -175,19 +1711,27 @@
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/bayern",
-        "homeKit": { "primaryHex": "#DC052D", "secondaryHex": "#FFFFFF", "trimHex": "#0066B2" },
-        "awayKit": { "primaryHex": "#000000", "secondaryHex": "#5700A3", "trimHex": "#20E2FF" }
+        "logoAssetKey": "badges/bay",
+        "homeKit": {
+          "primaryHex": "#DC052D",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#0066B2"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#DC052D",
+          "trimHex": "#0066B2"
+        }
       },
       "fanbase": {
-        "supporterCount": 5000000,
+        "supporterCount": 5200000,
         "loyaltyRating": 92,
-        "expectationRating": 94
+        "expectationRating": 97
       },
       "board": {
         "ownerName": "Herbert Hainer",
-        "patience": "Balanced",
-        "financialAmbition": 4
+        "patience": "Impatient",
+        "financialAmbition": 5
       },
       "history": {
         "foundedYear": 1900,
@@ -198,35 +1742,466 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000006",
-      "name": "Inter Milan",
-      "shortName": "INT",
-      "leagueId": "e1000000-0000-0000-0000-000000000004",
-      "reputationRating": 89,
+      "name": "Borussia Dortmund",
+      "shortName": "BVB",
+      "leagueId": "e1000000-0000-0000-0000-000000000003",
+      "reputationRating": 87,
+      "facilityRating": 5,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 3200000,
+        "transferBudget": 75000000
+      },
+      "stadium": {
+        "name": "Signal Iduna Park",
+        "capacity": 81365,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/bvb",
+        "homeKit": {
+          "primaryHex": "#FDE100",
+          "secondaryHex": "#000000",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#FDE100",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 4800000,
+        "loyaltyRating": 98,
+        "expectationRating": 86
+      },
+      "board": {
+        "ownerName": "Hans-Joachim Watzke",
+        "patience": "Balanced",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1909,
+        "leagueTitles": 8,
+        "domesticCups": 5,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000040",
+      "name": "Bayer Leverkusen",
+      "shortName": "B04",
+      "leagueId": "e1000000-0000-0000-0000-000000000003",
+      "reputationRating": 88,
+      "facilityRating": 5,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 3100000,
+        "transferBudget": 70000000
+      },
+      "stadium": {
+        "name": "BayArena",
+        "capacity": 30210,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/b04",
+        "homeKit": {
+          "primaryHex": "#E32219",
+          "secondaryHex": "#000000",
+          "trimHex": "#F6A800"
+        },
+        "awayKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#E32219",
+          "trimHex": "#F6A800"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2200000,
+        "loyaltyRating": 89,
+        "expectationRating": 87
+      },
+      "board": {
+        "ownerName": "Fernando Carro",
+        "patience": "Patient",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1904,
+        "leagueTitles": 1,
+        "domesticCups": 2,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000041",
+      "name": "RB Leipzig",
+      "shortName": "RBL",
+      "leagueId": "e1000000-0000-0000-0000-000000000003",
+      "reputationRating": 84,
+      "facilityRating": 5,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 2900000,
+        "transferBudget": 60000000
+      },
+      "stadium": {
+        "name": "Red Bull Arena",
+        "capacity": 47069,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/rbl",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#E30613",
+          "trimHex": "#FFCC00"
+        },
+        "awayKit": {
+          "primaryHex": "#E30613",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#FFCC00"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1800000,
+        "loyaltyRating": 75,
+        "expectationRating": 83
+      },
+      "board": {
+        "ownerName": "Oliver Mintzlaff",
+        "patience": "Balanced",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 2009,
+        "leagueTitles": 0,
+        "domesticCups": 2,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000042",
+      "name": "Eintracht Frankfurt",
+      "shortName": "SGE",
+      "leagueId": "e1000000-0000-0000-0000-000000000003",
+      "reputationRating": 81,
       "facilityRating": 4,
       "tacticalStyle": "Counter",
       "finances": {
-        "weeklyWageBudget": 2900000,
-        "transferBudget": 40000000
+        "weeklyWageBudget": 2100000,
+        "transferBudget": 42000000
+      },
+      "stadium": {
+        "name": "Deutsche Bank Park",
+        "capacity": 58000,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/sge",
+        "homeKit": {
+          "primaryHex": "#E1000F",
+          "secondaryHex": "#000000",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#E1000F",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2500000,
+        "loyaltyRating": 97,
+        "expectationRating": 81
+      },
+      "board": {
+        "ownerName": "Peter Fischer",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1899,
+        "leagueTitles": 1,
+        "domesticCups": 5,
+        "continentalTrophies": 2
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000043",
+      "name": "VfB Stuttgart",
+      "shortName": "VFB",
+      "leagueId": "e1000000-0000-0000-0000-000000000003",
+      "reputationRating": 80,
+      "facilityRating": 4,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 1900000,
+        "transferBudget": 38000000
+      },
+      "stadium": {
+        "name": "MHP Arena",
+        "capacity": 60449,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/vfb",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#E32219",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#E32219",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2300000,
+        "loyaltyRating": 94,
+        "expectationRating": 79
+      },
+      "board": {
+        "ownerName": "Claus Vogt",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1893,
+        "leagueTitles": 5,
+        "domesticCups": 3,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000044",
+      "name": "Hamburger SV",
+      "shortName": "HSV",
+      "leagueId": "e1000000-0000-0000-0000-000000000031",
+      "reputationRating": 71,
+      "facilityRating": 4,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 1100000,
+        "transferBudget": 16000000
+      },
+      "stadium": {
+        "name": "Volksparkstadion",
+        "capacity": 57000,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/hsv",
+        "homeKit": {
+          "primaryHex": "#0000FF",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#0000FF",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2800000,
+        "loyaltyRating": 96,
+        "expectationRating": 75
+      },
+      "board": {
+        "ownerName": "Jonas Boldt",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1887,
+        "leagueTitles": 6,
+        "domesticCups": 3,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000045",
+      "name": "Schalke 04",
+      "shortName": "S04",
+      "leagueId": "e1000000-0000-0000-0000-000000000031",
+      "reputationRating": 70,
+      "facilityRating": 4,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 1000000,
+        "transferBudget": 14000000
+      },
+      "stadium": {
+        "name": "Veltins-Arena",
+        "capacity": 62271,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/s04",
+        "homeKit": {
+          "primaryHex": "#004D9D",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#004D9D",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 3000000,
+        "loyaltyRating": 98,
+        "expectationRating": 76
+      },
+      "board": {
+        "ownerName": "Matthias Tillmann",
+        "patience": "Impatient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1904,
+        "leagueTitles": 7,
+        "domesticCups": 5,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000046",
+      "name": "Hertha BSC",
+      "shortName": "BSC",
+      "leagueId": "e1000000-0000-0000-0000-000000000031",
+      "reputationRating": 68,
+      "facilityRating": 4,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 850000,
+        "transferBudget": 11000000
+      },
+      "stadium": {
+        "name": "Olympiastadion Berlin",
+        "capacity": 74475,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/bsc",
+        "homeKit": {
+          "primaryHex": "#005CA9",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#E30613"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#005CA9",
+          "trimHex": "#E30613"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1900000,
+        "loyaltyRating": 86,
+        "expectationRating": 70
+      },
+      "board": {
+        "ownerName": "Kay Bernstein Board",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1892,
+        "leagueTitles": 2,
+        "domesticCups": 0,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000047",
+      "name": "1. FC N\u00fcrnberg",
+      "shortName": "FCN",
+      "leagueId": "e1000000-0000-0000-0000-000000000031",
+      "reputationRating": 65,
+      "facilityRating": 3,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 650000,
+        "transferBudget": 7500000
+      },
+      "stadium": {
+        "name": "Max-Morlock-Stadion",
+        "capacity": 50000,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/fcn",
+        "homeKit": {
+          "primaryHex": "#8B0000",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#8B0000",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1400000,
+        "loyaltyRating": 91,
+        "expectationRating": 67
+      },
+      "board": {
+        "ownerName": "Peter Hammer",
+        "patience": "Patient",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1900,
+        "leagueTitles": 9,
+        "domesticCups": 4,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000048",
+      "name": "Inter Milan",
+      "shortName": "INT",
+      "leagueId": "e1000000-0000-0000-0000-000000000004",
+      "reputationRating": 92,
+      "facilityRating": 5,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 4100000,
+        "transferBudget": 90000000
       },
       "stadium": {
         "name": "San Siro",
         "capacity": 75923,
-        "pitchQuality": 4
+        "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/inter",
-        "homeKit": { "primaryHex": "#010E80", "secondaryHex": "#000000", "trimHex": "#FFFFFF" },
-        "awayKit": { "primaryHex": "#FFFFFF", "secondaryHex": "#010E80", "trimHex": "#000000" }
+        "logoAssetKey": "badges/int",
+        "homeKit": {
+          "primaryHex": "#001EA0",
+          "secondaryHex": "#000000",
+          "trimHex": "#F5A623"
+        },
+        "awayKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#001EA0",
+          "trimHex": "#F5A623"
+        }
       },
       "fanbase": {
-        "supporterCount": 3100000,
-        "loyaltyRating": 86,
-        "expectationRating": 88
+        "supporterCount": 4400000,
+        "loyaltyRating": 93,
+        "expectationRating": 93
       },
       "board": {
         "ownerName": "Oaktree Capital",
         "patience": "Balanced",
-        "financialAmbition": 3
+        "financialAmbition": 4
       },
       "history": {
         "foundedYear": 1908,
@@ -236,16 +2211,439 @@
       }
     },
     {
+      "id": "c1000000-0000-0000-0000-000000000049",
+      "name": "AC Milan",
+      "shortName": "ACM",
+      "leagueId": "e1000000-0000-0000-0000-000000000004",
+      "reputationRating": 88,
+      "facilityRating": 5,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 3400000,
+        "transferBudget": 80000000
+      },
+      "stadium": {
+        "name": "San Siro",
+        "capacity": 75923,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/acm",
+        "homeKit": {
+          "primaryHex": "#FB090B",
+          "secondaryHex": "#000000",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#FB090B",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 4200000,
+        "loyaltyRating": 92,
+        "expectationRating": 89
+      },
+      "board": {
+        "ownerName": "RedBird Capital",
+        "patience": "Patient",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1899,
+        "leagueTitles": 19,
+        "domesticCups": 5,
+        "continentalTrophies": 7
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000050",
+      "name": "Juventus",
+      "shortName": "JUV",
+      "leagueId": "e1000000-0000-0000-0000-000000000004",
+      "reputationRating": 89,
+      "facilityRating": 5,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 3800000,
+        "transferBudget": 85000000
+      },
+      "stadium": {
+        "name": "Allianz Stadium",
+        "capacity": 41507,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/juv",
+        "homeKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#D4AF37"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#000000",
+          "trimHex": "#D4AF37"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 4600000,
+        "loyaltyRating": 90,
+        "expectationRating": 91
+      },
+      "board": {
+        "ownerName": "Exor & Elkann",
+        "patience": "Balanced",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1897,
+        "leagueTitles": 36,
+        "domesticCups": 15,
+        "continentalTrophies": 2
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000051",
+      "name": "Napoli",
+      "shortName": "NAP",
+      "leagueId": "e1000000-0000-0000-0000-000000000004",
+      "reputationRating": 85,
+      "facilityRating": 4,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 2800000,
+        "transferBudget": 65000000
+      },
+      "stadium": {
+        "name": "Diego Armando Maradona",
+        "capacity": 54726,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/nap",
+        "homeKit": {
+          "primaryHex": "#0080FF",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#0080FF",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 3100000,
+        "loyaltyRating": 97,
+        "expectationRating": 86
+      },
+      "board": {
+        "ownerName": "Aurelio De Laurentiis",
+        "patience": "Impatient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1926,
+        "leagueTitles": 3,
+        "domesticCups": 6,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000052",
+      "name": "AS Roma",
+      "shortName": "ASR",
+      "leagueId": "e1000000-0000-0000-0000-000000000004",
+      "reputationRating": 83,
+      "facilityRating": 4,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 2600000,
+        "transferBudget": 50000000
+      },
+      "stadium": {
+        "name": "Stadio Olimpico",
+        "capacity": 70634,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/asr",
+        "homeKit": {
+          "primaryHex": "#8E1F2F",
+          "secondaryHex": "#F1B434",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#F1B434",
+          "secondaryHex": "#8E1F2F",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2800000,
+        "loyaltyRating": 95,
+        "expectationRating": 84
+      },
+      "board": {
+        "ownerName": "Friedkin Group",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1927,
+        "leagueTitles": 3,
+        "domesticCups": 9,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000053",
+      "name": "Lazio",
+      "shortName": "LAZ",
+      "leagueId": "e1000000-0000-0000-0000-000000000004",
+      "reputationRating": 81,
+      "facilityRating": 4,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 2200000,
+        "transferBudget": 42000000
+      },
+      "stadium": {
+        "name": "Stadio Olimpico",
+        "capacity": 70634,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/laz",
+        "homeKit": {
+          "primaryHex": "#87CEEB",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#87CEEB",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2200000,
+        "loyaltyRating": 91,
+        "expectationRating": 82
+      },
+      "board": {
+        "ownerName": "Claudio Lotito",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1900,
+        "leagueTitles": 2,
+        "domesticCups": 7,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000054",
+      "name": "Sampdoria",
+      "shortName": "SAM",
+      "leagueId": "e1000000-0000-0000-0000-000000000041",
+      "reputationRating": 69,
+      "facilityRating": 3,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 850000,
+        "transferBudget": 11000000
+      },
+      "stadium": {
+        "name": "Luigi Ferraris",
+        "capacity": 36599,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/sam",
+        "homeKit": {
+          "primaryHex": "#003399",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#CC0000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#003399",
+          "trimHex": "#CC0000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1600000,
+        "loyaltyRating": 95,
+        "expectationRating": 72
+      },
+      "board": {
+        "ownerName": "Andrea Radrizzani",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1946,
+        "leagueTitles": 1,
+        "domesticCups": 4,
+        "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000055",
+      "name": "Palermo",
+      "shortName": "PAL",
+      "leagueId": "e1000000-0000-0000-0000-000000000041",
+      "reputationRating": 68,
+      "facilityRating": 3,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 800000,
+        "transferBudget": 10000000
+      },
+      "stadium": {
+        "name": "Renzo Barbera",
+        "capacity": 36365,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/pal",
+        "homeKit": {
+          "primaryHex": "#F5A3B7",
+          "secondaryHex": "#000000",
+          "trimHex": "#D4AF37"
+        },
+        "awayKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#F5A3B7",
+          "trimHex": "#D4AF37"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1400000,
+        "loyaltyRating": 93,
+        "expectationRating": 71
+      },
+      "board": {
+        "ownerName": "City Football Group",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1900,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000056",
+      "name": "Bari",
+      "shortName": "BAR",
+      "leagueId": "e1000000-0000-0000-0000-000000000041",
+      "reputationRating": 65,
+      "facilityRating": 3,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 600000,
+        "transferBudget": 7000000
+      },
+      "stadium": {
+        "name": "San Nicola",
+        "capacity": 58270,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/bar",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#CC0000",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#CC0000",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1200000,
+        "loyaltyRating": 90,
+        "expectationRating": 67
+      },
+      "board": {
+        "ownerName": "Filmauro Group",
+        "patience": "Balanced",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1908,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000057",
+      "name": "Parma",
+      "shortName": "PAR",
+      "leagueId": "e1000000-0000-0000-0000-000000000041",
+      "reputationRating": 68,
+      "facilityRating": 3,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 780000,
+        "transferBudget": 9500000
+      },
+      "stadium": {
+        "name": "Ennio Tardini",
+        "capacity": 22352,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/par",
+        "homeKit": {
+          "primaryHex": "#FFF000",
+          "secondaryHex": "#003399",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#003399",
+          "secondaryHex": "#FFF000",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 900000,
+        "loyaltyRating": 88,
+        "expectationRating": 70
+      },
+      "board": {
+        "ownerName": "Krause Group",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1913,
+        "leagueTitles": 0,
+        "domesticCups": 3,
+        "continentalTrophies": 2
+      }
+    },
+    {
       "id": "c1000000-0000-0000-0000-000000000007",
       "name": "Paris Saint-Germain",
       "shortName": "PSG",
       "leagueId": "e1000000-0000-0000-0000-000000000005",
-      "reputationRating": 91,
+      "reputationRating": 95,
       "facilityRating": 5,
       "tacticalStyle": "Possession",
       "finances": {
-        "weeklyWageBudget": 4900000,
-        "transferBudget": 110000000
+        "weeklyWageBudget": 5500000,
+        "transferBudget": 160000000
       },
       "stadium": {
         "name": "Parc des Princes",
@@ -254,16 +2652,24 @@
       },
       "visuals": {
         "logoAssetKey": "badges/psg",
-        "homeKit": { "primaryHex": "#004170", "secondaryHex": "#DA291C", "trimHex": "#FFFFFF" },
-        "awayKit": { "primaryHex": "#FFFFFF", "secondaryHex": "#004170", "trimHex": "#DA291C" }
+        "homeKit": {
+          "primaryHex": "#004170",
+          "secondaryHex": "#DA291C",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#DA291C",
+          "secondaryHex": "#004170",
+          "trimHex": "#FFFFFF"
+        }
       },
       "fanbase": {
-        "supporterCount": 3800000,
-        "loyaltyRating": 82,
-        "expectationRating": 93
+        "supporterCount": 4800000,
+        "loyaltyRating": 85,
+        "expectationRating": 96
       },
       "board": {
-        "ownerName": "Nasser Al-Khelaifi",
+        "ownerName": "QSI & Nasser Al-Khelaifi",
         "patience": "Impatient",
         "financialAmbition": 5
       },
@@ -271,7 +2677,430 @@
         "foundedYear": 1970,
         "leagueTitles": 12,
         "domesticCups": 15,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000058",
+      "name": "Olympique Marseille",
+      "shortName": "OM",
+      "leagueId": "e1000000-0000-0000-0000-000000000005",
+      "reputationRating": 83,
+      "facilityRating": 4,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 2700000,
+        "transferBudget": 52000000
+      },
+      "stadium": {
+        "name": "Orange Velodrome",
+        "capacity": 67394,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/om",
+        "homeKit": {
+          "primaryHex": "#00A3E0",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#DAA520"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#00A3E0",
+          "trimHex": "#DAA520"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 3500000,
+        "loyaltyRating": 98,
+        "expectationRating": 87
+      },
+      "board": {
+        "ownerName": "Frank McCourt",
+        "patience": "Impatient",
+        "financialAmbition": 4
+      },
+      "history": {
+        "foundedYear": 1899,
+        "leagueTitles": 9,
+        "domesticCups": 10,
         "continentalTrophies": 1
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000059",
+      "name": "AS Monaco",
+      "shortName": "ASM",
+      "leagueId": "e1000000-0000-0000-0000-000000000005",
+      "reputationRating": 82,
+      "facilityRating": 4,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 2400000,
+        "transferBudget": 48000000
+      },
+      "stadium": {
+        "name": "Stade Louis II",
+        "capacity": 18523,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/asm",
+        "homeKit": {
+          "primaryHex": "#ED1C24",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#D4AF37"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#ED1C24",
+          "trimHex": "#D4AF37"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1200000,
+        "loyaltyRating": 72,
+        "expectationRating": 80
+      },
+      "board": {
+        "ownerName": "Dmitry Rybolovlev",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1924,
+        "leagueTitles": 8,
+        "domesticCups": 5,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000060",
+      "name": "Olympique Lyonnais",
+      "shortName": "OL",
+      "leagueId": "e1000000-0000-0000-0000-000000000005",
+      "reputationRating": 80,
+      "facilityRating": 4,
+      "tacticalStyle": "Possession",
+      "finances": {
+        "weeklyWageBudget": 2200000,
+        "transferBudget": 40000000
+      },
+      "stadium": {
+        "name": "Groupama Stadium",
+        "capacity": 59186,
+        "pitchQuality": 5
+      },
+      "visuals": {
+        "logoAssetKey": "badges/ol",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#002060",
+          "trimHex": "#DA291C"
+        },
+        "awayKit": {
+          "primaryHex": "#002060",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#DA291C"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2600000,
+        "loyaltyRating": 90,
+        "expectationRating": 81
+      },
+      "board": {
+        "ownerName": "Eagle Football",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1950,
+        "leagueTitles": 7,
+        "domesticCups": 5,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000061",
+      "name": "Lille OSC",
+      "shortName": "LOSC",
+      "leagueId": "e1000000-0000-0000-0000-000000000005",
+      "reputationRating": 79,
+      "facilityRating": 4,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 1900000,
+        "transferBudget": 36000000
+      },
+      "stadium": {
+        "name": "Decathlon Arena",
+        "capacity": 50186,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/losc",
+        "homeKit": {
+          "primaryHex": "#E2001A",
+          "secondaryHex": "#001D38",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#001D38",
+          "secondaryHex": "#E2001A",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1600000,
+        "loyaltyRating": 88,
+        "expectationRating": 78
+      },
+      "board": {
+        "ownerName": "Merlyn Partners",
+        "patience": "Patient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1944,
+        "leagueTitles": 4,
+        "domesticCups": 6,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000062",
+      "name": "OGC Nice",
+      "shortName": "NIC",
+      "leagueId": "e1000000-0000-0000-0000-000000000005",
+      "reputationRating": 78,
+      "facilityRating": 4,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 1800000,
+        "transferBudget": 34000000
+      },
+      "stadium": {
+        "name": "Allianz Riviera",
+        "capacity": 36178,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/nic",
+        "homeKit": {
+          "primaryHex": "#E2001A",
+          "secondaryHex": "#000000",
+          "trimHex": "#FFFFFF"
+        },
+        "awayKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#E2001A",
+          "trimHex": "#FFFFFF"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1400000,
+        "loyaltyRating": 86,
+        "expectationRating": 76
+      },
+      "board": {
+        "ownerName": "INEOS",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1904,
+        "leagueTitles": 4,
+        "domesticCups": 3,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000063",
+      "name": "Girondins Bordeaux",
+      "shortName": "FCGB",
+      "leagueId": "e1000000-0000-0000-0000-000000000051",
+      "reputationRating": 68,
+      "facilityRating": 3,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 800000,
+        "transferBudget": 10000000
+      },
+      "stadium": {
+        "name": "Matmut Atlantique",
+        "capacity": 42115,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/fcgb",
+        "homeKit": {
+          "primaryHex": "#001B44",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#9E2A2B"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#001B44",
+          "trimHex": "#9E2A2B"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 1800000,
+        "loyaltyRating": 92,
+        "expectationRating": 73
+      },
+      "board": {
+        "ownerName": "Gerard Lopez",
+        "patience": "Impatient",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1881,
+        "leagueTitles": 6,
+        "domesticCups": 4,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000064",
+      "name": "AS Saint-Etienne",
+      "shortName": "ASSE",
+      "leagueId": "e1000000-0000-0000-0000-000000000051",
+      "reputationRating": 69,
+      "facilityRating": 4,
+      "tacticalStyle": "HighPress",
+      "finances": {
+        "weeklyWageBudget": 850000,
+        "transferBudget": 11000000
+      },
+      "stadium": {
+        "name": "Stade Geoffroy-Guichard",
+        "capacity": 41965,
+        "pitchQuality": 4
+      },
+      "visuals": {
+        "logoAssetKey": "badges/asse",
+        "homeKit": {
+          "primaryHex": "#00853F",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#00853F",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 2200000,
+        "loyaltyRating": 97,
+        "expectationRating": 75
+      },
+      "board": {
+        "ownerName": "Kilmer Sports",
+        "patience": "Balanced",
+        "financialAmbition": 3
+      },
+      "history": {
+        "foundedYear": 1919,
+        "leagueTitles": 10,
+        "domesticCups": 6,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000065",
+      "name": "AJ Auxerre",
+      "shortName": "AJA",
+      "leagueId": "e1000000-0000-0000-0000-000000000051",
+      "reputationRating": 66,
+      "facilityRating": 3,
+      "tacticalStyle": "Counter",
+      "finances": {
+        "weeklyWageBudget": 650000,
+        "transferBudget": 8000000
+      },
+      "stadium": {
+        "name": "Stade de l'Abbe-Deschamps",
+        "capacity": 18541,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/aja",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#003399",
+          "trimHex": "#000000"
+        },
+        "awayKit": {
+          "primaryHex": "#003399",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#000000"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 900000,
+        "loyaltyRating": 88,
+        "expectationRating": 68
+      },
+      "board": {
+        "ownerName": "James Zhou",
+        "patience": "Patient",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1905,
+        "leagueTitles": 1,
+        "domesticCups": 4,
+        "continentalTrophies": 0
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000066",
+      "name": "Angers SCO",
+      "shortName": "SCO",
+      "leagueId": "e1000000-0000-0000-0000-000000000051",
+      "reputationRating": 64,
+      "facilityRating": 3,
+      "tacticalStyle": "Direct",
+      "finances": {
+        "weeklyWageBudget": 550000,
+        "transferBudget": 6500000
+      },
+      "stadium": {
+        "name": "Stade Raymond Kopa",
+        "capacity": 18752,
+        "pitchQuality": 3
+      },
+      "visuals": {
+        "logoAssetKey": "badges/sco",
+        "homeKit": {
+          "primaryHex": "#FFFFFF",
+          "secondaryHex": "#000000",
+          "trimHex": "#E30613"
+        },
+        "awayKit": {
+          "primaryHex": "#000000",
+          "secondaryHex": "#FFFFFF",
+          "trimHex": "#E30613"
+        }
+      },
+      "fanbase": {
+        "supporterCount": 700000,
+        "loyaltyRating": 84,
+        "expectationRating": 65
+      },
+      "board": {
+        "ownerName": "Said Chabane",
+        "patience": "Balanced",
+        "financialAmbition": 2
+      },
+      "history": {
+        "foundedYear": 1919,
+        "leagueTitles": 0,
+        "domesticCups": 0,
+        "continentalTrophies": 0
       }
     }
   ]

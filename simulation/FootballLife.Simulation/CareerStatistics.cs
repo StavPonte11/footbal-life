@@ -45,15 +45,22 @@ namespace FootballLife.Simulation
         decimal PeakWeeklySalary,
         bool BankruptcyOccurred,
         int TransferCount,
-        IReadOnlyList<SeasonRecord> Seasons)
+        IReadOnlyList<SeasonRecord> Seasons,
+        decimal CommercialEarnings = 0m,
+        int TotalTrophies = 0,
+        int InternationalCaps = 0,
+        int InternationalGoals = 0,
+        int CareerScore = 0,
+        LegacyGrade LegacyGrade = LegacyGrade.Journeyman,
+        bool IsHallOfFame = false)
     {
-        public const string CsvHeader = "Seed,PlayerId,Name,Position,StartingOverall,PeakOverall,PeakAge,RetirementAge,SeasonsPlayed,TotalAppearances,TotalGoals,TotalAssists,AverageRating,TotalEarnings,FinalBalance,PeakWeeklySalary,BankruptcyOccurred,TransferCount";
+        public const string CsvHeader = "Seed,PlayerId,Name,Position,StartingOverall,PeakOverall,PeakAge,RetirementAge,SeasonsPlayed,TotalAppearances,TotalGoals,TotalAssists,AverageRating,TotalEarnings,FinalBalance,PeakWeeklySalary,BankruptcyOccurred,TransferCount,CommercialEarnings,TotalTrophies,InternationalCaps,InternationalGoals,CareerScore,LegacyGrade,IsHallOfFame";
 
         public string ToCsvLine()
         {
             return string.Format(
                 CultureInfo.InvariantCulture,
-                "{0},{1},\"{2}\",{3},{4},{5},{6},{7},{8},{9},{10},{11},{12:F2},{13:F2},{14:F2},{15:F2},{16},{17}",
+                "{0},{1},\"{2}\",{3},{4},{5},{6},{7},{8},{9},{10},{11},{12:F2},{13:F2},{14:F2},{15:F2},{16},{17},{18:F2},{19},{20},{21},{22},{23},{24}",
                 Seed,
                 PlayerId,
                 Name,
@@ -71,7 +78,14 @@ namespace FootballLife.Simulation
                 FinalBalance,
                 PeakWeeklySalary,
                 BankruptcyOccurred ? 1 : 0,
-                TransferCount);
+                TransferCount,
+                CommercialEarnings,
+                TotalTrophies,
+                InternationalCaps,
+                InternationalGoals,
+                CareerScore,
+                LegacyGrade,
+                IsHallOfFame ? 1 : 0);
         }
     }
 }

@@ -24,8 +24,8 @@ namespace FootballLife.Simulation.Tests
 
             Assert.True(result.IsSuccess, $"Load failed: {string.Join("; ", result.Errors.Select(e => e.ToString()))}");
             Assert.NotNull(result.WorldState);
-            Assert.Equal(5, result.WorldState.Leagues.Count);
-            Assert.Equal(7, result.WorldState.Clubs.Count);
+            Assert.True(result.WorldState.Leagues.Count >= 10, $"Expected >= 10 leagues, found {result.WorldState.Leagues.Count}");
+            Assert.True(result.WorldState.Clubs.Count >= 50, $"Expected >= 50 clubs, found {result.WorldState.Clubs.Count}");
 
             // Verify specific club data integrity
             var arsenal = result.WorldState.Clubs.Values.FirstOrDefault(c => c.ShortName == "ARS");
