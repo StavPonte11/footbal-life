@@ -111,6 +111,9 @@ namespace FootballLife.Unity.Core.Gameplay
             // Audio: Kick impact scaled by power
             Audio.AudioManager.Instance?.PlayKick(data.Power01, _ball.Position);
 
+            // VFX: Turf dust burst (#P7-403)
+            TurfVfxPool.Instance?.SpawnKickDust(_ball.Position, _calculatedVelocity, data.Power01);
+
             // Follow shot with camera
             if (_cameraRig != null)
             {

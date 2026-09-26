@@ -185,6 +185,9 @@ namespace FootballLife.Unity.Core.Gameplay
             _diveTimer = 0f;
             Audio.AudioManager.Instance?.TriggerCrowdGasp();
 
+            Vector3 diveVector = (diveState == GoalkeeperState.DiveLeft) ? Vector3.left : (diveState == GoalkeeperState.DiveRight ? Vector3.right : Vector3.up);
+            TurfVfxPool.Instance?.SpawnSlideDust(transform.position, diveVector, 0.75f);
+
             if (_animPlayer != null)
             {
                 if (diveState == GoalkeeperState.DiveLeft) _animPlayer.PlayAction(ActionClipType.GKDiveLeft);

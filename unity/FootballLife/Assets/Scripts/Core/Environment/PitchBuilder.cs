@@ -23,6 +23,16 @@ namespace FootballLife.Unity.Core.Environment
 
         public static GameObject BuildFullPitchEnvironment(Transform parent)
         {
+            return BuildFullPitchEnvironment(parent, FootballLife.Domain.StadiumReputationTier.MidTier);
+        }
+
+        public static GameObject BuildFullPitchEnvironment(
+            Transform parent,
+            FootballLife.Domain.StadiumReputationTier tier,
+            Color? homePrimary = null,
+            Color? homeSecondary = null,
+            Color? awayPrimary = null)
+        {
             var pitchRoot = new GameObject("Pitch_Environment");
             pitchRoot.transform.SetParent(parent, false);
 
@@ -46,6 +56,22 @@ namespace FootballLife.Unity.Core.Environment
 
             // 5. Stadium Floodlights
             BuildFloodlights(pitchRoot.transform);
+
+            // 6. Stadium Architecture: Grandstands & Dugouts (#P7-401)
+            var stadiumGo = StadiumBuilder.BuildStadium(pitchRoot.transform, tier, homePrimary, homeSecondary);
+
+            // 7. Dynamic Spectator Crowd System (#P7-402)
+            CrowdController.CreateCrowdSystem(
+                stadiumGo.transform,
+                tier,
+                homePrimary ?? new Color(0.12f, 0.35f, 0.75f),
+                awayPrimary ?? new Color(0.85f, 0.15f, 0.15f)
+            );
+
+            // 8. Match Turf VFX Pool (#P7-403)
+            var vfxGo = new GameObject("Match_VFX_Pool");
+            vfxGo.transform.SetParent(pitchRoot.transform, false);
+            vfxGo.AddComponent<TurfVfxPool>();
 
             return pitchRoot;
         }
@@ -214,6 +240,9 @@ namespace FootballLife.Unity.Core.Environment
             boxCol.isTrigger = true;
             boxCol.size = new Vector3(kGoalWidth - 0.2f, kGoalHeight - 0.1f, kNetDepth - 0.2f);
             triggerGo.AddComponent<GoalTrigger>();
+
+            // Net Ripple Reaction Controller (#P7-403)
+            goalRoot.AddComponent<NetRippleController>();
         }
 
         // ── Perimeter Boards ──────────────────────────────────────────────────
