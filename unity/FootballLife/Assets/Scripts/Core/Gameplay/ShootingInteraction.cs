@@ -108,6 +108,9 @@ namespace FootballLife.Unity.Core.Gameplay
                 _ball.Kick(_calculatedVelocity, _calculatedSpin);
             }
 
+            // Audio: Kick impact scaled by power
+            Audio.AudioManager.Instance?.PlayKick(data.Power01, _ball.Position);
+
             // Follow shot with camera
             if (_cameraRig != null)
             {
@@ -148,6 +151,10 @@ namespace FootballLife.Unity.Core.Gameplay
             {
                 _cameraRig.SetMode(MatchCameraRig.CameraMode.Celebration);
             }
+
+            // Audio: Stadium crowd roar & referee goal whistle
+            Audio.AudioManager.Instance?.TriggerCrowdRoar();
+            Audio.AudioManager.Instance?.PlayWhistle(Audio.WhistleType.GoalScored);
         }
     }
 }

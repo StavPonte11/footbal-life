@@ -190,6 +190,12 @@ namespace FootballLife.Unity.UI.Match
                 return;
             }
 
+            if (index == 0)
+            {
+                Core.Audio.AudioManager.Instance?.StartCrowdMurmur();
+            }
+            Core.Audio.AudioManager.Instance?.PlayWhistle(Core.Audio.WhistleType.SituationStart);
+
             int minute = _situationMinutes[index];
             UpdateScoreboard(minute);
 
@@ -332,6 +338,8 @@ namespace FootballLife.Unity.UI.Match
             if (_currentSituation == null || choiceIdx >= _currentSituation.AvailableChoices.Length)
                 return;
 
+            Core.Audio.AudioManager.Instance?.PlayUIClick();
+
             var choice = _currentSituation.AvailableChoices[choiceIdx];
             var outcome = ActionResolver.Resolve(choice.Action, _currentSituation, _abilities, _playerState, _rng);
 
@@ -365,6 +373,9 @@ namespace FootballLife.Unity.UI.Match
                     outcomeHeader = "EXCELLENT PLAY! ⭐";
                     narrativeText = "Great technique and awareness! You beat your man and keep momentum on your team's side.";
                 }
+
+                Core.Audio.AudioManager.Instance?.TriggerCrowdRoar();
+                Core.Audio.AudioManager.Instance?.PlayWhistle(Core.Audio.WhistleType.GoalScored);
             }
             else
             {
@@ -372,6 +383,8 @@ namespace FootballLife.Unity.UI.Match
                 ratingDelta = -0.30;
                 outcomeHeader = "CHANCE MISSED! ❌";
                 narrativeText = "The defender read the play well and intercepted before you could cleanly execute your action.";
+
+                Core.Audio.AudioManager.Instance?.TriggerCrowdGasp();
 
                 // Opponent background goal chance on counter
                 if (_rng.NextBool(0.35f) && _awayScore == 0)
@@ -429,6 +442,9 @@ namespace FootballLife.Unity.UI.Match
 
         private void FinishMatch()
         {
+            Core.Audio.AudioManager.Instance?.PlayWhistle(Core.Audio.WhistleType.FullTime);
+            Core.Audio.AudioManager.Instance?.StopCrowdMurmur();
+
             UpdateScoreboard(90);
 
             string homeTeam = _save != null && !string.IsNullOrEmpty(_save.ClubName) ? _save.ClubName : "Northfield Town";

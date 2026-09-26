@@ -126,6 +126,14 @@ namespace FootballLife.Unity.Core.Gameplay
 
         private void OnCollisionEnter(Collision collision)
         {
+            string colName = collision.gameObject.name;
+            if (colName.Contains("Post") || colName.Contains("Crossbar"))
+            {
+                Vector3 hitPoint = (collision.contactCount > 0) ? collision.GetContact(0).point : transform.position;
+                Audio.AudioManager.Instance?.PlayWoodwork(hitPoint);
+                Audio.AudioManager.Instance?.TriggerCrowdGasp();
+            }
+
             OnBallCollided?.Invoke(collision);
         }
 

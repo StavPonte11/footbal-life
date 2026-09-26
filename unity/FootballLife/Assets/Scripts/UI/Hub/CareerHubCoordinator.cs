@@ -1,4 +1,5 @@
 using FootballLife.Domain;
+using FootballLife.Core.Audio;
 using FootballLife.Unity.Core.Bridge;
 using FootballLife.Unity.UI.Continental;
 using FootballLife.Unity.UI.Finances;
@@ -138,6 +139,7 @@ namespace FootballLife.Unity.UI
             }
 
             CheckAndShowTutorial();
+            AudioManager.EnsureExists().StartMenuMusic();
         }
 
         private void OnDisable()
@@ -470,6 +472,7 @@ namespace FootballLife.Unity.UI
         // ── Training overlay ──────────────────────────────────────────────────
         private void ShowTraining()
         {
+            AudioManager.Instance?.PlayUITabSwitch();
             // Re-bind in case energy changed since construction
             if (SimulationBridge.Instance != null)
                 _trainingCtrl?.Bind(SimulationBridge.Instance);
@@ -491,6 +494,7 @@ namespace FootballLife.Unity.UI
         // ── Rest overlay ──────────────────────────────────────────────────────
         private void ShowRest()
         {
+            AudioManager.Instance?.PlayUITabSwitch();
             if (SimulationBridge.Instance != null)
                 _restCtrl?.Bind(SimulationBridge.Instance);
 
@@ -516,6 +520,7 @@ namespace FootballLife.Unity.UI
             if (_pendingLifeEvent == null || _lifeEventCtrl == null || _lifeEventOverlay == null)
                 return;
 
+            AudioManager.Instance?.PlayUIAlert();
             _lifeEventCtrl.Show(_pendingLifeEvent.Value);
             _lifeEventOverlay.style.display = DisplayStyle.Flex;
             _pendingLifeEvent = null;
@@ -535,6 +540,7 @@ namespace FootballLife.Unity.UI
 
         private void OnOpenMatch()
         {
+            AudioManager.Instance?.StopMusic();
             if (FootballLife.Unity.Core.SceneManagement.SceneFlowManager.Instance != null)
             {
                 FootballLife.Unity.Core.SceneManagement.SceneFlowManager.Instance.LoadMatch();
@@ -559,6 +565,7 @@ namespace FootballLife.Unity.UI
 
         public void ShowCareer()
         {
+            AudioManager.Instance?.PlayUITabSwitch();
             if (SimulationBridge.Instance != null)
                 _careerCtrl?.Bind(SimulationBridge.Instance);
 
@@ -571,6 +578,7 @@ namespace FootballLife.Unity.UI
 
         public void ShowProfile()
         {
+            AudioManager.Instance?.PlayUITabSwitch();
             if (SimulationBridge.Instance != null)
                 _profileCtrl?.Bind(SimulationBridge.Instance);
 
@@ -758,6 +766,7 @@ namespace FootballLife.Unity.UI
 
         private void HideAllOverlays()
         {
+            AudioManager.Instance?.PlayUITabSwitch();
             if (_trainingOverlay != null) _trainingOverlay.style.display = DisplayStyle.None;
             if (_restOverlay != null) _restOverlay.style.display = DisplayStyle.None;
             if (_lifeEventOverlay != null) _lifeEventOverlay.style.display = DisplayStyle.None;
