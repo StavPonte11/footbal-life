@@ -207,106 +207,106 @@ namespace FootballLife.Unity.UI.Match
             switch (index)
             {
                 case 0:
-                    // Early counter-attack
+                    // Rapid Counter-Attack Breakthrough
                     _currentSituation = new MatchSituation(
-                        SituationType.RunningInBehind,
-                        opponentPressure: 4.2f,
-                        expectedDifficulty: 0.35f,
-                        positionalAdvantage: 0.60f,
+                        SituationType.CounterAttackRun,
+                        opponentPressure: 3.8f,
+                        expectedDifficulty: 0.40f,
+                        positionalAdvantage: 0.65f,
                         new[]
                         {
-                            new ActionChoice(MatchAction.Shot_Close, riskLevel: 0.35f, expectedValue: 0.70f),
-                            new ActionChoice(MatchAction.ThroughBall, riskLevel: 0.20f, expectedValue: 0.60f),
-                            new ActionChoice(MatchAction.Dribble, riskLevel: 0.50f, expectedValue: 0.80f)
+                            new ActionChoice(MatchAction.ThroughBall, riskLevel: 0.30f, expectedValue: 0.70f),
+                            new ActionChoice(MatchAction.Dribble, riskLevel: 0.45f, expectedValue: 0.75f),
+                            new ActionChoice(MatchAction.Shot_Long, riskLevel: 0.55f, expectedValue: 0.60f)
                         });
 
                     SetSituationUI(
                         minute,
-                        "⚽ Counter-Attack Breakthrough",
-                        "You break past the defensive line into the channel. The keeper rushes off his line while your winger provides support on the left!",
-                        "Moderate (4.2/10)",
-                        "High (+0.60)",
-                        "🎯 Finesse Shot (Risk: 35%)",
-                        "👟 Square Pass to Teammate (Risk: 20%)",
-                        "💨 Dribble Past Goalkeeper (Risk: 50%)");
+                        "⚡ Counter-Attack Breakout",
+                        "Your team intercepts at midfield! You sprint into open green space with only one retreating defender between you and the goal.",
+                        "Moderate (3.8/10)",
+                        "High (+0.65)",
+                        "🎯 Slip Through-Ball to Winger (Risk: 30%)",
+                        "💨 Burst Past Defender (Risk: 45%)",
+                        "🚀 Early Driven Strike (Risk: 55%)");
                     break;
 
                 case 1:
-                    // Edge of the box combination
+                    // 22-Yard Direct Free Kick Set Piece
                     _currentSituation = new MatchSituation(
-                        SituationType.ReceivingInBox,
-                        opponentPressure: 6.5f,
-                        expectedDifficulty: 0.45f,
-                        positionalAdvantage: 0.30f,
+                        SituationType.FreeKick,
+                        opponentPressure: 3.5f,
+                        expectedDifficulty: 0.65f,
+                        positionalAdvantage: 0.35f,
                         new[]
                         {
-                            new ActionChoice(MatchAction.Shot_Close, riskLevel: 0.45f, expectedValue: 0.65f),
-                            new ActionChoice(MatchAction.ShortPass, riskLevel: 0.15f, expectedValue: 0.50f),
-                            new ActionChoice(MatchAction.CutInside, riskLevel: 0.40f, expectedValue: 0.60f)
+                            new ActionChoice(MatchAction.FreeKick_Direct, riskLevel: 0.65f, expectedValue: 0.75f),
+                            new ActionChoice(MatchAction.FreeKick_Cross, riskLevel: 0.30f, expectedValue: 0.60f),
+                            new ActionChoice(MatchAction.ShortPass, riskLevel: 0.15f, expectedValue: 0.45f)
                         });
 
                     SetSituationUI(
                         minute,
-                        "⚽ Crowded Penalty Box Opportunity",
-                        "A cross deflects into your path at the penalty spot! Two defenders converge rapidly to close down your shooting angle.",
-                        "High (6.5/10)",
-                        "Moderate (+0.30)",
-                        "💥 First-Time Volley (Risk: 45%)",
-                        "👟 Lay-off Pass to Midfielder (Risk: 15%)",
-                        "⚡ Cut Inside to Create Space (Risk: 40%)");
+                        "🎯 22-Yard Direct Free Kick",
+                        "You've won a dangerous set piece just outside the penalty arc! The defensive wall is set, and the goalkeeper is anticipating your curl.",
+                        "Direct Set Piece (3.5/10)",
+                        "High (+0.35)",
+                        "⚽ Curl Over Wall into Top Corner (Risk: 65%)",
+                        "👟 Whip Swerving Cross to Far Post (Risk: 30%)",
+                        "🔄 Short Lay-off to Supporting Midfielder (Risk: 15%)");
                     break;
 
                 case 2:
-                    // Second half long range / transition
+                    // 1v1 Skill Move Take-on in the Box
                     _currentSituation = new MatchSituation(
-                        SituationType.LongShot,
-                        opponentPressure: 5.0f,
+                        SituationType.Dribbling1v1,
+                        opponentPressure: 5.5f,
                         expectedDifficulty: 0.50f,
-                        positionalAdvantage: 0.15f,
+                        positionalAdvantage: 0.40f,
                         new[]
                         {
-                            new ActionChoice(MatchAction.Shot_Long, riskLevel: 0.50f, expectedValue: 0.55f),
-                            new ActionChoice(MatchAction.ThroughBall, riskLevel: 0.30f, expectedValue: 0.65f),
-                            new ActionChoice(MatchAction.ShortPass, riskLevel: 0.15f, expectedValue: 0.40f)
+                            new ActionChoice(MatchAction.SkillMove, riskLevel: 0.50f, expectedValue: 0.75f),
+                            new ActionChoice(MatchAction.Dribble, riskLevel: 0.35f, expectedValue: 0.60f),
+                            new ActionChoice(MatchAction.ShortPass, riskLevel: 0.15f, expectedValue: 0.50f)
                         });
 
                     SetSituationUI(
                         minute,
-                        "⚽ Edge of Box Playmaking",
-                        "The opponent defense drops deep to protect the lead. You have 3 yards of space outside the 18-yard box.",
-                        "Moderate (5.0/10)",
-                        "Even (+0.15)",
-                        "🚀 Power Shot from Distance (Risk: 50%)",
-                        "🎯 Weighted Through-Ball into Box (Risk: 30%)",
-                        "🔄 Recycle Possession to Fullback (Risk: 15%)");
+                        "⚡ 1v1 Penalty Box Take-On",
+                        "Isolated against the fullback on the left edge of the box! He's committed his weight—one explosive move opens up a clean shooting lane.",
+                        "Direct Pressure (5.5/10)",
+                        "Moderate (+0.40)",
+                        "✨ Stepover & Burst Inside (Risk: 50%)",
+                        "💨 Accelerate Down the Byline (Risk: 35%)",
+                        "👟 Cut-back Pass to Top of Box (Risk: 15%)");
                     break;
 
                 default:
-                    // Late 85' crucial moment
+                    // Late High-Stakes Penalty Kick or Breakaway
                     _currentSituation = new MatchSituation(
-                        SituationType.RunningInBehind,
-                        opponentPressure: 7.0f,
-                        expectedDifficulty: 0.55f,
-                        positionalAdvantage: 0.45f,
+                        SituationType.PenaltyKick,
+                        opponentPressure: 7.5f,
+                        expectedDifficulty: 0.40f,
+                        positionalAdvantage: 0.80f,
                         new[]
                         {
-                            new ActionChoice(MatchAction.Shot_Close, riskLevel: 0.40f, expectedValue: 0.75f),
-                            new ActionChoice(MatchAction.Cross, riskLevel: 0.25f, expectedValue: 0.60f),
-                            new ActionChoice(MatchAction.Dribble, riskLevel: 0.55f, expectedValue: 0.70f)
+                            new ActionChoice(MatchAction.PenaltyKick, riskLevel: 0.25f, expectedValue: 0.85f)
                         });
 
                     SetSituationUI(
                         minute,
-                        "⚽ 85' Crucial Match Winner Opportunity",
-                        "Injury time approaches! A loose header from the defender falls behind the backline. You surge into the penalty box!",
-                        "Intense (7.0/10)",
-                        "High (+0.45)",
-                        "🔥 Chip the Advancing Keeper (Risk: 40%)",
-                        "👟 Low Cross to Far Post (Risk: 25%)",
-                        "💨 Round the Keeper (Risk: 55%)");
+                        "🔥 88' Penalty Kick — High Drama!",
+                        "A blatant handball in the box gives you a match-winning penalty! The entire stadium holds its breath as you step up to the spot.",
+                        "Intense Pressure (7.5/10)",
+                        "Dominant (+0.80)",
+                        "⚽ Pick the Corner & Strike True (Risk: 25%)",
+                        "—",
+                        "—");
                     break;
             }
 
+            // Reposition 3D pawns, ball, and camera for the new situation
+            _situationPresenter?.ApplySituationPreset(_currentSituation.Type, _ball, _cameraRig);
         }
 
         private void SetSituationUI(
@@ -326,8 +326,16 @@ namespace FootballLife.Unity.UI.Match
             if (_labelSituationAdvantage != null) _labelSituationAdvantage.text = advantage;
 
             if (_btnChoice1 != null) _btnChoice1.text = c1Text;
-            if (_btnChoice2 != null) _btnChoice2.text = c2Text;
-            if (_btnChoice3 != null) _btnChoice3.text = c3Text;
+            if (_btnChoice2 != null)
+            {
+                _btnChoice2.text = c2Text;
+                _btnChoice2.style.display = c2Text == "—" ? DisplayStyle.None : DisplayStyle.Flex;
+            }
+            if (_btnChoice3 != null)
+            {
+                _btnChoice3.text = c3Text;
+                _btnChoice3.style.display = c3Text == "—" ? DisplayStyle.None : DisplayStyle.Flex;
+            }
 
             if (_labelCommentary != null)
                 _labelCommentary.text = $"{minute}&apos; — {narrative}";
@@ -350,13 +358,45 @@ namespace FootballLife.Unity.UI.Match
 
             if (outcome.Success)
             {
-                if (outcome.Type == OutcomeType.Goal || choice.Action == MatchAction.Shot_Close || choice.Action == MatchAction.Shot_Long)
+                if (outcome.Type == OutcomeType.FreeKickGoal)
+                {
+                    _playerGoals++;
+                    _homeScore++;
+                    ratingDelta = 1.00;
+                    outcomeHeader = "SPECTACULAR FREE KICK GOAL! 🎯⚽";
+                    narrativeText = "Incredible curl and dip! The ball bends over the wall and clips the underside of the crossbar into the top corner!";
+                }
+                else if (outcome.Type == OutcomeType.PenaltyGoal)
+                {
+                    _playerGoals++;
+                    _homeScore++;
+                    ratingDelta = 0.85;
+                    outcomeHeader = "PENALTY SCORED! 🎯⚽";
+                    narrativeText = "Ice cold composure! You send the goalkeeper diving the wrong way and tuck the ball emphatically inside the post!";
+                }
+                else if (outcome.Type == OutcomeType.HeaderGoal || choice.Action == MatchAction.DivingHeader)
+                {
+                    _playerGoals++;
+                    _homeScore++;
+                    ratingDelta = 0.90;
+                    outcomeHeader = "BULLET HEADER GOAL! 💥⚽";
+                    narrativeText = "Sensational aerial power! You rise above your marker and power a thumping header past the helpless goalkeeper!";
+                }
+                else if (outcome.Type == OutcomeType.Goal || choice.Action == MatchAction.Shot_Close || choice.Action == MatchAction.Shot_Long || choice.Action == MatchAction.ChipShot)
                 {
                     _playerGoals++;
                     _homeScore++;
                     ratingDelta = 0.85;
                     outcomeHeader = "GOAL SCORED! ⚽";
                     narrativeText = "Sensational execution! You strike the ball cleanly past the goalkeeper and into the back of the net!";
+                }
+                else if (choice.Action == MatchAction.FreeKick_Cross || choice.Action == MatchAction.CornerDelivery)
+                {
+                    _playerAssists++;
+                    _homeScore++;
+                    ratingDelta = 0.75;
+                    outcomeHeader = "SET PIECE ASSIST! 👟🎯";
+                    narrativeText = "Masterful delivery! Your whipped ball finds your teammate perfectly for a thumping header into the net!";
                 }
                 else if (choice.Action == MatchAction.ThroughBall || choice.Action == MatchAction.Cross || choice.Action == MatchAction.ShortPass)
                 {
@@ -365,6 +405,20 @@ namespace FootballLife.Unity.UI.Match
                     ratingDelta = 0.65;
                     outcomeHeader = "ASSIST! 👟";
                     narrativeText = "Perfect vision! Your pinpoint pass unlocks the defense and your teammate converts with a first-time finish!";
+                }
+                else if (outcome.Type == OutcomeType.SkillBeatDefender || choice.Action == MatchAction.SkillMove)
+                {
+                    _keyActions++;
+                    ratingDelta = 0.50;
+                    outcomeHeader = "DAZZLING SKILL MOVE! ✨";
+                    narrativeText = "Electric footwork! A lightning stepover sends the defender tumbling as you burst into open space!";
+                }
+                else if (outcome.Type == OutcomeType.BlockMade || choice.Action == MatchAction.BlockShot)
+                {
+                    _keyActions++;
+                    ratingDelta = 0.60;
+                    outcomeHeader = "HEROIC SHOT BLOCK! 🛡️";
+                    narrativeText = "Crucial defensive intervention! You throw your body on the line to block a goal-bound strike!";
                 }
                 else
                 {
@@ -380,9 +434,25 @@ namespace FootballLife.Unity.UI.Match
             else
             {
                 _errors++;
-                ratingDelta = -0.30;
-                outcomeHeader = "CHANCE MISSED! ❌";
-                narrativeText = "The defender read the play well and intercepted before you could cleanly execute your action.";
+
+                if (outcome.Type == OutcomeType.PenaltyMissed || outcome.Type == OutcomeType.PenaltySaved)
+                {
+                    ratingDelta = -0.55;
+                    outcomeHeader = "PENALTY MISSED! ❌";
+                    narrativeText = "Agony from the spot! The keeper guesses correctly and parries your penalty away!";
+                }
+                else if (choice.Action == MatchAction.FreeKick_Direct)
+                {
+                    ratingDelta = -0.20;
+                    outcomeHeader = "FREE KICK OVER! ❌";
+                    narrativeText = "Close effort! The ball clears the wall with dip, but just misses the top right corner.";
+                }
+                else
+                {
+                    ratingDelta = -0.30;
+                    outcomeHeader = "CHANCE MISSED! ❌";
+                    narrativeText = "The defender read the play well and intercepted before you could cleanly execute your action.";
+                }
 
                 Core.Audio.AudioManager.Instance?.TriggerCrowdGasp();
 

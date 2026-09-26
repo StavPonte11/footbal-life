@@ -548,5 +548,109 @@ All systems across Phases 1–7 are implemented, tested, and validated:
   - ✅ **Milestone 7.8**: Compliance, Privacy Policy & Store Questionnaires (PR #220).
   - ✅ **Milestone 7.9**: Closed Beta Launch Program & Go/No-Go Decision Matrix (PR #225).
 
-> **STATUS:** Football Life is release-verified (787/787 tests passing, 0 errors, 100% localization parity, synchronized Unity plugin DLLs).
+> **STATUS:** Football Life Phase 7 is release-verified (787/787 tests passing, 0 errors, 100% localization parity, synchronized Unity plugin DLLs).
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria.
+
+---
+
+## Phase 8 — Real & Modern: Gameplay, UI/UX & Content Push
+
+> **Goal:** Transform Football Life from "feature-complete" to "feels like a real game on the App Store." Every screen, interaction, and piece of content is polished, immersive, and modern.
+
+### Milestone 8.1 — Match Engine v2: Expanded Situation Types
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P8-001 | Dribbling situation: 1v1 take-on with swipe direction, skill moves (stepovers, feints), and defender reaction | Simulation + Unity | L | Complete |
+| #P8-002 | Free kick situation: Wall setup, curl/power targeting, distance-based difficulty | Simulation + Unity | M | Complete |
+| #P8-003 | Penalty kick situation: Aiming target with goalkeeper dive anticipation, pressure meter | Simulation + Unity | M | Complete |
+| #P8-004 | Corner kick situation: Cross delivery, aerial duel, defensive header clearance | Simulation + Unity | M | Complete |
+| #P8-005 | Defensive situation: Tackle timing, interception, position-aware blocking | Simulation + Unity | L | Complete |
+| #P8-006 | Header situation: Aerial crosses, timing-based headed shots/clearances | Simulation + Unity | M | Complete |
+| #P8-007 | Counter-attack situation: Fast break with fewer defenders, speed-based decisions | Simulation + Unity | M | Complete |
+| #P8-008 | GK one-on-one situation: Breakaway with chip/power/round-keeper options | Simulation + Unity | M | Complete |
+| #P8-009 | Unit tests: new situation types, deterministic outcomes | Tests | L | Complete (799 passing) |
+
+### Milestone 8.2 — Training System v2: Interactive Drills
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P8-010 | Shooting drill: Target practice with accuracy zones, consecutive hit streaks | Simulation + Unity | M | Not started |
+| #P8-011 | Passing drill: Ground/lofted passing to moving targets, accuracy scoring | Simulation + Unity | M | Not started |
+| #P8-012 | Dribbling drill: Cone slalom with swipe controls, time-based scoring | Simulation + Unity | M | Not started |
+| #P8-013 | Fitness drill: Shuttle run with stamina management mechanic | Simulation + Unity | S | Not started |
+| #P8-014 | Team training: 5v5 mini-match simulation with chemistry bonus | Simulation | M | Not started |
+| #P8-015 | Training ground 3D scene: Practice pitch environment with training equipment | Unity/Art | M | Not started |
+| #P8-016 | Unit tests: drill outcomes, XP scaling, fatigue costs | Tests | M | Not started |
+
+### Milestone 8.3 — Transfer System v2: Drama & Depth
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P8-017 | Agent negotiation flow: Multi-round negotiation with bluff/counter mechanics | Simulation + Unity | L | Not started |
+| #P8-018 | Wage negotiation slider: Interactive salary/bonus/clause negotiation with real-time club reaction | Unity/UI | M | Not started |
+| #P8-019 | Release clause drama: Big clubs triggering release clauses, player choice to stay or leave | Simulation | M | Not started |
+| #P8-020 | Loan system: Season-long loans with optional buy clause, loan-specific career path | Simulation + Domain | L | Not started |
+| #P8-021 | Transfer saga events: Multi-week transfer sagas with media speculation, phone calls from clubs | Simulation | M | Not started |
+| #P8-022 | Deadline day: Time-pressure transfer window closing mechanic | Simulation + Unity | M | Not started |
+| #P8-023 | Unit tests: negotiation mechanics, loan system, deadline scenarios | Tests | L | Not started |
+
+### Milestone 8.4 — Design System v2: Premium Visual Language
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P8-024 | Custom vector icon system: Replace emoji (📱💰🛍️⚽) with crisp vector icons | UI/Art | L | Not started |
+| #P8-025 | Glassmorphism card surfaces: Frosted glass effect with backdrop blur and depth layering | USS | M | Not started |
+| #P8-026 | Gradient accent system: Dynamic gradient backgrounds that shift based on context | USS | M | Not started |
+| #P8-027 | Animated stat meters: Smooth fill animations with glow effects and color transitions | USS + C# | M | Not started |
+| #P8-028 | Typography upgrade: Google Fonts integration with proper weight hierarchy | Unity/UI | S | Not started |
+| #P8-029 | Micro-animation library: Button press haptics, card entrance, page transitions | C# | M | Not started |
+| #P8-030 | Club color theming: Dynamic theme accent colors derived from club palette | USS + C# | M | Not started |
+| #P8-031 | Dark mode depth layers: 5-tier elevation system with subtle shadow and border differences | USS | S | Not started |
+
+### Milestone 8.5 — Career Hub Redesign: The Command Center
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P8-032 | Player card hero: Large player card with OVR, position, club crest, dynamic gradient | Unity/UI | M | Not started |
+| #P8-033 | Vital stats dashboard: Circular/radial gauges for Energy, Form, Morale, Trust | Unity/UI | M | Not started |
+| #P8-034 | Live match day widget: Countdown to next match with opponent info and pulsing border | Unity/UI | M | Not started |
+| #P8-035 | Quick action grid: 2×3 icon grid (Train, Rest, Match, Career, Phone, Home) with glassmorphic cards | Unity/UI | M | Not started |
+| #P8-036 | News ticker: Horizontally scrolling latest events, transfer rumors, match results | Unity/UI | S | Not started |
+| #P8-037 | Bottom navigation bar: Tab-based navigation (Hub, Match, Phone, Shop, Profile) | Unity/UI | M | Not started |
+| #P8-038 | Dynamic time-of-day: Background gradient shifts based on in-game time | Unity/UI | S | Not started |
+
+### Milestone 8.6 — Match Day Experience: Broadcast Feel
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P8-039 | Cinematic match intro: Camera sweep of stadium, team lineups overlay | Unity/Camera | M | Not started |
+| #P8-040 | Broadcast-style scoreboard: Modern TV-style overlay with team colors and live clock | Unity/UI | M | Not started |
+| #P8-041 | Goal replay camera: Slow-motion replay from multiple angles after goals | Unity/Camera | M | Not started |
+| #P8-042 | Post-match ratings screen: Player rating card with comprehensive stat breakdown | Unity/UI | M | Not started |
+| #P8-043 | Half-time screen: Manager tactical talk, team stats comparison | Unity/UI | M | Not started |
+| #P8-044 | Match atmosphere: Dynamic crowd noise reactivity, commentary text crawl | Unity/Audio + UI | M | Not started |
+
+### Milestone 8.7 — World Content Pack: Deep & Rich
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P8-045 | Expand to 100+ clubs: Add Tier 3 English leagues, Portuguese, Dutch, Turkish leagues | Content/Data | L | Not started |
+| #P8-046 | Club rich data: History blurbs, founding year, city, rivalry pairs, stadium names, capacity | Content/Data | L | Not started |
+| #P8-047 | Manager personalities: 50+ unique manager templates with distinct tactical preferences | Content/Data | M | Not started |
+| #P8-048 | City descriptions: Location flavor text for lifestyle events | Content/Data | M | Not started |
+| #P8-049 | National team expansion: 30+ national teams with realistic squad quality tiers | Content/Data | M | Not started |
+| #P8-050 | Unit tests: content validation, referential integrity across expanded data | Tests | M | Not started |
+
+### Milestone 8.8 — Life Events v2: Emergent Stories
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P8-051 | Expand to 200+ events: Double event pool with edge cases and diverse scenarios | Content/Data | L | Not started |
+| #P8-052 | Multi-stage event chains: Events that unfold over weeks (rehab, contract dispute, romance) | Simulation | L | Not started |
+| #P8-053 | Moral dilemma system: Events with trade-offs (reputation vs relationship) | Simulation + Domain | M | Not started |
+| #P8-054 | Relationship-driven events: Events triggered by specific relationship states | Simulation | M | Not started |
+| #P8-055 | Career milestone events: First goal, 100th appearance, international debut | Simulation | M | Not started |
+| #P8-056 | Unit tests: event chains, moral dilemma outcomes, milestone triggers | Tests | M | Not started |
+
+### Milestone 8.9 — Media & Fame System
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P8-057 | Dynamic news article generator: Match reports, transfer speculation, injury updates | Simulation | M | Not started |
+| #P8-058 | Social media feed: Simulated social media with fan reactions and teammate posts | Domain + Simulation | M | Not started |
+| #P8-059 | Fan favorite system: Stadium chants, fan trust meter, fan vote awards | Simulation | M | Not started |
+| #P8-060 | Award ceremonies: Ballon d'Or equivalent, league best XI, monthly awards | Simulation + Unity/UI | M | Not started |
+| #P8-061 | Unit tests: news generation, fame calculations, award eligibility | Tests | M | Not started |

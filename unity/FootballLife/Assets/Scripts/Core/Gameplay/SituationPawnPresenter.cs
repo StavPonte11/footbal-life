@@ -262,6 +262,96 @@ namespace FootballLife.Unity.Core.Gameplay
                     if (_defender2 != null) _defender2.transform.position = new Vector3(-4.0f, 0f, 21.0f);
                     if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 34.8f);
                     break;
+
+                // ── Phase 8.1 Match Engine v2 Presets ──
+                case SituationType.FreeKick:
+                    // Direct/Crossing Free Kick (22m out)
+                    _userPlayer.transform.position = new Vector3(2.0f, 0f, 11.5f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, -5f, 0f);
+                    ball.ResetBall(new Vector3(2.5f, 0.11f, 13.0f));
+
+                    // Defensive wall 9.15m away
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(1.5f, 0f, 22.15f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(3.2f, 0f, 22.15f);
+                    if (_teammate != null) _teammate.transform.position = new Vector3(-7.5f, 0f, 18.0f);
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(-0.5f, 0f, 34.8f);
+                    break;
+
+                case SituationType.PenaltyKick:
+                    // Spot kick (12 yards / 11m out)
+                    _userPlayer.transform.position = new Vector3(0f, 0f, 20.5f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    ball.ResetBall(new Vector3(0f, 0.11f, 24.0f));
+
+                    // Goalkeeper on line, defenders outside box
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 35.0f);
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(-7.5f, 0f, 18.0f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(7.5f, 0f, 18.0f);
+                    if (_teammate != null) _teammate.transform.position = new Vector3(-9.0f, 0f, 17.5f);
+                    break;
+
+                case SituationType.CornerKick:
+                    // Corner flag delivery
+                    _userPlayer.transform.position = new Vector3(26.5f, 0f, 32.5f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, -80f, 0f);
+                    ball.ResetBall(new Vector3(27.0f, 0.11f, 33.5f));
+
+                    // Crowded penalty box
+                    if (_teammate != null) _teammate.transform.position = new Vector3(2.0f, 0f, 28.5f);
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(1.0f, 0f, 29.5f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(4.0f, 0f, 31.0f);
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 34.8f);
+                    break;
+
+                case SituationType.Dribbling1v1:
+                    // 1v1 Take-on against isolated defender
+                    _userPlayer.transform.position = new Vector3(0f, 0f, 15.5f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    ball.ResetBall(new Vector3(0f, 0.11f, 17.0f));
+
+                    // Primary defender jockeying ahead
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(0f, 0f, 21.0f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(6.5f, 0f, 18.0f);
+                    if (_teammate != null) _teammate.transform.position = new Vector3(-11.0f, 0f, 22.0f);
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 34.8f);
+                    break;
+
+                case SituationType.HeaderOpportunity:
+                    // Aerial cross delivery into the danger zone
+                    _userPlayer.transform.position = new Vector3(0f, 0f, 26.5f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, 15f, 0f);
+                    ball.ResetBall(new Vector3(0.5f, 1.8f, 27.0f));
+
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(0.8f, 0f, 27.2f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(-3.5f, 0f, 28.0f);
+                    if (_teammate != null) _teammate.transform.position = new Vector3(14.0f, 0f, 24.0f);
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 34.8f);
+                    break;
+
+                case SituationType.CounterAttackRun:
+                    // Fast break transition through midfield
+                    _userPlayer.transform.position = new Vector3(0f, 0f, 5.0f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    ball.ResetBall(new Vector3(0f, 0.11f, 7.5f));
+
+                    if (_teammate != null) _teammate.transform.position = new Vector3(8.5f, 0f, 13.0f);
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(-2.0f, 0f, 18.0f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(5.0f, 0f, 8.0f);
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 34.8f);
+                    break;
+
+                case SituationType.GKOneOnOne:
+                    // Clean breakaway with goalkeeper charging out
+                    _userPlayer.transform.position = new Vector3(0f, 0f, 19.5f);
+                    _userPlayer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    ball.ResetBall(new Vector3(0f, 0.11f, 21.5f));
+
+                    // Defenders trailing, GK advancing
+                    if (_goalkeeper != null) _goalkeeper.transform.position = new Vector3(0f, 0f, 30.5f);
+                    if (_defender1 != null) _defender1.transform.position = new Vector3(-4.5f, 0f, 13.0f);
+                    if (_defender2 != null) _defender2.transform.position = new Vector3(4.0f, 0f, 13.0f);
+                    if (_teammate != null) _teammate.transform.position = new Vector3(-10.0f, 0f, 17.0f);
+                    break;
             }
 
             if (cameraRig != null)
