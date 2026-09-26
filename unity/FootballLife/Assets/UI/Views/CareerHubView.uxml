@@ -37,6 +37,16 @@
             </ui:VisualElement>
         </ui:VisualElement>
 
+        <!-- ================================================================
+             ERROR / OFFLINE BANNER (#P7-602)
+             Docked at top under app bar, non-blocking for cloud save / connection failures
+             ================================================================ -->
+        <ui:VisualElement name="error-banner" class="error-banner" style="display: none;">
+            <ui:Label name="error-banner-icon" text="📡" class="error-banner__icon" />
+            <ui:Label name="error-banner-text" text="Cloud save unavailable. Your progress is saved locally." class="error-banner__text" />
+            <ui:Button name="btn-error-retry" text="Retry" class="error-banner__retry" />
+        </ui:VisualElement>
+
         <!-- ====================================================
              SCROLLABLE MAIN CONTENT
              ==================================================== -->
@@ -178,10 +188,10 @@
         </ui:ScrollView>
 
         <!-- ====================================================
-             FIXED FOOTER: Advance Day
+             FIXED FOOTER: Advance Day (#P7-604 Thumb Ergonomics)
              ==================================================== -->
-        <ui:VisualElement style="padding-left: 16px; padding-right: 16px; padding-top: 10px; padding-bottom: 12px; background-color: var(--fl-color-surface); border-top-width: 1px; border-top-color: var(--fl-color-border);">
-            <ui:Button name="btn-advance-day" text="Advance Day →" class="btn btn-primary" style="height: 50px; font-size: 15px;" />
+        <ui:VisualElement class="bottom-action-bar bottom-action-bar--single">
+            <ui:Button name="btn-advance-day" text="Advance Day →" class="btn btn-ergonomic" />
         </ui:VisualElement>
 
         <ui:Template name="PhoneOSView" src="project://database/Assets/UI/Views/PhoneOSView.uxml" />

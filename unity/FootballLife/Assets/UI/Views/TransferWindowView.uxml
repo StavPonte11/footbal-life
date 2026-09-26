@@ -74,11 +74,18 @@
             <ui:VisualElement class="card" style="margin-bottom: 16px;">
                 <ui:VisualElement class="card-header">
                     <ui:Label text="🌐 Incoming Suitor Bids" class="text-title" style="font-size: 13px;" />
-                    <ui:Label text="2 BIDS RECEIVED" class="badge badge-green" style="font-size: 10px;" />
+                    <ui:Label name="badge-bids-count" text="2 BIDS RECEIVED" class="badge badge-green" style="font-size: 10px;" />
+                </ui:VisualElement>
+
+                <!-- Empty state when no bids received (#P7-602) -->
+                <ui:VisualElement name="container-empty-suitors" class="empty-state" style="display: none; padding: 24px 16px;">
+                    <ui:Label text="📭" class="empty-state__icon" style="font-size: 32px;" />
+                    <ui:Label text="No Transfer Offers" class="empty-state__title" style="font-size: 14px;" />
+                    <ui:Label text="No outside clubs have made an offer this window. Sign an extension or kick off the next season." class="empty-state__body" style="font-size: 11px;" />
                 </ui:VisualElement>
 
                 <!-- Suitor Bid 1 -->
-                <ui:VisualElement class="card-elevated" style="margin-top: 8px; margin-bottom: 10px; padding: 10px; background-color: var(--fl-color-bg-card);">
+                <ui:VisualElement name="card-bid-1" class="card-elevated" style="margin-top: 8px; margin-bottom: 10px; padding: 10px; background-color: var(--fl-color-bg-card);">
                     <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                         <ui:Label name="val-bid-1-club" text="Southport Athletic" class="text-title" style="font-size: 13px; -unity-font-style: bold;" />
                         <ui:Label text="LEAGUE TWO · ★★★" class="badge badge-slate" style="font-size: 9px;" />
@@ -98,7 +105,7 @@
                 </ui:VisualElement>
 
                 <!-- Suitor Bid 2 -->
-                <ui:VisualElement class="card-elevated" style="padding: 10px; background-color: var(--fl-color-bg-card);">
+                <ui:VisualElement name="card-bid-2" class="card-elevated" style="padding: 10px; background-color: var(--fl-color-bg-card);">
                     <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                         <ui:Label name="val-bid-2-club" text="Bristol Rovers" class="text-title" style="font-size: 13px; -unity-font-style: bold;" />
                         <ui:Label text="LEAGUE ONE · ★★★★" class="badge badge-gold" style="font-size: 9px;" />

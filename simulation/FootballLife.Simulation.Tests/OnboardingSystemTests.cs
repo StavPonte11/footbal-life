@@ -133,5 +133,37 @@ namespace FootballLife.Simulation.Tests
             Assert.False(restored.HasCompletedStep(OnboardingStep.ClubSigning));
             Assert.False(restored.IsCompleted);
         }
+
+        [Fact]
+        public void OnboardingSystem_ResetForReplay_RestoresInitialStep()
+        {
+            var system = new OnboardingSystem();
+            var state = OnboardingState.Skipped;
+
+            Assert.True(state.IsCompleted);
+            Assert.True(state.IsSkipped);
+
+            var replayed = system.ResetForReplay();
+
+            Assert.Equal(OnboardingStep.Welcome, replayed.CurrentStep);
+            Assert.False(replayed.IsCompleted);
+            Assert.False(replayed.IsSkipped);
+            Assert.Empty(replayed.CompletedSteps);
+        }
+
+        [Fact]
+        public void OnboardingSystem_GetAllUnclaimedRewards_AggregatesPendingBonuses()
+        {
+            var system = new OnboardingSystem();
+            var state = OnboardingState.Initial;
+
+            var rewards = system.GetAllUnclaimedRewards(state);
+
+            Assert.True(rewards.CashBonus >= 500);
+            Assert.True(rewards.XpBonus >= 50);
+            Assert.True(rewards.EnergyBonus >= 30);
+            Assert.True(rewards.FormBonus >= 15);
+            Assert.True(rewards.ManagerTrustBonus >= 15);
+        }
     }
 }

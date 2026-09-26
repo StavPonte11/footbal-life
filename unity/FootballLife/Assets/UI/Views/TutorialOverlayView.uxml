@@ -3,35 +3,73 @@
     <ui:Style src="../Styles/theme-dark.uss" />
     <ui:Style src="../Styles/components.uss" />
 
-    <ui:VisualElement name="tutorial-overlay-root" class="theme-dark" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.75); justify-content: center; align-items: center; padding: 20px;">
+    <!-- TUTORIAL OVERLAY ROOT - full-screen semi-transparent scrim -->
+    <ui:VisualElement name="tutorial-overlay-root" class="theme-dark" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.78); justify-content: flex-end; align-items: center; padding: 0 16px 24px 16px;">
 
-        <!-- TUTORIAL INSTRUCTION CARD -->
-        <ui:VisualElement name="tutorial-card" class="card-elevated" style="width: 100%; max-width: 440px; border-width: 2px; border-color: rgba(59, 130, 246, 0.8); background-color: #111827; padding: 20px; border-radius: 16px;">
+        <!-- ================================================================
+             TUTORIAL INSTRUCTION CARD
+             ================================================================ -->
+        <ui:VisualElement name="tutorial-card" class="card-elevated" style="width: 100%; max-width: 460px; border-width: 2px; border-color: rgba(59, 130, 246, 0.7); background-color: #111827; padding: 20px; border-radius: 18px; margin-bottom: 8px;">
 
             <!-- HEADER ROW -->
-            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 14px;">
                 <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px;">
                     <ui:Label text="⭐" style="font-size: 18px;" />
                     <ui:Label name="label-tutorial-step-counter" text="Step 1 of 7" class="badge badge-blue" style="font-size: 11px; -unity-font-style: bold;" />
                 </ui:VisualElement>
-                <ui:Button name="btn-tutorial-skip" text="Skip Tutorial" class="btn btn-ghost" style="font-size: 11px; color: #9CA3AF; padding: 4px 8px;" />
+                <!-- Skip button: meets 44px min via .btn .btn-ghost -->
+                <ui:Button name="btn-tutorial-skip" text="Skip Tutorial" class="btn btn-ghost" style="font-size: 12px; color: #9CA3AF;" />
             </ui:VisualElement>
 
             <!-- STEP TITLE -->
             <ui:Label name="label-tutorial-title" text="Welcome to Football Life" class="text-title" style="font-size: 18px; -unity-font-style: bold; color: #F9FAFB; margin-bottom: 8px;" />
 
             <!-- STEP DESCRIPTION -->
-            <ui:Label name="label-tutorial-desc" text="Your football journey begins today. Balance your performances on the pitch with relationships, lifestyle, and media in your quest to become a legend." class="text-body" style="font-size: 13px; color: #D1D5DB; -unity-font-style: normal; margin-bottom: 16px; white-space: normal;" />
+            <ui:Label name="label-tutorial-desc" text="Your football journey begins today. Balance your performances on the pitch with relationships, lifestyle, and media in your quest to become a legend." class="text-body" style="font-size: 13px; color: #CBD5E1; margin-bottom: 14px; white-space: normal;" />
 
-            <!-- STARTER REWARD BADGE (CONDITIONAL) -->
-            <ui:VisualElement name="container-tutorial-reward" style="flex-direction: row; align-items: center; gap: 8px; background-color: rgba(16, 185, 129, 0.15); border-width: 1px; border-color: rgba(16, 185, 129, 0.4); border-radius: 8px; padding: 8px 12px; margin-bottom: 16px;">
+            <!-- STARTER REWARD BADGE (shown when step has a reward) -->
+            <ui:VisualElement name="container-tutorial-reward" style="flex-direction: row; align-items: center; gap: 8px; background-color: rgba(16, 185, 129, 0.13); border-width: 1px; border-color: rgba(16, 185, 129, 0.35); border-radius: 8px; padding: 8px 12px; margin-bottom: 12px;">
                 <ui:Label text="🎁" style="font-size: 16px;" />
                 <ui:Label name="label-tutorial-reward-text" text="Starter Bonus: +50 Training XP" class="badge badge-green" style="font-size: 12px; -unity-font-style: bold; background-color: transparent; padding: 0;" />
             </ui:VisualElement>
 
+            <!-- GOAL FRAMING BANNER (#P7-601)
+                 Provides clear objective framing so player knows what they're working toward.
+                 Hidden by controller until GoalMilestoneKey is non-null for this step. -->
+            <ui:VisualElement name="container-tutorial-goal" class="goal-banner">
+                <ui:Label name="label-tutorial-goal-icon" text="🎯" class="goal-banner__icon" />
+                <ui:Label name="label-tutorial-goal-text" text="Target: Reach Starting XI — get Manager Trust above 60" class="goal-banner__text" />
+            </ui:VisualElement>
+
             <!-- ACTION BUTTONS -->
-            <ui:VisualElement style="flex-direction: row; justify-content: flex-end; gap: 10px; margin-top: 4px;">
-                <ui:Button name="btn-tutorial-action" text="Continue →" class="btn btn-primary" style="font-size: 13px; -unity-font-style: bold; padding: 10px 20px; border-radius: 8px; background-color: #2563EB;" />
+            <ui:VisualElement style="flex-direction: row; justify-content: flex-end; gap: 10px; margin-top: 16px;">
+                <!-- Continue — btn-ergonomic for comfortable thumb tapping (#P7-604) -->
+                <ui:Button name="btn-tutorial-action" text="Continue →" class="btn btn-primary btn-ergonomic" style="font-size: 14px; -unity-font-style: bold;" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <!-- ================================================================
+             SKIP CONFIRMATION DIALOG (#P7-601)
+             Revealed when player taps "Skip Tutorial".
+             Preserves all unclaimed starter rewards on confirm.
+             Hidden by default (display: None via controller).
+             ================================================================ -->
+        <ui:VisualElement name="skip-confirm-dialog" class="card-elevated" style="width: 100%; max-width: 400px; background-color: #1E293B; border-width: 2px; border-color: rgba(239, 68, 68, 0.5); border-radius: 16px; padding: 20px; display: none;">
+
+            <ui:Label name="label-skip-title" text="Skip Tutorial?" style="font-size: 17px; -unity-font-style: bold; color: #F9FAFB; margin-bottom: 8px; -unity-text-align: middle-center;" />
+            <ui:Label name="label-skip-body" text="All starter rewards will still be added to your career. You can replay the tutorial anytime from your Profile." style="font-size: 13px; color: #94A3B8; white-space: normal; -unity-text-align: middle-center; margin-bottom: 16px;" />
+
+            <!-- Reward summary (populated by controller with GetAllUnclaimedRewards) -->
+            <ui:VisualElement name="container-skip-reward-summary" style="background-color: rgba(16, 185, 129, 0.1); border-width: 1px; border-color: rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; align-items: center;">
+                <ui:Label name="label-skip-reward-summary" text="Your starters: +50 XP · +30 Energy · +15 Form · +15 Trust · £500" style="font-size: 12px; color: #34D399; -unity-font-style: bold; -unity-text-align: middle-center;" />
+            </ui:VisualElement>
+
+            <ui:VisualElement style="flex-direction: row; gap: 10px;">
+                <!-- Cancel — takes player back to tutorial -->
+                <ui:Button name="btn-skip-cancel" text="Keep Going" class="btn btn-secondary" style="flex-grow: 1;" />
+                <!-- Confirm skip -->
+                <ui:Button name="btn-skip-confirm" text="Skip &amp; Claim Rewards" class="btn btn-danger" style="flex-grow: 1;" />
             </ui:VisualElement>
 
         </ui:VisualElement>

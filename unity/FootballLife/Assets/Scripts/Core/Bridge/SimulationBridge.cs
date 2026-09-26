@@ -1391,6 +1391,23 @@ namespace FootballLife.Unity.Core.Bridge
             return _onboardingSystem.IsFeatureUnlocked(_onboardingState, featureKey);
         }
 
+        /// <summary>
+        /// Replays the FTUE tutorial from the beginning (#P7-601).
+        /// Resets the onboarding state to the Welcome step, persists to save data,
+        /// and fires OnTutorialStateChanged so the UI re-presents the first step.
+        /// </summary>
+        public void ReplayTutorial()
+        {
+            _onboardingState = _onboardingSystem.ResetForReplay();
+            if (_currentSave != null)
+            {
+                _onboardingSystem.SyncToSaveData(_onboardingState, _currentSave);
+                AutoSave();
+            }
+            OnTutorialStateChanged?.Invoke(_onboardingState);
+        }
+
+
         // ── Telemetry, Cloud Save & Monetization API (#P6-003, #P6-006, #P6-008) ──
         public TelemetryService Telemetry => _telemetryService;
         public CloudSaveSyncService CloudSync => _cloudSaveSyncService;
