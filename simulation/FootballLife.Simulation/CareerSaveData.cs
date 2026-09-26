@@ -109,6 +109,13 @@ namespace FootballLife.Simulation.Persistence
         public string CurrentTutorialStep { get; set; } = "Welcome";
         public List<string> CompletedTutorialSteps { get; set; } = new List<string>();
 
+        // Analytics & Telemetry Preferences (#P6-003)
+        public bool TelemetryOptOut { get; set; }
+
+        // Monetization & Entitlements (#P6-008)
+        public int CareerRewindTokens { get; set; } = 1;
+        public List<string> OwnedCosmeticIds { get; set; } = new List<string>();
+
         // Relationships
         public List<RelationshipSaveEntry> Relationships { get; set; } = new List<RelationshipSaveEntry>();
 
