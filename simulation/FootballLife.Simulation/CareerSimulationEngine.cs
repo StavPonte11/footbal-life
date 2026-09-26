@@ -677,32 +677,32 @@ namespace FootballLife.Simulation
 
             var t1Clubs = new List<Club>
             {
-                Club.Create("Arsenal FC", "ARS", l1.Id, 85, new ClubFinances(250000000m, 180000m), 5, TacticalIdentity.Possession),
-                Club.Create("Manchester City", "MCI", l1.Id, 88, new ClubFinances(300000000m, 220000m), 5, TacticalIdentity.Possession),
-                Club.Create("Aston Villa", "AVL", l1.Id, 76, new ClubFinances(120000000m, 95000m), 4, TacticalIdentity.HighPress),
-                Club.Create("West Ham", "WHU", l1.Id, 72, new ClubFinances(90000000m, 75000m), 4, TacticalIdentity.Counter)
+                Club.Create("North London Red", "NLR", l1.Id, 85, new ClubFinances(250000000m, 180000m), 5, TacticalIdentity.Possession),
+                Club.Create("Eastland City", "EAC", l1.Id, 88, new ClubFinances(300000000m, 220000m), 5, TacticalIdentity.Possession),
+                Club.Create("Birmingham Claret", "BMC", l1.Id, 76, new ClubFinances(120000000m, 95000m), 4, TacticalIdentity.HighPress),
+                Club.Create("East London Hammers", "ELH", l1.Id, 72, new ClubFinances(90000000m, 75000m), 4, TacticalIdentity.Counter)
             };
 
             var t2Clubs = new List<Club>
             {
-                Club.Create("Leeds United", "LEE", l2.Id, 65, new ClubFinances(40000000m, 45000m), 3, TacticalIdentity.HighPress),
-                Club.Create("Sheffield United", "SHU", l2.Id, 62, new ClubFinances(35000000m, 40000m), 3, TacticalIdentity.Direct),
-                Club.Create("Bristol City", "BRC", l2.Id, 55, new ClubFinances(20000000m, 28000m), 3, TacticalIdentity.Possession),
+                Club.Create("Yorkshire White", "YKW", l2.Id, 65, new ClubFinances(40000000m, 45000m), 3, TacticalIdentity.HighPress),
+                Club.Create("South Yorkshire Red", "SYR", l2.Id, 62, new ClubFinances(35000000m, 40000m), 3, TacticalIdentity.Direct),
+                Club.Create("Avon City", "AVC", l2.Id, 55, new ClubFinances(20000000m, 28000m), 3, TacticalIdentity.Possession),
                 Club.Create("Preston Athletic", "PRE", l2.Id, 50, new ClubFinances(15000000m, 22000m), 2, TacticalIdentity.Counter)
             };
 
             var t3Clubs = new List<Club>
             {
-                Club.Create("Derby County", "DER", l3.Id, 48, new ClubFinances(8000000m, 15000m), 2, TacticalIdentity.HighPress),
-                Club.Create("Peterborough", "PET", l3.Id, 44, new ClubFinances(6000000m, 12000m), 2, TacticalIdentity.Direct),
-                Club.Create("Lincoln City", "LIN", l3.Id, 40, new ClubFinances(5000000m, 10000m), 2, TacticalIdentity.Possession)
+                Club.Create("Derbyshire Rams", "DBR", l3.Id, 48, new ClubFinances(8000000m, 15000m), 2, TacticalIdentity.HighPress),
+                Club.Create("Fens United", "FNS", l3.Id, 44, new ClubFinances(6000000m, 12000m), 2, TacticalIdentity.Direct),
+                Club.Create("Cathedral Town", "CTH", l3.Id, 40, new ClubFinances(5000000m, 10000m), 2, TacticalIdentity.Possession)
             };
 
             var t4Clubs = new List<Club>
             {
-                Club.Create("Grimsby Town", "GRI", l4.Id, 34, new ClubFinances(3000000m, 6000m), 1, TacticalIdentity.Counter),
-                Club.Create("Salford City", "SAL", l4.Id, 32, new ClubFinances(3500000m, 7000m), 2, TacticalIdentity.Possession),
-                Club.Create("Crewe Alexandra", "CRE", l4.Id, 30, new ClubFinances(2500000m, 5000m), 1, TacticalIdentity.Direct)
+                Club.Create("Fishermen United", "FMU", l4.Id, 34, new ClubFinances(3000000m, 6000m), 1, TacticalIdentity.Counter),
+                Club.Create("Riverway FC", "RWY", l4.Id, 32, new ClubFinances(3500000m, 7000m), 2, TacticalIdentity.Possession),
+                Club.Create("Railway Junction", "RWJ", l4.Id, 30, new ClubFinances(2500000m, 5000m), 1, TacticalIdentity.Direct)
             };
 
             var all = t1Clubs.Concat(t2Clubs).Concat(t3Clubs).Concat(t4Clubs).ToList();

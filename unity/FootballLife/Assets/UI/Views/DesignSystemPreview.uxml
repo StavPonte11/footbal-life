@@ -80,7 +80,7 @@
                     <ui:Label text="Save Slot 1 • Manual Save" class="text-title" style="font-size: 16px;" />
                     <ui:Label text="Auto-Save Enabled" class="badge badge-slate" />
                 </ui:VisualElement>
-                <ui:Label text="Alex Mercer (Arsenal FC) — Season 2, Week 28 • £142,000" class="text-subtitle" style="font-size: 13px;" />
+                <ui:Label text="Alex Mercer (North London Red) — Season 2, Week 28 • £142,000" class="text-subtitle" style="font-size: 13px;" />
                 <ui:VisualElement style="flex-direction: row; margin-top: 12px; gap: 8px;">
                     <ui:Button text="Load Career" class="btn btn-primary" style="flex-grow: 1;" />
                     <ui:Button text="Overwrite" class="btn btn-secondary" />

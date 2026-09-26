@@ -28,11 +28,11 @@ namespace FootballLife.Simulation.Tests
             Assert.True(result.WorldState.Clubs.Count >= 50, $"Expected >= 50 clubs, found {result.WorldState.Clubs.Count}");
 
             // Verify specific club data integrity
-            var arsenal = result.WorldState.Clubs.Values.FirstOrDefault(c => c.ShortName == "ARS");
-            Assert.NotNull(arsenal);
-            Assert.Equal("Arsenal", arsenal.Name);
-            Assert.Equal("Emirates Stadium", arsenal.Stadium.Name);
-            Assert.Equal(88, arsenal.ReputationRating);
+            var nlr = result.WorldState.Clubs.Values.FirstOrDefault(c => c.ShortName == "NLR");
+            Assert.NotNull(nlr);
+            Assert.Equal("North London Red", nlr.Name);
+            Assert.Equal("Ashburton Grove", nlr.Stadium.Name);
+            Assert.Equal(88, nlr.ReputationRating);
         }
 
         [Fact]
