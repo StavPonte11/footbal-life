@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FootballLife.Domain;
+using FootballLife.Core.Audio;
 using FootballLife.Simulation;
 using FootballLife.Simulation.Persistence;
 using FootballLife.Unity.Core.SaveLoad;
@@ -447,6 +448,7 @@ namespace FootballLife.Unity.Core.Bridge
                 int netDeposit = wage - livingCost;
                 _currentSave.BankBalance += netDeposit;
                 _currentSave.LifetimeEarnings += Math.Max(0, wage);
+                AudioManager.Instance?.PlayUIWageChime();
 
                 // Energy bonus from active sponsorships
                 int energyBonus = _sponsorshipSystem.CalculateTotalWeeklyEnergyBonus(GetActiveSponsorships());

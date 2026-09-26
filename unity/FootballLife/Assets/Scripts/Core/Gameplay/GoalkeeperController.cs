@@ -181,6 +181,7 @@ namespace FootballLife.Unity.Core.Gameplay
         {
             _state = diveState;
             _diveTimer = 0f;
+            Audio.AudioManager.Instance?.TriggerCrowdGasp();
         }
 
         private void UpdateDive(float dt)

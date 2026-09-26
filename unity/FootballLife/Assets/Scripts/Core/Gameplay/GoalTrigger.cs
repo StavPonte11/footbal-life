@@ -57,6 +57,7 @@ namespace FootballLife.Unity.Core.Gameplay
                 var evt = new GoalScoredEvent(ball.transform.position, speedKmh, Time.time);
 
                 Debug.Log($"[GoalTrigger] ⚽ GOAL SCORED! Speed: {speedKmh:F1} km/h at pos {ball.transform.position}");
+                Audio.AudioManager.Instance?.PlayNetRipple(ball.transform.position);
                 OnGoalScored?.Invoke(evt);
             }
         }
