@@ -1,0 +1,61 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <!--
+        EmptyStateView.uxml — Reusable empty / loading / error state fragment (#P7-602)
+
+        Embed this pattern into any screen root that needs state management.
+        Wire via EmptyStateController(root) — it looks for:
+          - "container-empty"       : centred empty-state panel
+          - "container-content"     : normal populated content area
+          - "error-banner"          : top-docked error/offline strip
+
+        Controller API:
+          ShowContent()                — hide empty, show content
+          ShowEmpty(icon, title, body) — contextual empty state
+          ShowLoading()                — spinner / waiting state
+          ShowError(icon, msg, retry)  — non-blocking top banner
+    -->
+
+    <ui:VisualElement name="screen-root" class="theme-dark" style="flex-grow: 1; flex-direction: column; background-color: var(--fl-color-bg-deep);">
+
+        <!-- ================================================================
+             ERROR BANNER (top-docked, non-blocking) (#P7-602)
+             Hidden by default. Visible during offline / cloud-save failure.
+             ================================================================ -->
+        <ui:VisualElement name="error-banner" class="error-banner" style="display: none;">
+            <ui:Label name="error-banner-icon" text="⚠️" class="error-banner__icon" />
+            <ui:Label name="error-banner-text" text="Something went wrong. Check your connection." class="error-banner__text" />
+            <ui:Button name="btn-error-retry" text="Retry" class="error-banner__retry" />
+        </ui:VisualElement>
+
+        <!-- ================================================================
+             NORMAL CONTENT AREA — replaced by screen-specific UXML
+             ================================================================ -->
+        <ui:VisualElement name="container-content" style="flex-grow: 1; display: none;">
+            <!-- Screen-specific content goes here -->
+        </ui:VisualElement>
+
+        <!-- ================================================================
+             EMPTY STATE PANEL — centred, full flex-grow (#P7-602)
+             ================================================================ -->
+        <ui:VisualElement name="container-empty" class="empty-state" style="display: none;">
+
+            <!-- Icon: large emoji glyph (48px, muted) -->
+            <ui:Label name="empty-state-icon" text="📭" class="empty-state__icon" />
+
+            <!-- Bold heading -->
+            <ui:Label name="empty-state-title" text="Nothing Here Yet" class="empty-state__title" />
+
+            <!-- Explanatory body copy -->
+            <ui:Label name="empty-state-body" text="There's nothing to show right now. Check back after your next match." class="empty-state__body" />
+
+            <!-- Optional CTA (hidden when no actionLabel passed) -->
+            <ui:Button name="btn-empty-action" text="Take Action" class="btn btn-secondary empty-state__action" style="display: none;" />
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

@@ -41,7 +41,8 @@ namespace FootballLife.Domain
         string DescriptionKey,
         string TargetElementId,
         string ActionPromptKey,
-        OnboardingReward Reward
+        OnboardingReward Reward,
+        string? GoalMilestoneKey = null
     );
 
     /// <summary>
@@ -55,6 +56,13 @@ namespace FootballLife.Domain
     )
     {
         public static OnboardingState Initial => new OnboardingState(
+            CurrentStep: OnboardingStep.Welcome,
+            CompletedSteps: Array.Empty<OnboardingStep>(),
+            IsCompleted: false,
+            IsSkipped: false
+        );
+
+        public static OnboardingState Replay => new OnboardingState(
             CurrentStep: OnboardingStep.Welcome,
             CompletedSteps: Array.Empty<OnboardingStep>(),
             IsCompleted: false,

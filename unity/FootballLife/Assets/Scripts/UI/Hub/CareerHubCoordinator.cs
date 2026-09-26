@@ -13,6 +13,7 @@ using FootballLife.Unity.UI.Social;
 using FootballLife.Unity.UI.Sponsorship;
 using FootballLife.Unity.UI.Transfers;
 using FootballLife.Unity.UI.Tutorial;
+using FootballLife.Unity.UI.Common;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Position = UnityEngine.UIElements.Position;
@@ -58,6 +59,7 @@ namespace FootballLife.Unity.UI
         private ContinentalViewController?  _continentalCtrl;
         private SponsorshipViewController?  _sponsorshipCtrl;
         private LegacyViewController?       _legacyCtrl;
+        private EmptyStateController?       _emptyStateCtrl;
 
         // ── Root panel elements ───────────────────────────────────────────────
         private VisualElement? _hubRoot;
@@ -136,6 +138,7 @@ namespace FootballLife.Unity.UI
                 SimulationBridge.Instance.OnSponsorshipSigned += OnSponsorshipSigned;
                 SimulationBridge.Instance.OnPlayerRetired += OnPlayerRetired;
                 SimulationBridge.Instance.OnTutorialStateChanged += OnTutorialStateChanged;
+                SimulationBridge.Instance.OnCloudSyncCompleted += HandleCloudSyncCompleted;
             }
 
             CheckAndShowTutorial();
@@ -153,6 +156,7 @@ namespace FootballLife.Unity.UI
                 SimulationBridge.Instance.OnSponsorshipSigned -= OnSponsorshipSigned;
                 SimulationBridge.Instance.OnPlayerRetired -= OnPlayerRetired;
                 SimulationBridge.Instance.OnTutorialStateChanged -= OnTutorialStateChanged;
+                SimulationBridge.Instance.OnCloudSyncCompleted -= HandleCloudSyncCompleted;
             }
         }
 
@@ -169,6 +173,16 @@ namespace FootballLife.Unity.UI
 
             _phoneOSCtrl = gameObject.GetComponent<PhoneOSController>() ?? gameObject.AddComponent<PhoneOSController>();
             _phoneOSCtrl.BindRoot(_hubRoot);
+
+            // Reusable empty/error state controller for cloud save & network errors (#P7-602)
+            _emptyStateCtrl = new EmptyStateController(_hubRoot);
+            _emptyStateCtrl.OnErrorRetryClicked += () =>
+            {
+                if (SimulationBridge.Instance != null)
+                {
+                    _ = SimulationBridge.Instance.SyncCloudSaveAsync();
+                }
+            };
 
             _hubCtrl = new CareerHubController(
                 _hubRoot,
@@ -276,6 +290,9 @@ namespace FootballLife.Unity.UI
                     _profileOverlay,
                     onBackToHub:  ShowHub,
                     onOpenCareer: ShowCareer);
+
+                // #P7-601: Tutorial replay accessible from Profile/Settings
+                _profileCtrl.OnReplayTutorialRequested += HandleTutorialReplayRequest;
             }
 
             // ── Season Summary overlay ────────────────────────────────────────
@@ -440,7 +457,7 @@ namespace FootballLife.Unity.UI
                 _legacyCtrl = new LegacyViewController(_legacyOverlay, onBack: ShowHub);
             }
 
-            // ── Tutorial overlay (#P6-007) ────────────────────────────────────
+            // ── Tutorial overlay (#P6-007 / #P7-601) ─────────────────────────
             if (_tutorialAsset != null)
             {
                 _tutorialOverlay = _tutorialAsset.Instantiate();
@@ -454,8 +471,10 @@ namespace FootballLife.Unity.UI
 
                 _tutorialCtrl = gameObject.AddComponent<TutorialOverlayController>();
                 _tutorialCtrl.BindVisualElements(_tutorialOverlay);
-                _tutorialCtrl.OnActionClicked += HandleTutorialAction;
-                _tutorialCtrl.OnSkipClicked += HandleTutorialSkip;
+                _tutorialCtrl.OnActionClicked   += HandleTutorialAction;
+                // #P7-601: OnSkipConfirmed fires after the player confirms in the
+                // skip-confirmation dialog (rewards already claimed by controller).
+                _tutorialCtrl.OnSkipConfirmed   += HandleTutorialSkip;
             }
         }
 
@@ -856,9 +875,39 @@ namespace FootballLife.Unity.UI
             _tutorialCtrl?.Hide();
         }
 
+        /// <summary>
+        /// Handles the tutorial replay request from Profile/Settings (#P7-601).
+        /// Resets onboarding state via the simulation bridge and immediately re-shows
+        /// the first tutorial step.
+        /// </summary>
+        private void HandleTutorialReplayRequest()
+        {
+            var bridge = SimulationBridge.Instance;
+            if (bridge == null) return;
+
+            bridge.ReplayTutorial();
+            CheckAndShowTutorial();
+        }
+
         private void OnTutorialStateChanged(OnboardingState state)
         {
             CheckAndShowTutorial();
+        }
+
+        private void HandleCloudSyncCompleted(CloudSyncResult result)
+        {
+            if (result.Status == CloudSyncStatus.Failed)
+            {
+                _emptyStateCtrl?.ShowCloudSaveError();
+            }
+            else if (result.Status == CloudSyncStatus.ConflictDetected)
+            {
+                _emptyStateCtrl?.ShowCloudSaveConflict();
+            }
+            else
+            {
+                _emptyStateCtrl?.DismissError();
+            }
         }
     }
 }

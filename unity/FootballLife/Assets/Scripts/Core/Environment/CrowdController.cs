@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using FootballLife.Domain;
+using StadiumTierConfig = FootballLife.Domain.StadiumTierConfig;
+using StadiumReputationTier = FootballLife.Domain.StadiumReputationTier;
+using StadiumAtmosphereUtility = FootballLife.Domain.StadiumAtmosphereUtility;
 using FootballLife.Unity.Core.Gameplay;
 
 namespace FootballLife.Unity.Core.Environment
@@ -153,7 +156,7 @@ namespace FootballLife.Unity.Core.Environment
         /// </summary>
         public static CrowdController CreateCrowdSystem(
             Transform stadiumRoot,
-            StadiumReputationTier tier,
+            FootballLife.Domain.StadiumReputationTier tier,
             Color homePrimary,
             Color awayPrimary)
         {
@@ -161,7 +164,7 @@ namespace FootballLife.Unity.Core.Environment
             crowdGo.transform.SetParent(stadiumRoot, false);
             var controller = crowdGo.AddComponent<CrowdController>();
 
-            var tierConfig = StadiumAtmosphereUtility.GetTierConfig(tier);
+            var tierConfig = FootballLife.Domain.StadiumAtmosphereUtility.GetTierConfig(tier);
 
             var crowdMat = CreateCrowdMaterial();
 

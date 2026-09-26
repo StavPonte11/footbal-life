@@ -37,4 +37,40 @@
 
     /* Shadows & Elevation */
     --fl-shadow-card: rgba(0, 0, 0, 0.45);
+
+    /* -----------------------------------------------------------------------
+       ACCESSIBILITY TOKENS  (#P7-603 — Color-Blind Safe, Touch Targets)
+       ----------------------------------------------------------------------- */
+
+    /* Minimum touch target — 44px satisfies both Apple HIG & WCAG 2.5.5 */
+    --fl-touch-target-min: 44px;
+
+    /* Color-blind-safe STATUS colors (replaces emerald/gold to avoid
+       deuteranopia green/gold confusion).
+       Use --fl-cb-* variants on all status meters and badge fills. */
+    --fl-cb-positive: #3B82F6;   /* Blue  — safe for deuteranopia & protanopia */
+    --fl-cb-positive-light: rgba(59, 130, 246, 0.15);
+    --fl-cb-positive-border: rgba(59, 130, 246, 0.45);
+    --fl-cb-warning: #F97316;    /* Orange — universally distinguishable */
+    --fl-cb-warning-light: rgba(249, 115, 22, 0.15);
+    --fl-cb-warning-border: rgba(249, 115, 22, 0.45);
+    --fl-cb-critical: #EF4444;   /* Red — kept, combined with shape markers */
+    --fl-cb-critical-light: rgba(239, 68, 68, 0.15);
+    --fl-cb-neutral: #94A3B8;    /* Slate — neutral/disabled states */
+
+    /* High-contrast text helpers — use for body text on dark surfaces */
+    --fl-color-text-hc-primary: #FFFFFF;        /* 21:1 contrast on #0B0F19  */
+    --fl-color-text-hc-secondary: #CBD5E1;      /* ≥ 7:1 on surface */
+    --fl-color-text-hc-muted: #94A3B8;          /* ≥ 4.5:1 on surface */
+
+    /* -----------------------------------------------------------------------
+       THUMB-ERGONOMICS LAYOUT (#P7-604 — One-Handed Reachability)
+       Targeting 390×844 and 6.7"+ (430×932) reference frames.
+       Bottom 35% screen height ≈ 295px on 844px — primary actions live here.
+       ----------------------------------------------------------------------- */
+    --fl-bottom-action-bar-height: 72px;
+    --fl-bottom-action-bar-padding-h: 20px;
+    /* Safe-area indent for home-indicator on iOS / gesture bar on Android */
+    --fl-safe-area-bottom: 16px;
+    --fl-bottom-nav-height: 64px;
 }

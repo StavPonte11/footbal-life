@@ -268,3 +268,238 @@
     border-bottom-width: 1px;
     border-bottom-color: rgba(51, 65, 85, 0.4);
 }
+
+/* =========================================================================
+   ACCESSIBILITY: MINIMUM TOUCH TARGETS (#P7-603)
+   All interactive elements must meet 44×44px minimum (Apple HIG / WCAG 2.5.5)
+   ========================================================================= */
+.btn {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.tab-button {
+    min-height: 44px;
+}
+
+.bottom-nav Button {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* =========================================================================
+   ACCESSIBILITY: COLOR-BLIND SAFE BADGE VARIANTS (#P7-603)
+   Use --fl-cb-* tokens. These rely on BOTH color AND shape/prefix glyphs
+   so information is never conveyed by hue alone.
+   ========================================================================= */
+.badge-cb-positive {
+    background-color: var(--fl-cb-positive-light);
+    color: var(--fl-cb-positive);
+    border-width: 1px;
+    border-color: var(--fl-cb-positive-border);
+}
+
+.badge-cb-warning {
+    background-color: var(--fl-cb-warning-light);
+    color: var(--fl-cb-warning);
+    border-width: 1px;
+    border-color: var(--fl-cb-warning-border);
+}
+
+.badge-cb-critical {
+    background-color: var(--fl-cb-critical-light);
+    color: var(--fl-cb-critical);
+    border-width: 1px;
+    border-color: rgba(239, 68, 68, 0.45);
+}
+
+/* =========================================================================
+   THUMB ERGONOMICS: BOTTOM ACTION BAR (#P7-604)
+   Sticky container anchored at the bottom of the screen.
+   Primary match/hub actions sit within the natural thumb reach zone
+   (bottom 35% of 390×844 and 430×932 reference frames).
+   ========================================================================= */
+.bottom-action-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--fl-bottom-action-bar-height);
+    padding-left: var(--fl-bottom-action-bar-padding-h);
+    padding-right: var(--fl-bottom-action-bar-padding-h);
+    padding-bottom: var(--fl-safe-area-bottom);
+    background-color: var(--fl-color-surface);
+    border-top-width: 1px;
+    border-top-color: var(--fl-color-border);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+/* Single full-width primary CTA variant */
+.bottom-action-bar--single {
+    justify-content: center;
+}
+
+.bottom-action-bar--single .btn-ergonomic {
+    flex-grow: 1;
+    max-width: 480px;
+}
+
+/* Primary ergonomic CTA: tall enough for confident thumb taps */
+.btn-ergonomic {
+    min-height: 52px;
+    border-radius: var(--fl-radius-lg);
+    font-size: 15px;
+    -unity-font-style: bold;
+    align-items: center;
+    justify-content: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    background-color: var(--fl-color-primary);
+    color: #FFFFFF;
+}
+
+.btn-ergonomic:hover {
+    background-color: var(--fl-color-primary-hover);
+}
+
+.btn-ergonomic:active {
+    background-color: var(--fl-color-primary-active);
+    scale: 0.97;
+}
+
+.btn-ergonomic--gold {
+    background-color: var(--fl-color-gold);
+    color: #0F172A;
+}
+
+.btn-ergonomic--gold:hover {
+    background-color: var(--fl-color-gold-hover);
+}
+
+/* =========================================================================
+   EMPTY / LOADING / ERROR STATES (#P7-602)
+   Cohesive presentation shared across CareerHub, Transfers, Sponsorship,
+   Lifestyle Shop, Trophies, and Cloud Save screens.
+   ========================================================================= */
+
+/* Container: centred column layout */
+.empty-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    gap: 16px;
+}
+
+/* Large emoji/icon glyph */
+.empty-state__icon {
+    font-size: 48px;
+    -unity-text-align: middle-center;
+    color: var(--fl-color-text-muted);
+}
+
+/* Bold heading */
+.empty-state__title {
+    font-size: 17px;
+    -unity-font-style: bold;
+    color: var(--fl-color-text-primary);
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+/* Explanatory body copy */
+.empty-state__body {
+    font-size: 13px;
+    color: var(--fl-color-text-secondary);
+    -unity-text-align: middle-center;
+    white-space: normal;
+    max-width: 300px;
+}
+
+/* Primary CTA within the empty state */
+.empty-state__action {
+    margin-top: 8px;
+    min-height: 44px;
+    min-width: 160px;
+}
+
+/* Error / offline banner — docked at top of screen */
+.error-banner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    min-height: 52px;
+    background-color: rgba(239, 68, 68, 0.92);
+    flex-direction: row;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 12px;
+    gap: 10px;
+}
+
+.error-banner__icon {
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+.error-banner__text {
+    flex-grow: 1;
+    font-size: 13px;
+    color: #FFFFFF;
+    white-space: normal;
+}
+
+.error-banner__retry {
+    min-height: 36px;
+    min-width: 72px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    border-width: 1px;
+    border-radius: var(--fl-radius-md);
+    color: #FFFFFF;
+    font-size: 12px;
+    -unity-font-style: bold;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Goal framing banner — docked at bottom of tutorial overlay (#P7-601) */
+.goal-banner {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(245, 158, 11, 0.12);
+    border-width: 1px;
+    border-color: rgba(245, 158, 11, 0.35);
+    border-radius: var(--fl-radius-md);
+    padding: 10px 14px;
+    margin-top: 12px;
+}
+
+.goal-banner__icon {
+    font-size: 18px;
+}
+
+.goal-banner__text {
+    flex-grow: 1;
+    font-size: 12px;
+    color: var(--fl-color-text-gold);
+    white-space: normal;
+}
+
+/* =========================================================================
+   BADGE BLUE — used in tutorial step counter
+   ========================================================================= */
+.badge-blue {
+    background-color: rgba(37, 99, 235, 0.2);
+    color: #93C5FD;
+    border-width: 1px;
+    border-color: rgba(59, 130, 246, 0.5);
+}
+

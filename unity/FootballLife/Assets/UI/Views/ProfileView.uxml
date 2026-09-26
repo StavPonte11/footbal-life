@@ -306,9 +306,32 @@
                         <ui:VisualElement name="fill-decisionmaking" class="stat-meter-fill" style="width: 60%;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-            </ui:VisualElement>
+                 </ui:VisualElement>
 
         </ui:ScrollView>
 
+        <!-- ================================================================
+             SETTINGS SECTION — Tutorial Replay (#P7-601)
+             Accessible from Profile at any time; triggers ResetForReplay().
+             ================================================================ -->
+        <ui:VisualElement style="padding: 0 16px 16px 16px;">
+            <ui:VisualElement class="card" style="margin-bottom: 0;">
+                <ui:VisualElement class="card-header" style="margin-bottom: 0; padding-bottom: 12px;">
+                    <ui:Label text="⚙️ Settings" class="text-title" style="font-size: 14px;" />
+                </ui:VisualElement>
+
+                <!-- Tutorial Replay Row (#P7-601) -->
+                <ui:VisualElement style="flex-direction: row; align-items: center; justify-content: space-between; padding-top: 12px; gap: 12px;">
+                    <ui:VisualElement style="flex-grow: 1;">
+                        <ui:Label text="Replay Tutorial" style="font-size: 14px; color: var(--fl-color-text-primary); -unity-font-style: bold;" />
+                        <ui:Label text="Walk through the FTUE again from the beginning." style="font-size: 12px; color: var(--fl-color-text-secondary); white-space: normal;" />
+                    </ui:VisualElement>
+                    <ui:Button name="btn-replay-tutorial" text="Replay" class="btn btn-secondary" style="min-width: 80px;" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:VisualElement>
+
     </ui:VisualElement>
 </ui:UXML>
+

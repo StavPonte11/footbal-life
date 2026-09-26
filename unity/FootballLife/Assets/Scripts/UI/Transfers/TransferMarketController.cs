@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 using FootballLife.Domain;
 using FootballLife.Simulation;
 using FootballLife.Unity.Core.Bridge;
+using FootballLife.Unity.UI.Common;
 
 namespace FootballLife.Unity.UI.Transfers
 {
@@ -136,17 +137,13 @@ namespace FootballLife.Unity.UI.Transfers
 
             if (_currentBiddingWar == null || _currentBiddingWar.Bids.Count == 0)
             {
-                var emptyLabel = new Label("No active club bids currently on the table. Inquire again during the transfer window or submit a transfer request.")
-                {
-                    style =
-                    {
-                        color = new Color(0.58f, 0.64f, 0.72f),
-                        fontSize = 13,
-                        marginTop = 24,
-                        unityTextAlign = TextAnchor.MiddleCenter
-                    }
-                };
-                _bidsContainer.Add(emptyLabel);
+                var emptyElement = EmptyStateController.CreateEmptyStateElement(
+                    "📭",
+                    "No Transfer Offers",
+                    "No active club bids on the table. Inquire during the transfer window or submit a transfer request.",
+                    !_isTransferListed ? "Request Transfer" : null,
+                    !_isTransferListed ? () => RequestTransfer() : null);
+                _bidsContainer.Add(emptyElement);
                 return;
             }
 

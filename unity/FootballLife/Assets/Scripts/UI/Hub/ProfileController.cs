@@ -12,9 +12,14 @@ namespace FootballLife.Unity.UI.Hub
     /// </summary>
     public class ProfileController
     {
+        // Tutorial replay (#P7-601) — fired when player taps "Replay" in Settings row.
+        // The coordinator uses OnboardingSystem.ResetForReplay() and shows the overlay.
+        public event Action? OnReplayTutorialRequested;
+
         private readonly Button? _btnBack;
         private readonly Button? _tabCareer;
         private readonly Button? _tabProfile;
+        private readonly Button? _btnReplayTutorial;
 
         private readonly Label _labelOvrBadge;
         private readonly Label _labelAvatarInitial;
@@ -90,6 +95,9 @@ namespace FootballLife.Unity.UI.Hub
             _btnBack = root.Q<Button>("btn-back");
             _tabCareer = root.Q<Button>("tab-career");
             _tabProfile = root.Q<Button>("tab-profile");
+
+            // Tutorial replay (#P7-601)
+            _btnReplayTutorial = root.Q<Button>("btn-replay-tutorial");
             _labelOvrBadge = root.Q<Label>("label-ovr-badge");
 
             // Identity Header
@@ -162,6 +170,10 @@ namespace FootballLife.Unity.UI.Hub
 
             if (_tabCareer != null)
                 _tabCareer.clicked += () => _onOpenCareer?.Invoke();
+
+            // Tutorial replay (#P7-601)
+            if (_btnReplayTutorial != null)
+                _btnReplayTutorial.clicked += () => OnReplayTutorialRequested?.Invoke();
         }
 
         public void Bind(SimulationBridge bridge)

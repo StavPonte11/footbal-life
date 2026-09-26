@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using FootballLife.Domain;
+using StadiumTierConfig = FootballLife.Domain.StadiumTierConfig;
+using StadiumReputationTier = FootballLife.Domain.StadiumReputationTier;
+using StadiumAtmosphereUtility = FootballLife.Domain.StadiumAtmosphereUtility;
 
 namespace FootballLife.Unity.Core.Environment
 {
@@ -13,14 +16,14 @@ namespace FootballLife.Unity.Core.Environment
     {
         public static GameObject BuildStadium(
             Transform parent,
-            StadiumReputationTier tier = StadiumReputationTier.MidTier,
+            FootballLife.Domain.StadiumReputationTier tier = FootballLife.Domain.StadiumReputationTier.MidTier,
             Color? homePrimaryColor = null,
             Color? homeSecondaryColor = null)
         {
             var stadiumRoot = new GameObject("Stadium_Architecture");
             stadiumRoot.transform.SetParent(parent, false);
 
-            var config = StadiumAtmosphereUtility.GetTierConfig(tier);
+            var config = FootballLife.Domain.StadiumAtmosphereUtility.GetTierConfig(tier);
 
             var primaryColor = homePrimaryColor ?? new Color(0.12f, 0.35f, 0.75f);   // Club primary blue
             var secondaryColor = homeSecondaryColor ?? new Color(0.92f, 0.85f, 0.2f); // Accent gold
@@ -381,7 +384,7 @@ namespace FootballLife.Unity.Core.Environment
             UnityEngine.Object.DestroyImmediate(roof.GetComponent<Collider>());
 
             // Bench Seats (6 seats for substitutes & staff)
-            int seats = (config.Tier == StadiumReputationTier.Elite) ? 8 : 6;
+            int seats = (config.Tier == FootballLife.Domain.StadiumReputationTier.Elite) ? 8 : 6;
             for (int s = 0; s < seats; s++)
             {
                 float sx = Mathf.Lerp(-width * 0.42f, width * 0.42f, s / (float)(seats - 1));

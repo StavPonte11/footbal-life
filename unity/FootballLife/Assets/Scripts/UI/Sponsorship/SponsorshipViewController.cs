@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FootballLife.Domain;
 using FootballLife.Simulation;
 using FootballLife.Unity.Core.Bridge;
+using FootballLife.Unity.UI.Common;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -128,11 +129,13 @@ namespace FootballLife.Unity.UI.Sponsorship
 
             if (activeDeals == null || activeDeals.Count == 0)
             {
-                var emptyLabel = new Label("No active sponsorship deals. Switch to Available Offers to sign contracts.")
-                {
-                    style = { color = new Color(0.6f, 0.6f, 0.6f), fontSize = 12, marginTop = 12 }
-                };
-                _containerActive.Add(emptyLabel);
+                var emptyElement = EmptyStateController.CreateEmptyStateElement(
+                    "🤝",
+                    "No Active Sponsors",
+                    "You have no commercial endorsements currently active. Check available brand deals to boost your income.",
+                    "View Offers",
+                    () => SwitchTab(false));
+                _containerActive.Add(emptyElement);
                 return;
             }
 
@@ -179,11 +182,12 @@ namespace FootballLife.Unity.UI.Sponsorship
 
             if (offers == null || offers.Count == 0)
             {
-                var emptyLabel = new Label("No endorsement offers currently on the table. Increase your reputation to unlock brands.")
-                {
-                    style = { color = new Color(0.6f, 0.6f, 0.6f), fontSize = 12, marginTop = 12 }
-                };
-                _containerAvailable.Add(emptyLabel);
+                var emptyElement = EmptyStateController.CreateEmptyStateElement(
+                    "✨",
+                    "No Available Endorsements",
+                    "No sponsorship offers on the table. Increase your reputation on the pitch to attract premier brands.",
+                    null);
+                _containerAvailable.Add(emptyElement);
                 return;
             }
 

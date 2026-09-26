@@ -20,7 +20,8 @@ namespace FootballLife.Simulation
                     DescriptionKey: "tutorial.step.welcome.desc",
                     TargetElementId: "btn-start-career",
                     ActionPromptKey: "tutorial.step.welcome.action",
-                    Reward: OnboardingReward.None
+                    Reward: OnboardingReward.None,
+                    GoalMilestoneKey: "tutorial.goal.welcome"
                 ),
                 [OnboardingStep.CharacterCreation] = new OnboardingStepDefinition(
                     Step: OnboardingStep.CharacterCreation,
@@ -28,7 +29,8 @@ namespace FootballLife.Simulation
                     DescriptionKey: "tutorial.step.creation.desc",
                     TargetElementId: "btn-confirm-creation",
                     ActionPromptKey: "tutorial.step.creation.action",
-                    Reward: new OnboardingReward(FormBonus: 5)
+                    Reward: new OnboardingReward(FormBonus: 5),
+                    GoalMilestoneKey: "tutorial.goal.creation"
                 ),
                 [OnboardingStep.ClubSigning] = new OnboardingStepDefinition(
                     Step: OnboardingStep.ClubSigning,
@@ -36,7 +38,8 @@ namespace FootballLife.Simulation
                     DescriptionKey: "tutorial.step.signing.desc",
                     TargetElementId: "btn-sign-contract",
                     ActionPromptKey: "tutorial.step.signing.action",
-                    Reward: new OnboardingReward(ManagerTrustBonus: 10, CashBonus: 500)
+                    Reward: new OnboardingReward(ManagerTrustBonus: 10, CashBonus: 500),
+                    GoalMilestoneKey: "tutorial.goal.signing"
                 ),
                 [OnboardingStep.FirstTraining] = new OnboardingStepDefinition(
                     Step: OnboardingStep.FirstTraining,
@@ -44,7 +47,8 @@ namespace FootballLife.Simulation
                     DescriptionKey: "tutorial.step.training.desc",
                     TargetElementId: "btn-train",
                     ActionPromptKey: "tutorial.step.training.action",
-                    Reward: new OnboardingReward(XpBonus: 50, EnergyBonus: 10)
+                    Reward: new OnboardingReward(XpBonus: 50, EnergyBonus: 10),
+                    GoalMilestoneKey: "tutorial.goal.training"
                 ),
                 [OnboardingStep.FirstMatchDebut] = new OnboardingStepDefinition(
                     Step: OnboardingStep.FirstMatchDebut,
@@ -52,7 +56,8 @@ namespace FootballLife.Simulation
                     DescriptionKey: "tutorial.step.debut.desc",
                     TargetElementId: "btn-match",
                     ActionPromptKey: "tutorial.step.debut.action",
-                    Reward: new OnboardingReward(FormBonus: 10, ManagerTrustBonus: 5)
+                    Reward: new OnboardingReward(FormBonus: 10, ManagerTrustBonus: 5),
+                    GoalMilestoneKey: "tutorial.goal.debut"
                 ),
                 [OnboardingStep.HomeApartment] = new OnboardingStepDefinition(
                     Step: OnboardingStep.HomeApartment,
@@ -60,7 +65,8 @@ namespace FootballLife.Simulation
                     DescriptionKey: "tutorial.step.apartment.desc",
                     TargetElementId: "btn-home",
                     ActionPromptKey: "tutorial.step.apartment.action",
-                    Reward: new OnboardingReward(EnergyBonus: 20)
+                    Reward: new OnboardingReward(EnergyBonus: 20),
+                    GoalMilestoneKey: "tutorial.goal.apartment"
                 ),
                 [OnboardingStep.SmartphoneIntro] = new OnboardingStepDefinition(
                     Step: OnboardingStep.SmartphoneIntro,
@@ -68,7 +74,8 @@ namespace FootballLife.Simulation
                     DescriptionKey: "tutorial.step.phone.desc",
                     TargetElementId: "btn-phone",
                     ActionPromptKey: "tutorial.step.phone.action",
-                    Reward: OnboardingReward.None
+                    Reward: OnboardingReward.None,
+                    GoalMilestoneKey: "tutorial.goal.phone"
                 ),
                 [OnboardingStep.Completed] = new OnboardingStepDefinition(
                     Step: OnboardingStep.Completed,
@@ -76,7 +83,8 @@ namespace FootballLife.Simulation
                     DescriptionKey: "tutorial.step.completed.desc",
                     TargetElementId: "btn-finish-tutorial",
                     ActionPromptKey: "tutorial.step.completed.action",
-                    Reward: OnboardingReward.None
+                    Reward: OnboardingReward.None,
+                    GoalMilestoneKey: "tutorial.goal.completed"
                 )
             };
 
@@ -136,6 +144,49 @@ namespace FootballLife.Simulation
         public OnboardingState SkipTutorial(OnboardingState current)
         {
             return OnboardingState.Skipped;
+        }
+
+        /// <summary>
+        /// Resets onboarding progress to allow replaying the tutorial flow.
+        /// </summary>
+        public OnboardingState ResetForReplay()
+        {
+            return OnboardingState.Replay;
+        }
+
+        /// <summary>
+        /// Gathers all unclaimed rewards across remaining incomplete tutorial steps,
+        /// ensuring players who skip or fast-forward still receive their starter benefits.
+        /// </summary>
+        public OnboardingReward GetAllUnclaimedRewards(OnboardingState state)
+        {
+            if (state == null) return OnboardingReward.None;
+
+            int totalXp = 0;
+            int totalEnergy = 0;
+            int totalForm = 0;
+            int totalTrust = 0;
+            int totalCash = 0;
+
+            foreach (var kvp in _stepDefinitions)
+            {
+                if (!state.HasCompletedStep(kvp.Key) && kvp.Value.Reward != null)
+                {
+                    totalXp += kvp.Value.Reward.XpBonus;
+                    totalEnergy += kvp.Value.Reward.EnergyBonus;
+                    totalForm += kvp.Value.Reward.FormBonus;
+                    totalTrust += kvp.Value.Reward.ManagerTrustBonus;
+                    totalCash += kvp.Value.Reward.CashBonus;
+                }
+            }
+
+            return new OnboardingReward(
+                XpBonus: totalXp,
+                EnergyBonus: totalEnergy,
+                FormBonus: totalForm,
+                ManagerTrustBonus: totalTrust,
+                CashBonus: totalCash
+            );
         }
 
         /// <summary>
