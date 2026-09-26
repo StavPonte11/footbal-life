@@ -387,16 +387,31 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 ## Phase 6 — Polish, Balance & Release
 **Goal:** Mobile-ready release build with analytics, monetization hooks, and content depth.
 
-| Issue | User Story | Layer |
-|---|---|---|
-| #P6-001 | 10,000-career simulation balance pass | Balance |
-| #P6-002 | Mobile performance pass: 60fps, <200MB RAM, battery optimization | Performance |
-| #P6-003 | Analytics: session events, match telemetry, funnel tracking (UGS/PostHog) | Telemetry |
-| #P6-004 | Content expansion: 100+ life events, 50+ clubs, 10+ leagues | Content |
-| #P6-005 | Localization: EN primary, 5 additional languages | Unity |
-| #P6-006 | Cloud save via Unity Gaming Services | Unity |
-| #P6-007 | Onboarding flow: first-session tutorial | Unity/UI |
-| #P6-008 | Monetization hooks: cosmetic items, career replay | Unity |
+### Milestone 6.1: Career Simulation Balance & Content Expansion ✅ (Complete)
+*Branch: `feature/milestone-6.1-balance-content-expansion` | Issues #171, #172*
+
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P6-001 (#171) | 10,000-career simulation balance pass | Simulation/Balance | L | ✅ Complete |
+| #P6-004 (#172) | Content expansion: 100+ life events, 50+ clubs, 10+ leagues | Content/Data | L | ✅ Complete |
+
+### Milestone 6.2: Onboarding Flow & Localization
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P6-007 | Onboarding flow: first-session tutorial & character creation | Unity/UI | M | 📋 Planned |
+| #P6-005 | Localization: EN primary, 5 additional languages | Unity | M | 📋 Planned |
+
+### Milestone 6.3: Analytics, Cloud Save & Monetization Hooks
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P6-003 | Analytics: session events, match telemetry, funnel tracking (UGS/PostHog) | Telemetry | M | 📋 Planned |
+| #P6-006 | Cloud save via Unity Gaming Services | Unity | M | 📋 Planned |
+| #P6-008 | Monetization hooks: cosmetic items, career replay | Unity | M | 📋 Planned |
+
+### Milestone 6.4: Mobile Performance & Release Validation
+| Issue | User Story | Layer | Complexity | Status |
+|---|---|---|---|---|
+| #P6-002 | Mobile performance pass: 60fps, <200MB RAM, battery optimization | Performance | L | 📋 Planned |
 
 ---
 

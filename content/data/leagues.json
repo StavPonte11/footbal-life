@@ -12,6 +12,26 @@
       "relegationSlots": 3
     },
     {
+      "id": "e1000000-0000-0000-0000-000000000011",
+      "name": "EFL Championship",
+      "countryCode": "ENG",
+      "tier": 2,
+      "clubCount": 24,
+      "matchdaysPerSeason": 46,
+      "promotionSlots": 3,
+      "relegationSlots": 3
+    },
+    {
+      "id": "e1000000-0000-0000-0000-000000000012",
+      "name": "EFL League One",
+      "countryCode": "ENG",
+      "tier": 3,
+      "clubCount": 24,
+      "matchdaysPerSeason": 46,
+      "promotionSlots": 3,
+      "relegationSlots": 4
+    },
+    {
       "id": "e1000000-0000-0000-0000-000000000002",
       "name": "La Liga",
       "countryCode": "ESP",
@@ -22,6 +42,16 @@
       "relegationSlots": 3
     },
     {
+      "id": "e1000000-0000-0000-0000-000000000021",
+      "name": "Segunda División",
+      "countryCode": "ESP",
+      "tier": 2,
+      "clubCount": 22,
+      "matchdaysPerSeason": 42,
+      "promotionSlots": 3,
+      "relegationSlots": 4
+    },
+    {
       "id": "e1000000-0000-0000-0000-000000000003",
       "name": "Bundesliga",
       "countryCode": "DEU",
@@ -29,6 +59,16 @@
       "clubCount": 18,
       "matchdaysPerSeason": 34,
       "promotionSlots": 0,
+      "relegationSlots": 2
+    },
+    {
+      "id": "e1000000-0000-0000-0000-000000000031",
+      "name": "2. Bundesliga",
+      "countryCode": "DEU",
+      "tier": 2,
+      "clubCount": 18,
+      "matchdaysPerSeason": 34,
+      "promotionSlots": 2,
       "relegationSlots": 2
     },
     {
@@ -42,6 +82,16 @@
       "relegationSlots": 3
     },
     {
+      "id": "e1000000-0000-0000-0000-000000000041",
+      "name": "Serie B",
+      "countryCode": "ITA",
+      "tier": 2,
+      "clubCount": 20,
+      "matchdaysPerSeason": 38,
+      "promotionSlots": 3,
+      "relegationSlots": 4
+    },
+    {
       "id": "e1000000-0000-0000-0000-000000000005",
       "name": "Ligue 1",
       "countryCode": "FRA",
@@ -50,6 +100,16 @@
       "matchdaysPerSeason": 34,
       "promotionSlots": 0,
       "relegationSlots": 2
+    },
+    {
+      "id": "e1000000-0000-0000-0000-000000000051",
+      "name": "Ligue 2",
+      "countryCode": "FRA",
+      "tier": 2,
+      "clubCount": 18,
+      "matchdaysPerSeason": 34,
+      "promotionSlots": 2,
+      "relegationSlots": 3
     }
   ]
 }

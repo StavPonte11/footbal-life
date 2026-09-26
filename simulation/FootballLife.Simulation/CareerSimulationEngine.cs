@@ -95,9 +95,17 @@ namespace FootballLife.Simulation
             int peakAge = 18;
             decimal peakSalary = startingWage;
             decimal totalEarnings = 0m;
+            decimal totalCommercialEarnings = 0m;
             int totalAppearances = 0;
             int totalGoals = 0;
             int totalAssists = 0;
+            int totalLeagueTitles = 0;
+            int totalDomesticCups = 0;
+            int totalContinentalTitles = 0;
+            int totalInternationalTrophies = 0;
+            int totalInternationalCaps = 0;
+            int totalInternationalGoals = 0;
+            var activeSponsorships = new List<ActiveSponsorship>();
             double sumRating = 0;
             int transferCount = 0;
             bool bankruptcyOccurred = false;
@@ -130,17 +138,49 @@ namespace FootballLife.Simulation
                     leagueTier = league.Tier;
                 }
 
+                // Check sponsorship deals for upcoming season
+                var sponsorshipSys = new SponsorshipSystem();
+                int effectiveRep = (int)Math.Clamp(Math.Max(careerState.Reputation, (abilities.CalculateAverage() - 50f) * 2f), 0f, 100f);
+                var availableOffers = sponsorshipSys.GetAvailableOffers(effectiveRep, activeSponsorships);
+                foreach (var offer in availableOffers)
+                {
+                    if (activeSponsorships.Count >= 3) break;
+                    var (signed, bonus, err) = sponsorshipSys.AcceptDeal(offer, effectiveRep, activeSponsorships);
+                    if (signed != null)
+                    {
+                        activeSponsorships.Add(signed);
+                        account = account with { Balance = account.Balance + bonus };
+                        totalEarnings += bonus;
+                        totalCommercialEarnings += bonus;
+                        seasonEarnings += bonus;
+                    }
+                }
+
                 // Weekly simulation loop (38 weeks)
                 for (int week = 1; week <= WeeksPerSeason; week++)
                 {
                     var weekDate = seasonStartDate.AddDays((week - 1) * 7);
 
-                    // A. Financials: weekly wage & lifestyle
+                    // A. Financials: weekly wage, sponsorships & lifestyle
                     if (!isFreeAgent && careerState.WeeklySalary > 0m)
                     {
                         account = EconomySystem.ApplyWeeklySalary(account, careerState.WeeklySalary, weekDate);
                         seasonEarnings += careerState.WeeklySalary;
                         totalEarnings += careerState.WeeklySalary;
+                    }
+
+                    // Process weekly sponsorship payouts
+                    if (activeSponsorships.Count > 0)
+                    {
+                        var (payout, updatedDeals, expiredDeals) = sponsorshipSys.ProcessWeeklyPayouts(activeSponsorships);
+                        if (payout > 0)
+                        {
+                            account = account with { Balance = account.Balance + payout };
+                            totalEarnings += payout;
+                            seasonEarnings += payout;
+                            totalCommercialEarnings += payout;
+                        }
+                        activeSponsorships = new List<ActiveSponsorship>(updatedDeals);
                     }
 
                     account = EconomySystem.ApplyLifestyleExpenses(account, lifestyle, weekDate);
@@ -355,6 +395,61 @@ namespace FootballLife.Simulation
                     }
                 }
 
+                // Silverware / Trophy evaluation
+                if (currentClub != null && leagueTier == 1)
+                {
+                    if (currentClub.ReputationRating >= 85 && seasonApps >= 20 && avgSeasonRating >= 6.8f)
+                    {
+                        float titleChance = (currentClub.ReputationRating - 75f) / 100f * 0.35f;
+                        if (rng.NextFloat(0f, 1f) < titleChance)
+                        {
+                            totalLeagueTitles++;
+                        }
+                    }
+                    if (currentClub.ReputationRating >= 88 && seasonApps >= 22 && avgSeasonRating >= 7.0f)
+                    {
+                        if (rng.NextFloat(0f, 1f) < 0.12f)
+                        {
+                            totalContinentalTitles++;
+                        }
+                    }
+                }
+                if (currentClub != null && leagueTier <= 2 && seasonApps >= 15 && avgSeasonRating >= 6.5f)
+                {
+                    if (rng.NextFloat(0f, 1f) < 0.08f)
+                    {
+                        totalDomesticCups++;
+                    }
+                }
+
+                // International football caps and goals
+                if (endOverall >= 76 && currentAge >= 19)
+                {
+                    int caps = rng.NextInt(3, 8);
+                    totalInternationalCaps += caps;
+                    if (player.PrimaryPosition == Position.ST || player.PrimaryPosition == Position.LW || player.PrimaryPosition == Position.RW || player.PrimaryPosition == Position.AM)
+                    {
+                        int intGoals = rng.NextInt(0, player.PrimaryPosition == Position.ST ? 4 : 2);
+                        totalInternationalGoals += intGoals;
+                    }
+
+                    if (seasonIndex % 4 == 0 && endOverall >= 82)
+                    {
+                        totalInternationalCaps += rng.NextInt(4, 7);
+                        if (rng.NextFloat(0f, 1f) < 0.08f)
+                        {
+                            totalInternationalTrophies++;
+                        }
+                    }
+                }
+
+                // Late-career physical decline for age 32+
+                if (currentAge >= 32)
+                {
+                    var retirementSys = new RetirementSystem();
+                    abilities = retirementSys.ApplyLateCareerDecline(abilities, currentAge, rng);
+                }
+
                 // Adjust lifestyle proportionally to weekly income and net worth to prevent artificial bankruptcy
                 if (isFreeAgent)
                 {
@@ -415,6 +510,48 @@ namespace FootballLife.Simulation
 
             float careerAvgRating = totalAppearances > 0 ? (float)(sumRating / totalAppearances) : 6.0f;
 
+            int totalTrophies = totalLeagueTitles + totalDomesticCups + totalContinentalTitles + totalInternationalTrophies;
+            var legacySys = new LegacySystem();
+            int cleanSheets = (player.PrimaryPosition == Position.CB || player.PrimaryPosition == Position.FB || player.PrimaryPosition == Position.GK)
+                ? (int)(totalAppearances * 0.35)
+                : 0;
+
+            int careerScore = legacySys.CalculateCareerScore(
+                appearances: totalAppearances,
+                goals: totalGoals,
+                assists: totalAssists,
+                cleanSheets: cleanSheets,
+                internationalCaps: totalInternationalCaps,
+                internationalGoals: totalInternationalGoals,
+                leagueTitles: totalLeagueTitles,
+                continentalTitles: totalContinentalTitles,
+                domesticCups: totalDomesticCups,
+                internationalTrophies: totalInternationalTrophies,
+                peakOvr: peakOverall,
+                lifetimeEarnings: (long)totalEarnings);
+
+            var legacyGrade = legacySys.DetermineGrade(careerScore);
+            var legacy = new CareerLegacy(
+                lifetimeAppearances: totalAppearances,
+                lifetimeGoals: totalGoals,
+                lifetimeAssists: totalAssists,
+                lifetimeCleanSheets: cleanSheets,
+                internationalCaps: totalInternationalCaps,
+                internationalGoals: totalInternationalGoals,
+                leagueTitles: totalLeagueTitles,
+                continentalTitles: totalContinentalTitles,
+                domesticCups: totalDomesticCups,
+                internationalTrophies: totalInternationalTrophies,
+                lifetimeEarnings: (long)totalEarnings,
+                peakOverallRating: peakOverall,
+                seasonsPlayed: seasonRecords.Count,
+                careerScore: careerScore,
+                grade: legacyGrade,
+                isHallOfFameInductee: false,
+                trophies: null);
+
+            bool isHallOfFame = legacySys.IsEligibleForHallOfFame(legacy);
+
             return new CareerStatistics(
                 Seed: seed,
                 PlayerId: playerId,
@@ -434,7 +571,14 @@ namespace FootballLife.Simulation
                 PeakWeeklySalary: peakSalary,
                 BankruptcyOccurred: bankruptcyOccurred,
                 TransferCount: transferCount,
-                Seasons: seasonRecords);
+                Seasons: seasonRecords,
+                CommercialEarnings: totalCommercialEarnings,
+                TotalTrophies: totalTrophies,
+                InternationalCaps: totalInternationalCaps,
+                InternationalGoals: totalInternationalGoals,
+                CareerScore: careerScore,
+                LegacyGrade: legacyGrade,
+                IsHallOfFame: isHallOfFame);
         }
 
         private static Position PickPosition(SimulationRandom rng)

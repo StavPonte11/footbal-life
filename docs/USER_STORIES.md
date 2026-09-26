@@ -2009,6 +2009,50 @@ PHASE 5 COMPLETE (Career World):
   Milestone 5.3:    P5-007 (#167), P5-008 (#168), P5-009 (#169) (Endorsements, Career Longevity & Legacy) ✅ Complete
 ```
 
+---
+
+# PHASE 6: Polish, Balance & Release
+
+## MILESTONE 6.1 — Career Simulation Balance Pass & Content Expansion
+
+### Story P6-001: 10,000-Career Simulation Balance Pass ✅
+**Issue:** #171 | **Layer:** Simulation, Balance, Tests | **Status:** ✅ Complete
+
+> As a game designer and player, I want the multi-season career simulation to be balanced across 10,000 simulated careers so that progression curves, retirement ages, transfer frequencies, financial earnings, and legacy outcomes mirror authentic professional football without runaway feedback loops or economic distortions.
+
+**Acceptance Criteria:**
+- [x] Incorporate Phase 5 systems into `CareerSimulationEngine`:
+  - `RetirementSystem`: Age 32+ physical decline curve and retirement evaluation.
+  - `SponsorshipSystem`: Commercial deals and earnings based on player reputation.
+  - `LegacySystem`: Lifetime career scoring, legacy grades, and Hall of Fame eligibility.
+- [x] Update `CareerStatistics`, `AggregateReport`, and CLI output to track:
+  - Legacy Grade distributions (GOAT, Legend, Icon, Cult Hero, Journeyman, Underachiever).
+  - Hall of Fame induction rate.
+  - Commercial earnings vs wage earnings.
+- [x] Run full 10,000-career simulation pass with `--careers 10000 --parallel`.
+- [x] Validate distribution targets:
+  - Peak Overall: Mean between 66-72, Elite 85+ achieved by 1-5% of players, Max <= 94.
+  - Career Length: Mean 15-18 seasons, Retirement age ~33-36.
+  - Bankruptcy Rate: < 1.0%.
+  - Legacy Grades: GOAT (<1%), Legend (2-5%), Icon (10-15%), Cult Hero (20-30%), Journeyman (40-50%), Underachiever (5-15%).
+  - Hall of Fame Induction Rate: 3-7%.
+- [x] Automated balance unit tests in `FootballLife.Simulation.Tests` (`BalancePassTests.cs`).
+
+---
+
+### Story P6-004: Content Expansion — 100+ Life Events, 50+ Clubs, 10+ Leagues ✅
+**Issue:** #172 | **Layer:** Content, Data, Simulation, Tests | **Status:** ✅ Complete
+
+> As a footballer, I want rich, deep, and varied static content across world football so that every career feels distinct with authentic clubs across multiple European divisions, diverse leagues, and over 100 emergent life events and moral choices.
+
+**Acceptance Criteria:**
+- [x] Expand `content/data/leagues.json` to 11 leagues across England, Spain, Germany, Italy, and France across Tier 1, Tier 2, and Tier 3.
+- [x] Expand `content/data/clubs.json` to 66 clubs with diverse reputations, facility ratings, budgets, tactical identities, and stadiums.
+- [x] Expand `content/data/events.json` to 103 unique, narrative-rich life events across all categories (Media, Locker Room, Commercial, Personal/Family, Training, Lifestyle).
+- [x] Verify all content adheres to schemas in `content/data/schema/` with zero missing references or invalid fields.
+- [x] Content validation unit tests verifying 100+ events, 50+ clubs, and 10+ leagues load cleanly through `WorldDataLoader` and `LifeEventDataLoader` (`ContentExpansionTests.cs`).
+
+
 
 
 

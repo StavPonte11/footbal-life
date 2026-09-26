@@ -318,7 +318,7 @@ namespace FootballLife.Simulation.Tests
         // ─── P1-053: events.json Data File & Loader Tests ─────────────────────
 
         [Fact]
-        public void LifeEventDataLoader_EventsJson_ValidatesAll20EventsSuccessfully()
+        public void LifeEventDataLoader_EventsJson_ValidatesAllExpandedEventsSuccessfully()
         {
             string eventsPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "content", "data", "events.json");
 
@@ -333,7 +333,7 @@ namespace FootballLife.Simulation.Tests
             var result = LifeEventDataLoader.LoadFromFile(eventsPath);
 
             Assert.True(result.IsSuccess, $"Failed to load events.json: {string.Join("; ", result.Errors)}");
-            Assert.Equal(20, result.Events.Count);
+            Assert.True(result.Events.Count >= 100, $"Expected at least 100 events, found {result.Events.Count}");
 
             // Verify all categories represented
             var categories = new HashSet<EventCategory>();
