@@ -1160,6 +1160,9 @@ namespace FootballLife.Unity.Core.Bridge
                 return changeEvent;
             }
 
+            return null;
+        }
+
         // ─── Milestone 5.3: Endorsements, Retirement & Legacy ─────────────────
 
         public IReadOnlyList<SponsorshipDeal> GetAvailableSponsorshipOffers()
