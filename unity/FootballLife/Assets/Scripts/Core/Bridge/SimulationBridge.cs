@@ -1299,7 +1299,7 @@ namespace FootballLife.Unity.Core.Bridge
             var grade = _legacySystem.DetermineGrade(score);
 
             var legacy = new CareerLegacy(
-                apps, goals, assists, cleanSheets: 0, caps, intGoals,
+                apps, goals, assists, lifetimeCleanSheets: 0, caps, intGoals,
                 leagueTitles, contTitles, cups, intTrophies, earnings,
                 peakOvr, _currentSave.CurrentSeason, score, grade,
                 isHallOfFameInductee: false);

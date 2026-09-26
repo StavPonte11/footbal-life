@@ -21,7 +21,6 @@ namespace FootballLife.Unity.Core.Gameplay
         [SerializeField] private float _minShotSpeed = 18.0f; // m/s (~65 km/h)
         [SerializeField] private float _maxShotSpeed = 30.0f; // m/s (~108 km/h)
         [SerializeField] private float _maxSpinAngularVel = 10.0f; // rad/s
-        [SerializeField] private float _goalLineZ = 35.0f;
 
         private bool _isAiming;
         private Vector3 _calculatedVelocity;

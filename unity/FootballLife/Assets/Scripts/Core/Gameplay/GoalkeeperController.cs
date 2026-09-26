@@ -50,7 +50,7 @@ namespace FootballLife.Unity.Core.Gameplay
             EnsureRigBound();
             if (_ball == null)
             {
-                _ball = FindFirstObjectByType<BallController>();
+                _ball = FindAnyObjectByType<BallController>();
             }
         }
 

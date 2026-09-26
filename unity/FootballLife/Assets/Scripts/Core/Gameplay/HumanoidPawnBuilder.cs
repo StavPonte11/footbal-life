@@ -1,3 +1,4 @@
+#nullable enable
 using UnityEngine;
 
 namespace FootballLife.Unity.Core.Gameplay
