@@ -25,6 +25,7 @@ namespace FootballLife.Simulation
 
         public int MaxBreadcrumbs => _maxBreadcrumbs;
         public string? CrashDirectory => _crashDirectory;
+        public bool IsOptedOut { get; set; } = false;
 
         public CrashDiagnosticService(int maxBreadcrumbs = 30, string? crashDirectory = null)
         {
@@ -46,6 +47,8 @@ namespace FootballLife.Simulation
         /// </summary>
         public void AddBreadcrumb(DiagnosticBreadcrumbCategory category, string message, IReadOnlyDictionary<string, string>? data = null)
         {
+            if (IsOptedOut) return;
+
             var breadcrumb = DiagnosticBreadcrumb.Create(category, message, data);
 
             lock (_lock)
@@ -105,6 +108,12 @@ namespace FootballLife.Simulation
                 breadcrumbs: breadcrumbs
             );
 
+            // If user has opted out of crash diagnostics, do not persist or dispatch
+            if (IsOptedOut)
+            {
+                return report;
+            }
+
             // Persist report to offline disk storage if directory is configured
             if (!string.IsNullOrWhiteSpace(_crashDirectory))
             {
@@ -133,6 +142,35 @@ namespace FootballLife.Simulation
         }
 
         /// <summary>
+        /// Clears all offline stored crash report files from disk (GDPR right to erasure).
+        /// </summary>
+        public int ClearAllStoredReports()
+        {
+            if (string.IsNullOrWhiteSpace(_crashDirectory) || !Directory.Exists(_crashDirectory))
+            {
+                return 0;
+            }
+
+            int deleted = 0;
+            try
+            {
+                var files = Directory.GetFiles(_crashDirectory, "crash_*.json");
+                foreach (var file in files)
+                {
+                    try
+                    {
+                        File.Delete(file);
+                        deleted++;
+                    }
+                    catch { }
+                }
+            }
+            catch { }
+
+            return deleted;
+        }
+
+        /// <summary>
         /// Scans the crash directory for pending offline crash reports, invokes onDispatch for each,
         /// and deletes the processed file to ensure at-most-once telemetry delivery (#P7-702).
         /// </summary>
@@ -144,6 +182,12 @@ namespace FootballLife.Simulation
             }
 
             if (onDispatch == null) throw new ArgumentNullException(nameof(onDispatch));
+
+            if (IsOptedOut)
+            {
+                ClearAllStoredReports();
+                return 0;
+            }
 
             int count = 0;
             try

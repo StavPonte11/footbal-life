@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using FootballLife.Domain;
 
 namespace FootballLife.Simulation.Persistence
 {
@@ -109,8 +110,9 @@ namespace FootballLife.Simulation.Persistence
         public string CurrentTutorialStep { get; set; } = "Welcome";
         public List<string> CompletedTutorialSteps { get; set; } = new List<string>();
 
-        // Analytics & Telemetry Preferences (#P6-003)
+        // Analytics & Telemetry Preferences (#P6-003, #P7-802)
         public bool TelemetryOptOut { get; set; }
+        public PrivacyConsentState ConsentState { get; set; } = new PrivacyConsentState();
 
         // Monetization & Entitlements (#P6-008)
         public int CareerRewindTokens { get; set; } = 1;

@@ -145,7 +145,8 @@ namespace FootballLife.Simulation.Tests
             Assert.Equal(2, restored.Breadcrumbs.Count);
             Assert.Equal(DiagnosticBreadcrumbCategory.Network, restored.Breadcrumbs[0].Category);
             Assert.Equal("Connecting to cloud", restored.Breadcrumbs[0].Message);
-            Assert.Equal("1", restored.Breadcrumbs[0].Data["slot"]);
+            Assert.NotNull(restored.Breadcrumbs[0].Data);
+            Assert.Equal("1", restored.Breadcrumbs[0].Data!["slot"]);
         }
 
         [Fact]
