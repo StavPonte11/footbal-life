@@ -3,7 +3,7 @@
   "leagues": [
     {
       "id": "e1000000-0000-0000-0000-000000000001",
-      "name": "Premier League",
+      "name": "Crown Premiership",
       "countryCode": "ENG",
       "tier": 1,
       "clubCount": 20,
@@ -13,7 +13,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000011",
-      "name": "EFL Championship",
+      "name": "Crown Championship",
       "countryCode": "ENG",
       "tier": 2,
       "clubCount": 24,
@@ -23,7 +23,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000012",
-      "name": "EFL League One",
+      "name": "Crown Division 1",
       "countryCode": "ENG",
       "tier": 3,
       "clubCount": 24,
@@ -33,7 +33,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000002",
-      "name": "La Liga",
+      "name": "Liga de Honor",
       "countryCode": "ESP",
       "tier": 1,
       "clubCount": 20,
@@ -43,7 +43,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000021",
-      "name": "Segunda División",
+      "name": "Liga Plata",
       "countryCode": "ESP",
       "tier": 2,
       "clubCount": 22,
@@ -53,7 +53,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000003",
-      "name": "Bundesliga",
+      "name": "Deutsche Liga A",
       "countryCode": "DEU",
       "tier": 1,
       "clubCount": 18,
@@ -63,7 +63,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000031",
-      "name": "2. Bundesliga",
+      "name": "Deutsche Liga B",
       "countryCode": "DEU",
       "tier": 2,
       "clubCount": 18,
@@ -73,7 +73,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000004",
-      "name": "Serie A",
+      "name": "Serie Campionato",
       "countryCode": "ITA",
       "tier": 1,
       "clubCount": 20,
@@ -83,7 +83,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000041",
-      "name": "Serie B",
+      "name": "Serie Cadetti",
       "countryCode": "ITA",
       "tier": 2,
       "clubCount": 20,
@@ -93,7 +93,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000005",
-      "name": "Ligue 1",
+      "name": "Ligue Première",
       "countryCode": "FRA",
       "tier": 1,
       "clubCount": 18,
@@ -103,7 +103,7 @@
     },
     {
       "id": "e1000000-0000-0000-0000-000000000051",
-      "name": "Ligue 2",
+      "name": "Ligue Deuxième",
       "countryCode": "FRA",
       "tier": 2,
       "clubCount": 18,

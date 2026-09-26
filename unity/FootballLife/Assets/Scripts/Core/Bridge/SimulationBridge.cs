@@ -904,25 +904,25 @@ namespace FootballLife.Unity.Core.Bridge
 
             var clubs = new List<Club>
             {
-                Club.Create("Arsenal FC", "ARS", l1.Id, 86, new ClubFinances(250000000m, 180000m), 5, TacticalIdentity.Possession),
-                Club.Create("Manchester City", "MCI", l1.Id, 89, new ClubFinances(300000000m, 220000m), 5, TacticalIdentity.Possession),
-                Club.Create("Chelsea FC", "CHE", l1.Id, 82, new ClubFinances(200000000m, 160000m), 4, TacticalIdentity.HighPress),
-                Club.Create("Aston Villa", "AVL", l1.Id, 78, new ClubFinances(120000000m, 95000m), 4, TacticalIdentity.HighPress),
+                Club.Create("North London Red", "NLR", l1.Id, 86, new ClubFinances(250000000m, 180000m), 5, TacticalIdentity.Possession),
+                Club.Create("Eastland City", "EAC", l1.Id, 89, new ClubFinances(300000000m, 220000m), 5, TacticalIdentity.Possession),
+                Club.Create("West London Blue", "WLB", l1.Id, 82, new ClubFinances(200000000m, 160000m), 4, TacticalIdentity.HighPress),
+                Club.Create("Birmingham Claret", "BMC", l1.Id, 78, new ClubFinances(120000000m, 95000m), 4, TacticalIdentity.HighPress),
 
-                Club.Create("Leeds United", "LEE", l2.Id, 66, new ClubFinances(40000000m, 45000m), 3, TacticalIdentity.HighPress),
-                Club.Create("Sheffield United", "SHU", l2.Id, 63, new ClubFinances(35000000m, 40000m), 3, TacticalIdentity.Direct),
-                Club.Create("Bristol City", "BRC", l2.Id, 56, new ClubFinances(20000000m, 28000m), 3, TacticalIdentity.Possession),
+                Club.Create("Yorkshire White", "YKW", l2.Id, 66, new ClubFinances(40000000m, 45000m), 3, TacticalIdentity.HighPress),
+                Club.Create("South Yorkshire Red", "SYR", l2.Id, 63, new ClubFinances(35000000m, 40000m), 3, TacticalIdentity.Direct),
+                Club.Create("Avon City", "AVC", l2.Id, 56, new ClubFinances(20000000m, 28000m), 3, TacticalIdentity.Possession),
                 Club.Create("Northfield Town", "NOR", l2.Id, 54, new ClubFinances(18000000m, 24000m), 2, TacticalIdentity.Counter),
 
-                Club.Create("Portsmouth FC", "POR", l3.Id, 50, new ClubFinances(12000000m, 14000m), 2, TacticalIdentity.Direct),
-                Club.Create("Derby County", "DER", l3.Id, 48, new ClubFinances(10000000m, 12000m), 2, TacticalIdentity.Possession),
-                Club.Create("Bolton Wanderers", "BOL", l3.Id, 46, new ClubFinances(8000000m, 9500m), 2, TacticalIdentity.HighPress),
-                Club.Create("Reading FC", "REA", l3.Id, 44, new ClubFinances(7000000m, 8000m), 2, TacticalIdentity.Counter),
+                Club.Create("South Coast Blues", "SCB", l3.Id, 50, new ClubFinances(12000000m, 14000m), 2, TacticalIdentity.Direct),
+                Club.Create("Derbyshire Rams", "DBR", l3.Id, 48, new ClubFinances(10000000m, 12000m), 2, TacticalIdentity.Possession),
+                Club.Create("Lancashire White", "LNW", l3.Id, 46, new ClubFinances(8000000m, 9500m), 2, TacticalIdentity.HighPress),
+                Club.Create("Thames Valley Royals", "TVR", l3.Id, 44, new ClubFinances(7000000m, 8000m), 2, TacticalIdentity.Counter),
 
-                Club.Create("Wrexham AFC", "WRX", l4.Id, 42, new ClubFinances(6000000m, 7000m), 2, TacticalIdentity.Direct),
-                Club.Create("Stockport County", "STK", l4.Id, 40, new ClubFinances(4500000m, 5000m), 1, TacticalIdentity.Possession),
-                Club.Create("Salford City", "SAL", l4.Id, 37, new ClubFinances(3500000m, 3800m), 1, TacticalIdentity.HighPress),
-                Club.Create("Accrington Stanley", "ACC", l4.Id, 34, new ClubFinances(2500000m, 2500m), 1, TacticalIdentity.Counter)
+                Club.Create("Red Dragons", "RDG", l4.Id, 42, new ClubFinances(6000000m, 7000m), 2, TacticalIdentity.Direct),
+                Club.Create("Cheshire Town", "CHT", l4.Id, 40, new ClubFinances(4500000m, 5000m), 1, TacticalIdentity.Possession),
+                Club.Create("Riverway FC", "RWY", l4.Id, 37, new ClubFinances(3500000m, 3800m), 1, TacticalIdentity.HighPress),
+                Club.Create("Crown Valley", "CRV", l4.Id, 34, new ClubFinances(2500000m, 2500m), 1, TacticalIdentity.Counter)
             };
 
             foreach (var club in clubs)

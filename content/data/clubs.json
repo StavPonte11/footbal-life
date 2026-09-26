@@ -3,8 +3,8 @@
   "clubs": [
     {
       "id": "c1000000-0000-0000-0000-000000000001",
-      "name": "Arsenal",
-      "shortName": "ARS",
+      "name": "North London Red",
+      "shortName": "NLR",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 88,
       "facilityRating": 5,
@@ -14,12 +14,12 @@
         "transferBudget": 85000000
       },
       "stadium": {
-        "name": "Emirates Stadium",
+        "name": "Ashburton Grove",
         "capacity": 60704,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/ars",
+        "logoAssetKey": "badges/nlr",
         "homeKit": {
           "primaryHex": "#EF0107",
           "secondaryHex": "#FFFFFF",
@@ -37,7 +37,7 @@
         "expectationRating": 88
       },
       "board": {
-        "ownerName": "Stan Kroenke",
+        "ownerName": "Arthur Vance",
         "patience": "Balanced",
         "financialAmbition": 4
       },
@@ -50,8 +50,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000002",
-      "name": "Manchester City",
-      "shortName": "MCI",
+      "name": "Eastland City",
+      "shortName": "EAC",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 94,
       "facilityRating": 5,
@@ -61,12 +61,12 @@
         "transferBudget": 150000000
       },
       "stadium": {
-        "name": "Etihad Stadium",
+        "name": "Eastland Arena",
         "capacity": 53400,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/mci",
+        "logoAssetKey": "badges/eac",
         "homeKit": {
           "primaryHex": "#6CABDD",
           "secondaryHex": "#FFFFFF",
@@ -84,7 +84,7 @@
         "expectationRating": 95
       },
       "board": {
-        "ownerName": "City Football Group",
+        "ownerName": "Emirate Sports Holdings",
         "patience": "Patient",
         "financialAmbition": 5
       },
@@ -97,8 +97,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000008",
-      "name": "Liverpool",
-      "shortName": "LIV",
+      "name": "Merseyside Red",
+      "shortName": "MSR",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 91,
       "facilityRating": 5,
@@ -108,12 +108,12 @@
         "transferBudget": 110000000
       },
       "stadium": {
-        "name": "Anfield",
+        "name": "Anfield Road Ground",
         "capacity": 61276,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/liv",
+        "logoAssetKey": "badges/msr",
         "homeKit": {
           "primaryHex": "#C8102E",
           "secondaryHex": "#FFFFFF",
@@ -131,7 +131,7 @@
         "expectationRating": 92
       },
       "board": {
-        "ownerName": "Fenway Sports Group",
+        "ownerName": "Beacon Capital Group",
         "patience": "Patient",
         "financialAmbition": 4
       },
@@ -144,8 +144,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000009",
-      "name": "Chelsea",
-      "shortName": "CHE",
+      "name": "West London Blue",
+      "shortName": "WLB",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 85,
       "facilityRating": 5,
@@ -155,12 +155,12 @@
         "transferBudget": 95000000
       },
       "stadium": {
-        "name": "Stamford Bridge",
+        "name": "Kings Road Bridge",
         "capacity": 40341,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/che",
+        "logoAssetKey": "badges/wlb",
         "homeKit": {
           "primaryHex": "#034694",
           "secondaryHex": "#FFFFFF",
@@ -178,7 +178,7 @@
         "expectationRating": 85
       },
       "board": {
-        "ownerName": "BlueCo",
+        "ownerName": "Atlantic Crest Partners",
         "patience": "Impatient",
         "financialAmbition": 5
       },
@@ -191,8 +191,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000010",
-      "name": "Manchester United",
-      "shortName": "MUN",
+      "name": "Manchester Red",
+      "shortName": "MNR",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 86,
       "facilityRating": 5,
@@ -202,12 +202,12 @@
         "transferBudget": 120000000
       },
       "stadium": {
-        "name": "Old Trafford",
+        "name": "Trafford Park",
         "capacity": 74310,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/mun",
+        "logoAssetKey": "badges/mnr",
         "homeKit": {
           "primaryHex": "#DA291C",
           "secondaryHex": "#FBE122",
@@ -225,7 +225,7 @@
         "expectationRating": 89
       },
       "board": {
-        "ownerName": "INEOS & Glazers",
+        "ownerName": "Imperial Petrochemical",
         "patience": "Balanced",
         "financialAmbition": 4
       },
@@ -238,8 +238,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000011",
-      "name": "Tottenham Hotspur",
-      "shortName": "TOT",
+      "name": "North London White",
+      "shortName": "NLW",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 83,
       "facilityRating": 5,
@@ -249,12 +249,12 @@
         "transferBudget": 70000000
       },
       "stadium": {
-        "name": "Tottenham Hotspur Stadium",
+        "name": "White Hart Arena",
         "capacity": 62850,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/tot",
+        "logoAssetKey": "badges/nlw",
         "homeKit": {
           "primaryHex": "#132257",
           "secondaryHex": "#FFFFFF",
@@ -272,7 +272,7 @@
         "expectationRating": 82
       },
       "board": {
-        "ownerName": "ENIC Group",
+        "ownerName": "Harrington Trust",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -285,8 +285,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000012",
-      "name": "Newcastle United",
-      "shortName": "NEW",
+      "name": "Tyneside Magpies",
+      "shortName": "TYN",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 81,
       "facilityRating": 4,
@@ -296,12 +296,12 @@
         "transferBudget": 65000000
       },
       "stadium": {
-        "name": "St James' Park",
+        "name": "St. Jude's Park",
         "capacity": 52305,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/new",
+        "logoAssetKey": "badges/tyn",
         "homeKit": {
           "primaryHex": "#000000",
           "secondaryHex": "#FFFFFF",
@@ -319,7 +319,7 @@
         "expectationRating": 80
       },
       "board": {
-        "ownerName": "PIF",
+        "ownerName": "Gulf Sovereign Trust",
         "patience": "Patient",
         "financialAmbition": 4
       },
@@ -332,8 +332,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000013",
-      "name": "Aston Villa",
-      "shortName": "AVL",
+      "name": "Birmingham Claret",
+      "shortName": "BMC",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 82,
       "facilityRating": 4,
@@ -343,12 +343,12 @@
         "transferBudget": 55000000
       },
       "stadium": {
-        "name": "Villa Park",
+        "name": "Aston Grounds",
         "capacity": 42682,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/avl",
+        "logoAssetKey": "badges/bmc",
         "homeKit": {
           "primaryHex": "#670E36",
           "secondaryHex": "#95BFE5",
@@ -366,7 +366,7 @@
         "expectationRating": 81
       },
       "board": {
-        "ownerName": "V Sports",
+        "ownerName": "Apex Global Sports",
         "patience": "Balanced",
         "financialAmbition": 4
       },
@@ -379,8 +379,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000014",
-      "name": "Brighton & Hove Albion",
-      "shortName": "BHA",
+      "name": "South Coast Seagulls",
+      "shortName": "SCS",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 78,
       "facilityRating": 4,
@@ -390,12 +390,12 @@
         "transferBudget": 45000000
       },
       "stadium": {
-        "name": "Amex Stadium",
+        "name": "Falmer Community Stadium",
         "capacity": 31800,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/bha",
+        "logoAssetKey": "badges/scs",
         "homeKit": {
           "primaryHex": "#0057B8",
           "secondaryHex": "#FFFFFF",
@@ -413,7 +413,7 @@
         "expectationRating": 75
       },
       "board": {
-        "ownerName": "Tony Bloom",
+        "ownerName": "Algorithmic Ventures",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -426,8 +426,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000015",
-      "name": "West Ham United",
-      "shortName": "WHU",
+      "name": "East London Hammers",
+      "shortName": "ELH",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 77,
       "facilityRating": 4,
@@ -437,12 +437,12 @@
         "transferBudget": 40000000
       },
       "stadium": {
-        "name": "London Stadium",
+        "name": "Stratford Olympic Bowl",
         "capacity": 62500,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/whu",
+        "logoAssetKey": "badges/elh",
         "homeKit": {
           "primaryHex": "#7A263A",
           "secondaryHex": "#1BB1E7",
@@ -460,7 +460,7 @@
         "expectationRating": 76
       },
       "board": {
-        "ownerName": "David Sullivan",
+        "ownerName": "Thames Commercial Media",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -473,8 +473,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000016",
-      "name": "Everton",
-      "shortName": "EVE",
+      "name": "Merseyside Blue",
+      "shortName": "MSB",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 74,
       "facilityRating": 3,
@@ -484,12 +484,12 @@
         "transferBudget": 30000000
       },
       "stadium": {
-        "name": "Goodison Park",
+        "name": "Walton Park",
         "capacity": 39572,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/eve",
+        "logoAssetKey": "badges/msb",
         "homeKit": {
           "primaryHex": "#003399",
           "secondaryHex": "#FFFFFF",
@@ -507,7 +507,7 @@
         "expectationRating": 72
       },
       "board": {
-        "ownerName": "The Friedkin Group",
+        "ownerName": "Lone Star Entertainment",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -520,8 +520,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000017",
-      "name": "Wolverhampton Wanderers",
-      "shortName": "WOL",
+      "name": "Black Country Gold",
+      "shortName": "BCG",
       "leagueId": "e1000000-0000-0000-0000-000000000001",
       "reputationRating": 73,
       "facilityRating": 3,
@@ -531,12 +531,12 @@
         "transferBudget": 28000000
       },
       "stadium": {
-        "name": "Molineux",
+        "name": "Waterloo Grounds",
         "capacity": 32050,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/wol",
+        "logoAssetKey": "badges/bcg",
         "homeKit": {
           "primaryHex": "#FDB913",
           "secondaryHex": "#231F20",
@@ -554,7 +554,7 @@
         "expectationRating": 71
       },
       "board": {
-        "ownerName": "Fosun International",
+        "ownerName": "Golden Dragon Holdings",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -567,8 +567,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000018",
-      "name": "Leeds United",
-      "shortName": "LEE",
+      "name": "Yorkshire White",
+      "shortName": "YKW",
       "leagueId": "e1000000-0000-0000-0000-000000000011",
       "reputationRating": 72,
       "facilityRating": 4,
@@ -578,12 +578,12 @@
         "transferBudget": 22000000
       },
       "stadium": {
-        "name": "Elland Road",
+        "name": "Elland Park",
         "capacity": 37890,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/lee",
+        "logoAssetKey": "badges/ykw",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#0000FF",
@@ -601,7 +601,7 @@
         "expectationRating": 76
       },
       "board": {
-        "ownerName": "49ers Enterprises",
+        "ownerName": "Frontier Equity",
         "patience": "Balanced",
         "financialAmbition": 4
       },
@@ -614,8 +614,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000019",
-      "name": "Leicester City",
-      "shortName": "LEI",
+      "name": "Midlands Blue",
+      "shortName": "MDB",
       "leagueId": "e1000000-0000-0000-0000-000000000011",
       "reputationRating": 71,
       "facilityRating": 4,
@@ -625,12 +625,12 @@
         "transferBudget": 20000000
       },
       "stadium": {
-        "name": "King Power Stadium",
+        "name": "Royal Walk Stadium",
         "capacity": 32261,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/lei",
+        "logoAssetKey": "badges/mdb",
         "homeKit": {
           "primaryHex": "#003090",
           "secondaryHex": "#FFFFFF",
@@ -648,7 +648,7 @@
         "expectationRating": 75
       },
       "board": {
-        "ownerName": "King Power",
+        "ownerName": "Crown Duty Free",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -661,8 +661,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000020",
-      "name": "Southampton",
-      "shortName": "SOU",
+      "name": "Solent Saints",
+      "shortName": "SLS",
       "leagueId": "e1000000-0000-0000-0000-000000000011",
       "reputationRating": 69,
       "facilityRating": 4,
@@ -672,12 +672,12 @@
         "transferBudget": 16000000
       },
       "stadium": {
-        "name": "St Mary's Stadium",
+        "name": "St. Jude's Coast",
         "capacity": 32384,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/sou",
+        "logoAssetKey": "badges/sls",
         "homeKit": {
           "primaryHex": "#D71920",
           "secondaryHex": "#FFFFFF",
@@ -695,7 +695,7 @@
         "expectationRating": 72
       },
       "board": {
-        "ownerName": "Sport Republic",
+        "ownerName": "Balkan Media Consortium",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -708,8 +708,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000021",
-      "name": "Sunderland",
-      "shortName": "SUN",
+      "name": "Wearside Red",
+      "shortName": "WSR",
       "leagueId": "e1000000-0000-0000-0000-000000000011",
       "reputationRating": 67,
       "facilityRating": 3,
@@ -719,12 +719,12 @@
         "transferBudget": 12000000
       },
       "stadium": {
-        "name": "Stadium of Light",
+        "name": "Beacon of Light",
         "capacity": 49000,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/sun",
+        "logoAssetKey": "badges/wsr",
         "homeKit": {
           "primaryHex": "#EB172B",
           "secondaryHex": "#FFFFFF",
@@ -742,7 +742,7 @@
         "expectationRating": 73
       },
       "board": {
-        "ownerName": "Kyril Louis-Dreyfus",
+        "ownerName": "Riviera Heritage Group",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -755,8 +755,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000022",
-      "name": "Norwich City",
-      "shortName": "NOR",
+      "name": "East Anglia Yellow",
+      "shortName": "EAY",
       "leagueId": "e1000000-0000-0000-0000-000000000011",
       "reputationRating": 66,
       "facilityRating": 3,
@@ -766,12 +766,12 @@
         "transferBudget": 10000000
       },
       "stadium": {
-        "name": "Carrow Road",
+        "name": "Wensum Meadow",
         "capacity": 27244,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/nor",
+        "logoAssetKey": "badges/eay",
         "homeKit": {
           "primaryHex": "#FFF200",
           "secondaryHex": "#00A651",
@@ -789,7 +789,7 @@
         "expectationRating": 69
       },
       "board": {
-        "ownerName": "Delia Smith & Joint",
+        "ownerName": "Carrow Holdings",
         "patience": "Balanced",
         "financialAmbition": 2
       },
@@ -802,8 +802,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000023",
-      "name": "Middlesbrough",
-      "shortName": "MID",
+      "name": "Teesside Red",
+      "shortName": "TSR",
       "leagueId": "e1000000-0000-0000-0000-000000000011",
       "reputationRating": 65,
       "facilityRating": 3,
@@ -813,12 +813,12 @@
         "transferBudget": 9000000
       },
       "stadium": {
-        "name": "Riverside Stadium",
+        "name": "Riverside Arena",
         "capacity": 34742,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/mid",
+        "logoAssetKey": "badges/tsr",
         "homeKit": {
           "primaryHex": "#E00000",
           "secondaryHex": "#FFFFFF",
@@ -836,7 +836,7 @@
         "expectationRating": 68
       },
       "board": {
-        "ownerName": "Steve Gibson",
+        "ownerName": "Industrial Logistics Trust",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -849,8 +849,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000024",
-      "name": "West Bromwich Albion",
-      "shortName": "WBA",
+      "name": "Black Country Stripes",
+      "shortName": "BCS",
       "leagueId": "e1000000-0000-0000-0000-000000000011",
       "reputationRating": 65,
       "facilityRating": 3,
@@ -860,12 +860,12 @@
         "transferBudget": 8500000
       },
       "stadium": {
-        "name": "The Hawthorns",
+        "name": "Hawthorn Hill",
         "capacity": 26850,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/wba",
+        "logoAssetKey": "badges/bcs",
         "homeKit": {
           "primaryHex": "#091442",
           "secondaryHex": "#FFFFFF",
@@ -883,7 +883,7 @@
         "expectationRating": 68
       },
       "board": {
-        "ownerName": "Shilen Patel",
+        "ownerName": "Global Commerce Group",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -896,8 +896,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000025",
-      "name": "Watford",
-      "shortName": "WAT",
+      "name": "Hertfordshire Hornets",
+      "shortName": "HFH",
       "leagueId": "e1000000-0000-0000-0000-000000000011",
       "reputationRating": 64,
       "facilityRating": 3,
@@ -907,12 +907,12 @@
         "transferBudget": 8000000
       },
       "stadium": {
-        "name": "Vicarage Road",
+        "name": "Vicarage Way",
         "capacity": 22200,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/wat",
+        "logoAssetKey": "badges/hfh",
         "homeKit": {
           "primaryHex": "#FBEE23",
           "secondaryHex": "#ED2127",
@@ -930,7 +930,7 @@
         "expectationRating": 67
       },
       "board": {
-        "ownerName": "Gino Pozzo",
+        "ownerName": "Lombardy Sports Trust",
         "patience": "Impatient",
         "financialAmbition": 3
       },
@@ -943,8 +943,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000026",
-      "name": "Bolton Wanderers",
-      "shortName": "BOL",
+      "name": "Lancashire White",
+      "shortName": "LNW",
       "leagueId": "e1000000-0000-0000-0000-000000000012",
       "reputationRating": 58,
       "facilityRating": 3,
@@ -954,12 +954,12 @@
         "transferBudget": 3000000
       },
       "stadium": {
-        "name": "Toughsheet Community Stadium",
+        "name": "Burnden Way",
         "capacity": 28723,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/bol",
+        "logoAssetKey": "badges/lnw",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#1E2B37",
@@ -977,7 +977,7 @@
         "expectationRating": 62
       },
       "board": {
-        "ownerName": "Football Ventures",
+        "ownerName": "Northern Valley Sports",
         "patience": "Patient",
         "financialAmbition": 2
       },
@@ -990,8 +990,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000027",
-      "name": "Portsmouth",
-      "shortName": "POR",
+      "name": "South Coast Blues",
+      "shortName": "SCB",
       "leagueId": "e1000000-0000-0000-0000-000000000012",
       "reputationRating": 57,
       "facilityRating": 2,
@@ -1001,12 +1001,12 @@
         "transferBudget": 2800000
       },
       "stadium": {
-        "name": "Fratton Park",
+        "name": "Fratton Grounds",
         "capacity": 20688,
         "pitchQuality": 2
       },
       "visuals": {
-        "logoAssetKey": "badges/por",
+        "logoAssetKey": "badges/scb",
         "homeKit": {
           "primaryHex": "#001489",
           "secondaryHex": "#FFFFFF",
@@ -1024,7 +1024,7 @@
         "expectationRating": 63
       },
       "board": {
-        "ownerName": "Tornante Company",
+        "ownerName": "Pacific Media Venture",
         "patience": "Patient",
         "financialAmbition": 2
       },
@@ -1037,8 +1037,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000028",
-      "name": "Derby County",
-      "shortName": "DER",
+      "name": "Derbyshire Rams",
+      "shortName": "DBR",
       "leagueId": "e1000000-0000-0000-0000-000000000012",
       "reputationRating": 59,
       "facilityRating": 3,
@@ -1048,12 +1048,12 @@
         "transferBudget": 3500000
       },
       "stadium": {
-        "name": "Pride Park",
+        "name": "Pride Arena",
         "capacity": 33597,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/der",
+        "logoAssetKey": "badges/dbr",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#000000",
@@ -1071,7 +1071,7 @@
         "expectationRating": 64
       },
       "board": {
-        "ownerName": "David Clowes",
+        "ownerName": "Peak District Property",
         "patience": "Balanced",
         "financialAmbition": 2
       },
@@ -1084,8 +1084,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000029",
-      "name": "Reading",
-      "shortName": "REA",
+      "name": "Thames Valley Royals",
+      "shortName": "TVR",
       "leagueId": "e1000000-0000-0000-0000-000000000012",
       "reputationRating": 54,
       "facilityRating": 2,
@@ -1095,12 +1095,12 @@
         "transferBudget": 2000000
       },
       "stadium": {
-        "name": "Select Car Leasing Stadium",
+        "name": "Madejski Park",
         "capacity": 24161,
         "pitchQuality": 2
       },
       "visuals": {
-        "logoAssetKey": "badges/rea",
+        "logoAssetKey": "badges/tvr",
         "homeKit": {
           "primaryHex": "#004494",
           "secondaryHex": "#FFFFFF",
@@ -1118,7 +1118,7 @@
         "expectationRating": 58
       },
       "board": {
-        "ownerName": "Redwood Group",
+        "ownerName": "Redwood Trust",
         "patience": "Balanced",
         "financialAmbition": 2
       },
@@ -1131,8 +1131,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000003",
-      "name": "Real Madrid",
-      "shortName": "RMA",
+      "name": "Madrid Royal",
+      "shortName": "MDR",
       "leagueId": "e1000000-0000-0000-0000-000000000002",
       "reputationRating": 97,
       "facilityRating": 5,
@@ -1142,12 +1142,12 @@
         "transferBudget": 120000000
       },
       "stadium": {
-        "name": "Santiago Bernabeu",
+        "name": "Castellana Arena",
         "capacity": 81044,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/rma",
+        "logoAssetKey": "badges/mdr",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#410099",
@@ -1165,7 +1165,7 @@
         "expectationRating": 98
       },
       "board": {
-        "ownerName": "Florentino Perez",
+        "ownerName": "Socio Board",
         "patience": "Impatient",
         "financialAmbition": 5
       },
@@ -1178,8 +1178,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000004",
-      "name": "Barcelona",
-      "shortName": "FCB",
+      "name": "Catalunya FC",
+      "shortName": "CAT",
       "leagueId": "e1000000-0000-0000-0000-000000000002",
       "reputationRating": 93,
       "facilityRating": 5,
@@ -1189,12 +1189,12 @@
         "transferBudget": 75000000
       },
       "stadium": {
-        "name": "Camp Nou",
+        "name": "Les Corts Coliseum",
         "capacity": 99354,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/fcb",
+        "logoAssetKey": "badges/cat",
         "homeKit": {
           "primaryHex": "#004D98",
           "secondaryHex": "#A50044",
@@ -1212,7 +1212,7 @@
         "expectationRating": 94
       },
       "board": {
-        "ownerName": "Joan Laporta",
+        "ownerName": "Socio Assembly",
         "patience": "Balanced",
         "financialAmbition": 4
       },
@@ -1225,8 +1225,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000030",
-      "name": "Atletico Madrid",
-      "shortName": "ATM",
+      "name": "Madrid Colchoneros",
+      "shortName": "MDC",
       "leagueId": "e1000000-0000-0000-0000-000000000002",
       "reputationRating": 89,
       "facilityRating": 5,
@@ -1236,12 +1236,12 @@
         "transferBudget": 80000000
       },
       "stadium": {
-        "name": "Metropolitano",
+        "name": "Estadio Canillejas",
         "capacity": 70460,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/atm",
+        "logoAssetKey": "badges/mdc",
         "homeKit": {
           "primaryHex": "#CB3524",
           "secondaryHex": "#FFFFFF",
@@ -1259,7 +1259,7 @@
         "expectationRating": 88
       },
       "board": {
-        "ownerName": "Enrique Cerezo",
+        "ownerName": "Iberian Cinema Group",
         "patience": "Patient",
         "financialAmbition": 4
       },
@@ -1272,8 +1272,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000031",
-      "name": "Athletic Bilbao",
-      "shortName": "ATH",
+      "name": "Bilbao Lions",
+      "shortName": "BIO",
       "leagueId": "e1000000-0000-0000-0000-000000000002",
       "reputationRating": 82,
       "facilityRating": 4,
@@ -1283,12 +1283,12 @@
         "transferBudget": 45000000
       },
       "stadium": {
-        "name": "San Mames",
+        "name": "Catedral de Nervion",
         "capacity": 53289,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/ath",
+        "logoAssetKey": "badges/bio",
         "homeKit": {
           "primaryHex": "#EE2524",
           "secondaryHex": "#FFFFFF",
@@ -1306,7 +1306,7 @@
         "expectationRating": 83
       },
       "board": {
-        "ownerName": "Jon Uriarte",
+        "ownerName": "Basque Members Guild",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -1319,8 +1319,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000032",
-      "name": "Real Sociedad",
-      "shortName": "RSO",
+      "name": "Donostia Blue",
+      "shortName": "DON",
       "leagueId": "e1000000-0000-0000-0000-000000000002",
       "reputationRating": 81,
       "facilityRating": 4,
@@ -1330,12 +1330,12 @@
         "transferBudget": 40000000
       },
       "stadium": {
-        "name": "Reale Arena",
+        "name": "Anoeta Grounds",
         "capacity": 39313,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/rso",
+        "logoAssetKey": "badges/don",
         "homeKit": {
           "primaryHex": "#0055A5",
           "secondaryHex": "#FFFFFF",
@@ -1353,7 +1353,7 @@
         "expectationRating": 80
       },
       "board": {
-        "ownerName": "Jokin Aperribay",
+        "ownerName": "Cantabrian Tech Trust",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -1366,8 +1366,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000033",
-      "name": "Real Betis",
-      "shortName": "BET",
+      "name": "Sevilla Verdiblanco",
+      "shortName": "SVV",
       "leagueId": "e1000000-0000-0000-0000-000000000002",
       "reputationRating": 80,
       "facilityRating": 4,
@@ -1377,12 +1377,12 @@
         "transferBudget": 38000000
       },
       "stadium": {
-        "name": "Benito Villamarin",
+        "name": "Heliopolis Park",
         "capacity": 60721,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/bet",
+        "logoAssetKey": "badges/svv",
         "homeKit": {
           "primaryHex": "#0BB364",
           "secondaryHex": "#FFFFFF",
@@ -1400,7 +1400,7 @@
         "expectationRating": 79
       },
       "board": {
-        "ownerName": "Angel Haro",
+        "ownerName": "Andalusian Solar",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -1413,8 +1413,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000034",
-      "name": "Villarreal",
-      "shortName": "VIL",
+      "name": "Castellon Yellow",
+      "shortName": "CSY",
       "leagueId": "e1000000-0000-0000-0000-000000000002",
       "reputationRating": 79,
       "facilityRating": 4,
@@ -1424,12 +1424,12 @@
         "transferBudget": 35000000
       },
       "stadium": {
-        "name": "Estadio de la Ceramica",
+        "name": "Ceramic Park",
         "capacity": 23500,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/vil",
+        "logoAssetKey": "badges/csy",
         "homeKit": {
           "primaryHex": "#FFF000",
           "secondaryHex": "#0055A5",
@@ -1447,7 +1447,7 @@
         "expectationRating": 78
       },
       "board": {
-        "ownerName": "Fernando Roig",
+        "ownerName": "Roig Industrial",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -1460,8 +1460,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000035",
-      "name": "Sevilla",
-      "shortName": "SEV",
+      "name": "Sevilla White",
+      "shortName": "SVW",
       "leagueId": "e1000000-0000-0000-0000-000000000002",
       "reputationRating": 78,
       "facilityRating": 4,
@@ -1471,12 +1471,12 @@
         "transferBudget": 34000000
       },
       "stadium": {
-        "name": "Ramon Sanchez-Pizjuan",
+        "name": "Nervion Stadium",
         "capacity": 43883,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/sev",
+        "logoAssetKey": "badges/svw",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#D40026",
@@ -1494,7 +1494,7 @@
         "expectationRating": 82
       },
       "board": {
-        "ownerName": "Jose Maria del Nido",
+        "ownerName": "Nervion Trust",
         "patience": "Impatient",
         "financialAmbition": 3
       },
@@ -1507,8 +1507,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000036",
-      "name": "Espanyol",
-      "shortName": "ESP",
+      "name": "Barcelona Pericos",
+      "shortName": "BCP",
       "leagueId": "e1000000-0000-0000-0000-000000000021",
       "reputationRating": 71,
       "facilityRating": 4,
@@ -1518,12 +1518,12 @@
         "transferBudget": 14000000
       },
       "stadium": {
-        "name": "Stage Front Stadium",
+        "name": "Cornella Arena",
         "capacity": 40000,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/esp",
+        "logoAssetKey": "badges/bcp",
         "homeKit": {
           "primaryHex": "#007FC8",
           "secondaryHex": "#FFFFFF",
@@ -1541,7 +1541,7 @@
         "expectationRating": 72
       },
       "board": {
-        "ownerName": "Rastar Group",
+        "ownerName": "Eastern Toy Holding",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -1554,8 +1554,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000037",
-      "name": "Real Zaragoza",
-      "shortName": "ZAR",
+      "name": "Aragon Blanquiazul",
+      "shortName": "ARB",
       "leagueId": "e1000000-0000-0000-0000-000000000021",
       "reputationRating": 66,
       "facilityRating": 3,
@@ -1565,12 +1565,12 @@
         "transferBudget": 8000000
       },
       "stadium": {
-        "name": "La Romareda",
+        "name": "Romareda Grounds",
         "capacity": 33608,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/zar",
+        "logoAssetKey": "badges/arb",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#003399",
@@ -1588,7 +1588,7 @@
         "expectationRating": 68
       },
       "board": {
-        "ownerName": "Jorge Mas",
+        "ownerName": "Iberian Consortium",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -1601,8 +1601,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000038",
-      "name": "Sporting Gij\u00f3n",
-      "shortName": "GIJ",
+      "name": "Asturias Red",
+      "shortName": "ASR",
       "leagueId": "e1000000-0000-0000-0000-000000000021",
       "reputationRating": 64,
       "facilityRating": 3,
@@ -1612,12 +1612,12 @@
         "transferBudget": 6500000
       },
       "stadium": {
-        "name": "El Molinon",
+        "name": "Molinon Ground",
         "capacity": 30000,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/gij",
+        "logoAssetKey": "badges/asr",
         "homeKit": {
           "primaryHex": "#E20613",
           "secondaryHex": "#FFFFFF",
@@ -1635,7 +1635,7 @@
         "expectationRating": 67
       },
       "board": {
-        "ownerName": "Grupo Orlegi",
+        "ownerName": "Orlegi Sports",
         "patience": "Patient",
         "financialAmbition": 2
       },
@@ -1648,8 +1648,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000039",
-      "name": "Levante",
-      "shortName": "LEV",
+      "name": "Valencia Granotes",
+      "shortName": "VLG",
       "leagueId": "e1000000-0000-0000-0000-000000000021",
       "reputationRating": 65,
       "facilityRating": 3,
@@ -1659,12 +1659,12 @@
         "transferBudget": 7500000
       },
       "stadium": {
-        "name": "Ciutat de Valencia",
+        "name": "Ciutat Arena",
         "capacity": 26354,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/lev",
+        "logoAssetKey": "badges/vlg",
         "homeKit": {
           "primaryHex": "#003366",
           "secondaryHex": "#990000",
@@ -1682,7 +1682,7 @@
         "expectationRating": 66
       },
       "board": {
-        "ownerName": "Danvila & Board",
+        "ownerName": "Danvila Holdings",
         "patience": "Balanced",
         "financialAmbition": 2
       },
@@ -1695,8 +1695,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000005",
-      "name": "Bayern Munich",
-      "shortName": "BAY",
+      "name": "Munich Red",
+      "shortName": "MNU",
       "leagueId": "e1000000-0000-0000-0000-000000000003",
       "reputationRating": 95,
       "facilityRating": 5,
@@ -1706,12 +1706,12 @@
         "transferBudget": 130000000
       },
       "stadium": {
-        "name": "Allianz Arena",
+        "name": "Isar Arena",
         "capacity": 75024,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/bay",
+        "logoAssetKey": "badges/mnu",
         "homeKit": {
           "primaryHex": "#DC052D",
           "secondaryHex": "#FFFFFF",
@@ -1729,7 +1729,7 @@
         "expectationRating": 97
       },
       "board": {
-        "ownerName": "Herbert Hainer",
+        "ownerName": "Bavarian Sports AG",
         "patience": "Impatient",
         "financialAmbition": 5
       },
@@ -1742,8 +1742,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000006",
-      "name": "Borussia Dortmund",
-      "shortName": "BVB",
+      "name": "Ruhr Yellow",
+      "shortName": "RHY",
       "leagueId": "e1000000-0000-0000-0000-000000000003",
       "reputationRating": 87,
       "facilityRating": 5,
@@ -1753,12 +1753,12 @@
         "transferBudget": 75000000
       },
       "stadium": {
-        "name": "Signal Iduna Park",
+        "name": "Westfalen Stadium",
         "capacity": 81365,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/bvb",
+        "logoAssetKey": "badges/rhy",
         "homeKit": {
           "primaryHex": "#FDE100",
           "secondaryHex": "#000000",
@@ -1776,7 +1776,7 @@
         "expectationRating": 86
       },
       "board": {
-        "ownerName": "Hans-Joachim Watzke",
+        "ownerName": "Westphalian Members e.V.",
         "patience": "Balanced",
         "financialAmbition": 4
       },
@@ -1789,8 +1789,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000040",
-      "name": "Bayer Leverkusen",
-      "shortName": "B04",
+      "name": "Rhineland Works",
+      "shortName": "RLW",
       "leagueId": "e1000000-0000-0000-0000-000000000003",
       "reputationRating": 88,
       "facilityRating": 5,
@@ -1800,12 +1800,12 @@
         "transferBudget": 70000000
       },
       "stadium": {
-        "name": "BayArena",
+        "name": "Werks Arena",
         "capacity": 30210,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/b04",
+        "logoAssetKey": "badges/rlw",
         "homeKit": {
           "primaryHex": "#E32219",
           "secondaryHex": "#000000",
@@ -1823,7 +1823,7 @@
         "expectationRating": 87
       },
       "board": {
-        "ownerName": "Fernando Carro",
+        "ownerName": "Rhine Pharma AG",
         "patience": "Patient",
         "financialAmbition": 4
       },
@@ -1836,8 +1836,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000041",
-      "name": "RB Leipzig",
-      "shortName": "RBL",
+      "name": "Saxony Bulls",
+      "shortName": "SXB",
       "leagueId": "e1000000-0000-0000-0000-000000000003",
       "reputationRating": 84,
       "facilityRating": 5,
@@ -1847,12 +1847,12 @@
         "transferBudget": 60000000
       },
       "stadium": {
-        "name": "Red Bull Arena",
+        "name": "Zentralstadion",
         "capacity": 47069,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/rbl",
+        "logoAssetKey": "badges/sxb",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#E30613",
@@ -1870,7 +1870,7 @@
         "expectationRating": 83
       },
       "board": {
-        "ownerName": "Oliver Mintzlaff",
+        "ownerName": "Austrian Beverage Corp",
         "patience": "Balanced",
         "financialAmbition": 4
       },
@@ -1883,8 +1883,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000042",
-      "name": "Eintracht Frankfurt",
-      "shortName": "SGE",
+      "name": "Frankfurt Eagles",
+      "shortName": "FKE",
       "leagueId": "e1000000-0000-0000-0000-000000000003",
       "reputationRating": 81,
       "facilityRating": 4,
@@ -1894,12 +1894,12 @@
         "transferBudget": 42000000
       },
       "stadium": {
-        "name": "Deutsche Bank Park",
+        "name": "Waldstadion Arena",
         "capacity": 58000,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/sge",
+        "logoAssetKey": "badges/fke",
         "homeKit": {
           "primaryHex": "#E1000F",
           "secondaryHex": "#000000",
@@ -1917,7 +1917,7 @@
         "expectationRating": 81
       },
       "board": {
-        "ownerName": "Peter Fischer",
+        "ownerName": "Main Financial Board",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -1930,8 +1930,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000043",
-      "name": "VfB Stuttgart",
-      "shortName": "VFB",
+      "name": "Swabia White",
+      "shortName": "SBW",
       "leagueId": "e1000000-0000-0000-0000-000000000003",
       "reputationRating": 80,
       "facilityRating": 4,
@@ -1941,12 +1941,12 @@
         "transferBudget": 38000000
       },
       "stadium": {
-        "name": "MHP Arena",
+        "name": "Neckar Arena",
         "capacity": 60449,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/vfb",
+        "logoAssetKey": "badges/sbw",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#E32219",
@@ -1964,7 +1964,7 @@
         "expectationRating": 79
       },
       "board": {
-        "ownerName": "Claus Vogt",
+        "ownerName": "Auto City Sports",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -1977,8 +1977,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000044",
-      "name": "Hamburger SV",
-      "shortName": "HSV",
+      "name": "Hanseatic Blue",
+      "shortName": "HSB",
       "leagueId": "e1000000-0000-0000-0000-000000000031",
       "reputationRating": 71,
       "facilityRating": 4,
@@ -1988,12 +1988,12 @@
         "transferBudget": 16000000
       },
       "stadium": {
-        "name": "Volksparkstadion",
+        "name": "Elbe Volkspark",
         "capacity": 57000,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/hsv",
+        "logoAssetKey": "badges/hsb",
         "homeKit": {
           "primaryHex": "#0000FF",
           "secondaryHex": "#FFFFFF",
@@ -2011,7 +2011,7 @@
         "expectationRating": 75
       },
       "board": {
-        "ownerName": "Jonas Boldt",
+        "ownerName": "Port City Trust",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -2024,8 +2024,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000045",
-      "name": "Schalke 04",
-      "shortName": "S04",
+      "name": "Gelsenkirchen Miners",
+      "shortName": "GKM",
       "leagueId": "e1000000-0000-0000-0000-000000000031",
       "reputationRating": 70,
       "facilityRating": 4,
@@ -2035,12 +2035,12 @@
         "transferBudget": 14000000
       },
       "stadium": {
-        "name": "Veltins-Arena",
+        "name": "Gluckauf Arena",
         "capacity": 62271,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/s04",
+        "logoAssetKey": "badges/gkm",
         "homeKit": {
           "primaryHex": "#004D9D",
           "secondaryHex": "#FFFFFF",
@@ -2058,7 +2058,7 @@
         "expectationRating": 76
       },
       "board": {
-        "ownerName": "Matthias Tillmann",
+        "ownerName": "Mining Community e.V.",
         "patience": "Impatient",
         "financialAmbition": 3
       },
@@ -2071,8 +2071,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000046",
-      "name": "Hertha BSC",
-      "shortName": "BSC",
+      "name": "Capital Old Lady",
+      "shortName": "COL",
       "leagueId": "e1000000-0000-0000-0000-000000000031",
       "reputationRating": 68,
       "facilityRating": 4,
@@ -2082,12 +2082,12 @@
         "transferBudget": 11000000
       },
       "stadium": {
-        "name": "Olympiastadion Berlin",
+        "name": "Spree Olympic Park",
         "capacity": 74475,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/bsc",
+        "logoAssetKey": "badges/col",
         "homeKit": {
           "primaryHex": "#005CA9",
           "secondaryHex": "#FFFFFF",
@@ -2105,7 +2105,7 @@
         "expectationRating": 70
       },
       "board": {
-        "ownerName": "Kay Bernstein Board",
+        "ownerName": "Capital Investment AG",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -2118,8 +2118,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000047",
-      "name": "1. FC N\u00fcrnberg",
-      "shortName": "FCN",
+      "name": "Franconia Maroon",
+      "shortName": "FCM",
       "leagueId": "e1000000-0000-0000-0000-000000000031",
       "reputationRating": 65,
       "facilityRating": 3,
@@ -2129,12 +2129,12 @@
         "transferBudget": 7500000
       },
       "stadium": {
-        "name": "Max-Morlock-Stadion",
+        "name": "Frankenstadion",
         "capacity": 50000,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/fcn",
+        "logoAssetKey": "badges/fcm",
         "homeKit": {
           "primaryHex": "#8B0000",
           "secondaryHex": "#FFFFFF",
@@ -2152,7 +2152,7 @@
         "expectationRating": 67
       },
       "board": {
-        "ownerName": "Peter Hammer",
+        "ownerName": "Franconian Board",
         "patience": "Patient",
         "financialAmbition": 2
       },
@@ -2165,8 +2165,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000048",
-      "name": "Inter Milan",
-      "shortName": "INT",
+      "name": "Milano Nerazzurra",
+      "shortName": "MLN",
       "leagueId": "e1000000-0000-0000-0000-000000000004",
       "reputationRating": 92,
       "facilityRating": 5,
@@ -2176,12 +2176,12 @@
         "transferBudget": 90000000
       },
       "stadium": {
-        "name": "San Siro",
+        "name": "Stadio Giuseppe Meazza",
         "capacity": 75923,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/int",
+        "logoAssetKey": "badges/mln",
         "homeKit": {
           "primaryHex": "#001EA0",
           "secondaryHex": "#000000",
@@ -2199,7 +2199,7 @@
         "expectationRating": 93
       },
       "board": {
-        "ownerName": "Oaktree Capital",
+        "ownerName": "Acorn Private Capital",
         "patience": "Balanced",
         "financialAmbition": 4
       },
@@ -2212,8 +2212,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000049",
-      "name": "AC Milan",
-      "shortName": "ACM",
+      "name": "Milano Rossonera",
+      "shortName": "MLR",
       "leagueId": "e1000000-0000-0000-0000-000000000004",
       "reputationRating": 88,
       "facilityRating": 5,
@@ -2223,12 +2223,12 @@
         "transferBudget": 80000000
       },
       "stadium": {
-        "name": "San Siro",
+        "name": "Stadio San Siro",
         "capacity": 75923,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/acm",
+        "logoAssetKey": "badges/mlr",
         "homeKit": {
           "primaryHex": "#FB090B",
           "secondaryHex": "#000000",
@@ -2246,7 +2246,7 @@
         "expectationRating": 89
       },
       "board": {
-        "ownerName": "RedBird Capital",
+        "ownerName": "Cardinal Sports Capital",
         "patience": "Patient",
         "financialAmbition": 4
       },
@@ -2259,8 +2259,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000050",
-      "name": "Juventus",
-      "shortName": "JUV",
+      "name": "Torino Zebre",
+      "shortName": "TRZ",
       "leagueId": "e1000000-0000-0000-0000-000000000004",
       "reputationRating": 89,
       "facilityRating": 5,
@@ -2270,12 +2270,12 @@
         "transferBudget": 85000000
       },
       "stadium": {
-        "name": "Allianz Stadium",
+        "name": "Piemonte Arena",
         "capacity": 41507,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/juv",
+        "logoAssetKey": "badges/trz",
         "homeKit": {
           "primaryHex": "#000000",
           "secondaryHex": "#FFFFFF",
@@ -2293,7 +2293,7 @@
         "expectationRating": 91
       },
       "board": {
-        "ownerName": "Exor & Elkann",
+        "ownerName": "Agnese Dynasty",
         "patience": "Balanced",
         "financialAmbition": 4
       },
@@ -2306,8 +2306,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000051",
-      "name": "Napoli",
-      "shortName": "NAP",
+      "name": "Partenope Azzurra",
+      "shortName": "PTA",
       "leagueId": "e1000000-0000-0000-0000-000000000004",
       "reputationRating": 85,
       "facilityRating": 4,
@@ -2317,12 +2317,12 @@
         "transferBudget": 65000000
       },
       "stadium": {
-        "name": "Diego Armando Maradona",
+        "name": "Stadio San Paolo",
         "capacity": 54726,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/nap",
+        "logoAssetKey": "badges/pta",
         "homeKit": {
           "primaryHex": "#0080FF",
           "secondaryHex": "#FFFFFF",
@@ -2340,7 +2340,7 @@
         "expectationRating": 86
       },
       "board": {
-        "ownerName": "Aurelio De Laurentiis",
+        "ownerName": "Vesuvio Film Productions",
         "patience": "Impatient",
         "financialAmbition": 3
       },
@@ -2353,8 +2353,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000052",
-      "name": "AS Roma",
-      "shortName": "ASR",
+      "name": "Roma Giallorossa",
+      "shortName": "RMG",
       "leagueId": "e1000000-0000-0000-0000-000000000004",
       "reputationRating": 83,
       "facilityRating": 4,
@@ -2364,12 +2364,12 @@
         "transferBudget": 50000000
       },
       "stadium": {
-        "name": "Stadio Olimpico",
+        "name": "Colosseo Arena",
         "capacity": 70634,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/asr",
+        "logoAssetKey": "badges/rmg",
         "homeKit": {
           "primaryHex": "#8E1F2F",
           "secondaryHex": "#F1B434",
@@ -2387,7 +2387,7 @@
         "expectationRating": 84
       },
       "board": {
-        "ownerName": "Friedkin Group",
+        "ownerName": "Capital City Partners",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -2400,8 +2400,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000053",
-      "name": "Lazio",
-      "shortName": "LAZ",
+      "name": "Lazio Aquile",
+      "shortName": "LZA",
       "leagueId": "e1000000-0000-0000-0000-000000000004",
       "reputationRating": 81,
       "facilityRating": 4,
@@ -2411,12 +2411,12 @@
         "transferBudget": 42000000
       },
       "stadium": {
-        "name": "Stadio Olimpico",
+        "name": "Stadio Flaminio Ground",
         "capacity": 70634,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/laz",
+        "logoAssetKey": "badges/lza",
         "homeKit": {
           "primaryHex": "#87CEEB",
           "secondaryHex": "#FFFFFF",
@@ -2434,7 +2434,7 @@
         "expectationRating": 82
       },
       "board": {
-        "ownerName": "Claudio Lotito",
+        "ownerName": "Tiber Enterprises",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -2447,8 +2447,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000054",
-      "name": "Sampdoria",
-      "shortName": "SAM",
+      "name": "Genova Blucerchiati",
+      "shortName": "GNB",
       "leagueId": "e1000000-0000-0000-0000-000000000041",
       "reputationRating": 69,
       "facilityRating": 3,
@@ -2458,12 +2458,12 @@
         "transferBudget": 11000000
       },
       "stadium": {
-        "name": "Luigi Ferraris",
+        "name": "Marassi Grounds",
         "capacity": 36599,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/sam",
+        "logoAssetKey": "badges/gnb",
         "homeKit": {
           "primaryHex": "#003399",
           "secondaryHex": "#FFFFFF",
@@ -2481,7 +2481,7 @@
         "expectationRating": 72
       },
       "board": {
-        "ownerName": "Andrea Radrizzani",
+        "ownerName": "Ligurian Sports Media",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -2494,8 +2494,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000055",
-      "name": "Palermo",
-      "shortName": "PAL",
+      "name": "Sicilia Rosanero",
+      "shortName": "SCR",
       "leagueId": "e1000000-0000-0000-0000-000000000041",
       "reputationRating": 68,
       "facilityRating": 3,
@@ -2505,12 +2505,12 @@
         "transferBudget": 10000000
       },
       "stadium": {
-        "name": "Renzo Barbera",
+        "name": "La Favorita Stadium",
         "capacity": 36365,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/pal",
+        "logoAssetKey": "badges/scr",
         "homeKit": {
           "primaryHex": "#F5A3B7",
           "secondaryHex": "#000000",
@@ -2528,7 +2528,7 @@
         "expectationRating": 71
       },
       "board": {
-        "ownerName": "City Football Group",
+        "ownerName": "Mediterranean Global",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -2541,8 +2541,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000056",
-      "name": "Bari",
-      "shortName": "BAR",
+      "name": "Puglia Cockerels",
+      "shortName": "PGC",
       "leagueId": "e1000000-0000-0000-0000-000000000041",
       "reputationRating": 65,
       "facilityRating": 3,
@@ -2552,12 +2552,12 @@
         "transferBudget": 7000000
       },
       "stadium": {
-        "name": "San Nicola",
+        "name": "Stadio dell'Astronave",
         "capacity": 58270,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/bar",
+        "logoAssetKey": "badges/pgc",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#CC0000",
@@ -2575,7 +2575,7 @@
         "expectationRating": 67
       },
       "board": {
-        "ownerName": "Filmauro Group",
+        "ownerName": "Adriatic Entertainment",
         "patience": "Balanced",
         "financialAmbition": 2
       },
@@ -2588,8 +2588,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000057",
-      "name": "Parma",
-      "shortName": "PAR",
+      "name": "Emilia Crociati",
+      "shortName": "EMC",
       "leagueId": "e1000000-0000-0000-0000-000000000041",
       "reputationRating": 68,
       "facilityRating": 3,
@@ -2599,12 +2599,12 @@
         "transferBudget": 9500000
       },
       "stadium": {
-        "name": "Ennio Tardini",
+        "name": "Stadio Tardini Park",
         "capacity": 22352,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/par",
+        "logoAssetKey": "badges/emc",
         "homeKit": {
           "primaryHex": "#FFF000",
           "secondaryHex": "#003399",
@@ -2622,7 +2622,7 @@
         "expectationRating": 70
       },
       "board": {
-        "ownerName": "Krause Group",
+        "ownerName": "Heartland Commerce",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -2635,8 +2635,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000007",
-      "name": "Paris Saint-Germain",
-      "shortName": "PSG",
+      "name": "Paris Capital",
+      "shortName": "PRC",
       "leagueId": "e1000000-0000-0000-0000-000000000005",
       "reputationRating": 95,
       "facilityRating": 5,
@@ -2646,12 +2646,12 @@
         "transferBudget": 160000000
       },
       "stadium": {
-        "name": "Parc des Princes",
+        "name": "Parc Royal Arena",
         "capacity": 47929,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/psg",
+        "logoAssetKey": "badges/prc",
         "homeKit": {
           "primaryHex": "#004170",
           "secondaryHex": "#DA291C",
@@ -2669,7 +2669,7 @@
         "expectationRating": 96
       },
       "board": {
-        "ownerName": "QSI & Nasser Al-Khelaifi",
+        "ownerName": "Arabian Gulf Investments",
         "patience": "Impatient",
         "financialAmbition": 5
       },
@@ -2682,8 +2682,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000058",
-      "name": "Olympique Marseille",
-      "shortName": "OM",
+      "name": "Marseille Port",
+      "shortName": "MSP",
       "leagueId": "e1000000-0000-0000-0000-000000000005",
       "reputationRating": 83,
       "facilityRating": 4,
@@ -2693,12 +2693,12 @@
         "transferBudget": 52000000
       },
       "stadium": {
-        "name": "Orange Velodrome",
+        "name": "Stade du Velodrome",
         "capacity": 67394,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/om",
+        "logoAssetKey": "badges/msp",
         "homeKit": {
           "primaryHex": "#00A3E0",
           "secondaryHex": "#FFFFFF",
@@ -2716,7 +2716,7 @@
         "expectationRating": 87
       },
       "board": {
-        "ownerName": "Frank McCourt",
+        "ownerName": "New England Sports Corp",
         "patience": "Impatient",
         "financialAmbition": 4
       },
@@ -2729,8 +2729,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000059",
-      "name": "AS Monaco",
-      "shortName": "ASM",
+      "name": "Principality FC",
+      "shortName": "PRI",
       "leagueId": "e1000000-0000-0000-0000-000000000005",
       "reputationRating": 82,
       "facilityRating": 4,
@@ -2740,12 +2740,12 @@
         "transferBudget": 48000000
       },
       "stadium": {
-        "name": "Stade Louis II",
+        "name": "Stade Princier",
         "capacity": 18523,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/asm",
+        "logoAssetKey": "badges/pri",
         "homeKit": {
           "primaryHex": "#ED1C24",
           "secondaryHex": "#FFFFFF",
@@ -2763,7 +2763,7 @@
         "expectationRating": 80
       },
       "board": {
-        "ownerName": "Dmitry Rybolovlev",
+        "ownerName": "Riviera Fertilizer Group",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -2776,8 +2776,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000060",
-      "name": "Olympique Lyonnais",
-      "shortName": "OL",
+      "name": "Rhone Gones",
+      "shortName": "RHG",
       "leagueId": "e1000000-0000-0000-0000-000000000005",
       "reputationRating": 80,
       "facilityRating": 4,
@@ -2787,12 +2787,12 @@
         "transferBudget": 40000000
       },
       "stadium": {
-        "name": "Groupama Stadium",
+        "name": "Stade des Lumieres",
         "capacity": 59186,
         "pitchQuality": 5
       },
       "visuals": {
-        "logoAssetKey": "badges/ol",
+        "logoAssetKey": "badges/rhg",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#002060",
@@ -2810,7 +2810,7 @@
         "expectationRating": 81
       },
       "board": {
-        "ownerName": "Eagle Football",
+        "ownerName": "Eagle Multi-Club Group",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -2823,8 +2823,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000061",
-      "name": "Lille OSC",
-      "shortName": "LOSC",
+      "name": "Flanders Mastiffs",
+      "shortName": "FLM",
       "leagueId": "e1000000-0000-0000-0000-000000000005",
       "reputationRating": 79,
       "facilityRating": 4,
@@ -2834,12 +2834,12 @@
         "transferBudget": 36000000
       },
       "stadium": {
-        "name": "Decathlon Arena",
+        "name": "Pierre Mauroy Park",
         "capacity": 50186,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/losc",
+        "logoAssetKey": "badges/flm",
         "homeKit": {
           "primaryHex": "#E2001A",
           "secondaryHex": "#001D38",
@@ -2857,7 +2857,7 @@
         "expectationRating": 78
       },
       "board": {
-        "ownerName": "Merlyn Partners",
+        "ownerName": "Merlyn Advisory",
         "patience": "Patient",
         "financialAmbition": 3
       },
@@ -2870,8 +2870,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000062",
-      "name": "OGC Nice",
-      "shortName": "NIC",
+      "name": "Cote d'Azur Gym",
+      "shortName": "CDA",
       "leagueId": "e1000000-0000-0000-0000-000000000005",
       "reputationRating": 78,
       "facilityRating": 4,
@@ -2881,12 +2881,12 @@
         "transferBudget": 34000000
       },
       "stadium": {
-        "name": "Allianz Riviera",
+        "name": "Baie des Anges Arena",
         "capacity": 36178,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/nic",
+        "logoAssetKey": "badges/cda",
         "homeKit": {
           "primaryHex": "#E2001A",
           "secondaryHex": "#000000",
@@ -2904,7 +2904,7 @@
         "expectationRating": 76
       },
       "board": {
-        "ownerName": "INEOS",
+        "ownerName": "Petrochem Holdings",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -2917,8 +2917,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000063",
-      "name": "Girondins Bordeaux",
-      "shortName": "FCGB",
+      "name": "Aquitaine Marine",
+      "shortName": "AQM",
       "leagueId": "e1000000-0000-0000-0000-000000000051",
       "reputationRating": 68,
       "facilityRating": 3,
@@ -2928,12 +2928,12 @@
         "transferBudget": 10000000
       },
       "stadium": {
-        "name": "Matmut Atlantique",
+        "name": "Stade de la Gironde",
         "capacity": 42115,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/fcgb",
+        "logoAssetKey": "badges/aqm",
         "homeKit": {
           "primaryHex": "#001B44",
           "secondaryHex": "#FFFFFF",
@@ -2951,7 +2951,7 @@
         "expectationRating": 73
       },
       "board": {
-        "ownerName": "Gerard Lopez",
+        "ownerName": "Jota Investments",
         "patience": "Impatient",
         "financialAmbition": 3
       },
@@ -2964,8 +2964,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000064",
-      "name": "AS Saint-Etienne",
-      "shortName": "ASSE",
+      "name": "Loire Greens",
+      "shortName": "LRG",
       "leagueId": "e1000000-0000-0000-0000-000000000051",
       "reputationRating": 69,
       "facilityRating": 4,
@@ -2975,12 +2975,12 @@
         "transferBudget": 11000000
       },
       "stadium": {
-        "name": "Stade Geoffroy-Guichard",
+        "name": "Le Chaudron Arena",
         "capacity": 41965,
         "pitchQuality": 4
       },
       "visuals": {
-        "logoAssetKey": "badges/asse",
+        "logoAssetKey": "badges/lrg",
         "homeKit": {
           "primaryHex": "#00853F",
           "secondaryHex": "#FFFFFF",
@@ -2998,7 +2998,7 @@
         "expectationRating": 75
       },
       "board": {
-        "ownerName": "Kilmer Sports",
+        "ownerName": "Kilmer Sports Ventures",
         "patience": "Balanced",
         "financialAmbition": 3
       },
@@ -3011,8 +3011,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000065",
-      "name": "AJ Auxerre",
-      "shortName": "AJA",
+      "name": "Bourgogne White",
+      "shortName": "BGW",
       "leagueId": "e1000000-0000-0000-0000-000000000051",
       "reputationRating": 66,
       "facilityRating": 3,
@@ -3022,12 +3022,12 @@
         "transferBudget": 8000000
       },
       "stadium": {
-        "name": "Stade de l'Abbe-Deschamps",
+        "name": "Stade de l'Yonne",
         "capacity": 18541,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/aja",
+        "logoAssetKey": "badges/bgw",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#003399",
@@ -3045,7 +3045,7 @@
         "expectationRating": 68
       },
       "board": {
-        "ownerName": "James Zhou",
+        "ownerName": "Eastern Packaging Co.",
         "patience": "Patient",
         "financialAmbition": 2
       },
@@ -3058,8 +3058,8 @@
     },
     {
       "id": "c1000000-0000-0000-0000-000000000066",
-      "name": "Angers SCO",
-      "shortName": "SCO",
+      "name": "Anjou Black & White",
+      "shortName": "AJB",
       "leagueId": "e1000000-0000-0000-0000-000000000051",
       "reputationRating": 64,
       "facilityRating": 3,
@@ -3069,12 +3069,12 @@
         "transferBudget": 6500000
       },
       "stadium": {
-        "name": "Stade Raymond Kopa",
+        "name": "Stade Jean-Bouin",
         "capacity": 18752,
         "pitchQuality": 3
       },
       "visuals": {
-        "logoAssetKey": "badges/sco",
+        "logoAssetKey": "badges/ajb",
         "homeKit": {
           "primaryHex": "#FFFFFF",
           "secondaryHex": "#000000",
@@ -3092,7 +3092,7 @@
         "expectationRating": 65
       },
       "board": {
-        "ownerName": "Said Chabane",
+        "ownerName": "Western Agro Group",
         "patience": "Balanced",
         "financialAmbition": 2
       },
