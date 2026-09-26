@@ -214,6 +214,74 @@ namespace FootballLife.Simulation
             new ActionChoice(MatchAction.LongPass, 0.45f, 0.65f)
         };
 
+        // Phase 8.1 — New situation choice arrays
+        private static readonly ActionChoice[] FreeKickChoices = new[]
+        {
+            new ActionChoice(MatchAction.FreeKick_Direct, 0.7f, 0.75f),
+            new ActionChoice(MatchAction.FreeKick_Cross, 0.3f, 0.60f),
+            new ActionChoice(MatchAction.ShortPass, 0.1f, 0.40f)
+        };
+
+        private static readonly ActionChoice[] PenaltyKickChoices = new[]
+        {
+            new ActionChoice(MatchAction.PenaltyKick, 0.5f, 0.90f)
+        };
+
+        private static readonly ActionChoice[] CornerKickChoices = new[]
+        {
+            new ActionChoice(MatchAction.CornerDelivery, 0.4f, 0.65f),
+            new ActionChoice(MatchAction.Cross, 0.35f, 0.60f),
+            new ActionChoice(MatchAction.ShortPass, 0.15f, 0.45f)
+        };
+
+        private static readonly ActionChoice[] Dribbling1v1Choices = new[]
+        {
+            new ActionChoice(MatchAction.SkillMove, 0.65f, 0.80f),
+            new ActionChoice(MatchAction.Dribble, 0.5f, 0.70f),
+            new ActionChoice(MatchAction.ShortPass, 0.15f, 0.50f)
+        };
+
+        private static readonly ActionChoice[] HeaderOpportunityChoices = new[]
+        {
+            new ActionChoice(MatchAction.Header, 0.5f, 0.75f),
+            new ActionChoice(MatchAction.DivingHeader, 0.7f, 0.85f),
+            new ActionChoice(MatchAction.AerialChallenge, 0.35f, 0.60f)
+        };
+
+        private static readonly ActionChoice[] CounterAttackRunChoices = new[]
+        {
+            new ActionChoice(MatchAction.Dribble, 0.5f, 0.75f),
+            new ActionChoice(MatchAction.ThroughBall, 0.45f, 0.80f),
+            new ActionChoice(MatchAction.Shot_Long, 0.6f, 0.65f)
+        };
+
+        private static readonly ActionChoice[] GKOneOnOneChoices = new[]
+        {
+            new ActionChoice(MatchAction.Shot_Close, 0.5f, 0.85f),
+            new ActionChoice(MatchAction.ChipShot, 0.7f, 0.80f),
+            new ActionChoice(MatchAction.Dribble, 0.6f, 0.70f)
+        };
+
+        // Defensive situation choice arrays
+        private static readonly ActionChoice[] DefensiveSlidingTackleChoices = new[]
+        {
+            new ActionChoice(MatchAction.SlidingTackle, 0.6f, 0.70f),
+            new ActionChoice(MatchAction.Tackle, 0.4f, 0.65f),
+            new ActionChoice(MatchAction.Interception, 0.3f, 0.55f)
+        };
+
+        private static readonly ActionChoice[] BlockShotChoices = new[]
+        {
+            new ActionChoice(MatchAction.BlockShot, 0.5f, 0.75f),
+            new ActionChoice(MatchAction.Tackle, 0.4f, 0.60f)
+        };
+
+        private static readonly ActionChoice[] GKRushChoices = new[]
+        {
+            new ActionChoice(MatchAction.GoalkeeperRush, 0.6f, 0.70f),
+            new ActionChoice(MatchAction.GoalkeeperSave, 0.4f, 0.75f)
+        };
+
         private static readonly ActionChoice[] DefaultChoices = new[]
         {
             new ActionChoice(MatchAction.ShortPass, 0.2f, 0.50f)
@@ -222,6 +290,7 @@ namespace FootballLife.Simulation
         /// <summary>
         /// Generates a match situation for the player during a single minute tick.
         /// Returns null if no player interaction occurs this minute.
+        /// Integrates set pieces (FK, PK, CK) and special situations while preserving match pacing.
         /// </summary>
         public static MatchSituation? GenerateSituation(
             MatchState state,
@@ -235,21 +304,18 @@ namespace FootballLife.Simulation
             if (rng is null) throw new ArgumentNullException(nameof(rng));
 
             bool isGoalkeeper = playerPosition == Position.GK;
-            float baseChance = isGoalkeeper ? GoalkeeperBaseProbability : OutfieldBaseProbability;
-
-            // Score context (player team score minus opponent score)
             int scoreDiff = playerIsHome ? state.HomeScore - state.AwayScore : state.AwayScore - state.HomeScore;
 
-            // Frequency modifiers
+            // ── Baseline situation pacing roll ──
+            float baseChance = isGoalkeeper ? GoalkeeperBaseProbability : OutfieldBaseProbability;
+
             float chanceMultiplier = 1.0f;
             if (scoreDiff <= -2)
             {
-                // Losing by 2+ -> +20% attacking frequency (or +10% overall for outfield)
                 chanceMultiplier *= isGoalkeeper ? 1.1f : 1.20f;
             }
             else if (scoreDiff >= 1 && state.Minute >= 85)
             {
-                // Winning 85+ -> -30% attacking frequency
                 chanceMultiplier *= 0.70f;
             }
 
@@ -259,11 +325,28 @@ namespace FootballLife.Simulation
                 return null;
             }
 
-            // Pick position-specific situation
+            // ── A situation occurs this minute! Determine the situation type ──
+            if (!isGoalkeeper)
+            {
+                // 1. Set pieces (PK, FK, CK)
+                var setPiece = TryGenerateSetPiece(playerPosition, state, playerState, rng, scoreDiff);
+                if (setPiece != null)
+                {
+                    return setPiece;
+                }
+
+                // 2. Special situations (breakaway, counter-attack, dribble 1v1, header)
+                var special = TryGenerateSpecialSituation(playerPosition, state, playerState, rng, scoreDiff, isGoalkeeper);
+                if (special != null)
+                {
+                    return special;
+                }
+            }
+
+            // 3. Standard position-weighted situation
             var table = GetSituationTable(playerPosition);
             SituationType situationType = PickFromTable(table, rng);
 
-            // Calculate context parameters
             float opponentPressure = rng.NextFloat(2.5f, 6.5f);
             if (playerState.Fatigue > 70f)
             {
@@ -271,15 +354,7 @@ namespace FootballLife.Simulation
             }
             opponentPressure = Math.Min(10f, Math.Max(0f, opponentPressure));
 
-            float baseDifficulty = situationType switch
-            {
-                SituationType.RunningInBehind or SituationType.ReceivingInBox => 0.65f,
-                SituationType.LongShot => 0.75f,
-                SituationType.ThroughBall => 0.60f,
-                SituationType.Save => 0.70f,
-                SituationType.Tackle or SituationType.Interception => 0.55f,
-                _ => 0.45f
-            };
+            float baseDifficulty = GetBaseDifficulty(situationType);
 
             float expectedDifficulty = Math.Min(1.0f, Math.Max(0.0f, baseDifficulty + (opponentPressure / 10f * 0.25f)));
             float positionalAdvantage = Math.Min(1.0f, Math.Max(-1.0f, rng.NextFloat(-0.5f, 0.5f) + (scoreDiff > 0 ? 0.1f : -0.1f)));
@@ -293,6 +368,148 @@ namespace FootballLife.Simulation
                 positionalAdvantage: positionalAdvantage,
                 availableChoices: choices);
         }
+
+        /// <summary>
+        /// Attempts to select a set piece situation (free kick, penalty, corner) when an interaction is triggered.
+        /// Returns null if this situation is not a set piece.
+        /// </summary>
+        private static MatchSituation? TryGenerateSetPiece(
+            Position playerPosition,
+            MatchState state,
+            PlayerState playerState,
+            SimulationRandom rng,
+            int scoreDiff)
+        {
+            // Set piece takers: attacking midfielders, wingers, and strikers
+            bool isSetPieceTaker = playerPosition == Position.AM || playerPosition == Position.ST ||
+                                   playerPosition == Position.LW || playerPosition == Position.RW;
+
+            if (isSetPieceTaker)
+            {
+                float roll = rng.NextFloat(0f, 1f);
+                if (roll < 0.03f)
+                {
+                    // Penalty kick (~3% of attacking situations)
+                    return BuildSituation(SituationType.PenaltyKick, rng, playerState, scoreDiff,
+                        basePressure: 3.0f, pressureRange: 4.0f);
+                }
+                if (roll < 0.11f)
+                {
+                    // Direct/Crossing Free Kick (~8% of attacking situations)
+                    return BuildSituation(SituationType.FreeKick, rng, playerState, scoreDiff,
+                        basePressure: 2.0f, pressureRange: 4.0f);
+                }
+            }
+
+            // Corner kicks
+            bool isCornerTaker = playerPosition == Position.AM || playerPosition == Position.LW ||
+                                 playerPosition == Position.RW || playerPosition == Position.CM;
+            if (isCornerTaker && rng.NextBool(0.07f))
+            {
+                return BuildSituation(SituationType.CornerKick, rng, playerState, scoreDiff,
+                    basePressure: 2.5f, pressureRange: 3.5f);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Attempts to select a special situation (counter-attack, breakaway 1v1, dribbling 1v1, header).
+        /// </summary>
+        private static MatchSituation? TryGenerateSpecialSituation(
+            Position playerPosition,
+            MatchState state,
+            PlayerState playerState,
+            SimulationRandom rng,
+            int scoreDiff,
+            bool isGoalkeeper)
+        {
+            if (isGoalkeeper) return null;
+
+            bool isAttacker = playerPosition == Position.ST || playerPosition == Position.LW ||
+                              playerPosition == Position.RW || playerPosition == Position.AM;
+
+            if (isAttacker)
+            {
+                float roll = rng.NextFloat(0f, 1f);
+                // GK one-on-one breakaway: ~5%
+                if (roll < 0.05f)
+                {
+                    return BuildSituation(SituationType.GKOneOnOne, rng, playerState, scoreDiff,
+                        basePressure: 1.0f, pressureRange: 3.0f);
+                }
+                // Counter-attack run: ~8% (boosted when trailing)
+                float counterThreshold = scoreDiff < 0 ? 0.16f : 0.13f;
+                if (roll < counterThreshold)
+                {
+                    return BuildSituation(SituationType.CounterAttackRun, rng, playerState, scoreDiff,
+                        basePressure: 1.5f, pressureRange: 3.5f);
+                }
+                // Dribbling 1v1 take-on: ~9%
+                if (roll < counterThreshold + 0.09f)
+                {
+                    return BuildSituation(SituationType.Dribbling1v1, rng, playerState, scoreDiff,
+                        basePressure: 3.0f, pressureRange: 4.0f);
+                }
+            }
+
+            // Header opportunity: for aerial-strong players (ST, CB)
+            bool isAerialPlayer = playerPosition == Position.ST || playerPosition == Position.CB;
+            if (isAerialPlayer && rng.NextBool(0.07f))
+            {
+                return BuildSituation(SituationType.HeaderOpportunity, rng, playerState, scoreDiff,
+                    basePressure: 3.0f, pressureRange: 3.5f);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Builds a MatchSituation from a type with configurable pressure parameters.
+        /// </summary>
+        private static MatchSituation BuildSituation(
+            SituationType type,
+            SimulationRandom rng,
+            PlayerState playerState,
+            int scoreDiff,
+            float basePressure,
+            float pressureRange)
+        {
+            float opponentPressure = rng.NextFloat(basePressure, basePressure + pressureRange);
+            if (playerState.Fatigue > 70f)
+            {
+                opponentPressure += 1.5f;
+            }
+            opponentPressure = Math.Min(10f, Math.Max(0f, opponentPressure));
+
+            float baseDifficulty = GetBaseDifficulty(type);
+            float expectedDifficulty = Math.Min(1.0f, Math.Max(0.0f, baseDifficulty + (opponentPressure / 10f * 0.25f)));
+            float positionalAdvantage = Math.Min(1.0f, Math.Max(-1.0f, rng.NextFloat(-0.3f, 0.5f) + (scoreDiff > 0 ? 0.1f : -0.1f)));
+
+            return new MatchSituation(
+                type: type,
+                opponentPressure: opponentPressure,
+                expectedDifficulty: expectedDifficulty,
+                positionalAdvantage: positionalAdvantage,
+                availableChoices: GetChoicesForSituation(type));
+        }
+
+        private static float GetBaseDifficulty(SituationType type) => type switch
+        {
+            SituationType.RunningInBehind or SituationType.ReceivingInBox => 0.65f,
+            SituationType.LongShot => 0.75f,
+            SituationType.ThroughBall => 0.60f,
+            SituationType.Save => 0.70f,
+            SituationType.Tackle or SituationType.Interception => 0.55f,
+            SituationType.FreeKick => 0.70f,
+            SituationType.PenaltyKick => 0.40f,
+            SituationType.CornerKick => 0.55f,
+            SituationType.Dribbling1v1 => 0.60f,
+            SituationType.HeaderOpportunity => 0.65f,
+            SituationType.CounterAttackRun => 0.55f,
+            SituationType.GKOneOnOne => 0.50f,
+            _ => 0.45f
+        };
 
         private static (SituationType Type, int Weight)[] GetSituationTable(Position position) => position switch
         {
@@ -350,6 +567,14 @@ namespace FootballLife.Simulation
             SituationType.Save => SaveChoices,
             SituationType.ClaimCross => ClaimCrossChoices,
             SituationType.Distribution => DistributionChoices,
+            // Phase 8.1 — New situations
+            SituationType.FreeKick => FreeKickChoices,
+            SituationType.PenaltyKick => PenaltyKickChoices,
+            SituationType.CornerKick => CornerKickChoices,
+            SituationType.Dribbling1v1 => Dribbling1v1Choices,
+            SituationType.HeaderOpportunity => HeaderOpportunityChoices,
+            SituationType.CounterAttackRun => CounterAttackRunChoices,
+            SituationType.GKOneOnOne => GKOneOnOneChoices,
             _ => DefaultChoices
         };
     }

@@ -20,6 +20,19 @@ namespace FootballLife.Domain
         ClaimCross = 12,
         DistributionPass = 13,
         Press = 14,
-        CutInside = 15
+        CutInside = 15,
+
+        // Phase 8.1 — Match Engine v2: New Actions
+        FreeKick_Direct = 16,
+        FreeKick_Cross = 17,
+        PenaltyKick = 18,
+        SkillMove = 19,
+        ChipShot = 20,
+        Volley = 21,
+        DivingHeader = 22,
+        SlidingTackle = 23,
+        BlockShot = 24,
+        CornerDelivery = 25,
+        GoalkeeperRush = 26
     }
 }

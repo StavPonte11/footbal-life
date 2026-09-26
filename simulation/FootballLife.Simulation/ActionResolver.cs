@@ -49,25 +49,50 @@ namespace FootballLife.Simulation
                     case MatchAction.Shot_Close:
                     case MatchAction.Shot_Long:
                     case MatchAction.Header:
+                    case MatchAction.Volley:
+                    case MatchAction.DivingHeader:
+                    case MatchAction.ChipShot:
                         type = OutcomeType.Goal;
                         managerTrustDelta = 5.0f;
                         break;
 
+                    case MatchAction.FreeKick_Direct:
+                        type = OutcomeType.FreeKickGoal;
+                        managerTrustDelta = 7.0f; // Spectacular free kick
+                        break;
+
+                    case MatchAction.PenaltyKick:
+                        type = OutcomeType.PenaltyGoal;
+                        managerTrustDelta = 4.0f;
+                        break;
+
                     case MatchAction.GoalkeeperSave:
                     case MatchAction.ClaimCross:
+                    case MatchAction.GoalkeeperRush:
                         type = OutcomeType.SaveMade;
                         managerTrustDelta = 3.0f;
                         break;
 
                     case MatchAction.Tackle:
                     case MatchAction.Press:
+                    case MatchAction.SlidingTackle:
                         type = OutcomeType.TackleWon;
                         managerTrustDelta = rng.NextFloat(0.5f, 1.5f);
+                        break;
+
+                    case MatchAction.BlockShot:
+                        type = OutcomeType.BlockMade;
+                        managerTrustDelta = rng.NextFloat(1.0f, 2.5f);
                         break;
 
                     case MatchAction.Interception:
                         type = OutcomeType.InterceptionWon;
                         managerTrustDelta = rng.NextFloat(0.5f, 1.5f);
+                        break;
+
+                    case MatchAction.SkillMove:
+                        type = OutcomeType.SkillBeatDefender;
+                        managerTrustDelta = rng.NextFloat(1.0f, 2.0f);
                         break;
 
                     case MatchAction.ShortPass:
@@ -77,6 +102,8 @@ namespace FootballLife.Simulation
                     case MatchAction.DistributionPass:
                     case MatchAction.Dribble:
                     case MatchAction.CutInside:
+                    case MatchAction.FreeKick_Cross:
+                    case MatchAction.CornerDelivery:
                     default:
                         type = OutcomeType.PassCompleted;
                         managerTrustDelta = rng.NextFloat(0.5f, 1.5f);
@@ -98,18 +125,34 @@ namespace FootballLife.Simulation
                     case MatchAction.Shot_Close:
                     case MatchAction.Shot_Long:
                     case MatchAction.Header:
+                    case MatchAction.Volley:
+                    case MatchAction.DivingHeader:
+                    case MatchAction.ChipShot:
+                    case MatchAction.FreeKick_Direct:
                         type = OutcomeType.ChanceMissed;
                         managerTrustDelta = -rng.NextFloat(0.2f, 1.0f);
                         break;
 
+                    case MatchAction.PenaltyKick:
+                        type = OutcomeType.PenaltyMissed;
+                        managerTrustDelta = -rng.NextFloat(2.0f, 4.0f); // Penalty miss is costly
+                        break;
+
                     case MatchAction.Tackle:
+                    case MatchAction.SlidingTackle:
                         type = OutcomeType.TackleLost;
                         managerTrustDelta = -rng.NextFloat(0.5f, 1.5f);
                         break;
 
                     case MatchAction.GoalkeeperSave:
+                    case MatchAction.GoalkeeperRush:
                         type = OutcomeType.ChanceMissed;
                         managerTrustDelta = -4.0f; // Serious error for GK
+                        break;
+
+                    case MatchAction.SkillMove:
+                        type = OutcomeType.Turnover;
+                        managerTrustDelta = -rng.NextFloat(0.3f, 1.0f);
                         break;
 
                     default:
@@ -211,6 +254,62 @@ namespace FootballLife.Simulation
                     GetEffectiveAttribute(abilities, state, AttributeName.Vision) * 0.25f +
                     GetEffectiveAttribute(abilities, state, AttributeName.DecisionMaking) * 0.15f,
 
+                // Phase 8.1 — New Actions
+                MatchAction.FreeKick_Direct =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Shooting) * 0.45f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Composure) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Vision) * 0.25f,
+
+                MatchAction.FreeKick_Cross =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Crossing) * 0.50f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Vision) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Passing) * 0.20f,
+
+                MatchAction.PenaltyKick =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Shooting) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Composure) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.DecisionMaking) * 0.20f,
+
+                MatchAction.SkillMove =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Dribbling) * 0.50f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.35f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Acceleration) * 0.15f,
+
+                MatchAction.ChipShot =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Shooting) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Composure) * 0.35f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.FirstTouch) * 0.25f,
+
+                MatchAction.Volley =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Shooting) * 0.50f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.25f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.FirstTouch) * 0.25f,
+
+                MatchAction.DivingHeader =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Strength) * 0.35f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Positioning) * 0.35f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.30f,
+
+                MatchAction.SlidingTackle =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Tackling) * 0.55f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Strength) * 0.25f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.20f,
+
+                MatchAction.BlockShot =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Positioning) * 0.45f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Strength) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Tackling) * 0.25f,
+
+                MatchAction.CornerDelivery =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Crossing) * 0.55f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Vision) * 0.25f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Passing) * 0.20f,
+
+                MatchAction.GoalkeeperRush =>
+                    GetEffectiveAttribute(abilities, state, AttributeName.Positioning) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.35f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Composure) * 0.25f,
+
                 _ => abilities.CalculateAverage()
             };
         }
@@ -220,6 +319,18 @@ namespace FootballLife.Simulation
             MatchAction.ShortPass or MatchAction.DistributionPass => 5.0f,
             MatchAction.Cross or MatchAction.Dribble or MatchAction.Tackle or MatchAction.Header => 10.0f,
             MatchAction.Shot_Long or MatchAction.ThroughBall or MatchAction.Shot_Close => 15.0f,
+            // Phase 8.1 — New actions
+            MatchAction.FreeKick_Direct => 18.0f,  // High variance: can be brilliant or wayward
+            MatchAction.FreeKick_Cross => 8.0f,
+            MatchAction.PenaltyKick => 12.0f,      // Moderate variance under pressure
+            MatchAction.SkillMove => 12.0f,
+            MatchAction.ChipShot => 16.0f,          // Audacious: high risk/reward
+            MatchAction.Volley => 18.0f,            // Very technical, high variance
+            MatchAction.DivingHeader => 14.0f,
+            MatchAction.SlidingTackle => 12.0f,
+            MatchAction.BlockShot => 8.0f,
+            MatchAction.CornerDelivery => 8.0f,
+            MatchAction.GoalkeeperRush => 14.0f,
             _ => 10.0f
         };
 
@@ -241,6 +352,18 @@ namespace FootballLife.Simulation
             MatchAction.DistributionPass => 65.0f,
             MatchAction.Press => 55.0f,
             MatchAction.CutInside => 56.0f,
+            // Phase 8.1 — New actions
+            MatchAction.FreeKick_Direct => 42.0f,   // Hard to score, low threshold compensated by high stddev
+            MatchAction.FreeKick_Cross => 60.0f,
+            MatchAction.PenaltyKick => 60.0f,       // Composure-weighted penalty ~78% conversion
+            MatchAction.SkillMove => 58.0f,
+            MatchAction.ChipShot => 45.0f,           // Audacious
+            MatchAction.Volley => 40.0f,             // Very hard to execute
+            MatchAction.DivingHeader => 48.0f,
+            MatchAction.SlidingTackle => 55.0f,
+            MatchAction.BlockShot => 52.0f,
+            MatchAction.CornerDelivery => 58.0f,
+            MatchAction.GoalkeeperRush => 50.0f,
             _ => 50.0f
         };
     }

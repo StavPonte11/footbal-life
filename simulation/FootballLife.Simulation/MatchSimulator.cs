@@ -73,16 +73,25 @@ namespace FootballLife.Simulation
 
                     if (outcome.Success)
                     {
-                        if (outcome.Type == OutcomeType.Goal)
+                        if (outcome.Type == OutcomeType.Goal ||
+                            outcome.Type == OutcomeType.FreeKickGoal ||
+                            outcome.Type == OutcomeType.PenaltyGoal ||
+                            outcome.Type == OutcomeType.HeaderGoal)
                         {
                             playerGoals++;
                             matchState = matchState.WithGoal(minute, activePlayerId, null, playerIsHome);
                         }
-                        else if (bestChoice.Action == MatchAction.ThroughBall || bestChoice.Action == MatchAction.Cross || bestChoice.Action == MatchAction.ShortPass)
+                        else if (bestChoice.Action == MatchAction.ThroughBall ||
+                                 bestChoice.Action == MatchAction.Cross ||
+                                 bestChoice.Action == MatchAction.ShortPass ||
+                                 bestChoice.Action == MatchAction.FreeKick_Cross ||
+                                 bestChoice.Action == MatchAction.CornerDelivery)
                         {
                             // Playmaker opportunity converted by teammate into an assist
                             bool assistConverted = (bestChoice.Action == MatchAction.ThroughBall && rng.NextBool(0.35f)) ||
                                                    (bestChoice.Action == MatchAction.Cross && rng.NextBool(0.30f)) ||
+                                                   (bestChoice.Action == MatchAction.CornerDelivery && rng.NextBool(0.28f)) ||
+                                                   (bestChoice.Action == MatchAction.FreeKick_Cross && rng.NextBool(0.30f)) ||
                                                    (bestChoice.Action == MatchAction.ShortPass && rng.NextBool(0.12f));
 
                             if (assistConverted)
@@ -107,10 +116,19 @@ namespace FootballLife.Simulation
                             keyActions += 0.8f;
                             matchState = matchState.AddEvent(new MatchEvent(minute, MatchEventType.TackleWon, activePlayerId, "Clean tackle won"));
                         }
+                        else if (outcome.Type == OutcomeType.BlockMade)
+                        {
+                            keyActions += 0.8f;
+                            matchState = matchState.AddEvent(new MatchEvent(minute, MatchEventType.TackleWon, activePlayerId, "Goal-bound shot blocked"));
+                        }
                         else if (outcome.Type == OutcomeType.InterceptionWon)
                         {
                             keyActions += 0.8f;
                             matchState = matchState.AddEvent(new MatchEvent(minute, MatchEventType.TackleWon, activePlayerId, "Interception"));
+                        }
+                        else if (outcome.Type == OutcomeType.SkillBeatDefender)
+                        {
+                            keyActions += 0.7f;
                         }
                         else
                         {
@@ -132,6 +150,14 @@ namespace FootballLife.Simulation
                         if (outcome.Type == OutcomeType.ChanceMissed)
                         {
                             matchState = matchState.AddEvent(new MatchEvent(minute, MatchEventType.Miss, activePlayerId, "Shot missed target"));
+                        }
+                        else if (outcome.Type == OutcomeType.PenaltyMissed || outcome.Type == OutcomeType.PenaltySaved)
+                        {
+                            matchState = matchState.AddEvent(new MatchEvent(minute, MatchEventType.PenaltyMissed, activePlayerId, "Penalty missed or saved"));
+                        }
+                        else if (outcome.Type == OutcomeType.FoulConceded)
+                        {
+                            matchState = matchState.AddEvent(new MatchEvent(minute, MatchEventType.Foul, activePlayerId, "Foul conceded in challenge"));
                         }
                     }
                 }

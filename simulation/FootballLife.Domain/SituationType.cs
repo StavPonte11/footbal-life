@@ -32,7 +32,16 @@ namespace FootballLife.Domain
         BuildUpPass = 21,
         Save = 22,
         ClaimCross = 23,
-        Distribution = 24
+        Distribution = 24,
+
+        // Phase 8.1 — Match Engine v2: New Situation Types
+        FreeKick = 25,
+        PenaltyKick = 26,
+        CornerKick = 27,
+        Dribbling1v1 = 28,
+        HeaderOpportunity = 29,
+        CounterAttackRun = 30,
+        GKOneOnOne = 31
     }
 }
 

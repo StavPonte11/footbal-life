@@ -14,6 +14,16 @@ namespace FootballLife.Domain
         InterceptionWon = 6,
         SaveMade = 7,
         ChanceMissed = 8,
-        Foul = 9
+        Foul = 9,
+
+        // Phase 8.1 — Match Engine v2: Set Piece & Expanded Outcomes
+        FreeKickGoal = 10,
+        PenaltyGoal = 11,
+        PenaltyMissed = 12,
+        PenaltySaved = 13,
+        HeaderGoal = 14,
+        BlockMade = 15,
+        FoulConceded = 16,
+        SkillBeatDefender = 17
     }
 }
