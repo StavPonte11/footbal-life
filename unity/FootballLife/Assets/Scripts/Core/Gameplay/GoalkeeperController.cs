@@ -30,6 +30,7 @@ namespace FootballLife.Unity.Core.Gameplay
         [SerializeField] private BallController? _ball;
 
         private PawnRigTransforms? _rig;
+        private PawnAnimationPlayer? _animPlayer;
         private GoalkeeperState _state = GoalkeeperState.ReadyStance;
         private float _animTimer;
         private float _diveTimer;
@@ -48,6 +49,7 @@ namespace FootballLife.Unity.Core.Gameplay
         {
             _startPosition = transform.position;
             EnsureRigBound();
+            _animPlayer = GetComponent<PawnAnimationPlayer>() ?? gameObject.AddComponent<PawnAnimationPlayer>();
             if (_ball == null)
             {
                 _ball = FindAnyObjectByType<BallController>();
@@ -87,7 +89,7 @@ namespace FootballLife.Unity.Core.Gameplay
             }
             if (_ball == null)
             {
-                _ball = FindFirstObjectByType<BallController>();
+                _ball = FindAnyObjectByType<BallController>();
             }
 
             float dt = Time.deltaTime;
@@ -182,6 +184,13 @@ namespace FootballLife.Unity.Core.Gameplay
             _state = diveState;
             _diveTimer = 0f;
             Audio.AudioManager.Instance?.TriggerCrowdGasp();
+
+            if (_animPlayer != null)
+            {
+                if (diveState == GoalkeeperState.DiveLeft) _animPlayer.PlayAction(ActionClipType.GKDiveLeft);
+                else if (diveState == GoalkeeperState.DiveRight) _animPlayer.PlayAction(ActionClipType.GKDiveRight);
+                else if (diveState == GoalkeeperState.JumpSave) _animPlayer.PlayAction(ActionClipType.GKJumpSave);
+            }
         }
 
         private void UpdateDive(float dt)
