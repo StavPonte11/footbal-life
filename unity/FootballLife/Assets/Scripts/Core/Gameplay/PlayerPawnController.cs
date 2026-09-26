@@ -33,6 +33,7 @@ namespace FootballLife.Unity.Core.Gameplay
         [SerializeField] private float _kickDuration = 0.35f;
 
         private PawnRigTransforms? _rig;
+        private PawnAnimationPlayer? _animPlayer;
         private float _animTimer;
         private float _kickTimer;
         private bool _impactDispatched;
@@ -53,6 +54,11 @@ namespace FootballLife.Unity.Core.Gameplay
         private void Awake()
         {
             EnsureRigBound();
+            _animPlayer = GetComponent<PawnAnimationPlayer>() ?? gameObject.AddComponent<PawnAnimationPlayer>();
+            if (_animPlayer != null)
+            {
+                _animPlayer.OnActionImpact += HandleActionImpact;
+            }
         }
 
         public void EnsureRigBound()
@@ -81,6 +87,13 @@ namespace FootballLife.Unity.Core.Gameplay
 
         private void Update()
         {
+            if (_animPlayer != null && _animPlayer.isActiveAndEnabled)
+            {
+                // Mecanim clip-driven system is actively evaluating
+                return;
+            }
+
+            // Headless / fallback procedural evaluation
             if (_rig == null)
             {
                 EnsureRigBound();
@@ -252,6 +265,34 @@ namespace FootballLife.Unity.Core.Gameplay
             _state = newState;
             _animTimer = 0f;
 
+            if (_animPlayer != null)
+            {
+                switch (newState)
+                {
+                    case PawnAnimState.Idle:
+                        _animPlayer.StopAction();
+                        _animPlayer.NormalizedSpeed = 0f;
+                        break;
+                    case PawnAnimState.Jog:
+                        _animPlayer.StopAction();
+                        _animPlayer.NormalizedSpeed = 0.50f;
+                        break;
+                    case PawnAnimState.Run:
+                        _animPlayer.StopAction();
+                        _animPlayer.NormalizedSpeed = 1.0f;
+                        break;
+                    case PawnAnimState.PrepKick:
+                        _animPlayer.NormalizedSpeed = 0f;
+                        break;
+                    case PawnAnimState.Tackle:
+                        _animPlayer.PlayAction(ActionClipType.SlidingTackle, 0.45f);
+                        break;
+                    case PawnAnimState.Celebrate:
+                        _animPlayer.PlayCelebration(CelebrationClipType.KneeSlide);
+                        break;
+                }
+            }
+
             if (newState == PawnAnimState.Kick)
             {
                 _kickTimer = 0f;
@@ -273,6 +314,25 @@ namespace FootballLife.Unity.Core.Gameplay
             _kickTimer = 0f;
             _animTimer = 0f;
             _state = PawnAnimState.Kick;
+
+            if (_animPlayer != null)
+            {
+                var action = spin.sqrMagnitude > 15f ? ActionClipType.FinesseCurl : ActionClipType.PowerShot;
+                _animPlayer.PlayAction(action, 0.65f);
+            }
+        }
+
+        private void HandleActionImpact()
+        {
+            if (!_impactDispatched)
+            {
+                _impactDispatched = true;
+                if (_targetBall != null)
+                {
+                    _targetBall.Kick(_kickImpulse, _kickSpin);
+                }
+                OnKickImpact?.Invoke();
+            }
         }
 
         public void FaceTarget(Vector3 worldTargetPosition)
