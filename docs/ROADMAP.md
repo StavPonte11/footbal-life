@@ -433,13 +433,13 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P7-000c (#185) | Gate review doc (`docs/gate-7.0-review.md`) — same format as prior gates — GO/NO-GO plus a ranked friction list that becomes the real Phase 7 backlog | Docs/Quality | S | ✅ Complete |
 
 ### Milestone 7.1 — Character Art & Rigging
-*Source: current pawns are procedurally assembled primitives (box/cylinder mannequins) built for zero-dependency prototyping — see `HumanoidPawnBuilder.cs`.*
+*Merged (PR #198, Issues #195–#197)*
 
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P7-101 | Source or commission 1 base Humanoid FBX mesh (outfield + goalkeeper variant), Unity Humanoid Avatar rig, retargetable across all 22 on-pitch pawns | Unity/Art | L | Not started |
-| #P7-102 | Face/hair/skin-tone variation system for player identity distinctiveness (replaces primitive head block) | Unity/Art | M | Not started |
-| #P7-103 | Kit system compatibility pass: verify procedural club-color material application still works on the new rig/mesh | Unity/Art | S | Not started |
+| #P7-101 (#195) | Base Humanoid Mesh & Rig (Outfield & GK with Standard Bone Hierarchy & AvatarBuilder Humanoid Avatar) | Unity/Art | L | ✅ Merged (#198) |
+| #P7-102 (#196) | Modular Face, Hair & Skin Tone Variation System (6 hairstyles, 5 skin tones, facial hair, deterministic visual identity) | Unity/Art | M | ✅ Merged (#198) |
+| #P7-103 (#197) | Kit & Appearance System Compatibility Pass (Procedural club-color kit schemes & jersey squad numbers) | Unity/Art | S | ✅ Merged (#198) |
 
 ### Milestone 7.2 — Animation System
 *Source: kicks/dives currently rotate bones via code (`transform.localRotation = Quaternion.Euler(...)`) in `PlayerPawnController.cs` / `GoalkeeperController.cs`.*
@@ -527,9 +527,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 7, Milestone 7.1 — Character Art & Rigging
+## Current Focus: Phase 7, Milestone 7.2 — Animation System
 
-All systems across Phases 1–6 and Milestones 7.0, 7.5, and 7.3 are implemented, tested, and validated:
+All systems across Phases 1–6 and Milestones 7.0, 7.5, 7.3, and 7.1 are implemented, tested, and validated:
 - **Phase 1**: Foundations & Core Loop (Domain Models, Engine, Match Situations, Training, Weekly Loop)
 - **Phase 2**: Unity Prototype (Player Creation, Daily Hub, Career Screen, Abstracted Match, Season End)
 - **Phase 3**: 3D Match Experience (Pitch, Stadium, Cameras, Ball Physics, Input Controls, Visual Feedback)
@@ -540,8 +540,9 @@ All systems across Phases 1–6 and Milestones 7.0, 7.5, and 7.3 are implemented
   - ✅ **Milestone 7.0**: Gate Review & Playtest debrief (`docs/gate-7.0-review.md`, PR #186).
   - ✅ **Milestone 7.5 (#P7-501)**: Safe Fictional Renaming Pass & IP Resolution (11 leagues, 66 clubs, PR #188).
   - ✅ **Milestone 7.3**: Audio & Sound Design (Mixers, Kicks, Whistle, Crowd Roar, UI feedback, PR #194).
-  - ⏳ **Milestone 7.1**: Character Art & Rigging (Base Humanoid FBX & Avatar, Kit variations, Goalkeeper model).
+  - ✅ **Milestone 7.1**: Character Art & Rigging (Base Humanoid Rig & Avatar, Stylized Meshes, Hair Styles, Kit & Numbers, PR #198).
+  - ⏳ **Milestone 7.2**: Animation System (Mecanim Animator Controller, Locomotion BlendTrees, Action & Celebration Clips).
 
-> **CURRENT FOCUS:** Phase 7 — Milestone 7.1 Character Art & Rigging (`#P7-101` – `#P7-103`).
-> Sequence authorized: 7.5 (Done) $\rightarrow$ 7.3 (Done) $\rightarrow$ 7.1 $\rightarrow$ 7.2 $\rightarrow$ 7.4 $\rightarrow$ 7.6 $\rightarrow$ 7.7 $\rightarrow$ 7.8 $\rightarrow$ 7.9.
+> **CURRENT FOCUS:** Phase 7 — Milestone 7.2 Animation System (`#P7-201` – `#P7-204`).
+> Sequence authorized: 7.5 (Done) $\rightarrow$ 7.3 (Done) $\rightarrow$ 7.1 (Done) $\rightarrow$ 7.2 $\rightarrow$ 7.4 $\rightarrow$ 7.6 $\rightarrow$ 7.7 $\rightarrow$ 7.8 $\rightarrow$ 7.9.
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria on Phases 1–6.
