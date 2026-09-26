@@ -1,0 +1,40 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="../Styles/tokens.uss" />
+    <ui:Style src="../Styles/theme-dark.uss" />
+    <ui:Style src="../Styles/components.uss" />
+
+    <ui:VisualElement name="tutorial-overlay-root" class="theme-dark" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.75); justify-content: center; align-items: center; padding: 20px;">
+
+        <!-- TUTORIAL INSTRUCTION CARD -->
+        <ui:VisualElement name="tutorial-card" class="card-elevated" style="width: 100%; max-width: 440px; border-width: 2px; border-color: rgba(59, 130, 246, 0.8); background-color: #111827; padding: 20px; border-radius: 16px;">
+
+            <!-- HEADER ROW -->
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <ui:VisualElement style="flex-direction: row; align-items: center; gap: 8px;">
+                    <ui:Label text="⭐" style="font-size: 18px;" />
+                    <ui:Label name="label-tutorial-step-counter" text="Step 1 of 7" class="badge badge-blue" style="font-size: 11px; -unity-font-style: bold;" />
+                </ui:VisualElement>
+                <ui:Button name="btn-tutorial-skip" text="Skip Tutorial" class="btn btn-ghost" style="font-size: 11px; color: #9CA3AF; padding: 4px 8px;" />
+            </ui:VisualElement>
+
+            <!-- STEP TITLE -->
+            <ui:Label name="label-tutorial-title" text="Welcome to Football Life" class="text-title" style="font-size: 18px; -unity-font-style: bold; color: #F9FAFB; margin-bottom: 8px;" />
+
+            <!-- STEP DESCRIPTION -->
+            <ui:Label name="label-tutorial-desc" text="Your football journey begins today. Balance your performances on the pitch with relationships, lifestyle, and media in your quest to become a legend." class="text-body" style="font-size: 13px; color: #D1D5DB; -unity-font-style: normal; margin-bottom: 16px; white-space: normal;" />
+
+            <!-- STARTER REWARD BADGE (CONDITIONAL) -->
+            <ui:VisualElement name="container-tutorial-reward" style="flex-direction: row; align-items: center; gap: 8px; background-color: rgba(16, 185, 129, 0.15); border-width: 1px; border-color: rgba(16, 185, 129, 0.4); border-radius: 8px; padding: 8px 12px; margin-bottom: 16px;">
+                <ui:Label text="🎁" style="font-size: 16px;" />
+                <ui:Label name="label-tutorial-reward-text" text="Starter Bonus: +50 Training XP" class="badge badge-green" style="font-size: 12px; -unity-font-style: bold; background-color: transparent; padding: 0;" />
+            </ui:VisualElement>
+
+            <!-- ACTION BUTTONS -->
+            <ui:VisualElement style="flex-direction: row; justify-content: flex-end; gap: 10px; margin-top: 4px;">
+                <ui:Button name="btn-tutorial-action" text="Continue →" class="btn btn-primary" style="font-size: 13px; -unity-font-style: bold; padding: 10px 20px; border-radius: 8px; background-color: #2563EB;" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

@@ -207,10 +207,52 @@ namespace FootballLife.Unity.UI.Hub
                 btnSocialOutings.clicked += () => _onOpenSocial?.Invoke();
             if (btnPressBriefing != null)
                 btnPressBriefing.clicked += () => _onOpenPress?.Invoke();
+
+            var btnQuickLanguage = root.Q<Button>("btn-quick-language");
+            if (btnQuickLanguage != null)
+            {
+                void UpdateLanguageButtonLabel()
+                {
+                    var bridge = SimulationBridge.Instance;
+                    if (bridge != null)
+                    {
+                        var info = LanguageInfo.FromLanguage(bridge.Localization.CurrentLanguage);
+                        btnQuickLanguage.text = $"{info.FlagEmoji} {info.Code.ToUpperInvariant()}";
+                    }
+                }
+                UpdateLanguageButtonLabel();
+
+                btnQuickLanguage.clicked += () =>
+                {
+                    var bridge = SimulationBridge.Instance;
+                    if (bridge != null)
+                    {
+                        var next = (GameLanguage)(((int)bridge.Localization.CurrentLanguage + 1) % 5);
+                        bridge.SetLanguage(next);
+                        UpdateLanguageButtonLabel();
+                        RefreshLocalizedLabels();
+                    }
+                };
+            }
+
             _btnAdvanceDay.clicked += OnAdvanceDayClicked;
 
             // Hide match card initially (no pending match)
             SetMatchCardVisible(false);
+            RefreshLocalizedLabels();
+        }
+
+        public void RefreshLocalizedLabels()
+        {
+            var bridge = SimulationBridge.Instance;
+            if (bridge == null) return;
+
+            if (_btnTrain != null) _btnTrain.text = $"⚡ {bridge.T("nav.training")}";
+            if (_btnRest != null) _btnRest.text = $"🛏️ {bridge.T("nav.rest")}";
+            if (_btnMatch != null) _btnMatch.text = $"⚽ {bridge.T("nav.match")}";
+            if (_btnCareer != null) _btnCareer.text = $"📋 {bridge.T("nav.overview")}";
+            if (_btnShop != null) _btnShop.text = $"🛍️ {bridge.T("nav.shop")}";
+            if (_btnTransferMarket != null) _btnTransferMarket.text = $"🤝 {bridge.T("nav.transfers")}";
         }
 
         // ── Public: Bind / Unbind bridge ─────────────────────────────────────
@@ -222,7 +264,9 @@ namespace FootballLife.Unity.UI.Hub
             _bridge.OnMatchOpportunity += OnMatchOpportunity;
             _bridge.OnLifeEventOccurred+= OnLifeEvent;
             _bridge.OnStatusLog        += OnStatusLog;
+            _bridge.OnLanguageChanged  += _ => RefreshLocalizedLabels();
             RefreshIdentity();
+            RefreshLocalizedLabels();
         }
 
         public void Unbind()
