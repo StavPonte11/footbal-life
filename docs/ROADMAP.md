@@ -408,10 +408,12 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P6-006 (#178) | Cloud save via multi-slot sync & conflict resolution | Domain/Sim/Unity | M | ✅ Complete |
 | #P6-008 (#179) | Monetization hooks: cosmetic items, career rewind tokens & catalog | Domain/Sim/Unity | M | ✅ Complete |
 
-### Milestone 6.4: Mobile Performance & Release Validation
+### Milestone 6.4: Mobile Performance & Release Validation ✅ (Complete)
+*Branch: `feature/milestone-6.4-mobile-performance-release` | Issue #181*
+
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P6-002 | Mobile performance pass: 60fps, <200MB RAM, battery optimization | Performance | L | 📋 Planned |
+| #P6-002 (#181) | Mobile performance pass: 60fps, <200MB RAM, zero-GC hot path, battery optimization & release validation | Domain/Sim/Unity/Perf | L | ✅ Complete |
 
 ---
 
@@ -426,7 +428,14 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 6 — Polish, Balance & Release
+## Current Focus: Release Candidate Complete (Phases 1–6 Finished)
+All phases of the Football Life master roadmap are successfully implemented, tested, and validated!
+- **Phase 1**: Foundations & Core Loop (Domain Models, Engine, Match Situations, Training, Weekly Loop)
+- **Phase 2**: Deep Simulation (Fatigue, Injuries, Managers, Contracts, Transfers, Competitions, World Simulation)
+- **Phase 3**: 3D Match Experience (Pitch, Stadium, Cameras, Ball Physics, Input Controls, Visual Feedback)
+- **Phase 4**: UI/UX & Mobile Experience (Design Tokens, Hub, Navigation, Match HUD, Post-Match, Smartphone)
+- **Phase 5**: Life & Career Arc (Finances, Lifestyle, Social, Dilemmas, Sponsorship, Retirement, Legacy)
+- **Phase 6**: Polish, Balance & Release (10,000-Career Balance, Content Expansion, Onboarding, Localization, Telemetry, Cloud Save, Monetization, Mobile Performance & Release Validation)
 
 > **PHASE 1 IS 100% COMPLETE & MERGED TO `main`** (Issues #1–#57, #64–#68, #70–#75, #77–#81, #83–#88, #90–#93 closed, 557 passing tests).
 > **PHASE 2 IS 100% COMPLETE & MERGED TO `main`** (Milestones 2.1–2.6: Issues #95, #100, #97–#99, #102–#104, #106–#109, #115–#116, #118–#120, #122–#124 closed).

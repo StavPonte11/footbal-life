@@ -122,93 +122,94 @@ namespace FootballLife.Simulation
             }
         }
 
+        private static float GetEffectiveAttribute(PlayerAbilities abilities, PlayerState? state, AttributeName attr) =>
+            state != null
+                ? FatigueSystem.ComputeEffectiveAbility(abilities, state, attr)
+                : abilities.Get(attr);
+
         public static float ComputeWeightedAbilityScore(MatchAction action, PlayerAbilities abilities, PlayerState? state = null)
         {
-            Func<AttributeName, float> getAttr = state != null
-                ? attr => FatigueSystem.ComputeEffectiveAbility(abilities, state, attr)
-                : attr => abilities.Get(attr);
-
             return action switch
             {
                 MatchAction.ShortPass =>
-                    getAttr(AttributeName.Passing) * 0.50f +
-                    getAttr(AttributeName.DecisionMaking) * 0.30f +
-                    getAttr(AttributeName.Composure) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Passing) * 0.50f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.DecisionMaking) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Composure) * 0.20f,
 
                 MatchAction.LongPass =>
-                    getAttr(AttributeName.Passing) * 0.50f +
-                    getAttr(AttributeName.Vision) * 0.30f +
-                    getAttr(AttributeName.FirstTouch) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Passing) * 0.50f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Vision) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.FirstTouch) * 0.20f,
 
                 MatchAction.Cross =>
-                    getAttr(AttributeName.Crossing) * 0.60f +
-                    getAttr(AttributeName.Vision) * 0.20f +
-                    getAttr(AttributeName.DecisionMaking) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Crossing) * 0.60f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Vision) * 0.20f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.DecisionMaking) * 0.20f,
 
                 MatchAction.ThroughBall =>
-                    getAttr(AttributeName.Passing) * 0.40f +
-                    getAttr(AttributeName.Vision) * 0.40f +
-                    getAttr(AttributeName.DecisionMaking) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Passing) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Vision) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.DecisionMaking) * 0.20f,
 
                 MatchAction.Dribble =>
-                    getAttr(AttributeName.Dribbling) * 0.50f +
-                    getAttr(AttributeName.Agility) * 0.30f +
-                    getAttr(AttributeName.Acceleration) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Dribbling) * 0.50f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Acceleration) * 0.20f,
 
                 MatchAction.CutInside =>
-                    getAttr(AttributeName.Dribbling) * 0.40f +
-                    getAttr(AttributeName.Agility) * 0.30f +
-                    getAttr(AttributeName.Acceleration) * 0.30f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Dribbling) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Acceleration) * 0.30f,
 
                 MatchAction.Shot_Close =>
-                    getAttr(AttributeName.Shooting) * 0.60f +
-                    getAttr(AttributeName.Composure) * 0.25f +
-                    getAttr(AttributeName.FirstTouch) * 0.15f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Shooting) * 0.60f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Composure) * 0.25f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.FirstTouch) * 0.15f,
 
                 MatchAction.Shot_Long =>
-                    getAttr(AttributeName.Shooting) * 0.55f +
-                    getAttr(AttributeName.Strength) * 0.25f +
-                    getAttr(AttributeName.Composure) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Shooting) * 0.55f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Strength) * 0.25f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Composure) * 0.20f,
 
                 MatchAction.Header =>
-                    getAttr(AttributeName.Strength) * 0.40f +
-                    getAttr(AttributeName.Positioning) * 0.40f +
-                    getAttr(AttributeName.Agility) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Strength) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Positioning) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.20f,
 
                 MatchAction.Tackle =>
-                    getAttr(AttributeName.Tackling) * 0.60f +
-                    getAttr(AttributeName.Strength) * 0.20f +
-                    getAttr(AttributeName.Positioning) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Tackling) * 0.60f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Strength) * 0.20f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Positioning) * 0.20f,
 
                 MatchAction.Interception =>
-                    getAttr(AttributeName.Positioning) * 0.50f +
-                    getAttr(AttributeName.DecisionMaking) * 0.30f +
-                    getAttr(AttributeName.Pace) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Positioning) * 0.50f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.DecisionMaking) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Pace) * 0.20f,
 
                 MatchAction.AerialChallenge =>
-                    getAttr(AttributeName.Strength) * 0.50f +
-                    getAttr(AttributeName.Positioning) * 0.30f +
-                    getAttr(AttributeName.Agility) * 0.20f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Strength) * 0.50f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Positioning) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.20f,
 
                 MatchAction.Press =>
-                    getAttr(AttributeName.Stamina) * 0.40f +
-                    getAttr(AttributeName.Pace) * 0.30f +
-                    getAttr(AttributeName.Tackling) * 0.30f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Stamina) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Pace) * 0.30f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Tackling) * 0.30f,
 
                 MatchAction.GoalkeeperSave =>
-                    getAttr(AttributeName.Agility) * 0.40f +
-                    getAttr(AttributeName.Positioning) * 0.35f +
-                    getAttr(AttributeName.Composure) * 0.25f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Agility) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Positioning) * 0.35f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Composure) * 0.25f,
 
                 MatchAction.ClaimCross =>
-                    getAttr(AttributeName.Positioning) * 0.40f +
-                    getAttr(AttributeName.Strength) * 0.35f +
-                    getAttr(AttributeName.Composure) * 0.25f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Positioning) * 0.40f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Strength) * 0.35f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Composure) * 0.25f,
 
                 MatchAction.DistributionPass =>
-                    getAttr(AttributeName.Passing) * 0.60f +
-                    getAttr(AttributeName.Vision) * 0.25f +
-                    getAttr(AttributeName.DecisionMaking) * 0.15f,
+                    GetEffectiveAttribute(abilities, state, AttributeName.Passing) * 0.60f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.Vision) * 0.25f +
+                    GetEffectiveAttribute(abilities, state, AttributeName.DecisionMaking) * 0.15f,
 
                 _ => abilities.CalculateAverage()
             };
