@@ -442,14 +442,14 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 | #P7-103 (#197) | Kit & Appearance System Compatibility Pass (Procedural club-color kit schemes & jersey squad numbers) | Unity/Art | S | ✅ Merged (#198) |
 
 ### Milestone 7.2 — Animation System
-*Source: kicks/dives currently rotate bones via code (`transform.localRotation = Quaternion.Euler(...)`) in `PlayerPawnController.cs` / `GoalkeeperController.cs`.*
+*Merged (PR #203, Issues #199–#202)*
 
 | Issue | User Story | Layer | Complexity | Status |
 |---|---|---|---|---|
-| #P7-201 | Mecanim Animator Controller + Locomotion BlendTree (Idle ↔ Jog ↔ Sprint by velocity), replacing procedural sway | Unity/Animation | M | Not started |
-| #P7-202 | Action clip set: power shot, finesse curl, header, sliding tackle, diving save (mocap or curated asset-store library, not code rotation) | Unity/Animation | L | Not started |
-| #P7-203 | Celebration clip set: knee slide, fist pump, crowd wave | Unity/Animation | S | Not started |
-| #P7-204 | Retire the procedural rotation code paths once clip-driven equivalents are verified — don't run both indefinitely | Unity/Animation | S | Not started |
+| #P7-201 (#199) | Mecanim Animator Controller & Locomotion BlendTree (Idle ↔ Jog ↔ Sprint by normalized velocity) | Unity/Animation | M | ✅ Merged (#203) |
+| #P7-202 (#200) | Action clip set: power shot, finesse curl, header, sliding tackle, diving save with precise impact timing | Unity/Animation | L | ✅ Merged (#203) |
+| #P7-203 (#201) | Celebration clip set: knee slide, fist pump, crowd wave triggered on goal scored | Unity/Animation | S | ✅ Merged (#203) |
+| #P7-204 (#202) | Retire procedural rotation code paths in favor of clip-driven Mecanim animation with headless fallback | Unity/Animation | S | ✅ Merged (#203) |
 
 ### Milestone 7.3 — Audio & Sound Design
 *Merged (PR #194, Issues #189–#193)*
@@ -527,9 +527,9 @@ DOMAIN (Pure C#) → SIMULATION (Pure C# Deterministic) → UNITY (Presentation 
 
 ---
 
-## Current Focus: Phase 7, Milestone 7.2 — Animation System
+## Current Focus: Phase 7, Milestone 7.4 — Stadium Atmosphere & Visual Polish
 
-All systems across Phases 1–6 and Milestones 7.0, 7.5, 7.3, and 7.1 are implemented, tested, and validated:
+All systems across Phases 1–6 and Milestones 7.0, 7.5, 7.3, 7.1, and 7.2 are implemented, tested, and validated:
 - **Phase 1**: Foundations & Core Loop (Domain Models, Engine, Match Situations, Training, Weekly Loop)
 - **Phase 2**: Unity Prototype (Player Creation, Daily Hub, Career Screen, Abstracted Match, Season End)
 - **Phase 3**: 3D Match Experience (Pitch, Stadium, Cameras, Ball Physics, Input Controls, Visual Feedback)
@@ -541,8 +541,9 @@ All systems across Phases 1–6 and Milestones 7.0, 7.5, 7.3, and 7.1 are implem
   - ✅ **Milestone 7.5 (#P7-501)**: Safe Fictional Renaming Pass & IP Resolution (11 leagues, 66 clubs, PR #188).
   - ✅ **Milestone 7.3**: Audio & Sound Design (Mixers, Kicks, Whistle, Crowd Roar, UI feedback, PR #194).
   - ✅ **Milestone 7.1**: Character Art & Rigging (Base Humanoid Rig & Avatar, Stylized Meshes, Hair Styles, Kit & Numbers, PR #198).
-  - ⏳ **Milestone 7.2**: Animation System (Mecanim Animator Controller, Locomotion BlendTrees, Action & Celebration Clips).
+  - ✅ **Milestone 7.2**: Animation System (Mecanim Animator Controller, Locomotion BlendTrees, Action & Celebration Clips, PR #203).
+  - ⏳ **Milestone 7.4**: Stadium Atmosphere & Visual Polish (Grandstands, Scaled Reputation Grounds, Crowd System, Goal-Net VFX).
 
-> **CURRENT FOCUS:** Phase 7 — Milestone 7.2 Animation System (`#P7-201` – `#P7-204`).
-> Sequence authorized: 7.5 (Done) $\rightarrow$ 7.3 (Done) $\rightarrow$ 7.1 (Done) $\rightarrow$ 7.2 $\rightarrow$ 7.4 $\rightarrow$ 7.6 $\rightarrow$ 7.7 $\rightarrow$ 7.8 $\rightarrow$ 7.9.
+> **CURRENT FOCUS:** Phase 7 — Milestone 7.4 Stadium Atmosphere & Visual Polish (`#P7-401` – `#P7-403`).
+> Sequence authorized: 7.5 (Done) $\rightarrow$ 7.3 (Done) $\rightarrow$ 7.1 (Done) $\rightarrow$ 7.2 (Done) $\rightarrow$ 7.4 $\rightarrow$ 7.6 $\rightarrow$ 7.7 $\rightarrow$ 7.8 $\rightarrow$ 7.9.
 > See [USER_STORIES.md](file:///c:/Users/User/Desktop/Stav/projects/footbal-life/docs/USER_STORIES.md) for full acceptance criteria on Phases 1–6.
